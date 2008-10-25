@@ -139,10 +139,13 @@ char *rand_str(char *dst)
 - (IBAction)playAudio:(id)sender {
 	NSLog(@"button clicked! HURRAY!");
 
-	NSURL *url = [NSURL URLWithString:@"http://downloads.pitchforkmedia.com/Tom%20Waits%20-%20Road%20To%20Peace.mp3"];
-	streamer = [[AudioStreamer alloc] initWithURL:url];
-	[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-	[streamer start];
+//	NSURL *url = [NSURL URLWithString:@"http://downloads.pitchforkmedia.com/Tom%20Waits%20-%20Road%20To%20Peace.mp3"];
+//	streamer = [[AudioStreamer alloc] initWithURL:url];
+//	[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+//	[streamer start];
+	
+	[streamer stop];
+	[streamer removeObserver:self forKeyPath:@"isPlaying"];
 
 //	MPMoviePlayerController *controller = [[MPMoviePlayerController alloc] initWithContentURL:url]; 
 //	[controller play];
@@ -159,7 +162,7 @@ char *rand_str(char *dst)
 //			[self
 //			 performSelector:@selector(setButtonImage:)
 //			 onThread:[NSThread mainThread]
-//			 withObject:[NSImage imageNamed:@"stopbutton"]
+//			 withObject:[[NSImageView alloc] initWithString:@"stopbutton"]
 //			 waitUntilDone:NO];
 		} else {
 			[streamer removeObserver:self forKeyPath:@"isPlaying"];
@@ -169,7 +172,7 @@ char *rand_str(char *dst)
 //			[self
 //			 performSelector:@selector(setButtonImage:)
 //			 onThread:[NSThread mainThread]
-//			 withObject:[NSImage imageNamed:@"playbutton"]
+//			 withObject:[[NSImageView alloc] initWithString:@"playbutton"]
 //			 waitUntilDone:NO];
 		}
 		
@@ -237,13 +240,19 @@ char *rand_str(char *dst)
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
-	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSLog(@"chosen stream: %@", streamUrl);
-	NSURL *url = [NSURL URLWithString:streamUrl];
-	streamer = [[AudioStreamer alloc] initWithURL:url];
-	[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-	[streamer start];
+	
+	if (!streamer) {
+		BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
+		NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSLog(@"chosen stream: %@", streamUrl);
+		NSURL *url = [NSURL URLWithString:streamUrl];
+		streamer = [[AudioStreamer alloc] initWithURL:url];
+		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+		[streamer start];
+	} else {
+		[streamer stop];
+	}
+			
 }
 // -----------------------------------------------------------------------------
 #pragma mark Parser 

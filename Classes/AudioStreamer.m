@@ -370,8 +370,8 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 - (void)start
 {
-	//[NSThread detachNewThreadSelector:@selector(startInternal) toTarget:self withObject:nil];
-	[self startInternal];
+	[NSThread detachNewThreadSelector:@selector(startInternal) toTarget:self withObject:nil];
+	//[self startInternal];
 }
 
 - (void)stop
