@@ -43,21 +43,6 @@
 }
 */
 
-//- (NSString*)generateNonce {
-//	
-//	NSString *my_letters = @"abcdefghijklmnopqrstuvwxyz"; /* allowable letters for your random string */
-//	NSString *my_random_string; /* your random string. Initially empty */
-//	srand( time(0) ); /* seed rand */
-//	
-//	int i;
-//	for (i=0; i < 10; i++) {
-//		append( my_random_string, /* append to this string */
-//			   my_letters[rand()%strlen(my_random_string)] ); /* this letter */
-//	
-//	} /* or however long you want it */
-//	return my_random_string;
-//}
-
 
 // -----------------------------------------------------------------------------
 - (void)viewDidAppear:(BOOL)animated {
@@ -132,32 +117,11 @@ char *rand_str(char *dst)
 ////	[request setHTTPMethod:@"GET"];
 //	NSLog(@"temprequest: %@", temprequest); 
 //	
-////	NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-////									initWithURL:[NSURL URLWithString:@"http://www.tumblr.com/api/write"]];
-////	NSLog(@"request: ", request); 
-////	[request setHTTPMethod:@"POST"];
-////	NSLog(@"request: ", request); 
-////	NSString *request_body = [NSString 
-////							  stringWithFormat:@"email=%@&password=%@&type=regular&group=%@&title=%@&body=%@",
-////							  @"test@test.com",
-////							  @"pw",
-////							  @"ewger",
-////							  @"ergerfv",
-////							  @"gregv"
-////							  ];
-////	[request setHTTPBody:[request_body dataUsingEncoding:NSUTF8StringEncoding]];
-////	NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-////	NSLog(@"request body: %@", request_body);
-//	
-//	
-////	NSString *request_body = @"";
-////	[request setHTTPBody:[request_body dataUsingEncoding:NSUTF8StringEncoding]];
 //	NSURLResponse *response;
 //	NSError *error;
 //	NSData* result = [NSURLConnection sendSynchronousRequest:temprequest returningResponse:&response error:&error];
-//	NSLog(@"response: %@", response);
-//	NSLog(@"result: %@", result);
-//	NSLog(@"error: %@", error);
+
+	
 	NSLog(@"string from url: %@", [NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]]);
 	
 	NSString *url = [[NSString stringWithFormat:@"http://api.blip.fm/search/findSongs.xml?apiKey=%@&searchTerm=%@&nonce=%@&timestamp=%@&signature=%@", 
@@ -272,8 +236,14 @@ char *rand_str(char *dst)
 }
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
-	
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
+	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSLog(@"chosen stream: %@", streamUrl);
+	NSURL *url = [NSURL URLWithString:streamUrl];
+	streamer = [[AudioStreamer alloc] initWithURL:url];
+	[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+	[streamer start];
 }
 // -----------------------------------------------------------------------------
 #pragma mark Parser 
