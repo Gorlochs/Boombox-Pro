@@ -45,6 +45,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
     return [appDelegate.playlist count];
 }
 
@@ -99,11 +100,15 @@
 */
 
 
-/*
 - (void)viewWillAppear:(BOOL)animated {
+
+	// it would be nice to compare the current size of the table to the size of the playlist
+	// but I can't seem to find a programmatic way to determine how many rows are being displayed
+	[theTableView reloadData];
+	
     [super viewWillAppear:animated];
 }
-*/
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -124,6 +129,8 @@
 */
 
 - (void)dealloc {
+	[theTableView release];
+	
     [super dealloc];
 }
 

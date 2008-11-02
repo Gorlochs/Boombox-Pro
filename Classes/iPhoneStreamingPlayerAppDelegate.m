@@ -12,7 +12,6 @@
 @implementation iPhoneStreamingPlayerAppDelegate
 
 @synthesize window;
-@synthesize viewController;
 @synthesize playlist;
 @synthesize tabBarController;
 
@@ -34,7 +33,6 @@
 
 - (void)dealloc {
     [tabBarController release];
-    [viewController release];
     [window release];
     [super dealloc];
 }

@@ -12,14 +12,12 @@
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    iPhoneStreamingPlayerViewController *viewController;
 	UITabBarController *tabBarController;
 	
 	NSMutableArray *playlist;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet iPhoneStreamingPlayerViewController *viewController;
 @property (nonatomic, retain) NSMutableArray *playlist;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 
