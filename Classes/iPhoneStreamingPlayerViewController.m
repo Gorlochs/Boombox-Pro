@@ -26,6 +26,10 @@
 	return self;
 }
 // -----------------------------------------------------------------------------
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
+}
+// -----------------------------------------------------------------------------
 - (void)dealloc {
 	[theTableView release];
 	[blipSearchBar release];
