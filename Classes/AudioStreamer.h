@@ -2,8 +2,8 @@
 //  AudioStreamer.h
 //  StreamingAudioPlayer
 //
-//  Created by Matt Gallagher on 27/09/08.
-//  Copyright 2008 Matt Gallagher. All rights reserved.
+//  Created by Shawn Bernard on 10/24/08.
+//  Copyright 2008 Gorloch Interactive, LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

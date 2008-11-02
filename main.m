@@ -2,8 +2,8 @@
 //  main.m
 //  iPhoneStreamingPlayer
 //
-//  Created by Matt Gallagher on 28/10/08.
-//  Copyright Matt Gallagher 2008. All rights reserved.
+//  Created by Shawn Bernard on 10/24/08.
+//  Copyright 2008 Gorloch Interactive, LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

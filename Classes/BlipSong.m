@@ -3,7 +3,7 @@
 //  audio-test
 //
 //  Created by Shawn Bernard on 10/24/08.
-//  Copyright 2008 Nau Inc.. All rights reserved.
+//  Copyright 2008 Gorloch Interactive, LLC. All rights reserved.
 //
 
 #import "BlipSong.h"
