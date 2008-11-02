@@ -16,6 +16,9 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.m */; };
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
+		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
+		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
+		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
@@ -39,6 +42,10 @@
 		32CA4F630368D1EE00C91783 /* iPhoneStreamingPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayer_Prefix.pch; sourceTree = "<group>"; };
 		6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlipSong.h; sourceTree = "<group>"; };
 		6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlipSong.m; sourceTree = "<group>"; };
+		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
+		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
+		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
+		6AC137470EBE216E004146A4 /* PlaylistView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistView.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -68,14 +75,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */,
-				C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */,
+				6AC137330EBE1F9E004146A4 /* Playlist */,
+				6AC137320EBE1F97004146A4 /* Search */,
+				6AC137310EBE1F82004146A4 /* Support Classes */,
 				1D3623240D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.m */,
-				6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */,
-				6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -96,6 +100,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				6AC137470EBE216E004146A4 /* PlaylistView.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 				C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */,
 				2899E5210DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				6AC136D90EBE06BC004146A4 /* MainTabView.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -132,6 +138,35 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6AC137310EBE1F82004146A4 /* Support Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */,
+				C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */,
+				6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */,
+				6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */,
+			);
+			name = "Support Classes";
+			sourceTree = "<group>";
+		};
+		6AC137320EBE1F97004146A4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				28D7ACF60DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.h */,
+				28D7ACF70DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		6AC137330EBE1F9E004146A4 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				6AC137440EBE215C004146A4 /* PlaylistViewController.h */,
+				6AC137450EBE215C004146A4 /* PlaylistViewController.m */,
+			);
+			name = Playlist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +216,8 @@
 				C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */,
 				C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */,
 				C9C2D8820EB6E0DB00A3D071 /* stopbutton.png in Resources */,
+				6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */,
+				6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +233,7 @@
 				28D7ACF80DDB3853001CB0EB /* iPhoneStreamingPlayerViewController.m in Sources */,
 				C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */,
 				6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */,
+				6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
