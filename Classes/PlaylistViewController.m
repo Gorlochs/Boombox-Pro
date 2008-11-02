@@ -30,13 +30,34 @@
 }
 */
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view.
+
 - (void)viewDidLoad {
+	self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [super viewDidLoad];
 }
-*/
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+	
+    [super setEditing:editing animated:animated];
+    [theTableView setEditing:editing animated:YES];
+    if (editing) {
+        //addButton.enabled = NO;
+    } else {
+		//addButton.enabled = YES;
+    }	
+}
+
+- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+    // If row is deleted, remove it from the list.
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //SimpleEditableListAppDelegate *controller = (SimpleEditableListAppDelegate *)[[UIApplication sharedApplication] delegate];
+        //[controller removeObjectFromListAtIndex:indexPath.row];
+		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+		[appDelegate.playlist removeObjectAtIndex:indexPath.row];
+        [theTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];		
+    }	
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -93,12 +114,9 @@
 }
 */
 
-/*
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
-*/
-
 
 - (void)viewWillAppear:(BOOL)animated {
 
