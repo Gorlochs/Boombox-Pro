@@ -12,7 +12,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView;
+@synthesize controlsView , leftButton, rightButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -57,5 +57,22 @@
     [super dealloc];
 }
 
+- (IBAction)leftAction:(id)sender
+{
+	// user touched the left button in HoverView
+	NSLog(@"left button clicked");
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Left Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
+- (IBAction)rightAction:(id)sender
+{
+	// user touched the right button in HoverView
+	NSLog(@"right button clicked");
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Right Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
 
 @end

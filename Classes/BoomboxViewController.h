@@ -11,8 +11,15 @@
 
 @interface BoomboxViewController : UIViewController {
 	ControlsView *controlsView;
+	UIButton *leftButton;
+	UIButton *rightButton;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
+@property (nonatomic, retain) IBOutlet UIButton *leftButton;
+@property (nonatomic, retain) IBOutlet UIButton *rightButton;
+
+- (IBAction)leftAction:(id)sender;
+- (IBAction)rightAction:(id)sender;
 
 @end
