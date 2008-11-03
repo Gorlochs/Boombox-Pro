@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="31"/>
+			<integer value="35"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -22,46 +22,27 @@
 			<object class="IBProxyObject" id="371349661">
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
-			<object class="IBUITabBarController" id="1001098300">
+			<object class="IBUITabBarController" id="889931260">
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUINavigationController" key="IBUISelectedViewController" id="934573611">
-					<string key="IBUITitle">Playlist</string>
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="987532987">
-						<string key="IBUITitle">Playlist</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="977461173">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="823628545">
+						<string key="IBUITitle">Boombox</string>
 						<reference key="IBUITabBar"/>
 					</object>
-					<reference key="IBUIParentViewController" ref="1001098300"/>
-					<object class="IBUINavigationBar" key="IBUINavigationBar" id="529291304">
-						<nil key="NSNextResponder"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrameSize">{320, 44}</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-					</object>
-					<object class="NSArray" key="IBUIViewControllers">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="IBUIViewController" id="950819636">
-							<object class="IBUINavigationItem" key="IBUINavigationItem" id="43520579">
-								<reference key="IBUINavigationBar"/>
-								<string key="IBUITitle">Playlist</string>
-							</object>
-							<reference key="IBUIParentViewController" ref="934573611"/>
-							<string key="IBUINibName">PlaylistView</string>
-						</object>
-					</object>
+					<reference key="IBUIParentViewController" ref="889931260"/>
+					<string key="IBUINibName">BoomboxView</string>
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUINavigationController" id="481562975">
+					<object class="IBUINavigationController" id="312159258">
 						<string key="IBUITitle">Search</string>
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="173408964">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="358257685">
 							<int key="IBUISystemItemIdentifier">8</int>
 							<reference key="IBUITabBar"/>
 						</object>
-						<reference key="IBUIParentViewController" ref="1001098300"/>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="1029057641">
+						<reference key="IBUIParentViewController" ref="889931260"/>
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="305116321">
 							<nil key="NSNextResponder"/>
 							<int key="NSvFlags">256</int>
 							<string key="NSFrameSize">{320, 44}</string>
@@ -71,18 +52,44 @@
 						</object>
 						<object class="NSArray" key="IBUIViewControllers">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIViewController" id="493899667">
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="675332881">
+							<object class="IBUIViewController" id="93456771">
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="876530360">
 									<string key="IBUITitle">Search</string>
 								</object>
-								<reference key="IBUIParentViewController" ref="481562975"/>
+								<reference key="IBUIParentViewController" ref="312159258"/>
 								<string key="IBUINibName">iPhoneStreamingPlayerViewController</string>
 							</object>
 						</object>
 					</object>
-					<reference ref="934573611"/>
+					<object class="IBUINavigationController" id="313075636">
+						<string key="IBUITitle">Playlist</string>
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="516494536">
+							<string key="IBUITitle">Playlist</string>
+							<reference key="IBUITabBar"/>
+						</object>
+						<reference key="IBUIParentViewController" ref="889931260"/>
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="73471076">
+							<nil key="NSNextResponder"/>
+							<int key="NSvFlags">256</int>
+							<string key="NSFrameSize">{320, 44}</string>
+							<bool key="IBUIOpaque">NO</bool>
+							<bool key="IBUIClipsSubviews">YES</bool>
+							<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						</object>
+						<object class="NSArray" key="IBUIViewControllers">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIViewController" id="896272070">
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="139640671">
+									<string key="IBUITitle">Playlist</string>
+								</object>
+								<reference key="IBUIParentViewController" ref="313075636"/>
+								<string key="IBUINibName">PlaylistView</string>
+							</object>
+						</object>
+					</object>
+					<reference ref="977461173"/>
 				</object>
-				<object class="IBUITabBar" key="IBUITabBar" id="882660046">
+				<object class="IBUITabBar" key="IBUITabBar" id="306511510">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{129, 330}, {163, 49}}</string>
@@ -101,7 +108,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tabBarController</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="1001098300"/>
+						<reference key="destination" ref="889931260"/>
 					</object>
 					<int key="connectionID">9</int>
 				</object>
@@ -130,89 +137,104 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2</int>
-						<reference key="object" ref="1001098300"/>
+						<reference key="object" ref="889931260"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="882660046"/>
-							<reference ref="481562975"/>
-							<reference ref="934573611"/>
+							<reference ref="306511510"/>
+							<reference ref="312159258"/>
+							<reference ref="313075636"/>
+							<reference ref="977461173"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="882660046"/>
-						<reference key="parent" ref="1001098300"/>
+						<reference key="object" ref="306511510"/>
+						<reference key="parent" ref="889931260"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="481562975"/>
+						<reference key="object" ref="312159258"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="173408964"/>
-							<reference ref="493899667"/>
-							<reference ref="1029057641"/>
+							<reference ref="358257685"/>
+							<reference ref="93456771"/>
+							<reference ref="305116321"/>
 						</object>
-						<reference key="parent" ref="1001098300"/>
+						<reference key="parent" ref="889931260"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">25</int>
-						<reference key="object" ref="173408964"/>
-						<reference key="parent" ref="481562975"/>
+						<reference key="object" ref="358257685"/>
+						<reference key="parent" ref="312159258"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">26</int>
-						<reference key="object" ref="493899667"/>
+						<reference key="object" ref="93456771"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="675332881"/>
+							<reference ref="876530360"/>
 						</object>
-						<reference key="parent" ref="481562975"/>
+						<reference key="parent" ref="312159258"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">27</int>
-						<reference key="object" ref="675332881"/>
-						<reference key="parent" ref="493899667"/>
+						<reference key="object" ref="876530360"/>
+						<reference key="parent" ref="93456771"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">28</int>
-						<reference key="object" ref="1029057641"/>
-						<reference key="parent" ref="481562975"/>
+						<reference key="object" ref="305116321"/>
+						<reference key="parent" ref="312159258"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
-						<reference key="object" ref="934573611"/>
+						<reference key="object" ref="313075636"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="987532987"/>
-							<reference ref="950819636"/>
-							<reference ref="529291304"/>
+							<reference ref="516494536"/>
+							<reference ref="896272070"/>
+							<reference ref="73471076"/>
 						</object>
-						<reference key="parent" ref="1001098300"/>
+						<reference key="parent" ref="889931260"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">30</int>
-						<reference key="object" ref="987532987"/>
-						<reference key="parent" ref="934573611"/>
+						<reference key="object" ref="516494536"/>
+						<reference key="parent" ref="313075636"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="950819636"/>
+						<reference key="object" ref="896272070"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="43520579"/>
+							<reference ref="139640671"/>
 						</object>
-						<reference key="parent" ref="934573611"/>
+						<reference key="parent" ref="313075636"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">32</int>
-						<reference key="object" ref="43520579"/>
-						<reference key="parent" ref="950819636"/>
+						<reference key="object" ref="139640671"/>
+						<reference key="parent" ref="896272070"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">33</int>
-						<reference key="object" ref="529291304"/>
-						<reference key="parent" ref="934573611"/>
+						<reference key="object" ref="73471076"/>
+						<reference key="parent" ref="313075636"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">35</int>
+						<reference key="object" ref="977461173"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="823628545"/>
+						</object>
+						<reference key="parent" ref="889931260"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">34</int>
+						<reference key="object" ref="823628545"/>
+						<reference key="parent" ref="977461173"/>
 					</object>
 				</object>
 			</object>
@@ -227,6 +249,8 @@
 					<string>26.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>31.CustomClassName</string>
+					<string>34.IBPluginDependency</string>
+					<string>35.CustomClassName</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -237,6 +261,8 @@
 					<string>iPhoneStreamingPlayerViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>PlaylistViewController</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>BoomboxViewController</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -259,11 +285,19 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">33</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">BoomboxViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/BoomboxViewController.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PlaylistViewController</string>
 					<string key="superclassName">UIViewController</string>

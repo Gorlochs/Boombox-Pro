@@ -19,6 +19,12 @@
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
+		6AC1381A0EBF9575004146A4 /* BoomboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC138190EBF9575004146A4 /* BoomboxViewController.m */; };
+		6AC1381C0EBF9585004146A4 /* BoomboxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC1381B0EBF9585004146A4 /* BoomboxView.xib */; };
+		6AC1381F0EBF96CA004146A4 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC1381E0EBF96CA004146A4 /* test.png */; };
+		6AC138560EBF9B5F004146A4 /* LeftPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC138540EBF9B5F004146A4 /* LeftPressed.png */; };
+		6AC138570EBF9B5F004146A4 /* RightPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC138550EBF9B5F004146A4 /* RightPressed.png */; };
+		6AC138680EBF9C19004146A4 /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC138670EBF9C19004146A4 /* ControlsView.m */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
@@ -46,6 +52,14 @@
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 		6AC137470EBE216E004146A4 /* PlaylistView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistView.xib; sourceTree = "<group>"; };
+		6AC138180EBF9575004146A4 /* BoomboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoomboxViewController.h; sourceTree = "<group>"; };
+		6AC138190EBF9575004146A4 /* BoomboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoomboxViewController.m; sourceTree = "<group>"; };
+		6AC1381B0EBF9585004146A4 /* BoomboxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoomboxView.xib; sourceTree = "<group>"; };
+		6AC1381E0EBF96CA004146A4 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		6AC138540EBF9B5F004146A4 /* LeftPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LeftPressed.png; sourceTree = "<group>"; };
+		6AC138550EBF9B5F004146A4 /* RightPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightPressed.png; sourceTree = "<group>"; };
+		6AC138660EBF9C19004146A4 /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
+		6AC138670EBF9C19004146A4 /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -75,6 +89,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6AC138170EBF955C004146A4 /* Boombox */,
 				6AC137330EBE1F9E004146A4 /* Playlist */,
 				6AC137320EBE1F97004146A4 /* Search */,
 				6AC137310EBE1F82004146A4 /* Support Classes */,
@@ -101,6 +116,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6AC137470EBE216E004146A4 /* PlaylistView.xib */,
+				6AC1381B0EBF9585004146A4 /* BoomboxView.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -117,9 +133,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */,
-				C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */,
-				C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */,
+				6AC138580EBF9B63004146A4 /* images */,
 				2899E5210DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				6AC136D90EBE06BC004146A4 /* MainTabView.xib */,
@@ -167,6 +181,30 @@
 				6AC137450EBE215C004146A4 /* PlaylistViewController.m */,
 			);
 			name = Playlist;
+			sourceTree = "<group>";
+		};
+		6AC138170EBF955C004146A4 /* Boombox */ = {
+			isa = PBXGroup;
+			children = (
+				6AC138180EBF9575004146A4 /* BoomboxViewController.h */,
+				6AC138190EBF9575004146A4 /* BoomboxViewController.m */,
+				6AC138660EBF9C19004146A4 /* ControlsView.h */,
+				6AC138670EBF9C19004146A4 /* ControlsView.m */,
+			);
+			name = Boombox;
+			sourceTree = "<group>";
+		};
+		6AC138580EBF9B63004146A4 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				6AC138540EBF9B5F004146A4 /* LeftPressed.png */,
+				6AC138550EBF9B5F004146A4 /* RightPressed.png */,
+				6AC1381E0EBF96CA004146A4 /* test.png */,
+				C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */,
+				C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */,
+				C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +256,10 @@
 				C9C2D8820EB6E0DB00A3D071 /* stopbutton.png in Resources */,
 				6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */,
 				6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */,
+				6AC1381C0EBF9585004146A4 /* BoomboxView.xib in Resources */,
+				6AC1381F0EBF96CA004146A4 /* test.png in Resources */,
+				6AC138560EBF9B5F004146A4 /* LeftPressed.png in Resources */,
+				6AC138570EBF9B5F004146A4 /* RightPressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +276,8 @@
 				C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */,
 				6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */,
 				6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */,
+				6AC1381A0EBF9575004146A4 /* BoomboxViewController.m in Sources */,
+				6AC138680EBF9C19004146A4 /* ControlsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

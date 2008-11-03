@@ -16,6 +16,8 @@
 @implementation iPhoneStreamingPlayerViewController
 
 @synthesize blipPlaylist;
+@synthesize blipSearchBar;
+@synthesize theTableView;
 
 // -----------------------------------------------------------------------------
 #pragma mark setup & tear down
