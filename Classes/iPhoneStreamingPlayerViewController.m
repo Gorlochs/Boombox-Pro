@@ -297,10 +297,9 @@ char *rand_str(char *dst)
 }
 // -----------------------------------------------------------------------------
 - (void)parseXMLFileAtURL:(NSString *)URL
-{	
-	if (songs == nil) {  // or maybe just check the boolean moreResults.  shouldn't matter much
-		songs = [[NSMutableArray alloc] init];
-	}
+{
+	// always start with a fresh, empty array
+	songs = [[NSMutableArray alloc] init];
 	
     //you must then convert the path to a proper NSURL or it won't work
     NSURL *xmlURL = [NSURL URLWithString:URL];
