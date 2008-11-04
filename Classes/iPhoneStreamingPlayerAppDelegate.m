@@ -13,6 +13,7 @@
 @synthesize window;
 @synthesize playlist;
 @synthesize viewController;
+@synthesize songToPlay;
 
 // keep track of playlist objects in the delegate:
 //		(BOOL) isPlayingFromPlaylist

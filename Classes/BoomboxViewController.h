@@ -8,23 +8,31 @@
 
 #import <UIKit/UIKit.h>
 #import "ControlsView.h"
-#import "iPhoneStreamingPlayerViewController.h"
+#import "SearchViewController.h"
 #import "PlaylistViewController.h"
+#import "AudioStreamer.h"
+
+@class AudioStreamer;
 
 @interface BoomboxViewController : UIViewController {
+	AudioStreamer *streamer;
+	
 	ControlsView *controlsView;
 	UIButton *leftButton;
 	UIButton *rightButton;
+	UILabel *songLabel;
 	
-	iPhoneStreamingPlayerViewController *searchViewController;
+	SearchViewController *searchViewController;
 	PlaylistViewController *playlistController;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
 @property (nonatomic, retain) IBOutlet UIButton *leftButton;
 @property (nonatomic, retain) IBOutlet UIButton *rightButton;
+@property (nonatomic, retain) IBOutlet UILabel *songLabel;
 
-- (IBAction)leftAction:(id)sender;
-- (IBAction)rightAction:(id)sender;
+- (IBAction)playAction:(id)sender;
+- (IBAction)displaySearchViewAction:(id)sender;
+- (IBAction)displayPlaylistViewAction:(id)sender;
 
 @end

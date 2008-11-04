@@ -8,11 +8,13 @@
 
 #import "BoomboxViewController.h"
 #import "ControlsView.h"
+#import "BlipSong.h"
+#import "iPhoneStreamingPlayerAppDelegate.h"
 
 
 @implementation BoomboxViewController
 
-@synthesize controlsView , leftButton, rightButton;
+@synthesize controlsView , leftButton, rightButton, songLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -37,7 +39,14 @@
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	
+	
 	[self.view addSubview:controlsView];
+}
+
+- (void)viewDidAppear {
+	
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	songLabel.text = [appDelegate.songToPlay title];
 }
 
 
@@ -62,7 +71,7 @@
     [super dealloc];
 }
 
-- (IBAction)leftAction:(id)sender
+- (IBAction)displaySearchViewAction:(id)sender
 {
 	// user touched the left button in HoverView
 	NSLog(@"left button clicked");
@@ -70,11 +79,11 @@
 //	[alert show];
 //	[alert release];
 	
-	searchViewController = [[iPhoneStreamingPlayerViewController alloc] initWithNibName:@"iPhoneStreamingPlayerViewController" bundle:nil];
+	searchViewController = [[SearchViewController alloc] initWithNibName:@"iPhoneStreamingPlayerViewController" bundle:nil];
 	[self presentModalViewController:searchViewController animated:YES];
 }
 
-- (IBAction)rightAction:(id)sender
+- (IBAction)displayPlaylistViewAction:(id)sender
 {
 	// user touched the right button in HoverView
 	NSLog(@"right button clicked");
@@ -85,5 +94,60 @@
 	playlistController = [[PlaylistViewController alloc] initWithNibName:@"PlaylistView" bundle:nil];
 	[self presentModalViewController:playlistController animated:YES];
 }
+
+- (IBAction)playAction:(id)sender {
+	if (!streamer) {
+		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+		BlipSong *chosenSong = appDelegate.songToPlay;
+		NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSLog(@"chosen stream: %@", streamUrl);
+		NSURL *url = [NSURL URLWithString:streamUrl];
+		streamer = [[AudioStreamer alloc] initWithURL:url];
+		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+		[streamer start];
+	} else {
+		[streamer stop];
+	}
+}
+
+#pragma mark Audio Streaming Functions
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+						change:(NSDictionary *)change context:(void *)context
+{
+	if ([keyPath isEqual:@"isPlaying"])
+	{
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		if ([(AudioStreamer *)object isPlaying])
+		{
+			//			[self
+			//				performSelector:@selector(setButtonImage:)
+			//				onThread:[NSThread mainThread]
+			//				withObject:[UIImage imageNamed:@"stopbutton.png"]
+			//				waitUntilDone:NO];
+		}
+		else
+		{
+			[streamer removeObserver:self forKeyPath:@"isPlaying"];
+			[streamer release];
+			streamer = nil;
+			
+			//			[self
+			//				performSelector:@selector(setButtonImage:)
+			//				onThread:[NSThread mainThread]
+			//				withObject:[UIImage imageNamed:@"playbutton.png"]
+			//				waitUntilDone:NO];
+		}
+		
+		[pool release];
+		return;
+	}
+	
+	[super observeValueForKeyPath:keyPath ofObject:object change:change
+						  context:context];
+}
+
+
 
 @end

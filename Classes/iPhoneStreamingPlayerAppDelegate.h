@@ -9,17 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "BoomboxViewController.h"
 
-@class iPhoneStreamingPlayerViewController;
+@class SearchViewController;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	BoomboxViewController *viewController;
 	
 	NSMutableArray *playlist;
+	
+	BlipSong *songToPlay;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) NSMutableArray *playlist;
+@property (nonatomic, retain) BlipSong *songToPlay;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 
 @end
