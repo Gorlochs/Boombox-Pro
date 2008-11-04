@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ControlsView.h"
+#import "iPhoneStreamingPlayerViewController.h"
+#import "PlaylistViewController.h"
 
 @interface BoomboxViewController : UIViewController {
 	ControlsView *controlsView;
 	UIButton *leftButton;
 	UIButton *rightButton;
+	
+	iPhoneStreamingPlayerViewController *searchViewController;
+	PlaylistViewController *playlistController;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;

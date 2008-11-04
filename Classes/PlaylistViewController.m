@@ -25,16 +25,6 @@
 	return YES;
 }
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-    return self;
-}
-*/
-
-
 - (void)viewDidLoad {
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [super viewDidLoad];
@@ -183,6 +173,10 @@
     [super didReceiveMemoryWarning];
 }
 */
+
+- (IBAction)removeModalView:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
 
 - (void)dealloc {
 	[theTableView release];

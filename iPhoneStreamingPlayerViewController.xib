@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="17"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,6 +56,23 @@
 						<float key="IBUIRowHeight">4.400000e+01</float>
 						<float key="IBUISectionHeaderHeight">2.700000e+01</float>
 						<float key="IBUISectionFooterHeight">2.700000e+01</float>
+					</object>
+					<object class="IBUIToolbar" id="541127721">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">266</int>
+						<string key="NSFrame">{{0, 416}, {320, 44}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<object class="NSMutableArray" key="IBUIItems">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIBarButtonItem" id="318226450">
+								<string key="IBUITitle">Item</string>
+								<int key="IBUIStyle">1</int>
+								<int key="IBUISystemItemIdentifier">1</int>
+								<reference key="IBUIToolbar" ref="541127721"/>
+							</object>
+						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -119,6 +136,14 @@
 					</object>
 					<int key="connectionID">25</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">removeModalView:</string>
+						<reference key="source" ref="318226450"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -149,6 +174,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="904190726"/>
 							<reference ref="291579300"/>
+							<reference ref="541127721"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -162,6 +188,20 @@
 						<reference key="object" ref="291579300"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">29</int>
+						<reference key="object" ref="541127721"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="318226450"/>
+						</object>
+						<reference key="parent" ref="774585933"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">30</int>
+						<reference key="object" ref="318226450"/>
+						<reference key="parent" ref="541127721"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -172,6 +212,8 @@
 					<string>-2.CustomClassName</string>
 					<string>16.IBPluginDependency</string>
 					<string>17.IBPluginDependency</string>
+					<string>29.IBPluginDependency</string>
+					<string>30.IBPluginDependency</string>
 					<string>6.IBEditorWindowLastContentRect</string>
 					<string>6.IBPluginDependency</string>
 				</object>
@@ -181,7 +223,9 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{694, 359}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{692, 136}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -205,7 +249,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">32</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -214,7 +258,7 @@
 					<string key="className">iPhoneStreamingPlayerViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">buttonPressed:</string>
+						<string key="NS.key.0">removeModalView:</string>
 						<string key="NS.object.0">id</string>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">

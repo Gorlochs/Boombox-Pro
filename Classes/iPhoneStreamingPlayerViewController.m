@@ -388,4 +388,8 @@ char *rand_str(char *dst)
 	
 }
 
+- (IBAction)removeModalView:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 @end

@@ -7,13 +7,12 @@
 //
 
 #import "iPhoneStreamingPlayerAppDelegate.h"
-#import "iPhoneStreamingPlayerViewController.h"
 
 @implementation iPhoneStreamingPlayerAppDelegate
 
 @synthesize window;
 @synthesize playlist;
-@synthesize tabBarController;
+@synthesize viewController;
 
 // keep track of playlist objects in the delegate:
 //		(BOOL) isPlayingFromPlaylist
@@ -25,14 +24,13 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
     // Override point for customization after app launch
-	[[NSBundle mainBundle] loadNibNamed:@"MainTabView" owner:self options:nil];
-    [window addSubview:tabBarController.view];
+    [window addSubview:viewController.view];
     [window makeKeyAndVisible];
 }
 
 
 - (void)dealloc {
-    [tabBarController release];
+    [viewController release];
     [window release];
     [super dealloc];
 }

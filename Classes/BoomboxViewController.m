@@ -43,7 +43,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return YES;
 }
 
 
@@ -52,8 +53,12 @@
     // Release anything that's not essential, such as cached data
 }
 
-
 - (void)dealloc {
+	[searchViewController release];
+	[leftButton release];
+	[rightButton release];
+	[controlsView release];
+	
     [super dealloc];
 }
 
@@ -61,18 +66,24 @@
 {
 	// user touched the left button in HoverView
 	NSLog(@"left button clicked");
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Left Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Left Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+//	[alert show];
+//	[alert release];
+	
+	searchViewController = [[iPhoneStreamingPlayerViewController alloc] initWithNibName:@"iPhoneStreamingPlayerViewController" bundle:nil];
+	[self presentModalViewController:searchViewController animated:YES];
 }
 
 - (IBAction)rightAction:(id)sender
 {
 	// user touched the right button in HoverView
 	NSLog(@"right button clicked");
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Right Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Right Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+//	[alert show];
+//	[alert release];
+	
+	playlistController = [[PlaylistViewController alloc] initWithNibName:@"PlaylistView" bundle:nil];
+	[self presentModalViewController:playlistController animated:YES];
 }
 
 @end

@@ -40,7 +40,7 @@
 @property (nonatomic, retain) NSMutableArray *blipPlaylist;
 
 - (void)parseXMLFileAtURL:(NSString *)URL;
-- (IBAction)buttonPressed:(id)sender;
+- (IBAction)removeModalView:(id)sender;
 
 @end
 

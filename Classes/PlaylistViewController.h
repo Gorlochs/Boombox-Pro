@@ -15,4 +15,6 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 
+- (IBAction)removeModalView:(id)sender;
+
 @end

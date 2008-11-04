@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BoomboxViewController.h"
 
 @class iPhoneStreamingPlayerViewController;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-	UITabBarController *tabBarController;
+	BoomboxViewController *viewController;
 	
 	NSMutableArray *playlist;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) NSMutableArray *playlist;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 
 @end
 
