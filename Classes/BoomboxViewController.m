@@ -31,8 +31,25 @@
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	
-	
 	[self.view addSubview:controlsView];
+	
+	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
+	UIInterfaceOrientation orientation=[[UIApplication sharedApplication] statusBarOrientation]; 
+	[super viewDidLoad]; 
+	if(orientation==UIInterfaceOrientationLandscapeRight){ 
+		CGAffineTransform transform=self.view.transform; 
+		//Use the statusbar frame to determine the center point of the window's contentarea. 
+		CGRect statusBarFrame=[[UIApplication sharedApplication] 
+							  statusBarFrame]; 
+		
+		CGRect bounds = CGRectMake(0, 0, statusBarFrame.size.height, statusBarFrame.origin.x); 
+		CGPoint center = CGPointMake(bounds.size.height / 2.0, bounds.size.width / 2.0); 
+		// Set the center point of the view to the center point of the window's content area. 
+		self.view.center = center; 
+		// Rotate the view 90 degrees around its new center point. 
+		transform = CGAffineTransformRotate(transform, (M_PI / 2.0)); 
+		self.view.transform = transform; 
+	} 
 }
 
 - (void)viewDidAppear {
@@ -45,7 +62,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
 //    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-	return YES;
+	return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 

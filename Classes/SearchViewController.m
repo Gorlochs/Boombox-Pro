@@ -29,7 +29,7 @@
 }
 // -----------------------------------------------------------------------------
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
+	return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 // -----------------------------------------------------------------------------
 - (void)dealloc {
