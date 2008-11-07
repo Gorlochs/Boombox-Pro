@@ -119,7 +119,7 @@
 						<reference key="IBUISelectedImage" ref="259787395"/>
 						<reference key="IBUINormalImage" ref="259787395"/>
 					</object>
-					<object class="IBUILabel" id="655026786">
+					<object class="IBUILabel" id="1012365297">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 41}, {222, 21}}</string>
@@ -135,6 +135,33 @@
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">1.000000e+01</float>
+					</object>
+					<object class="IBUIButton" id="448631213">
+						<reference key="NSNextResponder" ref="720235411"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{95, 112}, {72, 37}}</string>
+						<reference key="NSSuperview" ref="720235411"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="151126720"/>
+						<string key="IBUIHighlightedTitle"/>
+						<string key="IBUIDisabledTitle"/>
+						<string key="IBUISelectedTitle"/>
+						<string key="IBUINormalTitle"/>
+						<reference key="IBUIHighlightedTitleColor" ref="793528726"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="572481812">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">loadingbutton.png</string>
+						</object>
+						<reference key="IBUIDisabledImage" ref="572481812"/>
+						<reference key="IBUISelectedImage" ref="572481812"/>
+						<reference key="IBUINormalImage" ref="572481812"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{262, 227}</string>
@@ -188,9 +215,18 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">songLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="655026786"/>
+						<reference key="destination" ref="1012365297"/>
 					</object>
 					<int key="connectionID">17</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">displayPlaylistViewAction:</string>
+						<reference key="source" ref="448631213"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">19</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -236,7 +272,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="518426581"/>
 							<reference ref="629419180"/>
-							<reference ref="655026786"/>
+							<reference ref="1012365297"/>
+							<reference ref="448631213"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">ControlsView</string>
@@ -253,7 +290,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="655026786"/>
+						<reference key="object" ref="1012365297"/>
+						<reference key="parent" ref="720235411"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="448631213"/>
 						<reference key="parent" ref="720235411"/>
 					</object>
 				</object>
@@ -269,6 +311,7 @@
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
+					<string>18.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>6.CustomClassName</string>
 					<string>6.IBEditorWindowLastContentRect</string>
@@ -279,6 +322,7 @@
 					<string>BoomboxViewController</string>
 					<string>UIResponder</string>
 					<string>{{691, 47}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -309,7 +353,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

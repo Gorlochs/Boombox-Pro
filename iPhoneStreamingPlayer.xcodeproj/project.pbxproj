@@ -25,6 +25,8 @@
 		6AC138560EBF9B5F004146A4 /* LeftPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC138540EBF9B5F004146A4 /* LeftPressed.png */; };
 		6AC138570EBF9B5F004146A4 /* RightPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC138550EBF9B5F004146A4 /* RightPressed.png */; };
 		6AC138680EBF9C19004146A4 /* ControlsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC138670EBF9C19004146A4 /* ControlsView.m */; };
+		6AC139C50EC35700004146A4 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */; };
+		6AC13A530EC3D521004146A4 /* boombox.sql in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13A520EC3D521004146A4 /* boombox.sql */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
@@ -60,6 +62,8 @@
 		6AC138550EBF9B5F004146A4 /* RightPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightPressed.png; sourceTree = "<group>"; };
 		6AC138660EBF9C19004146A4 /* ControlsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlsView.h; sourceTree = "<group>"; };
 		6AC138670EBF9C19004146A4 /* ControlsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlsView.m; sourceTree = "<group>"; };
+		6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		6AC13A520EC3D521004146A4 /* boombox.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = boombox.sql; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				C9C2D8C90EB6E30000A3D071 /* AudioToolbox.framework in Frameworks */,
 				C9C2D8CE0EB6E31200A3D071 /* QuartzCore.framework in Frameworks */,
+				6AC139C50EC35700004146A4 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +138,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6AC13A520EC3D521004146A4 /* boombox.sql */,
 				6AC138580EBF9B63004146A4 /* images */,
 				2899E5210DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -145,6 +151,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */,
 				C9C2D8CD0EB6E31200A3D071 /* QuartzCore.framework */,
 				C9C2D8C80EB6E30000A3D071 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -260,6 +267,7 @@
 				6AC1381F0EBF96CA004146A4 /* test.png in Resources */,
 				6AC138560EBF9B5F004146A4 /* LeftPressed.png in Resources */,
 				6AC138570EBF9B5F004146A4 /* RightPressed.png in Resources */,
+				6AC13A530EC3D521004146A4 /* boombox.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

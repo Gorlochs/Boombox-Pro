@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <sqlite3.h>
 
 @interface BlipSong : NSObject {
+	// Opaque reference to the underlying database.
+    sqlite3 *database;
+	
+	NSInteger songId;
 	NSString *title;
 	NSString *location;
 	NSString *artist;
 }
 
+@property (nonatomic, assign, readonly) NSInteger songId;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *location;
 @property (nonatomic, retain) NSString *artist;
+
+- (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db;
+- (void)insertIntoDatabase:(sqlite3 *)db;
 
 @end

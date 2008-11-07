@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "BoomboxViewController.h"
+#import <sqlite3.h>
+
 
 @class SearchViewController;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	BoomboxViewController *viewController;
+	sqlite3 *database;
 	
 	NSMutableArray *playlist;
-	
 	BlipSong *songToPlay;
 }
 
