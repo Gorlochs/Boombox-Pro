@@ -27,7 +27,7 @@
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
 	frame.origin.x = round((self.view.frame.size.width - frame.size.width) / 2.0);
-	frame.origin.y = self.view.frame.size.height - 300;
+	frame.origin.y = self.view.frame.size.height - 400;
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	
@@ -79,17 +79,23 @@
 
 // plays a single song that was chosen on the Search page
 - (IBAction)playAction:(id)sender {
-	if (!streamer) {
-		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-		BlipSong *chosenSong = appDelegate.songToPlay;
-		NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSLog(@"chosen stream: %@", streamUrl);
-		NSURL *url = [NSURL URLWithString:streamUrl];
-		streamer = [[AudioStreamer alloc] initWithURL:url];
-		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-		[streamer start];
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	BlipSong *chosenSong = appDelegate.songToPlay;
+	if (chosenSong != nil) {
+		if (!streamer) {
+			NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			NSLog(@"chosen stream: %@", streamUrl);
+			NSURL *url = [NSURL URLWithString:streamUrl];
+			streamer = [[AudioStreamer alloc] initWithURL:url];
+			[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+			[streamer start];
+		} else {
+			[streamer stop];
+		}
 	} else {
-		[streamer stop];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and chose, a song to play" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
 	}
 }
 
