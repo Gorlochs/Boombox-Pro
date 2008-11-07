@@ -10,6 +10,7 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
 
+
 @implementation PlaylistViewController
 
 @synthesize theTableView;
@@ -89,22 +90,6 @@
     return cell;
 }
 
-
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
-*/
-
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-    }
-    if (editingStyle == UITableViewCellEditingStyleInsert) {
-    }
-}
-*/
-
 #pragma mark Row reordering
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath 
@@ -155,25 +140,6 @@
     [super viewWillAppear:animated];
 }
 
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-}
-*/
-/*
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-*/
-
 - (IBAction)removeModalView:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -183,7 +149,6 @@
 	
     [super dealloc];
 }
-
 
 @end
 

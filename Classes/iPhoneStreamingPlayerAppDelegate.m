@@ -13,7 +13,7 @@
 @interface iPhoneStreamingPlayerAppDelegate (Private)
 - (void)createEditableCopyOfDatabaseIfNeeded;
 - (void)initializeDatabase;
-- (void)clearDatabase:(sqlite3 *)db;
+- (void)clearDatabase;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -42,7 +42,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
-	[self clearDatabase:database];
+	[self clearDatabase];
 	for (id song in playlist) {
 		[song insertIntoDatabase:database];
 	}
@@ -129,9 +129,8 @@
     }
 }
 
-- (void)clearDatabase:(sqlite3 *)db {
-    database = db;
-    // This query may be performed many times during the run of the application. As an optimization, a static
+- (void)clearDatabase {
+	// This query may be performed many times during the run of the application. As an optimization, a static
     // variable is used to store the SQLite compiled byte-code for the query, which is generated one time - the first
     // time the method is executed by any Book object.
 	const char *sql = "DELETE FROM playlist";
@@ -140,7 +139,9 @@
 	// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
 	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
 		int success = sqlite3_step(statement);
-		NSLog(@"delete executed...");
+		if (success) {
+			NSLog(@"delete executed...");
+		} 
 		// We "step" through the results - once for each row.
 		//while (sqlite3_step(statement) == SQLITE_ROW) {
 //			// The second parameter indicates the column index into the result set.

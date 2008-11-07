@@ -14,7 +14,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView , leftButton, rightButton, songLabel;
+@synthesize controlsView, leftButton, rightButton, songLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -22,14 +22,6 @@
     }
     return self;
 }
-
-
-/*
-// Implement loadView to create a view hierarchy programmatically.
-- (void)loadView {
-}
-*/
-
 
 - (void)viewDidLoad {
 	// determine the size of ControlsView
@@ -64,6 +56,8 @@
 
 - (void)dealloc {
 	[searchViewController release];
+	[playlistController release];
+	
 	[leftButton release];
 	[rightButton release];
 	[controlsView release];
@@ -71,30 +65,19 @@
     [super dealloc];
 }
 
-- (IBAction)displaySearchViewAction:(id)sender
-{
-	// user touched the left button in HoverView
-	NSLog(@"left button clicked");
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Left Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-//	[alert show];
-//	[alert release];
-	
+#pragma mark Button functions
+
+- (IBAction)displaySearchViewAction:(id)sender {
 	searchViewController = [[SearchViewController alloc] initWithNibName:@"iPhoneStreamingPlayerViewController" bundle:nil];
 	[self presentModalViewController:searchViewController animated:YES];
 }
 
-- (IBAction)displayPlaylistViewAction:(id)sender
-{
-	// user touched the right button in HoverView
-	NSLog(@"right button clicked");
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Right Button" message:@"this is only a test" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-//	[alert show];
-//	[alert release];
-	
+- (IBAction)displayPlaylistViewAction:(id)sender {
 	playlistController = [[PlaylistViewController alloc] initWithNibName:@"PlaylistView" bundle:nil];
 	[self presentModalViewController:playlistController animated:YES];
 }
 
+// plays a single song that was chosen on the Search page
 - (IBAction)playAction:(id)sender {
 	if (!streamer) {
 		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;

@@ -26,5 +26,6 @@
 
 - (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db;
 - (void)insertIntoDatabase:(sqlite3 *)db;
++ (void)finalizeStatements;
 
 @end

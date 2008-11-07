@@ -16,7 +16,6 @@
 
 @implementation SearchViewController
 
-@synthesize blipPlaylist;
 @synthesize blipSearchBar;
 @synthesize theTableView;
 
@@ -43,124 +42,13 @@
 	[currentTitle release];
 	[currentLocation release];
 	[currentArtist release];
-	
-	[blipPlaylist release];
+	[currentElement release];
 	
     [super dealloc];
 }
 
-//- (void)setButtonImage:(UIImage *)image
-//{
-//	[button.layer removeAllAnimations];
-//	[button
-//		setImage:image
-//		forState:0];
-//}
-
-- (void)viewDidLoad
-{
-//	UIImage *image = [UIImage imageNamed:@"playbutton.png"];
-//	[self setButtonImage:image];
-	[blipPlaylist initWithCapacity:50];
-}
-
-//- (void)spinButton
-//{
-//	[CATransaction begin];
-//	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-//	CGRect frame = [button frame];
-//	button.layer.anchorPoint = CGPointMake(0.5, 0.5);
-//	button.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-//	[CATransaction commit];
-//
-//	[CATransaction begin];
-//	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-//	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
-//
-//	CABasicAnimation *animation;
-//	animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//	animation.fromValue = [NSNumber numberWithFloat:0.0];
-//	animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-//	animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-//	animation.delegate = self;
-//	[button.layer addAnimation:animation forKey:@"rotationAnimation"];
-//
-//	[CATransaction commit];
-//}
-//
-//- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
-//{
-//	if (finished)
-//	{
-//		[self spinButton];
-//	}
-//}
-//
-//- (IBAction)buttonPressed:(id)sender
-//{
-//	if (!streamer)
-//	{
-//		[textField resignFirstResponder];
-//		
-//		NSURL *url = [NSURL URLWithString:[textField text]];
-//		streamer = [[AudioStreamer alloc] initWithURL:url];
-//		[streamer
-//			addObserver:self
-//			forKeyPath:@"isPlaying"
-//			options:0
-//			context:nil];
-//		[streamer start];
-//
-//		[self setButtonImage:[UIImage imageNamed:@"loadingbutton.png"]];
-//
-//		[self spinButton];
-//	}
-//	else
-//	{
-//		[button.layer removeAllAnimations];
-//		[streamer stop];
-//	}
-//}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-	change:(NSDictionary *)change context:(void *)context
-{
-	if ([keyPath isEqual:@"isPlaying"])
-	{
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-		if ([(AudioStreamer *)object isPlaying])
-		{
-//			[self
-//				performSelector:@selector(setButtonImage:)
-//				onThread:[NSThread mainThread]
-//				withObject:[UIImage imageNamed:@"stopbutton.png"]
-//				waitUntilDone:NO];
-		}
-		else
-		{
-			[streamer removeObserver:self forKeyPath:@"isPlaying"];
-			[streamer release];
-			streamer = nil;
-
-//			[self
-//				performSelector:@selector(setButtonImage:)
-//				onThread:[NSThread mainThread]
-//				withObject:[UIImage imageNamed:@"playbutton.png"]
-//				waitUntilDone:NO];
-		}
-
-		[pool release];
-		return;
-	}
-	
-	[super observeValueForKeyPath:keyPath ofObject:object change:change
-		context:context];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)sender
 {
-//	[self buttonPressed:sender];
 	return NO;
 }
 
@@ -252,42 +140,8 @@ char *rand_str(char *dst)
 	NSLog(@"playlist: %@", appDelegate.playlist);
 }
 // -----------------------------------------------------------------------------
-// called when the accessory view (disclosure button) is touched
-//- (void)onClick:(id)sender
-//{
-//	NSLog(@"******   onclick; sender: %@", sender);
-////	NSLog(@"******   onclick; song: %@", song);
-////	NSLog(@"******   onclick; foo: %@", foo);
-//	//BlipSong *song = (BlipSong*) sender;
-//	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//	if (appDelegate.playlist == nil) {
-//		NSLog(@"playlist is nil");
-//		appDelegate.playlist = [NSArray array];
-//	}
-////	[appDelegate.playlist arrayByAddingObject:song];
-//	NSLog(@"playlist: ", appDelegate.playlist);
-//
-////	NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:
-////							  self.title, @"text",
-////							  [NSNumber numberWithBool:self.checked], @"checked",
-////							  nil];
-////	[appDelegate showDetail:infoDict];
-//}
-// -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-//	if (!streamer) {
-//		BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
-//		NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//		NSLog(@"chosen stream: %@", streamUrl);
-//		NSURL *url = [NSURL URLWithString:streamUrl];
-//		streamer = [[AudioStreamer alloc] initWithURL:url];
-//		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-//		[streamer start];
-//	} else {
-//		[streamer stop];
-//	}
 	
 	BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -384,15 +238,8 @@ char *rand_str(char *dst)
 	//	NSLog(@"songs array has %d items", [songs count]);
 	
 	[theTableView reloadData];
-	//	theTableView.tableFooterView.hidden = NO;
-	//	
-	//	// maybe not the best place for this, but it works well
-	//	if ([songs count] >= 75) {
-	//		theTableView.tableFooterView.hidden = YES;
-	//	}
 	[theTableView setHidden:NO];
 	//	[bigSpinner stopAnimating];
-	
 }
 
 - (IBAction)removeModalView:(id)sender {
