@@ -39,7 +39,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">main.png</string>
+							<string key="NSResourceName">main-nobuttons.png</string>
 						</object>
 					</object>
 				</object>
@@ -61,7 +61,7 @@
 					<object class="IBUIButton" id="518426581">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{5, 137}, {72, 80}}</string>
+						<string key="NSFrame">{{25, 137}, {72, 80}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -84,18 +84,18 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="621979563">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="25348057">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">search.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="621979563"/>
-						<reference key="IBUISelectedImage" ref="621979563"/>
-						<reference key="IBUINormalImage" ref="621979563"/>
+						<reference key="IBUIDisabledImage" ref="25348057"/>
+						<reference key="IBUISelectedImage" ref="25348057"/>
+						<reference key="IBUINormalImage" ref="25348057"/>
 					</object>
 					<object class="IBUIButton" id="629419180">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{93, 49}, {72, 80}}</string>
+						<string key="NSFrame">{{104, 12}, {72, 80}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -111,18 +111,18 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="905960376">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="10101306">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">play.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="905960376"/>
-						<reference key="IBUISelectedImage" ref="905960376"/>
-						<reference key="IBUINormalImage" ref="905960376"/>
+						<reference key="IBUIDisabledImage" ref="10101306"/>
+						<reference key="IBUISelectedImage" ref="10101306"/>
+						<reference key="IBUINormalImage" ref="10101306"/>
 					</object>
-					<object class="IBUILabel" id="798838744">
+					<object class="IBUILabel" id="221698710">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 27}, {222, 21}}</string>
+						<string key="NSFrame">{{20, 12}, {222, 21}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -136,10 +136,10 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">1.000000e+01</float>
 					</object>
-					<object class="IBUIButton" id="785193338">
+					<object class="IBUIButton" id="558938757">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{93, 137}, {72, 79}}</string>
+						<string key="NSFrame">{{104, 137}, {72, 79}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -155,18 +155,18 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="888860770">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="4127169">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">playlist.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="888860770"/>
-						<reference key="IBUISelectedImage" ref="888860770"/>
-						<reference key="IBUINormalImage" ref="888860770"/>
+						<reference key="IBUIDisabledImage" ref="4127169"/>
+						<reference key="IBUISelectedImage" ref="4127169"/>
+						<reference key="IBUINormalImage" ref="4127169"/>
 					</object>
-					<object class="IBUIButton" id="93471038">
+					<object class="IBUIButton" id="375949393">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{181, 137}, {72, 79}}</string>
+						<string key="NSFrame">{{183, 137}, {72, 79}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -182,13 +182,13 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="309323262">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="301921048">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">buy.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="309323262"/>
-						<reference key="IBUISelectedImage" ref="309323262"/>
-						<reference key="IBUINormalImage" ref="309323262"/>
+						<reference key="IBUIDisabledImage" ref="301921048"/>
+						<reference key="IBUISelectedImage" ref="301921048"/>
+						<reference key="IBUINormalImage" ref="301921048"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{262, 227}</string>
@@ -242,14 +242,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">songLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="798838744"/>
+						<reference key="destination" ref="221698710"/>
 					</object>
 					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">displayPlaylistViewAction:</string>
-						<reference key="source" ref="785193338"/>
+						<reference key="source" ref="558938757"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -298,10 +298,10 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="518426581"/>
-							<reference ref="785193338"/>
+							<reference ref="375949393"/>
+							<reference ref="221698710"/>
+							<reference ref="558938757"/>
 							<reference ref="629419180"/>
-							<reference ref="93471038"/>
-							<reference ref="798838744"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">ControlsView</string>
@@ -318,17 +318,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
-						<reference key="object" ref="798838744"/>
+						<reference key="object" ref="221698710"/>
 						<reference key="parent" ref="720235411"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
-						<reference key="object" ref="785193338"/>
+						<reference key="object" ref="558938757"/>
 						<reference key="parent" ref="720235411"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
-						<reference key="object" ref="93471038"/>
+						<reference key="object" ref="375949393"/>
 						<reference key="parent" ref="720235411"/>
 					</object>
 				</object>
