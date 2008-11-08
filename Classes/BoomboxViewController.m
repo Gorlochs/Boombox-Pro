@@ -14,7 +14,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, leftButton, rightButton, songLabel;
+@synthesize controlsView, leftButton, rightButton, songLabel, streamer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {

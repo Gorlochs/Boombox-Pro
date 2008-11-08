@@ -24,6 +24,7 @@
 @synthesize songToPlay;
 @synthesize searchTerms;
 @synthesize songs;
+@synthesize songIndexOfPlaylistCurrentlyPlaying;
 
 // keep track of playlist objects in the delegate:
 //		(BOOL) isPlayingFromPlaylist
@@ -89,9 +90,9 @@
 // Open the database connection and retrieve minimal information for all objects.
 - (void)initializeDatabase {
 	NSLog(@"initializing database...");
-    NSMutableArray *songs = [[NSMutableArray alloc] init];
-    self.playlist = songs;
-    [songs release];
+    NSMutableArray *songz = [[NSMutableArray alloc] init];
+    self.playlist = songz;
+    [songz release];
     // The database is stored in the application bundle. 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];

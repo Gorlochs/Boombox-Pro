@@ -86,8 +86,26 @@
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = (BlipSong*) [appDelegate.playlist objectAtIndex: songIndex];
 	cell.text = song.title;
+	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	BlipSong *chosenSong = [appDelegate.playlist objectAtIndex:indexPath.row];
+	appDelegate.songIndexOfPlaylistCurrentlyPlaying = indexPath.row;
+	
+	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSLog(@"chosen stream: %@", streamUrl);
+	NSURL *url = [NSURL URLWithString:streamUrl];
+	
+	if (((BoomboxViewController*) self.parentViewController).streamer) {
+		[((BoomboxViewController*) self.parentViewController).streamer stop];
+	}
+	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+	[((BoomboxViewController*) self.parentViewController).streamer start];
 }
 
 #pragma mark Row reordering

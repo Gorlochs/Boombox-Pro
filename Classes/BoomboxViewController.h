@@ -30,6 +30,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *leftButton;
 @property (nonatomic, retain) IBOutlet UIButton *rightButton;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
+@property (nonatomic, retain) AudioStreamer *streamer;
 
 - (IBAction)playAction:(id)sender;
 - (IBAction)displaySearchViewAction:(id)sender;

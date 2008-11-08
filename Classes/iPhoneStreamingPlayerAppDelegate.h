@@ -21,6 +21,9 @@
 	// the user's compiled playlist of songs
 	NSMutableArray *playlist;
 	
+	// the index of the song in the playlist that is currently being played
+	NSInteger songIndexOfPlaylistCurrentlyPlaying;
+	
 	// the single song that a user plays from the search page
 	BlipSong *songToPlay;
 	
@@ -33,6 +36,7 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) NSMutableArray *playlist;
+@property NSInteger songIndexOfPlaylistCurrentlyPlaying;
 @property (nonatomic, retain) BlipSong *songToPlay;
 @property (nonatomic, retain) NSString *searchTerms;
 @property (nonatomic, retain) NSMutableArray *songs;
