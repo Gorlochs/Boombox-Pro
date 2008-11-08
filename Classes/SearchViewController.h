@@ -19,7 +19,7 @@
 	IBOutlet UITableView *theTableView;
 	
 	NSXMLParser *rssParser;
-	NSMutableArray *songs;
+	//NSMutableArray *songs;
 	
 	// a temporary item; added to the "stories" array one at a time, and cleared for the next one
 	BlipSong *item;

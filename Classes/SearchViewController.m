@@ -37,7 +37,7 @@
 	[blipSearchBar release];
 	
 	[rssParser release];
-	[songs release];
+	//[songs release];
 	[item release];
 	[currentTitle release];
 	[currentLocation release];
@@ -46,12 +46,19 @@
 	
     [super dealloc];
 }
-
+// -----------------------------------------------------------------------------
+- (void)viewDidLoad {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	if (appDelegate.searchTerms != nil) {
+		blipSearchBar.text = appDelegate.searchTerms;
+	}
+}
+// -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender
 {
 	return NO;
 }
-
+// -----------------------------------------------------------------------------
 char *rand_str(char *dst)
 {
 	static const char text[] = "abcdefghijklmnopqrstuvwxyz"
@@ -65,7 +72,7 @@ char *rand_str(char *dst)
 	dst[i] = '\0';
 	return dst;
 }
-
+// -----------------------------------------------------------------------------
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	NSLog(@"search button has been clicked!");
 	// dismiss keyboard
@@ -92,6 +99,10 @@ char *rand_str(char *dst)
 	NSLog(@"parse url: %@", url);
 	[self parseXMLFileAtURL:url];
 	
+	// save the search terms in the appdelegate in order to display when the screen is redisplayed
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	appDelegate.searchTerms = searchBar.text;
+	
 	[searchBar resignFirstResponder];
 }
 #pragma mark UITableViewDataSource
@@ -100,7 +111,8 @@ char *rand_str(char *dst)
 }
 // -----------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [songs count];	
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return [appDelegate.songs count];	
 }
 // -----------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -115,7 +127,8 @@ char *rand_str(char *dst)
 	
 	// Set up the cell
 	int storyIndex = [indexPath indexAtPosition: [indexPath length] - 1];
-	BlipSong *song = (BlipSong*) [songs objectAtIndex: storyIndex];
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
 //	cell.target = self;
 	//cell.frame = CGRectMake(0, 0, 180, 80);
 	cell.text = song.title;
@@ -127,10 +140,10 @@ char *rand_str(char *dst)
 	return cell;
 }
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-
-	BlipSong *song = (BlipSong*) [songs objectAtIndex: indexPath.row];
-	NSLog(@"song to add: %@", song.title);
+	
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
+	NSLog(@"song to add: %@", song.title);
 	if (appDelegate.playlist == nil) {
 		NSLog(@"playlist is nil");
 		appDelegate.playlist = [[NSMutableArray alloc] init];
@@ -143,8 +156,8 @@ char *rand_str(char *dst)
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	BlipSong *chosenSong = [songs objectAtIndex:indexPath.row];
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	BlipSong *chosenSong = [appDelegate.songs objectAtIndex:indexPath.row];
 	appDelegate.songToPlay = chosenSong;
 	
 	BoomboxViewController *parentController = (BoomboxViewController*) self.parentViewController;
@@ -160,7 +173,8 @@ char *rand_str(char *dst)
 - (void)parseXMLFileAtURL:(NSString *)URL
 {
 	// always start with a fresh, empty array
-	songs = [[NSMutableArray alloc] init];
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	appDelegate.songs = [[NSMutableArray alloc] init];
 	
     //you must then convert the path to a proper NSURL or it won't work
     NSURL *xmlURL = [NSURL URLWithString:URL];
@@ -214,7 +228,8 @@ char *rand_str(char *dst)
 		[currentLocation release];
 		[currentArtist release];
 		
-		[songs addObject:item];
+		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+		[appDelegate.songs addObject:item];
 		NSLog(@"adding song: %@", currentTitle);
 		//		NSLog(@"1adding summary: %@", currentSummary);
 	}

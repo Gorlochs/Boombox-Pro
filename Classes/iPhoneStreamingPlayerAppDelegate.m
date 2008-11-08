@@ -22,6 +22,8 @@
 @synthesize playlist;
 @synthesize viewController;
 @synthesize songToPlay;
+@synthesize searchTerms;
+@synthesize songs;
 
 // keep track of playlist objects in the delegate:
 //		(BOOL) isPlayingFromPlaylist
@@ -56,6 +58,10 @@
 - (void)dealloc {
     [viewController release];
     [window release];
+	[playlist release];
+	[songToPlay release];
+	[searchTerms release];
+	[songs release];
     [super dealloc];
 }
 
