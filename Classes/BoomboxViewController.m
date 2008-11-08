@@ -110,7 +110,7 @@
 			[streamer stop];
 		}
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and chose, a song to play" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	}
