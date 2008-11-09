@@ -28,7 +28,13 @@
 
 - (void)viewDidLoad {
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [super viewDidLoad];
+	NSLog(@"right bar button: %@", self.navigationItem.rightBarButtonItem);
+	NSLog(@"left bar button: %@", self.navigationItem.leftBarButtonItem);
+    //[super viewDidLoad];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
