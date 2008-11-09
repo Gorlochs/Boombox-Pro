@@ -151,9 +151,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				6AC137470EBE216E004146A4 /* PlaylistView.xib */,
-				6AC1381B0EBF9585004146A4 /* BoomboxView.xib */,
-				6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -176,6 +173,9 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				6AC136D90EBE06BC004146A4 /* MainTabView.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				6AC137470EBE216E004146A4 /* PlaylistView.xib */,
+				6AC1381B0EBF9585004146A4 /* BoomboxView.xib */,
+				6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

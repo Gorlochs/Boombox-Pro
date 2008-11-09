@@ -9,7 +9,7 @@
 #import "PlaylistViewController.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
-
+#import "SearchTableCellView.h"
 
 @implementation PlaylistViewController
 
@@ -76,27 +76,52 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
-    }
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+//    }
+	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
+		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
+	}
+	
     // Configure the cell
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = (BlipSong*) [appDelegate.playlist objectAtIndex: songIndex];
-	cell.text = song.title;
-	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+	[cell setCellData:song];
+	cell.buyButton.hidden = YES;
+	cell.addToPlaylistButton.hidden = YES;
+	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	BlipSong *chosenSong = [appDelegate.playlist objectAtIndex:indexPath.row];
-	appDelegate.songIndexOfPlaylistCurrentlyPlaying = indexPath.row;
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+//	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//	BlipSong *chosenSong = [appDelegate.playlist objectAtIndex:indexPath.row];
+//	appDelegate.songIndexOfPlaylistCurrentlyPlaying = indexPath.row;
+//	
+//	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//	NSLog(@"chosen stream: %@", streamUrl);
+//	NSURL *url = [NSURL URLWithString:streamUrl];
+//	
+//	if (((BoomboxViewController*) self.parentViewController).streamer) {
+//		[((BoomboxViewController*) self.parentViewController).streamer stop];
+//	}
+//	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+//	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+//	[((BoomboxViewController*) self.parentViewController).streamer start];
+//}
+
+- (void)playSong:(id)sender {
+	//NSLog(@"tag number: %@", [sender parentViewController]);
+	UIView *senderButton = (UIView*) sender;
+	NSString *songLocation = [((SearchTableCellView*) [[senderButton superview] superview]) songLocation];
 	
-	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSLog(@"chosen stream: %@", streamUrl);
 	NSURL *url = [NSURL URLWithString:streamUrl];
 	
@@ -105,7 +130,7 @@
 	}
 	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
 	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-	[((BoomboxViewController*) self.parentViewController).streamer start];
+	[((BoomboxViewController*) self.parentViewController).streamer start];	
 }
 
 #pragma mark Row reordering

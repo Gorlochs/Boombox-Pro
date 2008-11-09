@@ -123,39 +123,46 @@ char *rand_str(char *dst)
 	if (cell == nil) {
 		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
 		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
-
-		//cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
-	
-	cell.font = [UIFont systemFontOfSize:14.0];
 	
 	// Set up the cell
 	int storyIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
-//	cell.target = self;
-	//cell.frame = CGRectMake(0, 0, 180, 80);
 	[cell setCellData:song];
-	//cell.text = song.title;
+	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-//	cell.accessoryAction = @selector(onClick:);
-	//	cell.story = story;
-	//	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
 	return cell;
 }
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+//	
+//	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
+//	NSLog(@"song to add: %@", song.title);
+//	if (appDelegate.playlist == nil) {
+//		NSLog(@"playlist is nil");
+//		appDelegate.playlist = [[NSMutableArray alloc] init];
+//	}
+//	NSLog(@"adding song....");
+//	[appDelegate.playlist addObject:song];
+//	NSLog(@"playlist: %@", appDelegate.playlist);
+//}
+- (void)playSong:(id)sender {
+	//NSLog(@"tag number: %@", [sender parentViewController]);
+	UIView *senderButton = (UIView*) sender;
+	NSString *songLocation = [((SearchTableCellView*) [[senderButton superview] superview]) songLocation];
 	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
-	NSLog(@"song to add: %@", song.title);
-	if (appDelegate.playlist == nil) {
-		NSLog(@"playlist is nil");
-		appDelegate.playlist = [[NSMutableArray alloc] init];
+	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSLog(@"chosen stream: %@", streamUrl);
+	NSURL *url = [NSURL URLWithString:streamUrl];
+	
+	if (((BoomboxViewController*) self.parentViewController).streamer) {
+		[((BoomboxViewController*) self.parentViewController).streamer stop];
 	}
-	NSLog(@"adding song....");
-	[appDelegate.playlist addObject:song];
-	NSLog(@"playlist: %@", appDelegate.playlist);
+	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+	[((BoomboxViewController*) self.parentViewController).streamer start];	
 }
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate

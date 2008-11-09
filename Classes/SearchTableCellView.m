@@ -8,6 +8,7 @@
 
 #import "SearchTableCellView.h"
 #import "BlipSong.h"
+#import "BoomboxViewController.h"
 
 @implementation SearchTableCellView
 
@@ -16,11 +17,13 @@
 @synthesize playButton;
 @synthesize addToPlaylistButton;
 @synthesize buyButton;
+@synthesize songLocation;
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
         // Initialization code
-		self.backgroundColor = [UIColor redColor];
+		//self.backgroundColor = [UIColor redColor];
+		//[playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -29,6 +32,7 @@
 - (void)setCellData:(BlipSong*)song {
 	artistLabel.text = song.artist;
 	songTitleLabel.text = song.title;
+	songLocation = song.location;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,5 +47,17 @@
     [super dealloc];
 }
 
+//- (void)playSong {
+//	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//	NSLog(@"chosen stream: %@", streamUrl);
+//	NSURL *url = [NSURL URLWithString:streamUrl];
+//	
+//	if (((BoomboxViewController*) self.parentViewController).streamer) {
+//		[((BoomboxViewController*) self.parentViewController).streamer stop];
+//	}
+//	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+//	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+//	[((BoomboxViewController*) self.parentViewController).streamer start];
+//}
 
 @end

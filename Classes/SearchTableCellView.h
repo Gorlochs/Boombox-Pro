@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BlipSong.h"
 
 @interface SearchTableCellView : UITableViewCell {
 	UILabel *artistLabel;
@@ -15,6 +15,7 @@
 	UIButton *playButton;
 	UIButton *addToPlaylistButton;
 	UIButton *buyButton;
+	NSString *songLocation;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *artistLabel;
@@ -22,7 +23,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *playButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlaylistButton;
 @property (nonatomic, retain) IBOutlet UIButton *buyButton;
+@property (nonatomic, retain) NSString *songLocation;
 
-//- (void)setCellData:(BlipSong*)song;
+- (void)setCellData:(BlipSong*)song;
 
 @end

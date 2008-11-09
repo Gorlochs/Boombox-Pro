@@ -16,5 +16,6 @@
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 
 - (IBAction)removeModalView:(id)sender;
+- (IBAction)playSong:(id)sender;
 
 @end
