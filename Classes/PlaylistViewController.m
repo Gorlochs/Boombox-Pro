@@ -28,9 +28,6 @@
 
 - (void)viewDidLoad {
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	NSLog(@"right bar button: %@", self.navigationItem.rightBarButtonItem);
-	NSLog(@"left bar button: %@", self.navigationItem.leftBarButtonItem);
-    //[super viewDidLoad];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,42 +98,42 @@
 	cell.buyButton.hidden = YES;
 	cell.addToPlaylistButton.hidden = YES;
 	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	cell.playButton.tag = indexPath.row;
 	
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-//	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//	BlipSong *chosenSong = [appDelegate.playlist objectAtIndex:indexPath.row];
-//	appDelegate.songIndexOfPlaylistCurrentlyPlaying = indexPath.row;
-//	
-//	NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//	NSLog(@"chosen stream: %@", streamUrl);
-//	NSURL *url = [NSURL URLWithString:streamUrl];
-//	
-//	if (((BoomboxViewController*) self.parentViewController).streamer) {
-//		[((BoomboxViewController*) self.parentViewController).streamer stop];
-//	}
-//	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
-//	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-//	[((BoomboxViewController*) self.parentViewController).streamer start];
-//}
-
 - (void)playSong:(id)sender {
-	//NSLog(@"tag number: %@", [sender parentViewController]);
-	UIView *senderButton = (UIView*) sender;
-	NSString *songLocation = [((SearchTableCellView*) [[senderButton superview] superview]) songLocation];
+	UIButton *senderButton = (UIButton*) sender;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	
-	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSLog(@"chosen stream: %@", streamUrl);
-	NSURL *url = [NSURL URLWithString:streamUrl];
-	
-	if (((BoomboxViewController*) self.parentViewController).streamer) {
+	if (appDelegate.songIndexOfPlaylistCurrentlyPlaying == senderButton.tag) {
+		NSLog(@"appDelegate songindexplaying (%d) == senderbutton.tag (%d)", appDelegate.songIndexOfPlaylistCurrentlyPlaying, senderButton.tag);
 		[((BoomboxViewController*) self.parentViewController).streamer stop];
+		[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
+		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
+	} else {
+		BlipSong *songToPlay = [appDelegate.playlist objectAtIndex:senderButton.tag];
+		NSString *streamUrl = [songToPlay.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSLog(@"chosen stream: %@", streamUrl);
+		NSURL *url = [NSURL URLWithString:streamUrl];
+		
+		if (((BoomboxViewController*) self.parentViewController).streamer) {
+			[((BoomboxViewController*) self.parentViewController).streamer stop];
+		}
+		((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+		[((BoomboxViewController*) self.parentViewController).streamer start];	
+		
+		// TODO: need to set the delegate's variables so that it knows that the playlist is playing.
+		//SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+		appDelegate.songIndexOfPlaylistCurrentlyPlaying = senderButton.tag;
+		
+		// change image
+		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+		
+		// change any other image in any other row to the default play button
 	}
-	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
-	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-	[((BoomboxViewController*) self.parentViewController).streamer start];	
 }
 
 #pragma mark Row reordering

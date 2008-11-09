@@ -16,6 +16,7 @@
 	UIButton *addToPlaylistButton;
 	UIButton *buyButton;
 	NSString *songLocation;
+	BlipSong *song;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *artistLabel;
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *addToPlaylistButton;
 @property (nonatomic, retain) IBOutlet UIButton *buyButton;
 @property (nonatomic, retain) NSString *songLocation;
+@property (nonatomic, retain) BlipSong *song;
 
 - (void)setCellData:(BlipSong*)song;
 

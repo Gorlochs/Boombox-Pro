@@ -18,6 +18,7 @@
 @synthesize addToPlaylistButton;
 @synthesize buyButton;
 @synthesize songLocation;
+@synthesize song;
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
@@ -29,7 +30,8 @@
 }
 
 
-- (void)setCellData:(BlipSong*)song {
+- (void)setCellData:(BlipSong*)mySong {
+	self.song = mySong;
 	artistLabel.text = song.artist;
 	songTitleLabel.text = song.title;
 	songLocation = song.location;

@@ -131,29 +131,38 @@ char *rand_str(char *dst)
 	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
 	[cell setCellData:song];
 	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
+	
+	cell.playButton.tag = indexPath.row;
+	cell.buyButton.tag = indexPath.row;
+	cell.addToPlaylistButton.tag = indexPath.row;
 	//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	
 	return cell;
 }
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-//	
-//	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
-//	NSLog(@"song to add: %@", song.title);
-//	if (appDelegate.playlist == nil) {
-//		NSLog(@"playlist is nil");
-//		appDelegate.playlist = [[NSMutableArray alloc] init];
-//	}
-//	NSLog(@"adding song....");
-//	[appDelegate.playlist addObject:song];
-//	NSLog(@"playlist: %@", appDelegate.playlist);
-//}
+// -----------------------------------------------------------------------------
+- (void)addSongToPlaylist:(id)sender {
+	UIView *senderButton = (UIView*) sender;
+	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+	BlipSong *songToAdd = [cell song];
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	//BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
+	if (appDelegate.playlist == nil) {
+		NSLog(@"playlist is nil");
+		appDelegate.playlist = [[NSMutableArray alloc] init];
+	}
+	NSLog(@"adding song....");
+	[appDelegate.playlist addObject:songToAdd];
+	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
+	
+}
+// -----------------------------------------------------------------------------
 - (void)playSong:(id)sender {
 	//NSLog(@"tag number: %@", [sender parentViewController]);
 	UIView *senderButton = (UIView*) sender;
-	NSString *songLocation = [((SearchTableCellView*) [[senderButton superview] superview]) songLocation];
+	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	
-	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString *streamUrl = [cell.songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSLog(@"chosen stream: %@", streamUrl);
 	NSURL *url = [NSURL URLWithString:streamUrl];
 	
@@ -162,7 +171,9 @@ char *rand_str(char *dst)
 	}
 	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
 	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-	[((BoomboxViewController*) self.parentViewController).streamer start];	
+	[((BoomboxViewController*) self.parentViewController).streamer start];
+	
+	[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
 }
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
