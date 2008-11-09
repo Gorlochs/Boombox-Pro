@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BlipSong.h"
 
-@class AudioStreamer;
+@class AudioStreamer, SearchTableCellView;
 
 @interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 {

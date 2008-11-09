@@ -11,6 +11,7 @@
 #import <QuartzCore/CoreAnimation.h>
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BoomboxViewController.h"
+#import "SearchTableCellView.h"
 
 #define API_KEY @"b6075b6c7ec95c4c5ecf"
 
@@ -118,9 +119,12 @@ char *rand_str(char *dst)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
-	UITableViewCell *cell = (UITableViewCell *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
+		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
+		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
+
+		//cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
 	
 	cell.font = [UIFont systemFontOfSize:14.0];
@@ -131,8 +135,9 @@ char *rand_str(char *dst)
 	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
 //	cell.target = self;
 	//cell.frame = CGRectMake(0, 0, 180, 80);
-	cell.text = song.title;
-	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+	[cell setCellData:song];
+	//cell.text = song.title;
+	//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.accessoryAction = @selector(onClick:);
 	//	cell.story = story;
 	//	cell.selectionStyle = UITableViewCellSelectionStyleNone;

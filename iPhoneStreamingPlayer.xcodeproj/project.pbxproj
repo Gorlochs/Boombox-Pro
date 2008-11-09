@@ -34,6 +34,14 @@
 		6AC13B610EC4B783004146A4 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13B5C0EC4B783004146A4 /* search.png */; };
 		6AC13BC30EC4C083004146A4 /* main-nobuttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13BC10EC4C083004146A4 /* main-nobuttons.png */; };
 		6AC13BC40EC4C083004146A4 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13BC20EC4C083004146A4 /* pause.png */; };
+		6AC13C7F0EC660BF004146A4 /* add_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C7A0EC660BF004146A4 /* add_small.png */; };
+		6AC13C800EC660BF004146A4 /* buy_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C7B0EC660BF004146A4 /* buy_small.png */; };
+		6AC13C810EC660BF004146A4 /* check_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C7C0EC660BF004146A4 /* check_small.png */; };
+		6AC13C820EC660BF004146A4 /* play_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C7D0EC660BF004146A4 /* play_small.png */; };
+		6AC13C830EC660BF004146A4 /* stop_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C7E0EC660BF004146A4 /* stop_small.png */; };
+		6AC13C850EC660CF004146A4 /* speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C840EC660CF004146A4 /* speaker.png */; };
+		6AC13C870EC661CF004146A4 /* SearchTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */; };
+		6AC13C960EC662A7004146A4 /* SearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC13C950EC662A7004146A4 /* SearchTableCellView.m */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
@@ -78,6 +86,15 @@
 		6AC13B5C0EC4B783004146A4 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		6AC13BC10EC4C083004146A4 /* main-nobuttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main-nobuttons.png"; sourceTree = "<group>"; };
 		6AC13BC20EC4C083004146A4 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		6AC13C7A0EC660BF004146A4 /* add_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_small.png; sourceTree = "<group>"; };
+		6AC13C7B0EC660BF004146A4 /* buy_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buy_small.png; sourceTree = "<group>"; };
+		6AC13C7C0EC660BF004146A4 /* check_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_small.png; sourceTree = "<group>"; };
+		6AC13C7D0EC660BF004146A4 /* play_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_small.png; sourceTree = "<group>"; };
+		6AC13C7E0EC660BF004146A4 /* stop_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop_small.png; sourceTree = "<group>"; };
+		6AC13C840EC660CF004146A4 /* speaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker.png; sourceTree = "<group>"; };
+		6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableCellView.xib; sourceTree = "<group>"; };
+		6AC13C940EC662A7004146A4 /* SearchTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableCellView.h; sourceTree = "<group>"; };
+		6AC13C950EC662A7004146A4 /* SearchTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableCellView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -136,6 +153,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6AC137470EBE216E004146A4 /* PlaylistView.xib */,
 				6AC1381B0EBF9585004146A4 /* BoomboxView.xib */,
+				6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -191,6 +209,8 @@
 			children = (
 				28D7ACF60DDB3853001CB0EB /* SearchViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* SearchViewController.m */,
+				6AC13C940EC662A7004146A4 /* SearchTableCellView.h */,
+				6AC13C950EC662A7004146A4 /* SearchTableCellView.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -218,6 +238,12 @@
 		6AC138580EBF9B63004146A4 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6AC13C840EC660CF004146A4 /* speaker.png */,
+				6AC13C7A0EC660BF004146A4 /* add_small.png */,
+				6AC13C7B0EC660BF004146A4 /* buy_small.png */,
+				6AC13C7C0EC660BF004146A4 /* check_small.png */,
+				6AC13C7D0EC660BF004146A4 /* play_small.png */,
+				6AC13C7E0EC660BF004146A4 /* stop_small.png */,
 				6AC13BC10EC4C083004146A4 /* main-nobuttons.png */,
 				6AC13BC20EC4C083004146A4 /* pause.png */,
 				6AC13B580EC4B783004146A4 /* buy.png */,
@@ -296,6 +322,13 @@
 				6AC13B610EC4B783004146A4 /* search.png in Resources */,
 				6AC13BC30EC4C083004146A4 /* main-nobuttons.png in Resources */,
 				6AC13BC40EC4C083004146A4 /* pause.png in Resources */,
+				6AC13C7F0EC660BF004146A4 /* add_small.png in Resources */,
+				6AC13C800EC660BF004146A4 /* buy_small.png in Resources */,
+				6AC13C810EC660BF004146A4 /* check_small.png in Resources */,
+				6AC13C820EC660BF004146A4 /* play_small.png in Resources */,
+				6AC13C830EC660BF004146A4 /* stop_small.png in Resources */,
+				6AC13C850EC660CF004146A4 /* speaker.png in Resources */,
+				6AC13C870EC661CF004146A4 /* SearchTableCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +347,7 @@
 				6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */,
 				6AC1381A0EBF9575004146A4 /* BoomboxViewController.m in Sources */,
 				6AC138680EBF9C19004146A4 /* ControlsView.m in Sources */,
+				6AC13C960EC662A7004146A4 /* SearchTableCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
