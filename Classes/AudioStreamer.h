@@ -52,5 +52,6 @@
 - (id)initWithURL:(NSURL *)newURL;
 - (void)start;
 - (void)stop;
+- (NSURL*)getUrl;
 
 @end

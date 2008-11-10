@@ -105,10 +105,11 @@
 
 - (void)playSong:(id)sender {
 	UIButton *senderButton = (UIButton*) sender;
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
+	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	
 	if (appDelegate.songIndexOfPlaylistCurrentlyPlaying == senderButton.tag) {
-		NSLog(@"appDelegate songindexplaying (%d) == senderbutton.tag (%d)", appDelegate.songIndexOfPlaylistCurrentlyPlaying, senderButton.tag);
+		// stop the stream and switch back to the play button
 		[((BoomboxViewController*) self.parentViewController).streamer stop];
 		[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
@@ -125,18 +126,17 @@
 		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		[((BoomboxViewController*) self.parentViewController).streamer start];	
 		
-		// TODO: need to set the delegate's variables so that it knows that the playlist is playing.
-		//SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+		// set the delegate's variables so that it knows that the playlist is playing.
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = senderButton.tag;
 		
-		// change image
+		// change image to the stop button
 		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
 		
 		// change any other image in any other row to the default play button
 		NSArray *visibleCells = [theTableView visibleCells];
 		NSUInteger i, count = [visibleCells count];
 		for (i = 0; i < count; i++) {
-			SearchTableCellView * cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
 			if (i != senderButton.tag) {
 				[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
 			}

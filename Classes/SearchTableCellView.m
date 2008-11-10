@@ -29,6 +29,9 @@
     return self;
 }
 
+- (NSString*)songLocation {
+	return [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
 
 - (void)setCellData:(BlipSong*)mySong {
 	self.song = mySong;

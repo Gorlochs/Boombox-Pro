@@ -484,4 +484,8 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 	[self stop];
 }
 
+- (NSURL*)getUrl {
+	return url;
+}
+
 @end

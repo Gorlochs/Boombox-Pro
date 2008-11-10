@@ -136,7 +136,16 @@ char *rand_str(char *dst)
 	cell.playButton.tag = indexPath.row;
 	cell.buyButton.tag = indexPath.row;
 	cell.addToPlaylistButton.tag = indexPath.row;
-	//cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+	
+	// check to see if the song is playing.  if so, then change the icon to the stop button
+	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:cell.songLocation]) {
+		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+	}
+	
+	// check to see if the song was added to the playlist.  if so, change image to check mark
+	if ([appDelegate.playlist indexOfObject:song] != NSNotFound) {
+		[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
+	}
 	
 	return cell;
 }
