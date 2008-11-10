@@ -133,6 +133,14 @@
 		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
 		
 		// change any other image in any other row to the default play button
+		NSArray *visibleCells = [theTableView visibleCells];
+		NSUInteger i, count = [visibleCells count];
+		for (i = 0; i < count; i++) {
+			SearchTableCellView * cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+			if (i != senderButton.tag) {
+				[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
+			}
+		}
 	}
 }
 
