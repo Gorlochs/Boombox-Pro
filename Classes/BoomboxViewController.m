@@ -10,7 +10,7 @@
 #import "ControlsView.h"
 #import "BlipSong.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
-
+#import <QuartzCore/CoreAnimation.h>
 
 @implementation BoomboxViewController
 
@@ -49,7 +49,29 @@
 		// Rotate the view 90 degrees around its new center point. 
 		transform = CGAffineTransformRotate(transform, (M_PI / 2.0)); 
 		self.view.transform = transform; 
-	} 
+	}
+	
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	CGRect frame2 = [controlsView frame];
+	controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+	controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
+	[CATransaction commit];
+	
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+	
+	CABasicAnimation *animation;
+	animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+	animation.duration=0.1;
+	animation.repeatCount=20;
+	animation.autoreverses=YES;
+	animation.fromValue=[NSNumber numberWithFloat:1.0];
+	animation.toValue=[NSNumber numberWithFloat:0.95];
+	[controlsView.layer addAnimation:animation forKey:@"animateScale"];
+	
+	[CATransaction commit];
 }
 
 - (void)viewDidAppear {
@@ -121,9 +143,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
 						change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqual:@"finished"]) {
-		NSLog(@"***** 'finished' KVO - finished value is %@", [(AudioStreamer *)object finished]);
-	} else if ([keyPath isEqual:@"isPlaying"]) {
+	if ([keyPath isEqual:@"isPlaying"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		if ([(AudioStreamer *)object isPlaying]) {

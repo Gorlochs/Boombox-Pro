@@ -16,6 +16,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SearchViewController.m */; };
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
+		6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */; };
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
@@ -47,7 +48,6 @@
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
 		C9C2D8820EB6E0DB00A3D071 /* stopbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */; };
 		C9C2D8C90EB6E30000A3D071 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C2D8C80EB6E30000A3D071 /* AudioToolbox.framework */; };
-		C9C2D8CE0EB6E31200A3D071 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C2D8CD0EB6E31200A3D071 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +65,7 @@
 		32CA4F630368D1EE00C91783 /* iPhoneStreamingPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayer_Prefix.pch; sourceTree = "<group>"; };
 		6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlipSong.h; sourceTree = "<group>"; };
 		6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlipSong.m; sourceTree = "<group>"; };
+		6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbutton.png; sourceTree = "<group>"; };
 		C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopbutton.png; sourceTree = "<group>"; };
 		C9C2D8C80EB6E30000A3D071 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
-		C9C2D8CD0EB6E31200A3D071 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +114,8 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				C9C2D8C90EB6E30000A3D071 /* AudioToolbox.framework in Frameworks */,
-				C9C2D8CE0EB6E31200A3D071 /* QuartzCore.framework in Frameworks */,
 				6AC139C50EC35700004146A4 /* libsqlite3.0.dylib in Frameworks */,
+				6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,8 +183,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */,
 				6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */,
-				C9C2D8CD0EB6E31200A3D071 /* QuartzCore.framework */,
 				C9C2D8C80EB6E30000A3D071 /* AudioToolbox.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -359,6 +359,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -373,6 +377,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
