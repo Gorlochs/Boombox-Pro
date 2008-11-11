@@ -71,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
+	//NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
     return [appDelegate.playlist count];
 }
 
@@ -100,6 +100,8 @@
 	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	cell.playButton.tag = indexPath.row;
 	
+	// TODO: imitate SearchViewController and make sure the stop/play buttons are correct for all rows during scrolling
+	
     return cell;
 }
 
@@ -123,6 +125,7 @@
 			[((BoomboxViewController*) self.parentViewController).streamer stop];
 		}
 		((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
+		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"finished" options:0 context:nil];
 		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		[((BoomboxViewController*) self.parentViewController).streamer start];	
 		
@@ -137,7 +140,7 @@
 		NSUInteger i, count = [visibleCells count];
 		for (i = 0; i < count; i++) {
 			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
-			if (i != senderButton.tag) {
+			if (![cell.songLocation isEqualToString:streamUrl]) {
 				[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
 			}
 		}

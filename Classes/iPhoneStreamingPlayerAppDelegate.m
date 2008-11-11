@@ -120,7 +120,7 @@
                 // retained by the books array.
 				BlipSong *song = [[BlipSong alloc] initWithPrimaryKey:primaryKey database:database];
                 [playlist addObject:song];
-				NSLog(@"initialized playlist from the database: %@", playlist);
+				//NSLog(@"initialized playlist from the database: %@", playlist);
                 [song release];
             }
         } else {

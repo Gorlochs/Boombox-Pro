@@ -48,6 +48,7 @@
 }
 
 @property bool isPlaying;
+@property bool finished;
 
 - (id)initWithURL:(NSURL *)newURL;
 - (void)start;

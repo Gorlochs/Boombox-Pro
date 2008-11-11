@@ -7,6 +7,7 @@
 //
 
 #import "AudioStreamer.h"
+#import "iPhoneStreamingPlayerAppDelegate.h"
 
 #define PRINTERROR(LABEL)	printf("%s err %4.4s %d\n", LABEL, (char *)&err, (int)err)
 
@@ -252,6 +253,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 @implementation AudioStreamer
 
 @synthesize isPlaying;
+@synthesize finished;
 
 //
 // initWithURL
@@ -282,6 +284,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 - (void)startInternal
 {
+	NSLog(@"startInternal...");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	AudioFileTypeID fileTypeHint = 0;
@@ -330,6 +333,8 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	NSLog(@"startInternal request: %@", request);
+	NSLog(@"startInternal connection: %@", connection);
 	
 	do
 	{
@@ -340,6 +345,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 		
 		if (failed)
 		{
+			NSLog(@"startInternal failed");
 			[self stop];
 
 #ifdef TARGET_OS_IPHONE			
@@ -393,14 +399,17 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 - (void)stop
 {
+	NSLog(@"streamer.stop() called");
 	if (connection)
 	{
+		NSLog(@"inside stop() - connection == true");
 		[connection cancel];
 		[connection release];
 		connection = nil;
 		
 		if (started && !finished)
 		{
+			NSLog(@"started && !finished");
 			finished = true;
 			
 			OSStatus err = AudioQueueStop(audioQueue, true);
@@ -412,6 +421,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 		}
 		else
 		{
+			NSLog(@"else");
 			self.isPlaying = true;
 			self.isPlaying = false;
 			finished = true;
@@ -421,6 +431,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse
 {
+	NSLog(@"connection:willCacheResponse");
 	return nil;
 }
 
@@ -475,8 +486,6 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 	[connection release];
 	connection = nil;
-	
-	NSLog(@"connectionDidFinishLoading and connection set to nil");
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error

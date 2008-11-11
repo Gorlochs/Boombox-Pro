@@ -121,29 +121,50 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
 						change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqual:@"isPlaying"])
-	{
+	if ([keyPath isEqual:@"finished"]) {
+		NSLog(@"***** 'finished' KVO - finished value is %@", [(AudioStreamer *)object finished]);
+	} else if ([keyPath isEqual:@"isPlaying"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		if ([(AudioStreamer *)object isPlaying])
-		{
+		if ([(AudioStreamer *)object isPlaying]) {
 			//			[self
 			//				performSelector:@selector(setButtonImage:)
 			//				onThread:[NSThread mainThread]
 			//				withObject:[UIImage imageNamed:@"stopbutton.png"]
 			//				waitUntilDone:NO];
-		}
-		else
-		{
-			[streamer removeObserver:self forKeyPath:@"isPlaying"];
-			[streamer release];
-			streamer = nil;
+		} else {
+//			[streamer removeObserver:self forKeyPath:@"isPlaying"];
+//			[streamer release];
+//			streamer = nil;
+			NSLog(@"observeValueForKeyPath - else statement, releasing streamer");
 			
 			//			[self
 			//				performSelector:@selector(setButtonImage:)
 			//				onThread:[NSThread mainThread]
 			//				withObject:[UIImage imageNamed:@"playbutton.png"]
 			//				waitUntilDone:NO];
+			
+			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
+			iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+			if (appDelegate.songIndexOfPlaylistCurrentlyPlaying > -1) {
+				NSLog(@"currently playing > -1");
+				if (appDelegate.songIndexOfPlaylistCurrentlyPlaying != [appDelegate.playlist count] - 1) {
+					NSLog(@"another song detected - getting ready to play!");
+					// start streamer for next song
+					appDelegate.songIndexOfPlaylistCurrentlyPlaying++;
+					BlipSong *nextSong = [appDelegate.playlist objectAtIndex:appDelegate.songIndexOfPlaylistCurrentlyPlaying];
+					NSLog(@"next playlist song: %@", nextSong.title);
+					NSLog(@"next playlist song location: %@", nextSong.location);
+					[streamer stop];
+					streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
+					[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+					[streamer start];
+				} else {
+					NSLog(@"last song, nothing else left to play");
+					// allow streamer to stop and reset index
+					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
+				}
+			}
 		}
 		
 		[pool release];
@@ -153,7 +174,5 @@
 	[super observeValueForKeyPath:keyPath ofObject:object change:change
 						  context:context];
 }
-
-
 
 @end
