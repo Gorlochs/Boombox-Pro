@@ -31,6 +31,9 @@
 		6AC0D2F60ECA52DB009F6BBD /* left_spkr.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2E90ECA52DB009F6BBD /* left_spkr.png */; };
 		6AC0D2F70ECA52DB009F6BBD /* right_spkr.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2EA0ECA52DB009F6BBD /* right_spkr.png */; };
 		6AC0D3130ECA5635009F6BBD /* SpeakerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC0D3120ECA5635009F6BBD /* SpeakerView.m */; };
+		6AC0D3F60ECB43CE009F6BBD /* libAdMobDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */; };
+		6AC0D3F70ECB43CE009F6BBD /* libAdMobSimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */; };
+		6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */; };
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
@@ -95,6 +98,11 @@
 		6AC0D2EA0ECA52DB009F6BBD /* right_spkr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_spkr.png; sourceTree = "<group>"; };
 		6AC0D3110ECA5635009F6BBD /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerView.h; sourceTree = "<group>"; };
 		6AC0D3120ECA5635009F6BBD /* SpeakerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakerView.m; sourceTree = "<group>"; };
+		6AC0D3F20ECB43CE009F6BBD /* AdMobDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobDelegateProtocol.h; sourceTree = "<group>"; };
+		6AC0D3F30ECB43CE009F6BBD /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
+		6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobDevice.a; sourceTree = "<group>"; };
+		6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobSimulator.a; sourceTree = "<group>"; };
+		6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
@@ -145,6 +153,9 @@
 				C9C2D8C90EB6E30000A3D071 /* AudioToolbox.framework in Frameworks */,
 				6AC139C50EC35700004146A4 /* libsqlite3.0.dylib in Frameworks */,
 				6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */,
+				6AC0D3F60ECB43CE009F6BBD /* libAdMobDevice.a in Frameworks */,
+				6AC0D3F70ECB43CE009F6BBD /* libAdMobSimulator.a in Frameworks */,
+				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +165,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6AC0D3F10ECB43B7009F6BBD /* AdMob */,
 				6AC138170EBF955C004146A4 /* Boombox */,
 				6AC137330EBE1F9E004146A4 /* Playlist */,
 				6AC137320EBE1F97004146A4 /* Search */,
@@ -212,6 +224,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */,
 				6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */,
 				6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */,
 				C9C2D8C80EB6E30000A3D071 /* AudioToolbox.framework */,
@@ -220,6 +233,17 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6AC0D3F10ECB43B7009F6BBD /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				6AC0D3F20ECB43CE009F6BBD /* AdMobDelegateProtocol.h */,
+				6AC0D3F30ECB43CE009F6BBD /* AdMobView.h */,
+				6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */,
+				6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */,
+			);
+			name = AdMob;
 			sourceTree = "<group>";
 		};
 		6AC137310EBE1F82004146A4 /* Support Classes */ = {
@@ -426,6 +450,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Classes\"",
+				);
 				PRODUCT_NAME = iPhoneStreamingPlayer;
 			};
 			name = Debug;
@@ -442,6 +470,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Classes\"",
+				);
 				PRODUCT_NAME = iPhoneStreamingPlayer;
 			};
 			name = Release;
