@@ -6,6 +6,8 @@
 //  Copyright 2008 Nau Inc.. All rights reserved.
 //
 
+#define AD_REFRESH_PERIOD 60.0 // display fresh ads once per minute
+
 #import <UIKit/UIKit.h>
 #import "AdMobDelegateProtocol.h";
 
