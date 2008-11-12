@@ -74,13 +74,13 @@
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace" id="543138924">
+					<object class="NSColorSpace" key="NSCustomColorSpace" id="1032022049">
 						<int key="NSID">2</int>
 					</object>
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 			</object>
-			<object class="IBUIView" id="621612864">
+			<object class="IBUIView" id="239429036">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{480, 48}</string>
@@ -88,7 +88,7 @@
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="543138924"/>
+					<reference key="NSCustomColorSpace" ref="1032022049"/>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
@@ -148,7 +148,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">adMobAd</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="621612864"/>
+						<reference key="destination" ref="239429036"/>
 					</object>
 					<int key="connectionID">16</int>
 				</object>
@@ -215,7 +215,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
-						<reference key="object" ref="621612864"/>
+						<reference key="object" ref="239429036"/>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">AdView</string>
 					</object>

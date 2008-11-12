@@ -325,7 +325,7 @@ char *rand_str(char *dst) {
 	//adMobAd.frame = CGRectMake(0, 350, 320, 48); 
 	
 	CGRect frame = adMobAd.frame;
-	frame.origin.x = 0;
+	frame.origin.x = 80;
 	frame.origin.y = 208;
 	adMobAd.frame = frame;
 	

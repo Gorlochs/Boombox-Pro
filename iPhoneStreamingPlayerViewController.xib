@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="6"/>
+			<integer value="29"/>
 			<integer value="34"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -70,9 +70,8 @@
 						<object class="NSMutableArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIBarButtonItem" id="318226450">
-								<string key="IBUITitle">Item</string>
+								<string key="IBUITitle">Back</string>
 								<int key="IBUIStyle">1</int>
-								<int key="IBUISystemItemIdentifier">1</int>
 								<reference key="IBUIToolbar" ref="541127721"/>
 							</object>
 						</object>
@@ -87,7 +86,7 @@
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 			</object>
-			<object class="IBUIView" id="371546747">
+			<object class="IBUIView" id="798479429">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{320, 48}</string>
@@ -165,7 +164,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">adMobAd</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="371546747"/>
+						<reference key="destination" ref="798479429"/>
 					</object>
 					<int key="connectionID">35</int>
 				</object>
@@ -229,7 +228,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
-						<reference key="object" ref="371546747"/>
+						<reference key="object" ref="798479429"/>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">AdView</string>
 					</object>
