@@ -55,13 +55,11 @@
 	}
 }
 // -----------------------------------------------------------------------------
-- (BOOL)textFieldShouldReturn:(UITextField *)sender
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)sender {
 	return NO;
 }
 // -----------------------------------------------------------------------------
-char *rand_str(char *dst)
-{
+char *rand_str(char *dst) {
 	static const char text[] = "abcdefghijklmnopqrstuvwxyz"
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int i;
@@ -202,8 +200,7 @@ char *rand_str(char *dst)
 	//	NSLog(@"found file and started parsing");
 }
 // -----------------------------------------------------------------------------
-- (void)parseXMLFileAtURL:(NSString *)URL
-{
+- (void)parseXMLFileAtURL:(NSString *)URL {
 	// always start with a fresh, empty array
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	appDelegate.songs = [[NSMutableArray alloc] init];
@@ -286,6 +283,10 @@ char *rand_str(char *dst)
 	
 	[theTableView reloadData];
 	[theTableView setHidden:NO];
+	
+	unsigned indexes[2] = {0,0};
+	[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	
 	//	[bigSpinner stopAnimating];
 }
 
