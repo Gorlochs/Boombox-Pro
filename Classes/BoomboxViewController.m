@@ -26,8 +26,8 @@
 - (void)viewDidLoad {
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
-	frame.origin.x = 114;
-	frame.origin.y = self.view.frame.size.height - 235;
+	frame.origin.x = 110;
+	frame.origin.y = self.view.frame.size.height - 241;
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:controlsView];
