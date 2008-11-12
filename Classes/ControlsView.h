@@ -10,7 +10,9 @@
 
 
 @interface ControlsView : UIView {
-
+	UIButton *playButton;
 }
+
+@property (nonatomic, retain) IBOutlet UIButton *playButton;
 
 @end

@@ -123,6 +123,14 @@
 	}
 }
 
+- (IBAction)stopStream {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
+	[streamer stop];
+	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
+//	[streamer removeObserver:@"isPlaying"];
+}
+
 #pragma mark Audio Streaming Functions
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
@@ -162,6 +170,8 @@
 //			[speakerView.layer addAnimation:animation2 forKey:@"animateOpacity"];
 			
 			[CATransaction commit];
+			
+			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 			//			[self
 			//				performSelector:@selector(setButtonImage:)
 			//				onThread:[NSThread mainThread]
@@ -201,6 +211,7 @@
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 					[speakerView.layer removeAnimationForKey:@"animateScale"];
 					//[speakerView.layer removeAnimationForKey:@"animateOpacity"];
+					[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 				}
 			}
 		}

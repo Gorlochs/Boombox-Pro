@@ -38,5 +38,6 @@
 - (IBAction)playAction:(id)sender;
 - (IBAction)displaySearchViewAction:(id)sender;
 - (IBAction)displayPlaylistViewAction:(id)sender;
+- (IBAction)stopStream;
 
 @end
