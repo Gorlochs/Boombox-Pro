@@ -21,6 +21,10 @@ static sqlite3_stmt *dehydrate_statement = nil;
 @synthesize location;
 @synthesize artist;
 
+- (NSString*)constructTitleArtist {
+	return [NSString stringWithFormat:@"%@ - %@", [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], [artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+}
+
 // Finalize (delete) all of the SQLite compiled queries.
 + (void)finalizeStatements {
     if (insert_statement) {

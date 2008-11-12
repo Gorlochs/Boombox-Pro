@@ -14,7 +14,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, leftButton, rightButton, songLabel, streamer;
+@synthesize controlsView, speakerView, leftButton, rightButton, songLabel, streamer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -26,12 +26,19 @@
 - (void)viewDidLoad {
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
-	frame.origin.x = 100;
-	frame.origin.y = self.view.frame.size.height - 395;
+	frame.origin.x = 114;
+	frame.origin.y = self.view.frame.size.height - 235;
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
-	
 	[self.view addSubview:controlsView];
+	
+	// determine the size of SpeakerView
+	CGRect frame2 = speakerView.frame;
+	frame2.origin.x = 0;
+	frame2.origin.y = self.view.frame.size.height - 430;
+	speakerView.frame = frame2;
+	speakerView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:speakerView];
 	
 	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
 	UIInterfaceOrientation orientation=[[UIApplication sharedApplication] statusBarOrientation]; 
@@ -50,28 +57,6 @@
 		transform = CGAffineTransformRotate(transform, (M_PI / 2.0)); 
 		self.view.transform = transform; 
 	}
-	
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-	CGRect frame2 = [controlsView frame];
-	controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-	controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
-	[CATransaction commit];
-	
-	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
-	
-	CABasicAnimation *animation;
-	animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
-	animation.duration=0.1;
-	animation.repeatCount=20;
-	animation.autoreverses=YES;
-	animation.fromValue=[NSNumber numberWithFloat:1.0];
-	animation.toValue=[NSNumber numberWithFloat:0.95];
-	[controlsView.layer addAnimation:animation forKey:@"animateScale"];
-	
-	[CATransaction commit];
 }
 
 - (void)viewDidAppear {
@@ -147,6 +132,36 @@
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		if ([(AudioStreamer *)object isPlaying]) {
+			[CATransaction begin];
+			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+			CGRect frame2 = [controlsView frame];
+			controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+			controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
+			[CATransaction commit];
+			
+			[CATransaction begin];
+			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+			[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+			
+			CABasicAnimation *animation;
+			animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+			animation.duration=0.05;
+			animation.repeatCount=1e100f;
+			animation.autoreverses=YES;
+			animation.fromValue=[NSNumber numberWithFloat:1.0];
+			animation.toValue=[NSNumber numberWithFloat:0.99];
+			[speakerView.layer addAnimation:animation forKey:@"animateScale"];
+			
+//			CABasicAnimation *animation2;
+//			animation2=[CABasicAnimation animationWithKeyPath:@"opacity"];
+//			animation2.duration=0.05;
+//			animation2.repeatCount=1e100f;
+//			animation2.autoreverses=YES;
+//			animation2.fromValue=[NSNumber numberWithFloat:1.0];
+//			animation2.toValue=[NSNumber numberWithFloat:0.9];
+//			[speakerView.layer addAnimation:animation2 forKey:@"animateOpacity"];
+			
+			[CATransaction commit];
 			//			[self
 			//				performSelector:@selector(setButtonImage:)
 			//				onThread:[NSThread mainThread]
@@ -156,7 +171,7 @@
 //			[streamer removeObserver:self forKeyPath:@"isPlaying"];
 //			[streamer release];
 //			streamer = nil;
-			NSLog(@"observeValueForKeyPath - else statement, releasing streamer");
+			NSLog(@"observeValueForKeyPath - else statement");
 			
 			//			[self
 			//				performSelector:@selector(setButtonImage:)
@@ -182,7 +197,10 @@
 				} else {
 					NSLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
+					[streamer stop];
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
+					[speakerView.layer removeAnimationForKey:@"animateScale"];
+					//[speakerView.layer removeAnimationForKey:@"animateOpacity"];
 				}
 			}
 		}

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ControlsView.h"
+#import "SpeakerView.h"
 #import "SearchViewController.h"
 #import "PlaylistViewController.h"
 #import "AudioStreamer.h"
@@ -18,6 +19,7 @@
 	AudioStreamer *streamer;
 	
 	ControlsView *controlsView;
+	SpeakerView *speakerView;
 	UIButton *leftButton;
 	UIButton *rightButton;
 	UILabel *songLabel;
@@ -27,6 +29,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
+@property (nonatomic, retain) IBOutlet SpeakerView *speakerView;
 @property (nonatomic, retain) IBOutlet UIButton *leftButton;
 @property (nonatomic, retain) IBOutlet UIButton *rightButton;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
