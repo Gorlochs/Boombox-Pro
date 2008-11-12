@@ -128,6 +128,7 @@
 	appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 	[streamer stop];
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
+	[speakerView.layer removeAnimationForKey:@"animateScale"];
 //	[streamer removeObserver:@"isPlaying"];
 }
 
@@ -213,6 +214,9 @@
 					//[speakerView.layer removeAnimationForKey:@"animateOpacity"];
 					[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 				}
+			} else {
+				// this is a just-in-case: i'm not 100% sure it's needed
+				[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 			}
 		}
 		
