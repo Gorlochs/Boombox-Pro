@@ -173,6 +173,8 @@ char *rand_str(char *dst) {
 	//NSLog(@"tag number: %@", [sender parentViewController]);
 	UIView *senderButton = (UIView*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
+	BlipSong *songToPlay = [appDelegate.songs objectAtIndex:senderButton.tag];
 	
 	NSString *streamUrl = [cell.songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSLog(@"chosen stream: %@", streamUrl);
@@ -184,6 +186,7 @@ char *rand_str(char *dst) {
 	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
 	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 	[((BoomboxViewController*) self.parentViewController).streamer start];
+	((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 	
 	[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
 }
@@ -326,7 +329,7 @@ char *rand_str(char *dst) {
 	
 	CGRect frame = adMobAd.frame;
 	frame.origin.x = 80;
-	frame.origin.y = 208;
+	frame.origin.y = 256;
 	adMobAd.frame = frame;
 	
 	adMobAd.backgroundColor = [UIColor blueColor];

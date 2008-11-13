@@ -20,8 +20,6 @@
 	
 	ControlsView *controlsView;
 	SpeakerView *speakerView;
-	UIButton *leftButton;
-	UIButton *rightButton;
 	UILabel *songLabel;
 	
 	SearchViewController *searchViewController;
@@ -30,8 +28,6 @@
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
 @property (nonatomic, retain) IBOutlet SpeakerView *speakerView;
-@property (nonatomic, retain) IBOutlet UIButton *leftButton;
-@property (nonatomic, retain) IBOutlet UIButton *rightButton;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
 @property (nonatomic, retain) AudioStreamer *streamer;
 

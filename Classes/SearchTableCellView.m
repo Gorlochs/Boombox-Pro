@@ -23,8 +23,8 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
         // Initialization code
-		//self.backgroundColor = [UIColor redColor];
-		//[playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+		songTitleLabel.font = [UIFont systemFontOfSize:14];
+		songTitleLabel.textColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1.0];
     }
     return self;
 }

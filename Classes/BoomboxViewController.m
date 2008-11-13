@@ -14,7 +14,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, speakerView, leftButton, rightButton, songLabel, streamer;
+@synthesize controlsView, speakerView, songLabel, streamer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -82,8 +82,6 @@
 	[searchViewController release];
 	[playlistController release];
 	
-	[leftButton release];
-	[rightButton release];
 	[controlsView release];
 	
     [super dealloc];
@@ -101,6 +99,7 @@
 	[self presentModalViewController:playlistController animated:YES];
 }
 
+// TODO: check to see if this method is used anymore.  I'm pretty sure it isn't
 // plays a single song that was chosen on the Search page
 - (IBAction)playAction:(id)sender {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -117,7 +116,8 @@
 			[streamer stop];
 		}
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" 
+													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	}
@@ -135,12 +135,14 @@
 #pragma mark Audio Streaming Functions
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-						change:(NSDictionary *)change context:(void *)context
-{
+						change:(NSDictionary *)change context:(void *)context {
+	
+	// detects if the stream is playing a stream or not
 	if ([keyPath isEqual:@"isPlaying"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		if ([(AudioStreamer *)object isPlaying]) {
+			// a stream has started playing
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 			CGRect frame2 = [controlsView frame];
@@ -161,34 +163,15 @@
 			animation.toValue=[NSNumber numberWithFloat:0.99];
 			[speakerView.layer addAnimation:animation forKey:@"animateScale"];
 			
-//			CABasicAnimation *animation2;
-//			animation2=[CABasicAnimation animationWithKeyPath:@"opacity"];
-//			animation2.duration=0.05;
-//			animation2.repeatCount=1e100f;
-//			animation2.autoreverses=YES;
-//			animation2.fromValue=[NSNumber numberWithFloat:1.0];
-//			animation2.toValue=[NSNumber numberWithFloat:0.9];
-//			[speakerView.layer addAnimation:animation2 forKey:@"animateOpacity"];
-			
 			[CATransaction commit];
 			
 			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
-			//			[self
-			//				performSelector:@selector(setButtonImage:)
-			//				onThread:[NSThread mainThread]
-			//				withObject:[UIImage imageNamed:@"stopbutton.png"]
-			//				waitUntilDone:NO];
 		} else {
+			// the stream has ended
+			
 //			[streamer removeObserver:self forKeyPath:@"isPlaying"];
 //			[streamer release];
 //			streamer = nil;
-			NSLog(@"observeValueForKeyPath - else statement");
-			
-			//			[self
-			//				performSelector:@selector(setButtonImage:)
-			//				onThread:[NSThread mainThread]
-			//				withObject:[UIImage imageNamed:@"playbutton.png"]
-			//				waitUntilDone:NO];
 			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -224,8 +207,7 @@
 		return;
 	}
 	
-	[super observeValueForKeyPath:keyPath ofObject:object change:change
-						  context:context];
+	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 @end
