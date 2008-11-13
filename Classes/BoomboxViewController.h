@@ -11,6 +11,7 @@
 #import "SpeakerView.h"
 #import "SearchViewController.h"
 #import "PlaylistViewController.h"
+#import "BuySongListViewController.h"
 #import "AudioStreamer.h"
 
 @class AudioStreamer;
@@ -24,6 +25,7 @@
 	
 	SearchViewController *searchViewController;
 	PlaylistViewController *playlistController;
+	BuySongListViewController *buySongListController;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
@@ -34,6 +36,7 @@
 - (IBAction)playAction:(id)sender;
 - (IBAction)displaySearchViewAction:(id)sender;
 - (IBAction)displayPlaylistViewAction:(id)sender;
+- (IBAction)displayBuyViewAction:(id)sender;
 - (IBAction)stopStream;
 
 @end
