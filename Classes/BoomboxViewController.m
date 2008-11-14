@@ -14,7 +14,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, speakerView, songLabel, streamer;
+@synthesize controlsView, speakerView, equalizerView, songLabel, streamer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -39,6 +39,14 @@
 	speakerView.frame = frame2;
 	speakerView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:speakerView];
+	
+	// determine the size of EqualizerView
+	CGRect frame3 = equalizerView.frame;
+	frame3.origin.x = 185;
+	frame3.origin.y = self.view.frame.size.height - 361;
+	equalizerView.frame = frame3;
+	equalizerView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:equalizerView];
 	
 	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
 	UIInterfaceOrientation orientation=[[UIApplication sharedApplication] statusBarOrientation]; 
@@ -173,11 +181,12 @@
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
 			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-			CGRect frame2 = [controlsView frame];
-			controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-			controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
-			[CATransaction commit];
+//			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+			
+//			CGRect frame2 = [controlsView frame];
+//			controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+//			controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
+//			[CATransaction commit];
 			
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
@@ -192,7 +201,10 @@
 			animation.toValue=[NSNumber numberWithFloat:0.99];
 			[speakerView.layer addAnimation:animation forKey:@"animateScale"];
 			
+			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
+			
 			[CATransaction commit];
+			
 			
 			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 		} else {
@@ -237,6 +249,26 @@
 	}
 	
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+# pragma mark Equilizer Animation
+- (CAKeyframeAnimation*)imagesAnimation;
+{
+    CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
+    [anim setDuration:5.0];
+    if( !images ) {        
+        images = [[NSMutableArray alloc] initWithCapacity:32];
+		
+		for (int i = 1; i < 33; i++) {
+			[images addObject:[[UIImage imageWithContentsOfFile: [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"eq%d", i] ofType:@"png"]] CGImage]];
+		}
+        
+        [anim setCalculationMode:kCAAnimationDiscrete];
+        [anim setRepeatCount:1e100f];
+		
+        [anim setValues:images];
+    }
+    return anim;
 }
 
 @end

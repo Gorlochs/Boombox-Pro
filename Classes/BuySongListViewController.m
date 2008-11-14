@@ -87,6 +87,7 @@
 	if (self.searchResults) {
 		//NSLog(@"results: %@", [searchResults objectAtIndex:1]);
 		NSLog(@"row: %d", indexPath.row);
+		NSLog(@"results: %@", [self.searchResults objectAtIndex:indexPath.row]);
 		//NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 		[buyCell setBuyInfo:[self.searchResults objectAtIndex:indexPath.row]];
 //		cell.text = [obj objectForKey:@"trackName"];
@@ -118,9 +119,9 @@
 	if (error) {
 		NSLog(@"error with JSON conversion: %@", error);
 	}
-//	for (id key in dictionary) {
-//		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
-//	}
+	for (id key in dictionary) {
+		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
+	}
 	self.searchResults = (NSMutableArray*) [dictionary objectForKey:@"results"];
 	[theTableView reloadData];
 }

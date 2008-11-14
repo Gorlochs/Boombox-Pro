@@ -85,6 +85,7 @@
 		6AC0D9200ECD5CAC009F6BBD /* image-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D9180ECD5CAC009F6BBD /* image-6.png */; };
 		6AC0D9210ECD5CAC009F6BBD /* image-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D9190ECD5CAC009F6BBD /* image-7.png */; };
 		6AC0D9220ECD5CAC009F6BBD /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D91A0ECD5CAC009F6BBD /* image.png */; };
+		6AC0D9FC0ECDF6A1009F6BBD /* EqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC0D9FB0ECDF6A1009F6BBD /* EqualizerView.m */; };
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
@@ -214,6 +215,8 @@
 		6AC0D9180ECD5CAC009F6BBD /* image-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-6.png"; sourceTree = "<group>"; };
 		6AC0D9190ECD5CAC009F6BBD /* image-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-7.png"; sourceTree = "<group>"; };
 		6AC0D91A0ECD5CAC009F6BBD /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
+		6AC0D9FA0ECDF6A1009F6BBD /* EqualizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualizerView.h; sourceTree = "<group>"; };
+		6AC0D9FB0ECDF6A1009F6BBD /* EqualizerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualizerView.m; sourceTree = "<group>"; };
 		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
@@ -503,6 +506,8 @@
 				6AC138670EBF9C19004146A4 /* ControlsView.m */,
 				6AC0D3110ECA5635009F6BBD /* SpeakerView.h */,
 				6AC0D3120ECA5635009F6BBD /* SpeakerView.m */,
+				6AC0D9FA0ECDF6A1009F6BBD /* EqualizerView.h */,
+				6AC0D9FB0ECDF6A1009F6BBD /* EqualizerView.m */,
 			);
 			name = Boombox;
 			sourceTree = "<group>";
@@ -700,6 +705,7 @@
 				6AC0D6080ECCB9EC009F6BBD /* CJSONDeserializer.m in Sources */,
 				6AC0D6090ECCB9EC009F6BBD /* CDataScanner.m in Sources */,
 				6AC0D7E30ECD100F009F6BBD /* BuyTableCellView.m in Sources */,
+				6AC0D9FC0ECDF6A1009F6BBD /* EqualizerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
