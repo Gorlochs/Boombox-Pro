@@ -93,13 +93,13 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="854205653">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="112463547">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">image-12.png</string>
+									<string key="NSResourceName">image-6.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="854205653"/>
-								<reference key="IBUISelectedImage" ref="854205653"/>
-								<reference key="IBUINormalImage" ref="854205653"/>
+								<reference key="IBUIDisabledImage" ref="112463547"/>
+								<reference key="IBUISelectedImage" ref="112463547"/>
+								<reference key="IBUINormalImage" ref="112463547"/>
 							</object>
 							<object class="IBUIButton" id="853756995">
 								<reference key="NSNextResponder" ref="939158439"/>
@@ -120,13 +120,13 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="271419528">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="734423506">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">image-4.png</string>
+									<string key="NSResourceName">image-5.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="271419528"/>
-								<reference key="IBUISelectedImage" ref="271419528"/>
-								<reference key="IBUINormalImage" ref="271419528"/>
+								<reference key="IBUIDisabledImage" ref="734423506"/>
+								<reference key="IBUISelectedImage" ref="734423506"/>
+								<reference key="IBUINormalImage" ref="734423506"/>
 							</object>
 							<object class="IBUIButton" id="245866779">
 								<reference key="NSNextResponder" ref="939158439"/>
@@ -147,15 +147,15 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="957799565">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="813316326">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">image-6.png</string>
+									<string key="NSResourceName">image-7.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="957799565"/>
-								<reference key="IBUISelectedImage" ref="957799565"/>
-								<reference key="IBUINormalImage" ref="957799565"/>
+								<reference key="IBUIDisabledImage" ref="813316326"/>
+								<reference key="IBUISelectedImage" ref="813316326"/>
+								<reference key="IBUINormalImage" ref="813316326"/>
 							</object>
-							<object class="IBUIImageView" id="759570419">
+							<object class="IBUIImageView" id="1025627543">
 								<reference key="NSNextResponder" ref="939158439"/>
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{-159, 3}, {480, 44}}</string>
@@ -248,7 +248,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">backgroundView</string>
 						<reference key="source" ref="938884696"/>
-						<reference key="destination" ref="759570419"/>
+						<reference key="destination" ref="1025627543"/>
 					</object>
 					<int key="connectionID">19</int>
 				</object>
@@ -285,7 +285,7 @@
 							<reference ref="245866779"/>
 							<reference ref="853756995"/>
 							<reference ref="1001596237"/>
-							<reference ref="759570419"/>
+							<reference ref="1025627543"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -316,7 +316,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
-						<reference key="object" ref="759570419"/>
+						<reference key="object" ref="1025627543"/>
 						<reference key="parent" ref="938884696"/>
 					</object>
 				</object>

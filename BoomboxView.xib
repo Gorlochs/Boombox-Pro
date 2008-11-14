@@ -40,7 +40,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">boombox-blank2.png</string>
+							<string key="NSResourceName">boombox_blank2.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="492025414">
