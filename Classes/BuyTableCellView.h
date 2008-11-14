@@ -16,6 +16,7 @@
 	UILabel *priceLabel;
 	UIButton *buyButton;
 	NSString *songLocation;
+	UIImageView *albumImage;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *artistLabel;
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *albumLabel;
 @property (nonatomic, retain) IBOutlet UILabel *priceLabel;
 @property (nonatomic, retain) IBOutlet UIButton *buyButton;
+@property (nonatomic, retain) IBOutlet UIImageView *albumImage;
 @property (nonatomic, retain) NSString *songLocation;
 
 - (void)setBuyInfo:(NSMutableDictionary*)songInfo;

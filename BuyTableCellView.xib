@@ -35,7 +35,7 @@
 							<object class="IBUILabel" id="718051067">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 2}, {171, 21}}</string>
+								<string key="NSFrame">{{46, 2}, {171, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -52,7 +52,7 @@
 							<object class="IBUILabel" id="704881888">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 23}, {171, 21}}</string>
+								<string key="NSFrame">{{46, 23}, {171, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -66,7 +66,7 @@
 							<object class="IBUILabel" id="805411812">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{199, 2}, {209, 21}}</string>
+								<string key="NSFrame">{{243, 2}, {178, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -80,7 +80,7 @@
 							<object class="IBUILabel" id="1034631308">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{199, 23}, {209, 21}}</string>
+								<string key="NSFrame">{{243, 23}, {178, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -104,6 +104,16 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">cell-bg.png</string>
 								</object>
+							</object>
+							<object class="IBUIImageView" id="299453062">
+								<reference key="NSNextResponder" ref="414982606"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{0, 7}, {42, 37}}</string>
+								<reference key="NSSuperview" ref="414982606"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<int key="IBUIContentMode">4</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
 							</object>
 						</object>
 						<string key="NSFrameSize">{428, 52}</string>
@@ -180,6 +190,14 @@
 					</object>
 					<int key="connectionID">14</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">albumImage</string>
+						<reference key="source" ref="884347446"/>
+						<reference key="destination" ref="299453062"/>
+					</object>
+					<int key="connectionID">16</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -213,6 +231,7 @@
 							<reference ref="1034631308"/>
 							<reference ref="805411812"/>
 							<reference ref="946516310"/>
+							<reference ref="299453062"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -241,6 +260,11 @@
 						<reference key="object" ref="946516310"/>
 						<reference key="parent" ref="884347446"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">15</int>
+						<reference key="object" ref="299453062"/>
+						<reference key="parent" ref="884347446"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -249,6 +273,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
+					<string>15.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
@@ -261,8 +286,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>BuySongListViewController</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>BuyTableCellView</string>
-					<string>{{583, 219}, {428, 52}}</string>
+					<string>{{547, 528}, {428, 52}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -290,7 +316,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">14</int>
+			<int key="maxID">16</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -318,6 +344,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>albumImage</string>
 							<string>albumLabel</string>
 							<string>artistLabel</string>
 							<string>buyButton</string>
@@ -326,6 +353,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIButton</string>

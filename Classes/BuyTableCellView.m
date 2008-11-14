@@ -17,6 +17,7 @@
 @synthesize priceLabel;
 @synthesize buyButton;
 @synthesize songLocation;
+@synthesize albumImage;
 
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
@@ -36,6 +37,10 @@
 		albumLabel.text = [songInfo objectForKey:@"collectionName"];
 	}
 	priceLabel.text = [[NSString stringWithFormat:@"$%f", [[songInfo objectForKey:@"trackPrice"] floatValue]] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0"]];
+	
+	// display image
+	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[songInfo objectForKey:@"artworkUrl60"]]];
+	albumImage.image = [[UIImage alloc] initWithData:data cache:NO];
 }
 
 

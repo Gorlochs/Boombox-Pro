@@ -139,25 +139,6 @@
 		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 		[streamer start];
 	}
-	
-//	BlipSong *chosenSong = appDelegate.songToPlay;
-//	if (chosenSong != nil) {
-//		if (!streamer) {
-//			NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//			NSLog(@"chosen stream: %@", streamUrl);
-//			NSURL *url = [NSURL URLWithString:streamUrl];
-//			streamer = [[AudioStreamer alloc] initWithURL:url];
-//			[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-//			[streamer start];
-//		} else {
-//			[streamer stop];
-//		}
-//	} else {
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" 
-//													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//		[alert show];
-//		[alert release];
-//	}
 }
 
 - (IBAction)stopStream {
@@ -181,14 +162,7 @@
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
 			[CATransaction begin];
-//			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 			
-//			CGRect frame2 = [controlsView frame];
-//			controlsView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-//			controlsView.layer.position = CGPointMake(frame2.origin.x + 0.5 * frame2.size.width, frame2.origin.y + 0.5 * frame2.size.height);
-//			[CATransaction commit];
-			
-			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
 			[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
 			
@@ -204,7 +178,6 @@
 			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
 			
 			[CATransaction commit];
-			
 			
 			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 		} else {
@@ -251,7 +224,7 @@
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-# pragma mark Equilizer Animation
+# pragma mark Equalizer Animation
 - (CAKeyframeAnimation*)imagesAnimation;
 {
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
