@@ -195,11 +195,11 @@
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying++;
 					BlipSong *nextSong = [appDelegate.playlist objectAtIndex:appDelegate.songIndexOfPlaylistCurrentlyPlaying];
 					NSLog(@"next playlist song: %@", nextSong.title);
-					NSLog(@"next playlist song location: %@", nextSong.location);
 					[streamer stop];
 					streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
 					[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					[streamer start];
+					songLabel.text = [nextSong constructTitleArtist];
 				} else {
 					NSLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
