@@ -30,10 +30,6 @@
 	songTitleLabel.text = [songInfo objectForKey:@"trackName"];
 	albumLabel.text = [songInfo objectForKey:@"collectionName"];
 	priceLabel.text = [[NSString stringWithFormat:@"$%f", [[songInfo objectForKey:@"trackPrice"] floatValue]] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0"]];
-	
-	NSLog(@"trackPrice class: %@", [[songInfo objectForKey:@"trackPrice"] class]);
-	NSLog(@"trackPrice: %f", [[songInfo objectForKey:@"trackPrice"] floatValue]);
-	NSLog(@"songInfo: %@", songInfo);
 }
 
 
