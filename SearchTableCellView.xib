@@ -43,14 +43,11 @@
 								<string key="IBUIText">song title</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC43NQA</bytes>
-									<object class="NSColorSpace" key="NSCustomColorSpace" id="380008754">
-										<int key="NSID">2</int>
-									</object>
+									<bytes key="NSWhite">MC44OTk5OTk5OAA</bytes>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">1.200000e+01</float>
+								<float key="IBUIMinimumFontSize">1.400000e+01</float>
 							</object>
 							<object class="IBUILabel" id="975499727">
 								<reference key="NSNextResponder" ref="939158439"/>
@@ -63,8 +60,7 @@
 								<string key="IBUIText">artist</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4yNQA</bytes>
-									<reference key="NSCustomColorSpace" ref="380008754"/>
+									<bytes key="NSWhite">MC4xAA</bytes>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -97,13 +93,13 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="795248350">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="854205653">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">add_small.png</string>
+									<string key="NSResourceName">image-12.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="795248350"/>
-								<reference key="IBUISelectedImage" ref="795248350"/>
-								<reference key="IBUINormalImage" ref="795248350"/>
+								<reference key="IBUIDisabledImage" ref="854205653"/>
+								<reference key="IBUISelectedImage" ref="854205653"/>
+								<reference key="IBUINormalImage" ref="854205653"/>
 							</object>
 							<object class="IBUIButton" id="853756995">
 								<reference key="NSNextResponder" ref="939158439"/>
@@ -124,13 +120,13 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="753574271">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="271419528">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">buy_small.png</string>
+									<string key="NSResourceName">image-4.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="753574271"/>
-								<reference key="IBUISelectedImage" ref="753574271"/>
-								<reference key="IBUINormalImage" ref="753574271"/>
+								<reference key="IBUIDisabledImage" ref="271419528"/>
+								<reference key="IBUISelectedImage" ref="271419528"/>
+								<reference key="IBUINormalImage" ref="271419528"/>
 							</object>
 							<object class="IBUIButton" id="245866779">
 								<reference key="NSNextResponder" ref="939158439"/>
@@ -151,13 +147,27 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIHighlightedImage" id="378060882">
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="957799565">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">play_small.png</string>
+									<string key="NSResourceName">image-6.png</string>
 								</object>
-								<reference key="IBUIDisabledImage" ref="378060882"/>
-								<reference key="IBUISelectedImage" ref="378060882"/>
-								<reference key="IBUINormalImage" ref="378060882"/>
+								<reference key="IBUIDisabledImage" ref="957799565"/>
+								<reference key="IBUISelectedImage" ref="957799565"/>
+								<reference key="IBUINormalImage" ref="957799565"/>
+							</object>
+							<object class="IBUIImageView" id="759570419">
+								<reference key="NSNextResponder" ref="939158439"/>
+								<int key="NSvFlags">256</int>
+								<string key="NSFrame">{{-159, 3}, {480, 44}}</string>
+								<reference key="NSSuperview" ref="939158439"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">4</int>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">cell-bg.png</string>
+								</object>
 							</object>
 						</object>
 						<string key="NSFrameSize">{481, 44}</string>
@@ -234,6 +244,14 @@
 					</object>
 					<int key="connectionID">16</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">backgroundView</string>
+						<reference key="source" ref="938884696"/>
+						<reference key="destination" ref="759570419"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -267,6 +285,7 @@
 							<reference ref="245866779"/>
 							<reference ref="853756995"/>
 							<reference ref="1001596237"/>
+							<reference ref="759570419"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -295,6 +314,11 @@
 						<reference key="object" ref="245866779"/>
 						<reference key="parent" ref="938884696"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="759570419"/>
+						<reference key="parent" ref="938884696"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -318,7 +342,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>SearchTableCellView</string>
-					<string>{{564, 759}, {481, 44}}</string>
+					<string>{{554, 898}, {481, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -346,7 +370,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">16</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -129,7 +129,7 @@ char *rand_str(char *dst) {
 //		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
 //		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
 		
-		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
+		UIViewController *vc=[[UIViewController alloc] initWithNibName:@"SearchTableCellView" bundle:nil];
 		searchCell = vc.view;
 		[vc release];
 	}

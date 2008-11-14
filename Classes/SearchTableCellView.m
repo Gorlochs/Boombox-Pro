@@ -23,8 +23,6 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
         // Initialization code
-		songTitleLabel.font = [UIFont systemFontOfSize:14];
-		songTitleLabel.textColor = [UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1.0];
     }
     return self;
 }
@@ -34,8 +32,11 @@
 }
 
 - (void)setCellData:(BlipSong*)mySong {
+	songTitleLabel.font = [UIFont systemFontOfSize:18.0];
+	artistLabel.font = [UIFont systemFontOfSize:12.0];
+	
 	self.song = mySong;
-	artistLabel.text = song.artist;
+	artistLabel.text = [song.artist uppercaseString];
 	songTitleLabel.text = song.title;
 	songLocation = song.location;
 }
@@ -46,7 +47,6 @@
 
     // Configure the view for the selected state
 }
-
 
 - (void)dealloc {
 	[artistLabel release];
@@ -59,18 +59,5 @@
 	
     [super dealloc];
 }
-
-//- (void)playSong {
-//	NSString *streamUrl = [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//	NSLog(@"chosen stream: %@", streamUrl);
-//	NSURL *url = [NSURL URLWithString:streamUrl];
-//	
-//	if (((BoomboxViewController*) self.parentViewController).streamer) {
-//		[((BoomboxViewController*) self.parentViewController).streamer stop];
-//	}
-//	((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
-//	[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-//	[((BoomboxViewController*) self.parentViewController).streamer start];
-//}
 
 @end
