@@ -28,7 +28,13 @@
 - (void)setBuyInfo:(NSMutableDictionary*)songInfo {
 	artistLabel.text = [songInfo objectForKey:@"artistName"];
 	songTitleLabel.text = [songInfo objectForKey:@"trackName"];
-	albumLabel.text = [songInfo objectForKey:@"collectionName"];
+	NSLog(@"collectionName: %@", [songInfo objectForKey:@"collectionName"]);
+	NSLog(@"collectionName: %@", [[songInfo objectForKey:@"collectionName"] class]);
+	if ([[songInfo objectForKey:@"collectionName"] isMemberOfClass:[NSNull class]]) {
+		albumLabel.text = @"";
+	} else {
+		albumLabel.text = [songInfo objectForKey:@"collectionName"];
+	}
 	priceLabel.text = [[NSString stringWithFormat:@"$%f", [[songInfo objectForKey:@"trackPrice"] floatValue]] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0"]];
 }
 
