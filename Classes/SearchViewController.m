@@ -153,7 +153,7 @@ char *rand_str(char *dst) {
 	
 	// check to see if the song was added to the playlist.  if so, change image to check mark
 	if ([appDelegate.playlist indexOfObject:song] != NSNotFound) {
-		[searchCell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
+		[searchCell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-3.png"] forState:UIControlStateNormal];
 	}
 	
 	return searchCell;
@@ -171,7 +171,7 @@ char *rand_str(char *dst) {
 	}
 	NSLog(@"adding song....");
 	[appDelegate.playlist addObject:songToAdd];
-	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
+	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-3.png"] forState:UIControlStateNormal];
 	
 }
 // -----------------------------------------------------------------------------
