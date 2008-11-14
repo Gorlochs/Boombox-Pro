@@ -15,7 +15,7 @@
 
 @implementation PlaylistViewController
 
-@synthesize theTableView, adMobAd;
+@synthesize theTableView, tableCell, adMobAd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -85,25 +85,29 @@
     
     static NSString *CellIdentifier = @"Cell";
 
-	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
-		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
+	tableCell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (tableCell == nil) {
+		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
+		tableCell = vc.view;
+		[vc release];
+		
+		//NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
+		//cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
 	}
 	
     // Configure the cell
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = (BlipSong*) [appDelegate.playlist objectAtIndex: songIndex];
-	[cell setCellData:song];
-	cell.buyButton.hidden = YES;
-	cell.addToPlaylistButton.hidden = YES;
-	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
-	cell.playButton.tag = indexPath.row;
+	[tableCell setCellData:song];
+	tableCell.buyButton.hidden = YES;
+	tableCell.addToPlaylistButton.hidden = YES;
+	[tableCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	tableCell.playButton.tag = indexPath.row;
 	
 	// TODO: imitate SearchViewController and make sure the stop/play buttons are correct for all rows during scrolling
 	
-    return cell;
+    return tableCell;
 }
 
 - (void)playSong:(id)sender {
@@ -229,7 +233,7 @@
 }
 
 - (BOOL)mayAskForLocation {
-	return YES; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
+	return NO; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
 }
 
 // Sent when an ad request loaded an ad; this is a good opportunity to attach

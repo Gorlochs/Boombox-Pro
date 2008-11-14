@@ -75,6 +75,8 @@
 		6AC0D7520ECCF055009F6BBD /* eq30.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D7320ECCF055009F6BBD /* eq30.png */; };
 		6AC0D7530ECCF055009F6BBD /* eq31.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D7330ECCF055009F6BBD /* eq31.png */; };
 		6AC0D7540ECCF055009F6BBD /* eq32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D7340ECCF055009F6BBD /* eq32.png */; };
+		6AC0D7E30ECD100F009F6BBD /* BuyTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC0D7E20ECD100F009F6BBD /* BuyTableCellView.m */; };
+		6AC0D7E50ECD1152009F6BBD /* BuyTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D7E40ECD1152009F6BBD /* BuyTableCellView.xib */; };
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
@@ -193,6 +195,9 @@
 		6AC0D7320ECCF055009F6BBD /* eq30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eq30.png; sourceTree = "<group>"; };
 		6AC0D7330ECCF055009F6BBD /* eq31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eq31.png; sourceTree = "<group>"; };
 		6AC0D7340ECCF055009F6BBD /* eq32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eq32.png; sourceTree = "<group>"; };
+		6AC0D7E10ECD100F009F6BBD /* BuyTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTableCellView.h; sourceTree = "<group>"; };
+		6AC0D7E20ECD100F009F6BBD /* BuyTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTableCellView.m; sourceTree = "<group>"; };
+		6AC0D7E40ECD1152009F6BBD /* BuyTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyTableCellView.xib; sourceTree = "<group>"; };
 		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
@@ -285,6 +290,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6AC0D5DE0ECCB935009F6BBD /* BuySongListView.xib */,
+				6AC0D7E40ECD1152009F6BBD /* BuyTableCellView.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 			children = (
 				6AC0D5DB0ECCB922009F6BBD /* BuySongListViewController.h */,
 				6AC0D5DC0ECCB922009F6BBD /* BuySongListViewController.m */,
+				6AC0D7E10ECD100F009F6BBD /* BuyTableCellView.h */,
+				6AC0D7E20ECD100F009F6BBD /* BuyTableCellView.m */,
 			);
 			name = Buy;
 			sourceTree = "<group>";
@@ -622,6 +630,7 @@
 				6AC0D7520ECCF055009F6BBD /* eq30.png in Resources */,
 				6AC0D7530ECCF055009F6BBD /* eq31.png in Resources */,
 				6AC0D7540ECCF055009F6BBD /* eq32.png in Resources */,
+				6AC0D7E50ECD1152009F6BBD /* BuyTableCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +659,7 @@
 				6AC0D6070ECCB9EC009F6BBD /* CJSONSerializer.m in Sources */,
 				6AC0D6080ECCB9EC009F6BBD /* CJSONDeserializer.m in Sources */,
 				6AC0D6090ECCB9EC009F6BBD /* CDataScanner.m in Sources */,
+				6AC0D7E30ECD100F009F6BBD /* BuyTableCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

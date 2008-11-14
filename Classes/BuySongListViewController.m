@@ -9,11 +9,13 @@
 #import "BuySongListViewController.h"
 #import "BoomboxViewController.h"
 #import "CJSONDeserializer.h"
+#import "BuyTableCellView.h"
 
 @implementation BuySongListViewController
 
 @synthesize theTableView;
 @synthesize searchResults;
+@synthesize buyCell;
 
 /*
 // Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
@@ -74,19 +76,23 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+    buyCell = (BuyTableCellView*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (buyCell == nil) {
+		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"BuyTableCellView" bundle:nil];
+		buyCell = vc.view;
+		[vc release];
+		
+//        cell = [[[BuyTableCellView alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	if (self.searchResults) {
 		//NSLog(@"results: %@", [searchResults objectAtIndex:1]);
 		NSLog(@"row: %d", indexPath.row);
-		NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
-		cell.text = [obj objectForKey:@"trackName"];
+		//NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
+		[buyCell setBuyInfo:[self.searchResults objectAtIndex:indexPath.row]];
+//		cell.text = [obj objectForKey:@"trackName"];
 	}
 	
-    // Configure the cell
-    return cell;
+    return buyCell;
 }
 
 #pragma mark UITableViewDelegate
