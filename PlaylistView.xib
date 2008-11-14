@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
 			<integer value="15"/>
+			<integer value="11"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -62,8 +62,8 @@
 								<reference key="IBUINavigationBar" ref="764712691"/>
 								<string key="IBUITitle">Playlist</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="219221133">
+									<string key="IBUITitle">Back</string>
 									<int key="IBUIStyle">1</int>
-									<int key="IBUISystemItemIdentifier">1</int>
 								</object>
 							</object>
 						</object>
