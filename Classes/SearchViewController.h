@@ -20,9 +20,9 @@
 	
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
+	SearchTableCellView *searchCell;
 	
 	NSXMLParser *rssParser;
-	//NSMutableArray *songs;
 	
 	// a temporary item; added to the "stories" array one at a time, and cleared for the next one
 	BlipSong *item;
@@ -41,6 +41,7 @@
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
+@property (nonatomic, retain) SearchTableCellView *searchCell;
 @property (nonatomic, retain) IBOutlet AdMobView *adMobAd;
 
 - (void)parseXMLFileAtURL:(NSString *)URL;

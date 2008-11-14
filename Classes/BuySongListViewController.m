@@ -80,7 +80,7 @@
     }
 	if (self.searchResults) {
 		//NSLog(@"results: %@", [searchResults objectAtIndex:1]);
-//		NSLog(@"row: %d", indexPath.row);
+		NSLog(@"row: %d", indexPath.row);
 		NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 		cell.text = [obj objectForKey:@"trackName"];
 	}

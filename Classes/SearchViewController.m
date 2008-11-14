@@ -20,6 +20,7 @@
 
 @synthesize blipSearchBar;
 @synthesize theTableView;
+@synthesize searchCell;
 @synthesize adMobAd;
 
 // -----------------------------------------------------------------------------
@@ -122,35 +123,40 @@ char *rand_str(char *dst) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
-	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	if (cell == nil) {
-		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
-		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
+	searchCell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	if (searchCell == nil) {
+//		[[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
+//		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
+//		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
+		
+		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
+		searchCell = vc.view;
+		[vc release];
 	}
 	
 	// Set up the cell
 	int storyIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
-	[cell setCellData:song];
-	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
-	[cell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
+	[searchCell setCellData:song];
+	[searchCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	[searchCell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
 	
-	cell.playButton.tag = indexPath.row;
-	cell.buyButton.tag = indexPath.row;
-	cell.addToPlaylistButton.tag = indexPath.row;
+	searchCell.playButton.tag = indexPath.row;
+	searchCell.buyButton.tag = indexPath.row;
+	searchCell.addToPlaylistButton.tag = indexPath.row;
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
-	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:cell.songLocation]) {
-		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation]) {
+		[searchCell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
 	}
 	
 	// check to see if the song was added to the playlist.  if so, change image to check mark
 	if ([appDelegate.playlist indexOfObject:song] != NSNotFound) {
-		[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
+		[searchCell.addToPlaylistButton setImage:[UIImage imageNamed:@"check_small.png"] forState:UIControlStateNormal];
 	}
 	
-	return cell;
+	return searchCell;
 }
 // -----------------------------------------------------------------------------
 - (void)addSongToPlaylist:(id)sender {
