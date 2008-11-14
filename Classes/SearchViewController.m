@@ -306,6 +306,10 @@ char *rand_str(char *dst) {
 }
 
 - (IBAction)removeModalView:(id)sender {
+	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissView:) userInfo:nil repeats:NO];
+}
+
+- (void) dismissView:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
