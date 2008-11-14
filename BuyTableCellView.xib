@@ -35,7 +35,7 @@
 							<object class="IBUILabel" id="718051067">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{46, 2}, {171, 21}}</string>
+								<string key="NSFrame">{{58, 2}, {171, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -52,7 +52,7 @@
 							<object class="IBUILabel" id="704881888">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{46, 23}, {171, 21}}</string>
+								<string key="NSFrame">{{58, 23}, {171, 21}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -105,14 +105,13 @@
 									<string key="NSResourceName">cell-bg.png</string>
 								</object>
 							</object>
-							<object class="IBUIImageView" id="299453062">
+							<object class="IBUIImageView" id="634969884">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 7}, {42, 37}}</string>
+								<string key="NSFrameSize">{52, 52}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 							</object>
 						</object>
@@ -194,7 +193,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">albumImage</string>
 						<reference key="source" ref="884347446"/>
-						<reference key="destination" ref="299453062"/>
+						<reference key="destination" ref="634969884"/>
 					</object>
 					<int key="connectionID">16</int>
 				</object>
@@ -231,7 +230,7 @@
 							<reference ref="1034631308"/>
 							<reference ref="805411812"/>
 							<reference ref="946516310"/>
-							<reference ref="299453062"/>
+							<reference ref="634969884"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -262,7 +261,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
-						<reference key="object" ref="299453062"/>
+						<reference key="object" ref="634969884"/>
 						<reference key="parent" ref="884347446"/>
 					</object>
 				</object>
