@@ -118,25 +118,38 @@
 // TODO: check to see if this method is used anymore.  I'm pretty sure it isn't
 // plays a single song that was chosen on the Search page
 - (IBAction)playAction:(id)sender {
+	NSLog(@"play button clicked");
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	BlipSong *chosenSong = appDelegate.songToPlay;
-	if (chosenSong != nil) {
-		if (!streamer) {
-			NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSLog(@"chosen stream: %@", streamUrl);
-			NSURL *url = [NSURL URLWithString:streamUrl];
-			streamer = [[AudioStreamer alloc] initWithURL:url];
-			[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-			[streamer start];
-		} else {
-			[streamer stop];
-		}
-	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" 
-													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+	
+	if ([appDelegate.playlist count] > 0) {
+		NSLog(@"play button clicked, and playlist exists, so play the first song");
+		appDelegate.songIndexOfPlaylistCurrentlyPlaying = 0;
+		NSString *streamUrl = [[appDelegate.playlist objectAtIndex:0] location];
+		NSURL *url = [NSURL URLWithString:streamUrl];
+		[streamer stop];
+		streamer = [[AudioStreamer alloc] initWithURL:url];
+		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+		[streamer start];
 	}
+	
+//	BlipSong *chosenSong = appDelegate.songToPlay;
+//	if (chosenSong != nil) {
+//		if (!streamer) {
+//			NSString *streamUrl = [[chosenSong location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//			NSLog(@"chosen stream: %@", streamUrl);
+//			NSURL *url = [NSURL URLWithString:streamUrl];
+//			streamer = [[AudioStreamer alloc] initWithURL:url];
+//			[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+//			[streamer start];
+//		} else {
+//			[streamer stop];
+//		}
+//	} else {
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for, and choose, a song to play" 
+//													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//		[alert show];
+//		[alert release];
+//	}
 }
 
 - (IBAction)stopStream {

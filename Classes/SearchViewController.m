@@ -181,6 +181,7 @@ char *rand_str(char *dst) {
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
 	BlipSong *songToPlay = [appDelegate.songs objectAtIndex:senderButton.tag];
+	appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;  // set it to -1 so the player knows the playlist isn't currently playing
 	
 	NSString *streamUrl = [cell.songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSLog(@"chosen stream: %@", streamUrl);
