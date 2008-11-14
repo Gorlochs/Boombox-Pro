@@ -151,7 +151,7 @@
 		for (i = 0; i < count; i++) {
 			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
 			if (![cell.songLocation isEqualToString:streamUrl]) {
-				[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
+				[cell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
 			}
 		}
 	}
