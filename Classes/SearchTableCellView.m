@@ -49,6 +49,14 @@
 
 
 - (void)dealloc {
+	[artistLabel release];
+	[songTitleLabel release];
+	[playButton release];
+	[addToPlaylistButton release];
+	[buyButton release];
+	[songLocation release];
+	[song release];
+	
     [super dealloc];
 }
 

@@ -81,8 +81,12 @@
 - (void)dealloc {
 	[searchViewController release];
 	[playlistController release];
+	[buySongListController release];
 	
 	[controlsView release];
+	[speakerView release];
+	
+	[songLabel release];
 	
     [super dealloc];
 }

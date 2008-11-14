@@ -27,6 +27,7 @@
 
 
 - (void)dealloc {
+	[playButton release];
     [super dealloc];
 }
 
