@@ -175,7 +175,7 @@
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     // "dehydrate" all data objects - flushes changes back to the database, removes objects from memory
-    [playlist makeObjectsPerformSelector:@selector(dehydrate)];
+    //[playlist makeObjectsPerformSelector:@selector(dehydrate)];
 }
 
 @end
