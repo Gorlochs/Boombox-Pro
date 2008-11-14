@@ -104,15 +104,15 @@
 }
 
 - (IBAction)displayBuyViewAction:(id)sender {
-	if ([songLabel.text isNotEqualTo:@""]) {
+//	if ([songLabel.text isNotEqualTo:@""]) {
 		buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil];
 		[self presentModalViewController:buySongListController animated:YES];	
-	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"A song must be selected in order to make a purchase." 
-													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
+//	} else {
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"A song must be selected in order to make a purchase." 
+//													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//		[alert show];
+//		[alert release];
+//	}
 }
 
 // TODO: check to see if this method is used anymore.  I'm pretty sure it isn't
