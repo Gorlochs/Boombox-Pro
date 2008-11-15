@@ -147,6 +147,7 @@
 	[streamer stop];
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 	[speakerView.layer removeAnimationForKey:@"animateScale"];
+	//[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 //	[streamer removeObserver:@"isPlaying"];
 }
 
@@ -175,7 +176,9 @@
 			animation.toValue=[NSNumber numberWithFloat:0.99];
 			[speakerView.layer addAnimation:animation forKey:@"animateScale"];
 			
+			NSLog(@"eq animation about to start");
 			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
+			NSLog(@"eq animation started");
 			
 			[CATransaction commit];
 			
@@ -208,6 +211,7 @@
 					[streamer stop];
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 					[speakerView.layer removeAnimationForKey:@"animateScale"];
+					[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 					//[speakerView.layer removeAnimationForKey:@"animateOpacity"];
 					[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 				}
@@ -240,6 +244,7 @@
         [anim setRepeatCount:1e100f];
 		
         [anim setValues:images];
+		NSLog(@"images added for animation");
     }
     return anim;
 }
