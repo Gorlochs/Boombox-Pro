@@ -29,8 +29,6 @@
 - (void)setBuyInfo:(NSMutableDictionary*)songInfo {
 	artistLabel.text = [songInfo objectForKey:@"artistName"];
 	songTitleLabel.text = [songInfo objectForKey:@"trackName"];
-	NSLog(@"collectionName: %@", [songInfo objectForKey:@"collectionName"]);
-	NSLog(@"collectionName: %@", [[songInfo objectForKey:@"collectionName"] class]);
 	if ([[songInfo objectForKey:@"collectionName"] isMemberOfClass:[NSNull class]]) {
 		albumLabel.text = @"";
 	} else {
@@ -40,7 +38,9 @@
 	
 	// display image
 	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[songInfo objectForKey:@"artworkUrl60"]]];
-	albumImage.image = [[UIImage alloc] initWithData:data cache:NO];
+	UIImage *tmpImg = [[UIImage alloc] initWithData:data];
+	albumImage.image = tmpImg;
+	[tmpImg release];
 }
 
 
@@ -59,6 +59,7 @@
 	[priceLabel release];
 	[buyButton release];
 	[songLocation release];
+	[albumImage release];
 	
     [super dealloc];
 }
