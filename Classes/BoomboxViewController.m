@@ -12,6 +12,11 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import <QuartzCore/CoreAnimation.h>
 
+// Private interface for AppDelegate - internal only methods.
+@interface BoomboxViewController (Private)
+- (void)stopStreamCleanup;
+@end
+
 @implementation BoomboxViewController
 
 @synthesize controlsView, speakerView, equalizerView, songLabel, streamer;
@@ -134,7 +139,6 @@
 //	}
 }
 
-// TODO: check to see if this method is used anymore.  I'm pretty sure it isn't
 // plays a single song that was chosen on the Search page
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
@@ -157,9 +161,7 @@
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 	[streamer stop];
-	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
-	[speakerView.layer removeAnimationForKey:@"animateScale"];
-	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+	[self stopStreamCleanup];
 //	[streamer removeObserver:@"isPlaying"];
 }
 
@@ -222,16 +224,10 @@
 					// allow streamer to stop and reset index
 					[streamer stop];
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
-					[speakerView.layer removeAnimationForKey:@"animateScale"];
-					[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
-					//[speakerView.layer removeAnimationForKey:@"animateOpacity"];
-					[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
+					[self stopStreamCleanup];
 				}
 			} else {
-				// this is a just-in-case: i'm not 100% sure it's needed
-				[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
-				[speakerView.layer removeAnimationForKey:@"animateScale"];
-				[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+				[self stopStreamCleanup];
 			}
 		}
 		
@@ -240,6 +236,12 @@
 	}
 	
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void) stopStreamCleanup {
+	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
+	[speakerView.layer removeAnimationForKey:@"animateScale"];
+	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 }
 
 # pragma mark Equalizer Animation
