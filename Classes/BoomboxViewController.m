@@ -53,7 +53,7 @@
 	// determine the size of EqualizerView
 	CGRect frame3 = equalizerView.frame;
 	frame3.origin.x = 185;
-	frame3.origin.y = self.view.frame.size.height - 361;
+	frame3.origin.y = self.view.frame.size.height - 358;
 	equalizerView.frame = frame3;
 	equalizerView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:equalizerView];
