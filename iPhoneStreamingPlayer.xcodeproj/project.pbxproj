@@ -565,9 +565,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* iPhoneStreamingPlayer */ = {
+		1D6058900D05DD3D006BFB54 /* Boombox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "iPhoneStreamingPlayer" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Boombox" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -577,7 +577,7 @@
 			);
 			dependencies = (
 			);
-			name = iPhoneStreamingPlayer;
+			name = Boombox;
 			productName = iPhoneStreamingPlayer;
 			productReference = 1D6058910D05DD3D006BFB54 /* iPhoneStreamingPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -594,7 +594,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* iPhoneStreamingPlayer */,
+				1D6058900D05DD3D006BFB54 /* Boombox */,
 			);
 		};
 /* End PBXProject section */
@@ -796,7 +796,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "iPhoneStreamingPlayer" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Boombox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
