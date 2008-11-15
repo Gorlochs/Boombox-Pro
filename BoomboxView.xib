@@ -293,7 +293,7 @@
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="289081394">
+					<object class="IBUIImageView" id="926114139">
 						<reference key="NSNextResponder" ref="40854716"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{111, 71}</string>
@@ -522,14 +522,14 @@
 						<reference key="object" ref="40854716"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="289081394"/>
+							<reference ref="926114139"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">EqualizerView</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">40</int>
-						<reference key="object" ref="289081394"/>
+						<reference key="object" ref="926114139"/>
 						<reference key="parent" ref="40854716"/>
 					</object>
 				</object>

@@ -29,6 +29,7 @@
 }
 
 - (void)viewDidLoad {
+	songLabel.font = [UIFont boldSystemFontOfSize:24];
 //	songLabel.font = [UIFont fontWithName:@"DB LCD Temp" size:16];
 //	songLabel.text = @"abcdefghijklmnopqrstuvwxyz";
 //	NSArray *fonts = [UIFont familyNames];
@@ -183,7 +184,7 @@
 			
 			CABasicAnimation *animation;
 			animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
-			animation.duration=0.05;
+			animation.duration=0.1;
 			animation.repeatCount=1e100f;
 			animation.autoreverses=YES;
 			animation.fromValue=[NSNumber numberWithFloat:1.0];
