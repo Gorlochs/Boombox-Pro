@@ -135,8 +135,6 @@
 		if (((BoomboxViewController*) self.parentViewController).streamer) {
 			[((BoomboxViewController*) self.parentViewController).streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
 			[((BoomboxViewController*) self.parentViewController).streamer stop];
-			//			[((BoomboxViewController*) self.parentViewController).streamer release];
-			//			((BoomboxViewController*) self.parentViewController).streamer = nil;
 		}
 		((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
 		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
