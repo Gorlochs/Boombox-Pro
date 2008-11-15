@@ -32,6 +32,19 @@
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIImageView" id="735271967">
+								<reference key="NSNextResponder" ref="939158439"/>
+								<int key="NSvFlags">256</int>
+								<string key="NSFrame">{{1, 0}, {480, 44}}</string>
+								<reference key="NSSuperview" ref="939158439"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">cell-bg.png</string>
+								</object>
+							</object>
 							<object class="IBUILabel" id="1001596237">
 								<reference key="NSNextResponder" ref="939158439"/>
 								<int key="NSvFlags">292</int>
@@ -131,7 +144,7 @@
 							<object class="IBUIButton" id="245866779">
 								<reference key="NSNextResponder" ref="939158439"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{433, 5}, {35, 37}}</string>
+								<string key="NSFrame">{{431, 5}, {35, 37}}</string>
 								<reference key="NSSuperview" ref="939158439"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -154,20 +167,6 @@
 								<reference key="IBUIDisabledImage" ref="924102928"/>
 								<reference key="IBUISelectedImage" ref="924102928"/>
 								<reference key="IBUINormalImage" ref="924102928"/>
-							</object>
-							<object class="IBUIImageView" id="735271967">
-								<reference key="NSNextResponder" ref="939158439"/>
-								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{87, 5}, {480, 44}}</string>
-								<reference key="NSSuperview" ref="939158439"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">4</int>
-								<bool key="IBUIMultipleTouchEnabled">YES</bool>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">cell-bg.png</string>
-								</object>
 							</object>
 						</object>
 						<string key="NSFrameSize">{481, 44}</string>
@@ -282,10 +281,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="975499727"/>
 							<reference ref="1027443485"/>
-							<reference ref="245866779"/>
 							<reference ref="853756995"/>
 							<reference ref="1001596237"/>
 							<reference ref="735271967"/>
+							<reference ref="245866779"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>

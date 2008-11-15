@@ -118,7 +118,7 @@
 	if (appDelegate.songIndexOfPlaylistCurrentlyPlaying == senderButton.tag) {
 		// stop the stream and switch back to the play button
 		[((BoomboxViewController*) self.parentViewController).streamer stop];
-		[cell.playButton setImage:[UIImage imageNamed:@"play_small.png"] forState:UIControlStateNormal];
+		[cell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 	} else {
 		BlipSong *songToPlay = [appDelegate.playlist objectAtIndex:senderButton.tag];
@@ -143,7 +143,7 @@
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		
 		// change image to the stop button
-		[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+		[cell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 		
 		// change any other image in any other row to the default play button
 		NSArray *visibleCells = [theTableView visibleCells];
@@ -192,7 +192,6 @@
 //	[appDelegate.playlist replaceObjectsInRange:NSMakeRange(fromIndexPath.row + 1, rangeLength) withObjectsFromArray:appDelegate.playlist range:NSMakeRange(fromIndexPath.row, rangeLength)];
 //	[appDelegate.playlist insertObject:movedSong atIndex:toIndexPath.row];
 }
-
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
@@ -247,8 +246,6 @@
 	frame.origin.x = 80;
 	frame.origin.y = 252;
 	adMobAd.frame = frame;
-	
-	adMobAd.backgroundColor = [UIColor blueColor];
 	adMobAd.hidden = NO;
 	//adMobAd.frame = [self.view convertRect:self.view.frame fromView:self.view.superview]; // put the ad in the placeholder's location
 	[self.view addSubview:adMobAd];

@@ -148,7 +148,7 @@ char *rand_str(char *dst) {
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
 	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation]) {
-		[searchCell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+		[searchCell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 	}
 	
 	// check to see if the song was added to the playlist.  if so, change image to check mark
@@ -195,7 +195,7 @@ char *rand_str(char *dst) {
 	[((BoomboxViewController*) self.parentViewController).streamer start];
 	((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 	
-	[cell.playButton setImage:[UIImage imageNamed:@"stop_small.png"] forState:UIControlStateNormal];
+	[cell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 }
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
@@ -340,7 +340,7 @@ char *rand_str(char *dst) {
 	
 	CGRect frame = adMobAd.frame;
 	frame.origin.x = 80;
-	frame.origin.y = 256;
+	frame.origin.y = 252;
 	adMobAd.frame = frame;
 	
 	adMobAd.backgroundColor = [UIColor blueColor];

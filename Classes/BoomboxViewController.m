@@ -24,6 +24,16 @@
 }
 
 - (void)viewDidLoad {
+//	songLabel.font = [UIFont fontWithName:@"DB LCD Temp" size:16];
+//	NSArray *fonts = [UIFont familyNames];
+//	NSLog(@"font families: %@", [UIFont familyNames]);
+//	NSUInteger i, count = [fonts count];
+//	for (i = 0; i < count; i++) {
+//		NSString *fontname = [fonts objectAtIndex:i];
+//		NSLog(@"font family: %@, font %@", fontname, [UIFont fontNamesForFamilyName:fontname]);
+//	}
+	
+	
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
 	frame.origin.x = 110;
@@ -147,7 +157,7 @@
 	[streamer stop];
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 	[speakerView.layer removeAnimationForKey:@"animateScale"];
-	//[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 //	[streamer removeObserver:@"isPlaying"];
 }
 
@@ -233,7 +243,7 @@
 {
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
     [anim setDuration:5.0];
-    if( !images ) {        
+//    if( !images ) {        
         images = [[NSMutableArray alloc] initWithCapacity:32];
 		
 		for (int i = 1; i < 33; i++) {
@@ -245,7 +255,7 @@
 		
         [anim setValues:images];
 		NSLog(@"images added for animation");
-    }
+//    }
     return anim;
 }
 

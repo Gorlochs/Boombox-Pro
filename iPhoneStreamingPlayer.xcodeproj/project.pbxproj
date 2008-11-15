@@ -86,6 +86,9 @@
 		6AC0D9210ECD5CAC009F6BBD /* image-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D9190ECD5CAC009F6BBD /* image-7.png */; };
 		6AC0D9220ECD5CAC009F6BBD /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D91A0ECD5CAC009F6BBD /* image.png */; };
 		6AC0D9FC0ECDF6A1009F6BBD /* EqualizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC0D9FB0ECDF6A1009F6BBD /* EqualizerView.m */; };
+		6AC0DAE30ECE63CB009F6BBD /* ad_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0DAE00ECE63CB009F6BBD /* ad_bkg.png */; };
+		6AC0DAE40ECE63CB009F6BBD /* buy_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0DAE10ECE63CB009F6BBD /* buy_bkg.png */; };
+		6AC0DAE50ECE63CB009F6BBD /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0DAE20ECE63CB009F6BBD /* stop.png */; };
 		6AC136DA0EBE06BC004146A4 /* MainTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC136D90EBE06BC004146A4 /* MainTabView.xib */; };
 		6AC137460EBE215C004146A4 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC137450EBE215C004146A4 /* PlaylistViewController.m */; };
 		6AC137480EBE216E004146A4 /* PlaylistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC137470EBE216E004146A4 /* PlaylistView.xib */; };
@@ -217,6 +220,9 @@
 		6AC0D91A0ECD5CAC009F6BBD /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		6AC0D9FA0ECDF6A1009F6BBD /* EqualizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualizerView.h; sourceTree = "<group>"; };
 		6AC0D9FB0ECDF6A1009F6BBD /* EqualizerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualizerView.m; sourceTree = "<group>"; };
+		6AC0DAE00ECE63CB009F6BBD /* ad_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ad_bkg.png; sourceTree = "<group>"; };
+		6AC0DAE10ECE63CB009F6BBD /* buy_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buy_bkg.png; sourceTree = "<group>"; };
+		6AC0DAE20ECE63CB009F6BBD /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		6AC136D90EBE06BC004146A4 /* MainTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTabView.xib; sourceTree = "<group>"; };
 		6AC137440EBE215C004146A4 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		6AC137450EBE215C004146A4 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
@@ -454,6 +460,9 @@
 		6AC0D89C0ECD525A009F6BBD /* table cells */ = {
 			isa = PBXGroup;
 			children = (
+				6AC0DAE00ECE63CB009F6BBD /* ad_bkg.png */,
+				6AC0DAE10ECE63CB009F6BBD /* buy_bkg.png */,
+				6AC0DAE20ECE63CB009F6BBD /* stop.png */,
 				6AC0D9130ECD5CAC009F6BBD /* boombox_blank2.png */,
 				6AC0D9140ECD5CAC009F6BBD /* cell-bg.png */,
 				6AC0D9150ECD5CAC009F6BBD /* image-3.png */,
@@ -676,6 +685,9 @@
 				6AC0D9200ECD5CAC009F6BBD /* image-6.png in Resources */,
 				6AC0D9210ECD5CAC009F6BBD /* image-7.png in Resources */,
 				6AC0D9220ECD5CAC009F6BBD /* image.png in Resources */,
+				6AC0DAE30ECE63CB009F6BBD /* ad_bkg.png in Resources */,
+				6AC0DAE40ECE63CB009F6BBD /* buy_bkg.png in Resources */,
+				6AC0DAE50ECE63CB009F6BBD /* stop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
