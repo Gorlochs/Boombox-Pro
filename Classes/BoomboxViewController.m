@@ -149,6 +149,7 @@
 		streamer = [[AudioStreamer alloc] initWithURL:url];
 		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 		[streamer start];
+		songLabel.text = [[appDelegate.playlist objectAtIndex:0] constructTitleArtist];
 	}
 }
 
