@@ -84,16 +84,9 @@
 		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"BuyTableCellView" bundle:nil];
 		buyCell = vc.view;
 		[vc release];
-		
-//        cell = [[[BuyTableCellView alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	if (self.searchResults) {
-		//NSLog(@"results: %@", [searchResults objectAtIndex:1]);
-		NSLog(@"row: %d", indexPath.row);
-		NSLog(@"results: %@", [self.searchResults objectAtIndex:indexPath.row]);
-		//NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 		[buyCell setBuyInfo:[self.searchResults objectAtIndex:indexPath.row]];
-//		cell.text = [obj objectForKey:@"trackName"];
 	}
 	
     return buyCell;
@@ -106,7 +99,6 @@
 	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
 	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
-//	NSLog(@"affiliate link: %@", affiliateLink);
 }
 
 #pragma mark iTunes call and JSON parsing
@@ -122,9 +114,9 @@
 	if (error) {
 		NSLog(@"error with JSON conversion: %@", error);
 	}
-	for (id key in dictionary) {
-		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
-	}
+//	for (id key in dictionary) {
+//		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
+//	}
 	self.searchResults = (NSMutableArray*) [dictionary objectForKey:@"results"];
 	[theTableView reloadData];
 }
