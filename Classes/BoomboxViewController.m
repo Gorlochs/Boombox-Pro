@@ -12,7 +12,7 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import <QuartzCore/CoreAnimation.h>
 
-// Private interface for AppDelegate - internal only methods.
+// Private interface - internal only methods.
 @interface BoomboxViewController (Private)
 - (void)stopStreamCleanup;
 @end

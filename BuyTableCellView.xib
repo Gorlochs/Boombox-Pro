@@ -35,11 +35,10 @@
 							<object class="IBUIImageView" id="946516310">
 								<reference key="NSNextResponder" ref="414982606"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrameSize">{480, 60}</string>
+								<string key="NSFrame">{{0, -5}, {480, 70}}</string>
 								<reference key="NSSuperview" ref="414982606"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
@@ -135,6 +134,7 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<int key="IBUISelectionStyle">2</int>
 				<reference key="IBUIContentView" ref="414982606"/>
 			</object>
 		</object>
@@ -287,7 +287,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>BuyTableCellView</string>
-					<string>{{547, 520}, {428, 60}}</string>
+					<string>{{606, 520}, {428, 60}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

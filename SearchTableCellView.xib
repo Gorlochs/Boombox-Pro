@@ -169,7 +169,7 @@
 								<reference key="IBUINormalImage" ref="924102928"/>
 							</object>
 						</object>
-						<string key="NSFrameSize">{481, 44}</string>
+						<string key="NSFrameSize">{481, 42}</string>
 						<reference key="NSSuperview" ref="938884696"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -181,7 +181,7 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 				</object>
-				<string key="NSFrameSize">{481, 44}</string>
+				<string key="NSFrameSize">{481, 42}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -189,6 +189,7 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<int key="IBUISelectionStyle">2</int>
 				<reference key="IBUIContentView" ref="939158439"/>
 			</object>
 		</object>
@@ -341,7 +342,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>SearchTableCellView</string>
-					<string>{{554, 898}, {481, 44}}</string>
+					<string>{{554, 900}, {481, 42}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
