@@ -8,10 +8,10 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="6"/>
 			<integer value="26"/>
 			<integer value="34"/>
 			<integer value="1"/>
-			<integer value="6"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -61,20 +61,6 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">1.200000e+01</float>
 						<int key="IBUITextAlignment">1</int>
-					</object>
-					<object class="IBUIImageView" id="481908637">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{185, 119}, {111, 71}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">image-3.png</string>
-						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{481, 299}</string>
@@ -305,6 +291,23 @@
 			<object class="IBUIView" id="40854716">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
+				<object class="NSMutableArray" key="NSSubviews">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUIImageView" id="289081394">
+						<reference key="NSNextResponder" ref="40854716"/>
+						<int key="NSvFlags">256</int>
+						<string key="NSFrameSize">{111, 71}</string>
+						<reference key="NSSuperview" ref="40854716"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">image-3.png</string>
+						</object>
+					</object>
+				</object>
 				<string key="NSFrameSize">{111, 71}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -430,7 +433,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="492025414"/>
 							<reference ref="935002435"/>
-							<reference ref="481908637"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -520,14 +522,15 @@
 						<reference key="object" ref="40854716"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="289081394"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">EqualizerView</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">39</int>
-						<reference key="object" ref="481908637"/>
-						<reference key="parent" ref="191373211"/>
+						<int key="objectID">40</int>
+						<reference key="object" ref="289081394"/>
+						<reference key="parent" ref="40854716"/>
 					</object>
 				</object>
 			</object>
@@ -604,7 +607,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">39</int>
+			<int key="maxID">40</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
