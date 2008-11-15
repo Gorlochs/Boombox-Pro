@@ -90,9 +90,6 @@
 		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
 		tableCell = vc.view;
 		[vc release];
-		
-		//NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
-		//cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
 	}
 	
     // Configure the cell
