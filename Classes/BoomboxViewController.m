@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
 //	songLabel.font = [UIFont fontWithName:@"DB LCD Temp" size:16];
+//	songLabel.text = @"abcdefghijklmnopqrstuvwxyz";
 //	NSArray *fonts = [UIFont familyNames];
 //	NSLog(@"font families: %@", [UIFont familyNames]);
 //	NSUInteger i, count = [fonts count];
@@ -228,6 +229,8 @@
 			} else {
 				// this is a just-in-case: i'm not 100% sure it's needed
 				[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
+				[speakerView.layer removeAnimationForKey:@"animateScale"];
+				[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 			}
 		}
 		
