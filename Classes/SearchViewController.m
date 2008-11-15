@@ -277,8 +277,8 @@ char *rand_str(char *dst) {
 	//NSLog(@"ended element: %@", elementName);
 	if ([elementName isEqualToString:@"Song"]) {
 		// save values to an item, then store that item into the array...
-		[item setTitle:[currentTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-		[item setArtist:[currentArtist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+		[item setTitle:currentTitle];
+		[item setArtist:currentArtist];
 		[item setLocation:[currentLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 		
 		[currentTitle release];
