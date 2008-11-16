@@ -326,7 +326,9 @@ char *rand_str(char *dst) {
 		[currentArtist release];
 		
 		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-		[appDelegate.songs addObject:item];
+		if ([item.location isNotEqualTo:@""]) {
+			[appDelegate.songs addObject:item];
+		}
 		NSLog(@"adding song: %@", currentTitle);
 		//		NSLog(@"1adding summary: %@", currentSummary);
 	}
@@ -352,9 +354,22 @@ char *rand_str(char *dst) {
 	[theTableView reloadData];
 	[theTableView setHidden:NO];
 	
-	unsigned indexes[2] = {0,0};
-	[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	if ([appDelegate.songs count] == 0) {
+		UIAlertView *alert =
+		[[UIAlertView alloc]
+			initWithTitle:@"No Results Found"
+			message:@"No results found. Please check your spelling or try another search."
+			delegate:self
+			cancelButtonTitle:@"OK"
+			otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	} else {
+		unsigned indexes[2] = {0,0};
+		[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	}
 	//	[bigSpinner stopAnimating];
 }
 
