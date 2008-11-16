@@ -203,7 +203,7 @@
 			CAAnimationGroup *theGroup = [self imagesAnimationSpeaker];
 			theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
 			// set the timing function for the group and the animation duration
-			theGroup.duration=1.5;
+			theGroup.duration=1.0;
 			theGroup.repeatCount=1e100f;
 			
 			// adding the animation to the target layer causes it to begin animating
