@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ControlsView.h"
-#import "SpeakerView.h"
 #import "EqualizerView.h"
 #import "SearchViewController.h"
 #import "PlaylistViewController.h"
 #import "BuySongListViewController.h"
 #import "AudioStreamer.h"
+#import "SingleSpeakerView.h"
 
 @class AudioStreamer;
 
@@ -22,8 +22,9 @@
 	AudioStreamer *streamer;
 	
 	ControlsView *controlsView;
-	SpeakerView *speakerView;
 	EqualizerView *equalizerView;
+	SingleSpeakerView *leftSpeakerView;
+	SingleSpeakerView *rightSpeakerView;
 	
 	UILabel *songLabel;
 	
@@ -32,10 +33,12 @@
 	BuySongListViewController *buySongListController;
 	
     NSMutableArray *images;
+    NSMutableArray *speakerImages;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;
-@property (nonatomic, retain) IBOutlet SpeakerView *speakerView;
+@property (nonatomic, retain) IBOutlet SingleSpeakerView *leftSpeakerView;
+@property (nonatomic, retain) IBOutlet SingleSpeakerView *rightSpeakerView;
 @property (nonatomic, retain) IBOutlet EqualizerView *equalizerView;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
 @property (nonatomic, retain) AudioStreamer *streamer;
@@ -46,5 +49,6 @@
 - (IBAction)displayBuyViewAction:(id)sender;
 - (IBAction)stopStream;
 - (CAKeyframeAnimation*)imagesAnimation;
+- (CAAnimationGroup*)imagesAnimationSpeaker;
 
 @end

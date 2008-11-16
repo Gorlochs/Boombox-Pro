@@ -19,7 +19,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, speakerView, equalizerView, songLabel, streamer;
+@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, songLabel, streamer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -49,13 +49,28 @@
 	controlsView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:controlsView];
 	
+//	// determine the size of SpeakerView
+//	CGRect frame2 = speakerView.frame;
+//	frame2.origin.x = 0;
+//	frame2.origin.y = self.view.frame.size.height - 430;
+//	speakerView.frame = frame2;
+//	speakerView.backgroundColor = [UIColor clearColor];
+//	//[self.view addSubview:speakerView];
+	
 	// determine the size of SpeakerView
-	CGRect frame2 = speakerView.frame;
+	CGRect frame2 = leftSpeakerView.frame;
 	frame2.origin.x = 0;
-	frame2.origin.y = self.view.frame.size.height - 430;
-	speakerView.frame = frame2;
-	speakerView.backgroundColor = [UIColor clearColor];
-	[self.view addSubview:speakerView];
+	frame2.origin.y = self.view.frame.size.height - 410;
+	leftSpeakerView.frame = frame2;
+	leftSpeakerView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:leftSpeakerView];
+	
+	CGRect frame2a = rightSpeakerView.frame;
+	frame2a.origin.x = 300;
+	frame2a.origin.y = self.view.frame.size.height - 410;
+	rightSpeakerView.frame = frame2a;
+	rightSpeakerView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:rightSpeakerView];
 	
 	// determine the size of EqualizerView
 	CGRect frame3 = equalizerView.frame;
@@ -109,7 +124,9 @@
 	[buySongListController release];
 	
 	[controlsView release];
-	[speakerView release];
+	[equalizerView release];
+	[leftSpeakerView release];
+	[rightSpeakerView release];
 	
 	[songLabel release];
 	
@@ -181,19 +198,18 @@
 			
 			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
 			[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+
+			// create an animation group for the speakers
+			CAAnimationGroup *theGroup = [self imagesAnimationSpeaker];
+			theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+			// set the timing function for the group and the animation duration
+			theGroup.duration=1.5;
+			theGroup.repeatCount=1e100f;
 			
-			CABasicAnimation *animation;
-			animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
-			animation.duration=0.1;
-			animation.repeatCount=1e100f;
-			animation.autoreverses=YES;
-			animation.fromValue=[NSNumber numberWithFloat:1.0];
-			animation.toValue=[NSNumber numberWithFloat:0.99];
-			[speakerView.layer addAnimation:animation forKey:@"animateScale"];
-			
-			NSLog(@"eq animation about to start");
+			// adding the animation to the target layer causes it to begin animating
+			[leftSpeakerView.layer addAnimation:theGroup forKey:@"leftSpeakerAnimation"];
+			[rightSpeakerView.layer addAnimation:theGroup forKey:@"rightSpeakerAnimation"];
 			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
-			NSLog(@"eq animation started");
 			
 			[CATransaction commit];
 			
@@ -241,7 +257,8 @@
 
 - (void) stopStreamCleanup {
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
-	[speakerView.layer removeAnimationForKey:@"animateScale"];
+	[leftSpeakerView.layer removeAnimationForKey:@"leftSpeakerAnimation"];
+	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
 	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 }
 
@@ -264,6 +281,37 @@
 		NSLog(@"images added for animation");
 //    }
     return anim;
+}
+
+- (CAAnimationGroup*)imagesAnimationSpeaker {
+	
+	speakerImages = [[NSMutableArray alloc] initWithCapacity:9];
+	// the following array could be defined as static (so, too, probably the speakerImages above)
+	NSArray *speakerValues = [[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0],
+							  [NSNumber numberWithFloat:0.99],[NSNumber numberWithFloat:0.998],
+							  [NSNumber numberWithFloat:0.992],[NSNumber numberWithFloat:1.0],
+							  [NSNumber numberWithFloat:0.995],[NSNumber numberWithFloat:0.999],
+							  [NSNumber numberWithFloat:0.993],[NSNumber numberWithFloat:0.986],
+							  [NSNumber numberWithFloat:0.996],nil];
+	
+	NSUInteger i, count = [speakerValues count];
+	for (i = 0; i < count - 1; i++) {
+		CABasicAnimation *animation;
+		animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+		animation.duration=1;
+		animation.repeatCount=1;
+		animation.autoreverses=NO;
+		animation.fromValue=[speakerValues objectAtIndex:i];
+		animation.toValue=[speakerValues objectAtIndex:i+1];
+		
+		[speakerImages addObject:animation];
+	}
+	[speakerValues release];
+	
+	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
+	theGroup.animations=speakerImages;
+	
+	return theGroup;
 }
 
 @end
