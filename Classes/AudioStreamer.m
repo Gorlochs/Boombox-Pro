@@ -333,8 +333,8 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	NSLog(@"startInternal request: %@", request);
-	NSLog(@"startInternal connection: %@", connection);
+//	NSLog(@"startInternal request: %@", request);
+//	NSLog(@"startInternal connection: %@", connection);
 	
 	do
 	{
@@ -347,12 +347,11 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 		{
 			NSLog(@"startInternal failed");
 			[self stop];
-
-#ifdef TARGET_OS_IPHONE			
+	
 			UIAlertView *alert =
 				[[UIAlertView alloc]
 					initWithTitle:NSLocalizedStringFromTable(@"Audio Error", @"Errors", nil)
-					message:NSLocalizedStringFromTable(@"Streaming audio failed for some reason but the lazy programmer can't be bothered telling you why.", @"Errors", nil)
+					message:NSLocalizedStringFromTable(@"There was an error with the streaming audio.  Please try again.", @"Errors", nil)
 					delegate:self
 					cancelButtonTitle:@"OK"
 					otherButtonTitles: nil];
@@ -362,19 +361,6 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 				withObject:nil
 				waitUntilDone:YES];
 			[alert release];
-#else
-			NSAlert *alert =
-				[NSAlert
-					alertWithMessageText:NSLocalizedString(@"Lazy programmer error", @"")
-					defaultButton:NSLocalizedString(@"OK", @"")
-					alternateButton:nil
-					otherButton:nil
-					informativeTextWithFormat:@"Streaming audio failed for some reason but the lazy programmer can't be bothered telling you why."];
-			[alert
-				performSelector:@selector(runModal)
-				onThread:[NSThread mainThread]
-				withObject:nil waitUntilDone:NO];
-#endif
 			
 			break;
 		}
@@ -402,7 +388,6 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 	NSLog(@"streamer.stop() called");
 	if (connection)
 	{
-		NSLog(@"inside stop() - connection == true");
 		[connection cancel];
 		[connection release];
 		connection = nil;
