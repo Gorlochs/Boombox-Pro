@@ -147,7 +147,7 @@
 
 - (IBAction)displayBuyViewAction:(id)sender {
 //	if ([songLabel.text isNotEqualTo:@""]) {
-		buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil];
+		buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil valueToSearchItunesStore:self.songLabel.text];
 		[self presentModalViewController:buySongListController animated:YES];	
 //	} else {
 //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"A song must be selected in order to make a purchase." 

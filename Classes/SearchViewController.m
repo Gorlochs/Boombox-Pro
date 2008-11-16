@@ -146,6 +146,7 @@ char *rand_str(char *dst) {
 	[searchCell setCellData:song];
 	[searchCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	[searchCell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
+	[searchCell.buyButton addTarget:self action:@selector(buySong:) forControlEvents:UIControlEventTouchUpInside];
 	
 	searchCell.playButton.tag = indexPath.row;
 	searchCell.buyButton.tag = indexPath.row;
@@ -193,9 +194,6 @@ char *rand_str(char *dst) {
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {
-		//NSLog(@"tag number: %@", [sender parentViewController]);
-		UIView *senderButton = (UIView*) sender;
-		SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 		BlipSong *songToPlay = [appDelegate.songs objectAtIndex:senderButton.tag];
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;  // set it to -1 so the player knows the playlist isn't currently playing
 		
@@ -213,6 +211,17 @@ char *rand_str(char *dst) {
 		
 		[self changeImageIcons:cell imageName:@"stop.png"];
 	}
+}
+-(void)buySong:(id)sender {
+	UIButton *senderButton = (UIButton*) sender;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
+	BlipSong *songToSearch = [appDelegate.songs objectAtIndex:senderButton.tag];
+	NSLog(@"song to search on: %@", songToSearch);
+	
+	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" 
+																		bundle:nil 
+													  valueToSearchItunesStore:[NSString stringWithFormat:@"%@ %@", [songToSearch.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], [songToSearch.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
+	[self presentModalViewController:buySongListController animated:YES];
 }
 // -----------------------------------------------------------------------------
 #pragma mark UITableViewDelegate
@@ -374,12 +383,13 @@ char *rand_str(char *dst) {
 }
 
 - (IBAction)removeModalView:(id)sender {
-	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissView:) userInfo:nil repeats:NO];
+	[self dismissModalViewControllerAnimated:YES];
+	//[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissView:) userInfo:nil repeats:NO];
 }
 
-- (void) dismissView:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
-}
+//- (void) dismissView:(id)sender {
+//	[self dismissModalViewControllerAnimated:YES];
+//}
 
 #pragma mark AdMobDelegate methods
 

@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "BlipSong.h"
 #import "AdMobDelegateProtocol.h";
+#import "BuySongListViewController.h"
 
 @class AudioStreamer, SearchTableCellView, AdMobView;
 
@@ -21,6 +22,7 @@
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
 	SearchTableCellView *searchCell;
+	BuySongListViewController *buySongListController;
 	
 	NSXMLParser *rssParser;
 	

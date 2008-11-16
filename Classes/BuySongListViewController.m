@@ -16,16 +16,15 @@
 @synthesize theTableView;
 @synthesize searchResults;
 @synthesize buyCell;
+@synthesize searchValueForItunesStore;
 
-/*
-// Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil valueToSearchItunesStore:(NSString*)searchValue {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
+		self.searchValueForItunesStore = searchValue;
     }
     return self;
 }
-*/
 
 /*
 // Implement loadView to create a view hierarchy programmatically.
@@ -104,7 +103,7 @@
 #pragma mark iTunes call and JSON parsing
 
 - (void) getItunesSearchResults {
-	NSString *termsToSearchOn = [((BoomboxViewController*) self.parentViewController).songLabel.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+	NSString *termsToSearchOn = [self.searchValueForItunesStore stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 	NSLog(@"termstosearchon: %@", termsToSearchOn);
 	NSString *searchResultInJSON = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStoreServices.woa/wa/wsSearch?term=%@", termsToSearchOn]]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	//NSLog(searchResultInJSON);
