@@ -210,6 +210,16 @@ char *rand_str(char *dst) {
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		
 		[self changeImageIcons:cell imageName:@"stop.png"];
+		
+		// change any other image in any other row to the default play button
+		NSArray *visibleCells = [theTableView visibleCells];
+		NSUInteger i, count = [visibleCells count];
+		for (i = 0; i < count; i++) {
+			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+			if (![cell.songLocation isEqualToString:streamUrl]) {
+				[self changeImageIcons:cell imageName:@"image-7.png"];
+			}
+		}
 	}
 }
 -(void)buySong:(id)sender {
