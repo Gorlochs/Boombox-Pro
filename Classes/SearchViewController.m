@@ -45,6 +45,9 @@
 	[theTableView release];
 	[blipSearchBar release];
 	[adMobAd release];
+	[buySongListController release];
+	[searchCell release];
+	
 	
 	[rssParser release];
 	//[songs release];
