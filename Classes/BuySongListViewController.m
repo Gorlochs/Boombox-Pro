@@ -83,6 +83,8 @@
 		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"BuyTableCellView" bundle:nil];
 		buyCell = vc.view;
 		[vc release];
+		buyCell.songTitleLabel.font = [UIFont systemFontOfSize:26.0];
+		buyCell.albumLabel.font = [UIFont systemFontOfSize:12.0];
     }
 	if (self.searchResults) {
 		[buyCell setBuyInfo:[self.searchResults objectAtIndex:indexPath.row]];

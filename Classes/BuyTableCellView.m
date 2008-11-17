@@ -32,7 +32,7 @@
 	if ([[songInfo objectForKey:@"collectionName"] isMemberOfClass:[NSNull class]]) {
 		albumLabel.text = @"";
 	} else {
-		albumLabel.text = [songInfo objectForKey:@"collectionName"];
+		albumLabel.text = [NSString stringWithFormat:@"%@ - %@", [[songInfo objectForKey:@"artistName"] uppercaseString], [songInfo objectForKey:@"collectionName"]];
 	}
 	priceLabel.text = [[NSString stringWithFormat:@"$%f", [[songInfo objectForKey:@"trackPrice"] floatValue]] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0"]];
 	
