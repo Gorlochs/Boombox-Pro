@@ -53,6 +53,9 @@
 
 - (void)dealloc {
 	[theTableView release];
+	[searchValueForItunesStore release];
+	[buyCell release];
+	[searchResults release];
 	
     [super dealloc];
 }
