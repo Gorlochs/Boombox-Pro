@@ -271,6 +271,7 @@
 - (void)dealloc {
 	[theTableView release];
 	[adMobAd release];
+	[tableCell release];
 	
     [super dealloc];
 }
