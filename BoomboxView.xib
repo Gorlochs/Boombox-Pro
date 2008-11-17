@@ -8,11 +8,11 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="42"/>
-			<integer value="46"/>
 			<integer value="6"/>
+			<integer value="42"/>
 			<integer value="34"/>
 			<integer value="1"/>
+			<integer value="46"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -42,7 +42,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">boombox_blank2.png</string>
+							<string key="NSResourceName">boombox_blank3.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="492025414">
@@ -675,7 +675,6 @@
 							<string>leftSpeakerView</string>
 							<string>rightSpeakerView</string>
 							<string>songLabel</string>
-							<string>speakerView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -684,7 +683,6 @@
 							<string>SingleSpeakerView</string>
 							<string>SingleSpeakerView</string>
 							<string>UILabel</string>
-							<string>SpeakerView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -718,14 +716,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/SingleSpeakerView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SpeakerView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/SpeakerView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
