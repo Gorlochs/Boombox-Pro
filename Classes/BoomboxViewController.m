@@ -172,6 +172,11 @@
 		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 		[streamer start];
 		songLabel.text = [[appDelegate.playlist objectAtIndex:0] constructTitleArtist];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
+													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
 	}
 }
 
