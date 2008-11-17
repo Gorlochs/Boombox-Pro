@@ -351,7 +351,7 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 			UIAlertView *alert =
 				[[UIAlertView alloc]
 					initWithTitle:NSLocalizedStringFromTable(@"Audio Error", @"Errors", nil)
-					message:NSLocalizedStringFromTable(@"There was an error with the streaming audio.  Please try again.", @"Errors", nil)
+					message:NSLocalizedStringFromTable(@"Audio Error: Boombox encountered an error while trying to connect to your song. Please try again. If it still cannot connect, please try searching for the song again.", @"Errors", nil)
 					delegate:self
 					cancelButtonTitle:@"OK"
 					otherButtonTitles: nil];
