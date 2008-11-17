@@ -303,14 +303,16 @@
 	for (i = 0; i < count - 1; i++) {
 		CABasicAnimation *animation;
 		animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
-		animation.duration=1;
+		animation.duration=0.2;
 		animation.repeatCount=1;
+		animation.beginTime=0.2*i;
 		animation.autoreverses=NO;
 		animation.fromValue=[speakerValues objectAtIndex:i];
 		animation.toValue=[speakerValues objectAtIndex:i+1];
 		
 		[speakerImages addObject:animation];
 	}
+	NSLog(@"speaker value size: %d", [speakerValues count]);
 	[speakerValues release];
 	
 	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
