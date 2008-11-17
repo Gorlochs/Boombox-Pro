@@ -346,7 +346,8 @@ char *rand_str(char *dst) {
 		[currentArtist release];
 		
 		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-		if ([item.location isNotEqualTo:@""]) {
+		//if ([item.location isNotEqualTo:@""]) {
+		if (![item.location isEqualToString:@""]){
 			[appDelegate.songs addObject:item];
 		}
 		NSLog(@"adding song: %@", currentTitle);
