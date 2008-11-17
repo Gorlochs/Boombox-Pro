@@ -105,6 +105,7 @@
 	tableCell.addToPlaylistButton.hidden = YES;
 	[tableCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	tableCell.playButton.tag = indexPath.row;
+	[tableCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:tableCell.songLocation]) {
 		[self changeImageIcons:tableCell imageName:@"stop.png"];

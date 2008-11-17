@@ -151,6 +151,7 @@ char *rand_str(char *dst) {
 	searchCell.playButton.tag = indexPath.row;
 	searchCell.buyButton.tag = indexPath.row;
 	searchCell.addToPlaylistButton.tag = indexPath.row;
+	[searchCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
 	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation]) {
