@@ -217,32 +217,38 @@
 	return proposedDestinationIndexPath;
 }
 
-// TODO: fix this
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	NSLog(@"moving row from index %d to index %d", fromIndexPath.row, toIndexPath.row);
 	// change the order of the playlist array
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	BlipSong *movedSong = [appDelegate.playlist objectAtIndex:fromIndexPath.row];
 	NSMutableArray *tmpArray = [NSMutableArray arrayWithCapacity:[appDelegate.playlist count]];
-	for (int i = 0; i < [appDelegate.playlist count]; i++) {
-		NSLog(@"i = %d", i);
-		if (i == toIndexPath.row) {
-			NSLog(@"i == toIndexPath.row");
-			[tmpArray addObject:movedSong];
-		} else if (i == fromIndexPath.row) {
-			NSLog(@"i == fromIndexPath.row");
-			[tmpArray addObject:[appDelegate.playlist objectAtIndex:i+1]];
-		} else if (i > fromIndexPath.row && i < toIndexPath.row) {
-			[tmpArray addObject:[appDelegate.playlist objectAtIndex:i+1]];
-		} else {
-			NSLog(@"else");
-			[tmpArray addObject:[appDelegate.playlist objectAtIndex:i]];
+	if (fromIndexPath.row < toIndexPath.row) {
+		for (int i = 0; i < [appDelegate.playlist count]; i++) {
+			if (i == toIndexPath.row) {
+				[tmpArray addObject:movedSong];
+			} else if (i == fromIndexPath.row) {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i+1]];
+			} else if (i > fromIndexPath.row && i < toIndexPath.row) {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i+1]];
+			} else {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i]];
+			}
+		}
+	} else if (fromIndexPath.row > toIndexPath.row) {
+		for (int i = 0; i < [appDelegate.playlist count]; i++) {
+			if (i == toIndexPath.row) {
+				[tmpArray addObject:movedSong];
+			} else if (i == fromIndexPath.row) {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i-1]];
+			} else if (i < fromIndexPath.row && i > toIndexPath.row) {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i-1]];
+			} else {
+				[tmpArray addObject:[appDelegate.playlist objectAtIndex:i]];
+			}
 		}
 	}
 	appDelegate.playlist = tmpArray;
-//	NSUInteger rangeLength = toIndexPath.row - fromIndexPath.row;
-//	[appDelegate.playlist replaceObjectsInRange:NSMakeRange(fromIndexPath.row + 1, rangeLength) withObjectsFromArray:appDelegate.playlist range:NSMakeRange(fromIndexPath.row, rangeLength)];
-//	[appDelegate.playlist insertObject:movedSong atIndex:toIndexPath.row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
