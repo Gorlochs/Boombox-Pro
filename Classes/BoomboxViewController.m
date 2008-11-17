@@ -29,17 +29,7 @@
 }
 
 - (void)viewDidLoad {
-	songLabel.font = [UIFont boldSystemFontOfSize:24];
-//	songLabel.font = [UIFont fontWithName:@"DB LCD Temp" size:16];
-//	songLabel.text = @"abcdefghijklmnopqrstuvwxyz";
-//	NSArray *fonts = [UIFont familyNames];
-//	NSLog(@"font families: %@", [UIFont familyNames]);
-//	NSUInteger i, count = [fonts count];
-//	for (i = 0; i < count; i++) {
-//		NSString *fontname = [fonts objectAtIndex:i];
-//		NSLog(@"font family: %@, font %@", fontname, [UIFont fontNamesForFamilyName:fontname]);
-//	}
-	
+	songLabel.font = [UIFont boldSystemFontOfSize:30];
 	
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
@@ -48,14 +38,6 @@
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:controlsView];
-	
-//	// determine the size of SpeakerView
-//	CGRect frame2 = speakerView.frame;
-//	frame2.origin.x = 0;
-//	frame2.origin.y = self.view.frame.size.height - 430;
-//	speakerView.frame = frame2;
-//	speakerView.backgroundColor = [UIColor clearColor];
-//	//[self.view addSubview:speakerView];
 	
 	// determine the size of SpeakerView
 	CGRect frame2 = leftSpeakerView.frame;
