@@ -41,6 +41,7 @@
     // Override point for customization after app launch
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
+	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
