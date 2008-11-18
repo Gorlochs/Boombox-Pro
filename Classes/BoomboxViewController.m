@@ -304,7 +304,7 @@
 
 - (CAAnimationGroup*)imagesAnimationRightSpeaker {
 	
-	speakerImages = [[NSMutableArray alloc] initWithCapacity:9];
+	speakerImages = [[NSMutableArray alloc] initWithCapacity:10];
 	// the following array could be defined as static (so, too, probably the speakerImages above)
 	NSArray *speakerValues = [[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0],
 							  [NSNumber numberWithFloat:0.99],
@@ -315,6 +315,7 @@
 							  [NSNumber numberWithFloat:0.998],
 							  [NSNumber numberWithFloat:0.993],
 							  [NSNumber numberWithFloat:0.999],
+							  [NSNumber numberWithFloat:0.994],
 							  [NSNumber numberWithFloat:0.996],
 							  nil];
 	
