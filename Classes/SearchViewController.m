@@ -96,13 +96,11 @@ char *rand_str(char *dst) {
 	puts(rand_str(mytext));
 	
 	NSString *nonce = [NSString stringWithCString:mytext];
-	NSString *timestamp = [NSString stringWithFormat:@"%d", abs([[NSDate date] timeIntervalSince1970])];
+	NSString *timestamp = [NSString stringWithFormat:@"%d", abs([[NSDate date] timeIntervalSince1970]) + 10];
 	NSLog(@"timestamp: %@", timestamp);	
 
 	// retrieve the hash from the php page
 	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt.php?nonce=%@&timestamp=%@", nonce, timestamp];
-	NSLog(@"string from url: %@", [NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]]);
-	
 	NSString *url = [[NSString stringWithFormat:@"http://api.blip.fm/search/findSongs.xml?apiKey=%@&searchTerm=%@&nonce=%@&timestamp=%@&signature=%@", 
 					  API_KEY, 
 					  [searchBar.text  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
@@ -298,10 +296,11 @@ char *rand_str(char *dst) {
 	
     //you must then convert the path to a proper NSURL or it won't work
     NSURL *xmlURL = [NSURL URLWithString:URL];
-	
+
     // here, for some reason you have to use NSClassFromString when trying to alloc NSXMLParser, otherwise you will get an object not found error
     // this may be necessary only for the toolchain
     rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+	//rssParser = [[NSXMLParser alloc] initWithData:xmlData];
 	
     // Set self as the delegate of the parser so that it will receive the parser delegate methods callbacks.
     [rssParser setDelegate:self];
