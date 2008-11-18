@@ -49,6 +49,5 @@
 - (IBAction)displayBuyViewAction:(id)sender;
 - (IBAction)stopStream;
 - (CAKeyframeAnimation*)imagesAnimation;
-- (CAAnimationGroup*)imagesAnimationSpeaker;
 
 @end

@@ -15,6 +15,8 @@
 // Private interface - internal only methods.
 @interface BoomboxViewController (Private)
 - (void)stopStreamCleanup;
+- (CAAnimationGroup*)imagesAnimationLeftSpeaker;
+- (CAAnimationGroup*)imagesAnimationRightSpeaker;
 @end
 
 @implementation BoomboxViewController
@@ -185,16 +187,9 @@
 			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
 			[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
 
-			// create an animation group for the speakers
-			CAAnimationGroup *theGroup = [self imagesAnimationSpeaker];
-			theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-			// set the timing function for the group and the animation duration
-			theGroup.duration=1.0;
-			theGroup.repeatCount=1e100f;
-			
 			// adding the animation to the target layer causes it to begin animating
-			[leftSpeakerView.layer addAnimation:theGroup forKey:@"leftSpeakerAnimation"];
-			[rightSpeakerView.layer addAnimation:theGroup forKey:@"rightSpeakerAnimation"];
+			[leftSpeakerView.layer addAnimation:[self imagesAnimationLeftSpeaker] forKey:@"leftSpeakerAnimation"];
+			[rightSpeakerView.layer addAnimation:[self imagesAnimationRightSpeaker] forKey:@"rightSpeakerAnimation"];
 			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
 			
 			[CATransaction commit];
@@ -269,7 +264,8 @@
     return anim;
 }
 
-- (CAAnimationGroup*)imagesAnimationSpeaker {
+// The following two functions should be refactored
+- (CAAnimationGroup*)imagesAnimationLeftSpeaker {
 	
 	speakerImages = [[NSMutableArray alloc] initWithCapacity:9];
 	// the following array could be defined as static (so, too, probably the speakerImages above)
@@ -298,6 +294,52 @@
 	
 	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
 	theGroup.animations=speakerImages;
+	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+	// set the timing function for the group and the animation duration
+	theGroup.duration=1.0;
+	theGroup.repeatCount=1e100f;
+	
+	return theGroup;
+}
+
+- (CAAnimationGroup*)imagesAnimationRightSpeaker {
+	
+	speakerImages = [[NSMutableArray alloc] initWithCapacity:9];
+	// the following array could be defined as static (so, too, probably the speakerImages above)
+	NSArray *speakerValues = [[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0],
+							  [NSNumber numberWithFloat:0.99],
+							  [NSNumber numberWithFloat:0.995],
+							  [NSNumber numberWithFloat:0.986],
+							  [NSNumber numberWithFloat:0.992],
+							  [NSNumber numberWithFloat:1.0],
+							  [NSNumber numberWithFloat:0.998],
+							  [NSNumber numberWithFloat:0.993],
+							  [NSNumber numberWithFloat:0.999],
+							  [NSNumber numberWithFloat:0.996],
+							  nil];
+	
+	NSUInteger i, count = [speakerValues count];
+	for (i = 0; i < count - 1; i++) {
+		CABasicAnimation *animation;
+		animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+		animation.duration=0.2;
+		animation.repeatCount=1;
+		animation.beginTime=0.2*i;
+		animation.autoreverses=NO;
+		animation.fromValue=[speakerValues objectAtIndex:i];
+		animation.toValue=[speakerValues objectAtIndex:i+1];
+		
+		[speakerImages addObject:animation];
+	}
+	NSLog(@"speaker value size: %d", [speakerValues count]);
+	[speakerValues release];
+	
+	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
+	theGroup.animations=speakerImages;
+	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+	// set the timing function for the group and the animation duration
+	theGroup.duration=1.0;
+	theGroup.repeatCount=1e100f;
 	
 	return theGroup;
 }

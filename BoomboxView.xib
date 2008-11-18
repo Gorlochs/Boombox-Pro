@@ -9,7 +9,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="46"/>
-			<integer value="1"/>
+			<integer value="3"/>
 			<integer value="42"/>
 			<integer value="6"/>
 			<integer value="34"/>
@@ -289,7 +289,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<object class="NSCustomResource" key="IBUIImage" id="848049858">
+						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">left_spkr.png</string>
 						</object>
@@ -318,7 +318,10 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<reference key="IBUIImage" ref="848049858"/>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">right_spkr.png</string>
+						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{171, 166}</string>
@@ -612,7 +615,7 @@
 					<string>{{71, 486}, {171, 166}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>SingleSpeakerView</string>
-					<string>{{338, 494}, {171, 166}}</string>
+					<string>{{423, 482}, {171, 166}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ControlsView</string>
 					<string>{{645, 716}, {261, 59}}</string>
