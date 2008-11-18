@@ -324,7 +324,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			
-    //NSLog(@"found this element: %@", elementName);
+    NSLog(@"found this element: %@", elementName);
 	currentElement = [elementName copy];
 	if ([elementName isEqualToString:@"Song"]) {
 		// clear out our story item caches...
@@ -359,7 +359,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	//NSLog(@"found characters: %@", string);
+	NSLog(@"found characters: %@", string);
 	// save the characters for the current item...
 	if ([currentElement isEqualToString:@"title"]) {
 		[currentTitle appendString:string];
@@ -378,16 +378,14 @@ char *rand_str(char *dst) {
 	[theTableView reloadData];
 	[theTableView setHidden:NO];
 	
-	
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	if ([appDelegate.songs count] == 0) {
-		UIAlertView *alert =
-		[[UIAlertView alloc]
-			initWithTitle:@"No Results Found"
-			message:@"No results found. Please check your spelling or try another search."
-			delegate:self
-			cancelButtonTitle:@"OK"
-			otherButtonTitles: nil];
+		UIAlertView *alert = [[UIAlertView alloc]
+								initWithTitle:@"No Results Found"
+								message:@"No results found. Please check your spelling or try another search."
+								delegate:self
+								cancelButtonTitle:@"OK"
+								otherButtonTitles: nil];
 		[alert show];
 		[alert release];
 	} else {
