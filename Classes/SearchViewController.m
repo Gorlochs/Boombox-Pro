@@ -296,15 +296,13 @@ char *rand_str(char *dst) {
 	
     //you must then convert the path to a proper NSURL or it won't work
     NSURL *xmlURL = [NSURL URLWithString:URL];
-	NSString *returnstring = [NSString stringWithContentsOfURL:xmlURL];
-	NSLog(@"api return xml: %@", returnstring);
+	//NSString *returnstring = [NSString stringWithContentsOfURL:xmlURL];
+//	NSLog(@"api return xml: %@", returnstring);
 
     // here, for some reason you have to use NSClassFromString when trying to alloc NSXMLParser, otherwise you will get an object not found error
     // this may be necessary only for the toolchain
-	NSLog(@"***** before parser init *****");
-    //rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-	NSLog(@"***** after parser init *****");
-	rssParser = [[NSXMLParser alloc] initWithData:[returnstring dataUsingEncoding:NSASCIIStringEncoding]];
+    rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
+	//rssParser = [[NSXMLParser alloc] initWithData:[returnstring dataUsingEncoding:NSASCIIStringEncoding]];
 	
     // Set self as the delegate of the parser so that it will receive the parser delegate methods callbacks.
     [rssParser setDelegate:self];
@@ -327,7 +325,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			
-    //NSLog(@"found this element: %@", elementName);
+    NSLog(@"found this element: %@", elementName);
 	currentElement = [elementName copy];
 	if ([elementName isEqualToString:@"Song"]) {
 		// clear out our story item caches...
@@ -362,7 +360,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	//NSLog(@"found characters: %@", string);
+	NSLog(@"found characters: %@", string);
 	// save the characters for the current item...
 	if ([currentElement isEqualToString:@"title"]) {
 		[currentTitle appendString:string];
