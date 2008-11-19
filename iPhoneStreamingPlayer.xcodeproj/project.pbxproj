@@ -118,6 +118,7 @@
 		6AC13C850EC660CF004146A4 /* speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C840EC660CF004146A4 /* speaker.png */; };
 		6AC13C870EC661CF004146A4 /* SearchTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */; };
 		6AC13C960EC662A7004146A4 /* SearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC13C950EC662A7004146A4 /* SearchTableCellView.m */; };
+		6AF4C7B20ED3B051002510B0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AF4C7B10ED3B051002510B0 /* Default.png */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
 		C9C2D8810EB6E0DB00A3D071 /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87E0EB6E0DB00A3D071 /* playbutton.png */; };
@@ -259,6 +260,7 @@
 		6AC13C860EC661CF004146A4 /* SearchTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableCellView.xib; sourceTree = "<group>"; };
 		6AC13C940EC662A7004146A4 /* SearchTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableCellView.h; sourceTree = "<group>"; };
 		6AC13C950EC662A7004146A4 /* SearchTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableCellView.m; sourceTree = "<group>"; };
+		6AF4C7B10ED3B051002510B0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		C9C2D8790EB6E09C00A3D071 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6AF4C7B10ED3B051002510B0 /* Default.png */,
 				6AC13A520EC3D521004146A4 /* boombox.sql */,
 				6AC138580EBF9B63004146A4 /* images */,
 				2899E5210DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib */,
@@ -700,6 +703,7 @@
 				6AC0DD470ED13C80009F6BBD /* boombox_blank3.png in Resources */,
 				6AC0DD480ED13C80009F6BBD /* buy-buy.png in Resources */,
 				6AC0DD490ED13C80009F6BBD /* icon.png in Resources */,
+				6AF4C7B20ED3B051002510B0 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
