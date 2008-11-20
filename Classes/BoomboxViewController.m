@@ -64,6 +64,7 @@
 	equalizerView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:equalizerView];
 	
+	
 	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
 	UIInterfaceOrientation orientation=[[UIApplication sharedApplication] statusBarOrientation]; 
 	[super viewDidLoad]; 
@@ -144,6 +145,7 @@
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	if ([appDelegate.playlist count] > 0) {
 		NSLog(@"play button clicked, and playlist exists, so play the first song");
@@ -182,6 +184,11 @@
 		
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
+			
+			// start network traffic indicator in the status bar
+			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+			
+			// start animation
 			[CATransaction begin];
 			
 			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
@@ -241,6 +248,7 @@
 	[leftSpeakerView.layer removeAnimationForKey:@"leftSpeakerAnimation"];
 	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
 	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 # pragma mark Equalizer Animation
