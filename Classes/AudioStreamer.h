@@ -12,7 +12,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 
 #define kNumAQBufs 3			// number of audio queue buffers we allocate
-#define kAQBufSize 64 * 1024		// number of bytes in each audio queue buffer
+#define kAQBufSize 256 * 1024		// number of bytes in each audio queue buffer
 #define kAQMaxPacketDescs 512		// number of packet descriptions in our array
 
 @interface AudioStreamer : NSObject

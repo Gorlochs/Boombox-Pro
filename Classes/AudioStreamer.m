@@ -94,13 +94,14 @@ void MyPacketsProc(				void *							inClientData,
 {
 	// this is called by audio file stream when it finds packets of audio
 	AudioStreamer* myData = (AudioStreamer*)inClientData;
-//	printf("got data.  bytes: %d  packets: %d\n", inNumberBytes, inNumberPackets);
+	printf("got data.  bytes: %d  packets: %d\n", inNumberBytes, inNumberPackets);
 
 	myData->discontinuous = false;
 
 	// the following code assumes we're streaming VBR data. for CBR data, the second branch is used.
 	if (inPacketDescriptions)
 	{
+		printf("VBR data...");
 		for (int i = 0; i < inNumberPackets; ++i) {
 			SInt64 packetOffset = inPacketDescriptions[i].mStartOffset;
 			SInt64 packetSize   = inPacketDescriptions[i].mDataByteSize;
@@ -137,6 +138,7 @@ void MyPacketsProc(				void *							inClientData,
 	}
 	else
 	{
+		printf("CBR data...");
 		// if the space remaining in the buffer is not enough for this packet, then enqueue the buffer.
 		size_t bufSpaceRemaining = kAQBufSize - myData->bytesFilled;
 		if (bufSpaceRemaining < inNumberBytes) {
@@ -185,7 +187,7 @@ OSStatus MyEnqueueBuffer(AudioStreamer* myData)
 		err = AudioQueueStart(myData->audioQueue, NULL);
 		if (err) { PRINTERROR("AudioQueueStart"); myData->failed = true; return err; }		
 		myData->started = true;
-//		printf("started\n");
+		printf("started\n");
 	}
 
 	// go to next buffer
@@ -194,10 +196,10 @@ OSStatus MyEnqueueBuffer(AudioStreamer* myData)
 	myData->packetsFilled = 0;		// reset packets filled
 
 	// wait until next buffer is not in use
-//	printf("->lock\n");
+	printf("->lock\n");
 	pthread_mutex_lock(&myData->mutex); 
 	while (myData->inuse[myData->fillBufferIndex] && !myData->finished) {
-//		printf("... WAITING ...\n");
+		printf("... WAITING ...\n");
 		pthread_cond_wait(&myData->cond, &myData->mutex);
 		
 		if (myData->finished)
@@ -206,7 +208,7 @@ OSStatus MyEnqueueBuffer(AudioStreamer* myData)
 		}
 	}
 	pthread_mutex_unlock(&myData->mutex);
-//	printf("<-unlock\n");
+	printf("<-unlock\n");
 
 	return err;
 }
@@ -238,6 +240,7 @@ void MyAudioQueueOutputCallback(	void*					inClientData,
 
 void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
+	printf("*** callback is made, and it looks like the stream is about to be stopped");
 	AudioStreamer *myData = (AudioStreamer *)inUserData;
 
 	myData.isPlaying = !myData.isPlaying;
