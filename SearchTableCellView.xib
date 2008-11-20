@@ -83,7 +83,7 @@
 							<object class="IBUIButton" id="1027443485">
 								<reference key="NSNextResponder" ref="939158439"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{393, 5}, {46, 37}}</string>
+								<string key="NSFrame">{{394, 5}, {46, 37}}</string>
 								<reference key="NSSuperview" ref="939158439"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -144,7 +144,7 @@
 							<object class="IBUIButton" id="245866779">
 								<reference key="NSNextResponder" ref="939158439"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{436, 5}, {35, 37}}</string>
+								<string key="NSFrame">{{438, 5}, {35, 37}}</string>
 								<reference key="NSSuperview" ref="939158439"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -342,7 +342,7 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>SearchTableCellView</string>
-					<string>{{554, 900}, {481, 42}}</string>
+					<string>{{395, 434}, {481, 42}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
