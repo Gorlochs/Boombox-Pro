@@ -107,7 +107,7 @@
 	tableCell.playButton.tag = indexPath.row;
 	[tableCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
-	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:tableCell.songLocation]) {
+	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:tableCell.songLocation] && ((BoomboxViewController*) self.parentViewController).streamer.isPlaying) {
 		[self changeImageIcons:tableCell imageName:@"stop.png"];
 	} else {
 		[self changeImageIcons:tableCell imageName:@"image-7.png"];
