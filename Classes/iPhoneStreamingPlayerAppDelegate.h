@@ -24,8 +24,8 @@
 	// the index of the song in the playlist that is currently being played
 	NSInteger songIndexOfPlaylistCurrentlyPlaying;
 	
-	// the single song that a user plays from the search page
-	BlipSong *songToPlay;
+	// the song currently playing
+	BlipSong *currentSong;
 	
 	// search string that the user enters
 	NSString *searchTerms;
@@ -37,7 +37,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) NSMutableArray *playlist;
 @property NSInteger songIndexOfPlaylistCurrentlyPlaying;
-@property (nonatomic, retain) BlipSong *songToPlay;
+@property (nonatomic, retain) BlipSong *currentSong;
 @property (nonatomic, retain) NSString *searchTerms;
 @property (nonatomic, retain) NSMutableArray *songs;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;

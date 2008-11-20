@@ -197,8 +197,10 @@ char *rand_str(char *dst) {
 		[((BoomboxViewController*) self.parentViewController).streamer stop];
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 		[self changeImageIcons:cell imageName:@"image-7.png"];
+		appDelegate.currentSong = nil;
 	} else {
 		BlipSong *songToPlay = [appDelegate.songs objectAtIndex:senderButton.tag];
+		appDelegate.currentSong = songToPlay;
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;  // set it to -1 so the player knows the playlist isn't currently playing
 		
 		NSString *streamUrl = [cell.songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -249,8 +251,10 @@ char *rand_str(char *dst) {
 		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
 		[((BoomboxViewController*) self.parentViewController).streamer stop];
 		[self changeImageIcons:currentCell imageName:@"image-7.png"];
+		appDelegate.currentSong = nil;
 	} else {
 		BlipSong *songToPlay = [appDelegate.songs objectAtIndex:indexPath.row];
+		appDelegate.currentSong = songToPlay;
 		NSString *streamUrl = [songToPlay.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		NSLog(@"chosen stream: %@", streamUrl);
 		NSURL *url = [NSURL URLWithString:streamUrl];

@@ -21,7 +21,7 @@
 @synthesize window;
 @synthesize playlist;
 @synthesize viewController;
-@synthesize songToPlay;
+@synthesize currentSong;
 @synthesize searchTerms;
 @synthesize songs;
 @synthesize songIndexOfPlaylistCurrentlyPlaying;
@@ -61,7 +61,7 @@
     [viewController release];
     [window release];
 	[playlist release];
-	[songToPlay release];
+	[currentSong release];
 	[searchTerms release];
 	[songs release];
     [super dealloc];

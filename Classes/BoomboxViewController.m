@@ -87,7 +87,7 @@
 - (void)viewDidAppear {
 	
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	songLabel.text = [appDelegate.songToPlay title];
+	songLabel.text = [appDelegate.currentSong title];
 }
 
 
@@ -157,6 +157,7 @@
 		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 		[streamer start];
 		songLabel.text = [[appDelegate.playlist objectAtIndex:0] constructTitleArtist];
+		appDelegate.currentSong = [appDelegate.playlist objectAtIndex:0];
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
 													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -178,12 +179,20 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
 						change:(NSDictionary *)change context:(void *)context {
 	
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	
 	// detects if the stream is playing a stream or not
 	if ([keyPath isEqual:@"isPlaying"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
+			NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
+													 [[appDelegate.currentSong.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+													 [[appDelegate.currentSong.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+			NSLog(@"insert url: %@", insertUrl);
+			NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+			NSLog(@"insert result: %@", insertResult);
 			
 			// start network traffic indicator in the status bar
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -210,7 +219,6 @@
 //			streamer = nil;
 			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
-			iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 			if (appDelegate.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
 				if (appDelegate.songIndexOfPlaylistCurrentlyPlaying != [appDelegate.playlist count] - 1) {
@@ -218,6 +226,7 @@
 					// start streamer for next song
 					appDelegate.songIndexOfPlaylistCurrentlyPlaying++;
 					BlipSong *nextSong = [appDelegate.playlist objectAtIndex:appDelegate.songIndexOfPlaylistCurrentlyPlaying];
+					appDelegate.currentSong = nextSong;
 					NSLog(@"next playlist song: %@", nextSong.title);
 					[streamer stop];
 					streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
@@ -249,6 +258,9 @@
 	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
 	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	appDelegate.currentSong = nil;
 }
 
 # pragma mark Equalizer Animation
