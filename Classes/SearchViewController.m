@@ -101,7 +101,7 @@ char *rand_str(char *dst) {
 	NSLog(@"timestamp: %@", timestamp);	
 
 	// retrieve the hash from the php page
-	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, searchBar.text];
+	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //	NSString *url = [[NSString stringWithFormat:@"http://api.blip.fm/search/findSongs.xml?apiKey=%@&searchTerm=%@&nonce=%@&timestamp=%@&signature=%@", 
 //					  API_KEY, 
 //					  [searchBar.text  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
