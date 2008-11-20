@@ -88,7 +88,8 @@ char *rand_str(char *dst) {
 // -----------------------------------------------------------------------------
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	NSLog(@"search button has been clicked!");
-	// dismiss keyboard
+	// display activity
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	// search blip.fm api for keywords
 	char mytext[8];
@@ -378,6 +379,7 @@ char *rand_str(char *dst) {
 	
 	[theTableView reloadData];
 	[theTableView setHidden:NO];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	if ([appDelegate.songs count] == 0) {
