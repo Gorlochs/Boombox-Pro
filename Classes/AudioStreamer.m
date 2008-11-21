@@ -37,7 +37,7 @@ void MyPropertyListenerProc(	void *							inClientData,
 	AudioStreamer* myData = (AudioStreamer*)inClientData;
 	OSStatus err = noErr;
 
-//	printf("found property '%c%c%c%c'\n", (inPropertyID>>24)&255, (inPropertyID>>16)&255, (inPropertyID>>8)&255, inPropertyID&255);
+	printf("found property '%c%c%c%c'\n", (inPropertyID>>24)&255, (inPropertyID>>16)&255, (inPropertyID>>8)&255, inPropertyID&255);
 
 	switch (inPropertyID) {
 		case kAudioFileStreamProperty_ReadyToProducePackets :
@@ -94,14 +94,14 @@ void MyPacketsProc(				void *							inClientData,
 {
 	// this is called by audio file stream when it finds packets of audio
 	AudioStreamer* myData = (AudioStreamer*)inClientData;
-	printf("got data.  bytes: %d  packets: %d\n", inNumberBytes, inNumberPackets);
+	//printf("got data.  bytes: %d  packets: %d\n", inNumberBytes, inNumberPackets);
 
 	myData->discontinuous = false;
 
 	// the following code assumes we're streaming VBR data. for CBR data, the second branch is used.
 	if (inPacketDescriptions)
 	{
-		printf("VBR data...");
+		//printf("VBR data...");
 		for (int i = 0; i < inNumberPackets; ++i) {
 			SInt64 packetOffset = inPacketDescriptions[i].mStartOffset;
 			SInt64 packetSize   = inPacketDescriptions[i].mDataByteSize;
@@ -112,8 +112,7 @@ void MyPacketsProc(				void *							inClientData,
 				MyEnqueueBuffer(myData);
 			}
 			
-			// If the audio was terminated while waiting for a buffer, then
-			// exit.
+			// If the audio was terminated while waiting for a buffer, then exit.
 			if (myData->finished)
 			{
 				return;
@@ -138,7 +137,7 @@ void MyPacketsProc(				void *							inClientData,
 	}
 	else
 	{
-		printf("CBR data...");
+		//printf("CBR data...");
 		// if the space remaining in the buffer is not enough for this packet, then enqueue the buffer.
 		size_t bufSpaceRemaining = kAQBufSize - myData->bytesFilled;
 		if (bufSpaceRemaining < inNumberBytes) {
@@ -240,7 +239,7 @@ void MyAudioQueueOutputCallback(	void*					inClientData,
 
 void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
-	printf("*** callback is made, and it looks like the stream is about to be stopped");
+	printf("*** audioqueue callback is made ***");
 	AudioStreamer *myData = (AudioStreamer *)inUserData;
 
 	myData.isPlaying = !myData.isPlaying;
