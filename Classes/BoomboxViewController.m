@@ -17,6 +17,7 @@
 - (void)stopStreamCleanup;
 - (CAAnimationGroup*)imagesAnimationLeftSpeaker;
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
+- (void)insertSongIntoDB:(BlipSong*)songToInsert;
 @end
 
 @implementation BoomboxViewController
@@ -187,12 +188,7 @@
 		
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
-			NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
-													 [[appDelegate.currentSong.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-													 [[appDelegate.currentSong.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-			NSLog(@"insert url: %@", insertUrl);
-			NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
-			NSLog(@"insert result: %@", insertResult);
+			[self insertSongIntoDB:appDelegate.currentSong];
 			
 			// start network traffic indicator in the status bar
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -214,10 +210,6 @@
 		} else {
 			// the stream has ended
 			
-//			[streamer removeObserver:self forKeyPath:@"isPlaying"];
-//			[streamer release];
-//			streamer = nil;
-			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (appDelegate.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
@@ -233,6 +225,7 @@
 					[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					[streamer start];
 					songLabel.text = [nextSong constructTitleArtist];
+					//[self insertSongIntoDB:nextSong];
 				} else {
 					NSLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
@@ -250,6 +243,15 @@
 	}
 	
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void)insertSongIntoDB:(BlipSong*)songToInsert {
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
+											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+	NSLog(@"insert url: %@", insertUrl);
+	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+	NSLog(@"insert result: %@", insertResult);
 }
 
 - (void) stopStreamCleanup {
@@ -309,7 +311,6 @@
 		
 		[speakerImages addObject:animation];
 	}
-	NSLog(@"speaker value size: %d", [speakerValues count]);
 	[speakerValues release];
 	
 	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
@@ -352,7 +353,6 @@
 		
 		[speakerImages addObject:animation];
 	}
-	NSLog(@"speaker value size: %d", [speakerValues count]);
 	[speakerValues release];
 	
 	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
