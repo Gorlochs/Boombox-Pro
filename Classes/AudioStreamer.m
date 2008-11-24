@@ -289,6 +289,24 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 	NSLog(@"startInternal...");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	// Apple switched the default AudioSession setting so that the audio
+	// would automatically shut off when the iPhone energy setting kicked in
+	// and the screen went black.  The following code is to reset the AudioSession
+	// AudioCategory property back to MediaPlayback so that it will continue to play
+	// NOTE:  I'm not sure if this is the 'correct' place for this code, but it works.
+	OSStatus result = AudioSessionInitialize(NULL, NULL, NULL, self);
+	if (result) {
+		printf("Error initializing audio session! %d\n", result);
+	} else {
+		UInt32 category = kAudioSessionCategory_MediaPlayback;
+		result = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
+		if (result) printf("Error setting audio session category! %d\n", result);
+		else {
+			result = AudioSessionSetActive(true);
+			if (result) printf("Error setting audio session active! %d\n", result);
+		}
+	}
+	
 	AudioFileTypeID fileTypeHint = 0;
 	NSString *fileExtension = [[url path] pathExtension];
 	if ([fileExtension isEqual:@"mp3"])
