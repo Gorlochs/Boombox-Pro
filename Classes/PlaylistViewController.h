@@ -11,11 +11,13 @@
 #import <UIKit/UIKit.h>
 #import "AdMobDelegateProtocol.h"
 #import "SearchTableCellView.h"
-
+#import "AudioManager.h"
 
 @interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdMobDelegate> {
 	UITableView *theTableView;
 	SearchTableCellView *tableCell;
+	
+	AudioManager *audioManager;
 	
 	// AdMob code  
 	AdMobView *adMobAd;  // the actual ad; self.view is a placeholder to indicate where the ad should be placed; intentially _not_ an IBOutlet

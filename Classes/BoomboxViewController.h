@@ -3,7 +3,7 @@
 //  iPhoneStreamingPlayer
 //
 //  Created by Shawn Bernard on 11/3/08.
-//  Copyright 2008 Nau Inc.. All rights reserved.
+//  Copyright 2008 Gorloch Interactive, LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,11 +15,13 @@
 #import "BuySongListViewController.h"
 #import "AudioStreamer.h"
 #import "SingleSpeakerView.h"
+#import "AudioManager.h"
 
 @class AudioStreamer;
 
 @interface BoomboxViewController : UIViewController {
 	AudioStreamer *streamer;
+	AudioManager *audioManager;
 	
 	ControlsView *controlsView;
 	EqualizerView *equalizerView;
@@ -42,6 +44,7 @@
 @property (nonatomic, retain) IBOutlet EqualizerView *equalizerView;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
 @property (nonatomic, retain) AudioStreamer *streamer;
+@property (nonatomic, retain, readonly) AudioManager *audioManager;
 
 - (IBAction)playAction:(id)sender;
 - (IBAction)displaySearchViewAction:(id)sender;

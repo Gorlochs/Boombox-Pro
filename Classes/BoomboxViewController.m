@@ -9,7 +9,6 @@
 #import "BoomboxViewController.h"
 #import "ControlsView.h"
 #import "BlipSong.h"
-#import "iPhoneStreamingPlayerAppDelegate.h"
 #import <QuartzCore/CoreAnimation.h>
 
 // Private interface - internal only methods.
@@ -17,12 +16,11 @@
 - (void)stopStreamCleanup;
 - (CAAnimationGroup*)imagesAnimationLeftSpeaker;
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
-- (void)insertSongIntoDB:(BlipSong*)songToInsert;
 @end
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, songLabel, streamer;
+@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, songLabel, streamer, audioManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -32,6 +30,8 @@
 }
 
 - (void)viewDidLoad {
+	// I think that this is the wrong place for this, but initWithNibName isn't being called
+	audioManager = [AudioManager sharedAudioManager];
 	songLabel.font = [UIFont boldSystemFontOfSize:30];
 	
 	// determine the size of ControlsView
@@ -86,9 +86,7 @@
 }
 
 - (void)viewDidAppear {
-	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	songLabel.text = [appDelegate.currentSong title];
+	songLabel.text = [audioManager.currentSong title];
 }
 
 
@@ -131,34 +129,19 @@
 }
 
 - (IBAction)displayBuyViewAction:(id)sender {
-//	if ([songLabel.text isNotEqualTo:@""]) {
-		buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil valueToSearchItunesStore:self.songLabel.text];
-		[self presentModalViewController:buySongListController animated:YES];	
-//	} else {
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"A song must be selected in order to make a purchase." 
-//													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//		[alert show];
-//		[alert release];
-//	}
+	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil valueToSearchItunesStore:self.songLabel.text];
+	[self presentModalViewController:buySongListController animated:YES];	
 }
 
-// plays a single song that was chosen on the Search page
+// plays the first song in the user's Playlist
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
-	if ([appDelegate.playlist count] > 0) {
+	if ([audioManager.playlist count] > 0) {
 		NSLog(@"play button clicked, and playlist exists, so play the first song");
-		appDelegate.songIndexOfPlaylistCurrentlyPlaying = 0;
-		NSString *streamUrl = [[appDelegate.playlist objectAtIndex:0] location];
-		NSURL *url = [NSURL URLWithString:streamUrl];
-		[streamer stop];
-		streamer = [[AudioStreamer alloc] initWithURL:url];
-		[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-		[streamer start];
-		songLabel.text = [[appDelegate.playlist objectAtIndex:0] constructTitleArtist];
-		appDelegate.currentSong = [appDelegate.playlist objectAtIndex:0];
+		[audioManager startStreamerWithPlaylistIndex:0];
+		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+		songLabel.text = [[audioManager.playlist objectAtIndex:0] constructTitleArtist];
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
 													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -168,27 +151,21 @@
 }
 
 - (IBAction)stopStream {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
-	[streamer stop];
+	[audioManager stopStreamer];
 	[self stopStreamCleanup];
-//	[streamer removeObserver:@"isPlaying"];
 }
 
 #pragma mark Audio Streaming Functions
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
 						change:(NSDictionary *)change context:(void *)context {
-	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	
+		
 	// detects if the stream is playing a stream or not
 	if ([keyPath isEqual:@"isPlaying"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		if ([(AudioStreamer *)object isPlaying]) {
 			// a stream has started playing
-			[self insertSongIntoDB:appDelegate.currentSong];
 			
 			// start network traffic indicator in the status bar
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -211,26 +188,23 @@
 			// the stream has ended
 			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
-			if (appDelegate.songIndexOfPlaylistCurrentlyPlaying > -1) {
+			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
-				if (appDelegate.songIndexOfPlaylistCurrentlyPlaying != [appDelegate.playlist count] - 1) {
+				if (audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
-					appDelegate.songIndexOfPlaylistCurrentlyPlaying++;
-					BlipSong *nextSong = [appDelegate.playlist objectAtIndex:appDelegate.songIndexOfPlaylistCurrentlyPlaying];
-					appDelegate.currentSong = nextSong;
+					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
+					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+					audioManager.currentSong = nextSong;
 					NSLog(@"next playlist song: %@", nextSong.title);
-					[streamer stop];
-					streamer = [[AudioStreamer alloc] initWithURL:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
-					[streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-					[streamer start];
+					
+					[audioManager startStreamerWithUrl:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
+					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					songLabel.text = [nextSong constructTitleArtist];
-					//[self insertSongIntoDB:nextSong];
 				} else {
 					NSLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
-					[streamer stop];
-					appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
+					[audioManager stopStreamer];
 					[self stopStreamCleanup];
 				}
 			} else {
@@ -245,24 +219,11 @@
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-- (void)insertSongIntoDB:(BlipSong*)songToInsert {
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
-											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-	NSLog(@"insert url: %@", insertUrl);
-	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
-	NSLog(@"insert result: %@", insertResult);
-}
-
 - (void) stopStreamCleanup {
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 	[leftSpeakerView.layer removeAnimationForKey:@"leftSpeakerAnimation"];
 	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
 	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	appDelegate.currentSong = nil;
 }
 
 # pragma mark Equalizer Animation

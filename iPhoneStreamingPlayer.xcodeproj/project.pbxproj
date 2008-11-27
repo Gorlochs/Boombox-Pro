@@ -16,6 +16,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SearchViewController.m */; };
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
+		6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A68F9300EDB3908001D7787 /* AudioManager.m */; };
 		6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */; };
 		6AC0D2EB0ECA52DB009F6BBD /* boombox_blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2DE0ECA52DB009F6BBD /* boombox_blank.png */; };
 		6AC0D2EC0ECA52DB009F6BBD /* btn_buy_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2DF0ECA52DB009F6BBD /* btn_buy_off.png */; };
@@ -141,6 +142,9 @@
 		32CA4F630368D1EE00C91783 /* iPhoneStreamingPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayer_Prefix.pch; sourceTree = "<group>"; };
 		6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlipSong.h; sourceTree = "<group>"; };
 		6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlipSong.m; sourceTree = "<group>"; };
+		6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		6A68F92F0EDB3908001D7787 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
+		6A68F9300EDB3908001D7787 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
 		6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		6AC0D2DE0ECA52DB009F6BBD /* boombox_blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boombox_blank.png; sourceTree = "<group>"; };
 		6AC0D2DF0ECA52DB009F6BBD /* btn_buy_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_buy_off.png; sourceTree = "<group>"; };
@@ -491,6 +495,9 @@
 				C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */,
 				6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */,
 				6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */,
+				6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */,
+				6A68F92F0EDB3908001D7787 /* AudioManager.h */,
+				6A68F9300EDB3908001D7787 /* AudioManager.m */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -734,6 +741,7 @@
 				6AC0D7E30ECD100F009F6BBD /* BuyTableCellView.m in Sources */,
 				6AC0D9FC0ECDF6A1009F6BBD /* EqualizerView.m in Sources */,
 				6AC0DC5B0ECF9C90009F6BBD /* SingleSpeakerView.m in Sources */,
+				6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,7 @@
 // Private interface - internal only methods.
 @interface SearchViewController (Private)
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName;
+- (void)playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex;
 @end
 
 @implementation SearchViewController
@@ -33,6 +34,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
+		audioManager = [AudioManager sharedAudioManager];
 	}
 	return self;
 }
@@ -61,9 +63,8 @@
 }
 // -----------------------------------------------------------------------------
 - (void)viewDidLoad {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	if (appDelegate.searchTerms != nil) {
-		blipSearchBar.text = appDelegate.searchTerms;
+	if (audioManager.searchTerms != nil) {
+		blipSearchBar.text = audioManager.searchTerms;
 	}
 	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 	[adMobAd retain]; // this will be released when it loads (or fails to load)
@@ -102,19 +103,12 @@ char *rand_str(char *dst) {
 
 	// retrieve the hash from the php page
 	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//	NSString *url = [[NSString stringWithFormat:@"http://api.blip.fm/search/findSongs.xml?apiKey=%@&searchTerm=%@&nonce=%@&timestamp=%@&signature=%@", 
-//					  API_KEY, 
-//					  [searchBar.text  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-//					  nonce,
-//					  timestamp,
-//					  [NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSLog(@"parse url: %@", url);
+	
 	[self parseXMLFileAtURL:url];
 	
-	// save the search terms in the appdelegate in order to display when the screen is redisplayed
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	appDelegate.searchTerms = searchBar.text;
+	// save the search terms in the AudioManager in order to display when the screen is redisplayed
+	audioManager.searchTerms = searchBar.text;
 	
 	[searchBar resignFirstResponder];
 }
@@ -124,8 +118,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	return [appDelegate.songs count];	
+	return [audioManager.songs count];	
 }
 // -----------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -133,10 +126,6 @@ char *rand_str(char *dst) {
 	
 	searchCell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (searchCell == nil) {
-//		[[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
-//		NSArray *cellNib = [[NSBundle mainBundle] loadNibNamed:@"SearchTableCellView" owner:self options:nil];
-//		cell = (SearchTableCellView *)[cellNib objectAtIndex:1];
-		
 		UIViewController *vc=[[UIViewController alloc] initWithNibName:@"SearchTableCellView" bundle:nil];
 		searchCell = vc.view;
 		[vc release];
@@ -144,8 +133,7 @@ char *rand_str(char *dst) {
 	
 	// Set up the cell
 	int storyIndex = [indexPath indexAtPosition: [indexPath length] - 1];
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: storyIndex];
+	BlipSong *song = (BlipSong*) [audioManager.songs objectAtIndex: storyIndex];
 	[searchCell setCellData:song];
 	[searchCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	[searchCell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
@@ -157,14 +145,14 @@ char *rand_str(char *dst) {
 	[searchCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
-	if ([[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation] && ((BoomboxViewController*) self.parentViewController).streamer.isPlaying) {
+	if ([[[audioManager.streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation] && audioManager.streamer.isPlaying) {
 		[searchCell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 	} else {
 		[searchCell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
 	}
 	
 	// check to see if the song was added to the playlist.  if so, change image to check mark
-	if ([appDelegate.playlist indexOfObject:song] != NSNotFound) {
+	if ([audioManager.playlist indexOfObject:song] != NSNotFound) {
 		[searchCell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	}
 	
@@ -175,63 +163,31 @@ char *rand_str(char *dst) {
 	UIView *senderButton = (UIView*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	BlipSong *songToAdd = [cell song];
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	//BlipSong *song = (BlipSong*) [appDelegate.songs objectAtIndex: indexPath.row];
-	if (appDelegate.playlist == nil) {
+	if (audioManager.playlist == nil) {
 		NSLog(@"playlist is nil");
-		appDelegate.playlist = [[NSMutableArray alloc] init];
+		audioManager.playlist = [[NSMutableArray alloc] init];
 	}
 	NSLog(@"adding song....");
-	[appDelegate.playlist addObject:songToAdd];
+	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	
 }
 // -----------------------------------------------------------------------------
 - (void)playSong:(id)sender {
 	UIButton *senderButton = (UIButton*) sender;
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
-	
-	if ([[[appDelegate.songs objectAtIndex:senderButton.tag] location] isEqualToString:[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString]]) {
-		// stop the stream and switch back to the play button
-		[((BoomboxViewController*) self.parentViewController).streamer stop];
-		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
-		[self changeImageIcons:cell imageName:@"image-7.png"];
-		appDelegate.currentSong = nil;
-	} else {
-		BlipSong *songToPlay = [appDelegate.songs objectAtIndex:senderButton.tag];
-		appDelegate.currentSong = songToPlay;
-		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;  // set it to -1 so the player knows the playlist isn't currently playing
-		
-		NSString *streamUrl = [cell.songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSLog(@"chosen stream: %@", streamUrl);
-		NSURL *url = [NSURL URLWithString:streamUrl];
-		
-		if (((BoomboxViewController*) self.parentViewController).streamer) {
-			[((BoomboxViewController*) self.parentViewController).streamer stop];
-		}
-		((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
-		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-		[((BoomboxViewController*) self.parentViewController).streamer start];
-		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
-		
-		[self changeImageIcons:cell imageName:@"stop.png"];
-		
-		// change any other image in any other row to the default play button
-		NSArray *visibleCells = [theTableView visibleCells];
-		NSUInteger i, count = [visibleCells count];
-		for (i = 0; i < count; i++) {
-			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
-			if (![cell.songLocation isEqualToString:streamUrl]) {
-				[self changeImageIcons:cell imageName:@"image-7.png"];
-			}
-		}
-	}
+	[self playOrStopSong:cell songIndex:senderButton.tag];
 }
+// -----------------------------------------------------------------------------
+#pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+	SearchTableCellView *currentCell = (SearchTableCellView*) [theTableView cellForRowAtIndexPath:indexPath];
+	[self playOrStopSong:currentCell songIndex:indexPath.row];
+}
+// -----------------------------------------------------------------------------
 -(void)buySong:(id)sender {
 	UIButton *senderButton = (UIButton*) sender;
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
-	BlipSong *songToSearch = [appDelegate.songs objectAtIndex:senderButton.tag];
+	BlipSong *songToSearch = [audioManager.songs objectAtIndex:senderButton.tag];
 	NSLog(@"song to search on: %@", songToSearch);
 	
 	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" 
@@ -240,56 +196,6 @@ char *rand_str(char *dst) {
 	[self presentModalViewController:buySongListController animated:YES];
 }
 // -----------------------------------------------------------------------------
-#pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	SearchTableCellView *currentCell = (SearchTableCellView*) [theTableView cellForRowAtIndexPath:indexPath];
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;	
-	
-	if ([[[appDelegate.songs objectAtIndex:indexPath.row] location] isEqualToString:[[((BoomboxViewController*) self.parentViewController).streamer getUrl] absoluteString]]) {
-		// stop the stream and switch back to the play button
-		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
-		[((BoomboxViewController*) self.parentViewController).streamer stop];
-		[self changeImageIcons:currentCell imageName:@"image-7.png"];
-		appDelegate.currentSong = nil;
-	} else {
-		BlipSong *songToPlay = [appDelegate.songs objectAtIndex:indexPath.row];
-		appDelegate.currentSong = songToPlay;
-		NSString *streamUrl = [songToPlay.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSLog(@"chosen stream: %@", streamUrl);
-		NSURL *url = [NSURL URLWithString:streamUrl];
-		
-		// stop stream if some other stream is already playing
-		if (((BoomboxViewController*) self.parentViewController).streamer) {
-			[((BoomboxViewController*) self.parentViewController).streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
-			[((BoomboxViewController*) self.parentViewController).streamer stop];
-		}
-		((BoomboxViewController*) self.parentViewController).streamer = [[AudioStreamer alloc] initWithURL:url];
-		[((BoomboxViewController*) self.parentViewController).streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-		[((BoomboxViewController*) self.parentViewController).streamer start];	
-		
-		// set the delegate's variables so that it knows that the playlist is not playing.
-		appDelegate.songIndexOfPlaylistCurrentlyPlaying = -1;
-		
-		// set song title label on boombox view
-		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
-		
-		// change image to the stop button
-		[self changeImageIcons:currentCell imageName:@"stop.png"];
-		
-		// change any other image in any other row to the default play button
-		NSArray *visibleCells = [theTableView visibleCells];
-		NSUInteger i, count = [visibleCells count];
-		for (i = 0; i < count; i++) {
-			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
-			if (![cell.songLocation isEqualToString:streamUrl]) {
-				[self changeImageIcons:cell imageName:@"image-7.png"];
-			}
-		}
-	}
-}
-
-// -----------------------------------------------------------------------------
 #pragma mark Parser 
 - (void)parserDidStartDocument:(NSXMLParser *)parser{	
 	//	NSLog(@"found file and started parsing");
@@ -297,8 +203,7 @@ char *rand_str(char *dst) {
 // -----------------------------------------------------------------------------
 - (void)parseXMLFileAtURL:(NSString *)URL {
 	// always start with a fresh, empty array
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	appDelegate.songs = [[NSMutableArray alloc] init];
+	audioManager.songs = [[NSMutableArray alloc] init];
 	
     //you must then convert the path to a proper NSURL or it won't work
     NSURL *xmlURL = [NSURL URLWithString:URL];
@@ -355,10 +260,8 @@ char *rand_str(char *dst) {
 		[currentLocation release];
 		[currentArtist release];
 		
-		iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-		//if ([item.location isNotEqualTo:@""]) {
 		if (![item.location isEqualToString:@""]){
-			[appDelegate.songs addObject:item];
+			[audioManager.songs addObject:item];
 		}
 		NSLog(@"adding song: %@", currentTitle);
 		//		NSLog(@"1adding summary: %@", currentSummary);
@@ -386,8 +289,7 @@ char *rand_str(char *dst) {
 	[theTableView setHidden:NO];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	if ([appDelegate.songs count] == 0) {
+	if ([audioManager.songs count] == 0) {
 		UIAlertView *alert = [[UIAlertView alloc]
 								initWithTitle:@"No Results Found"
 								message:@"No results found. Please check your spelling or try another search."
@@ -467,9 +369,33 @@ char *rand_str(char *dst) {
 }
 
 #pragma mark private functions
-- (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName {
+- (void) changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName {
 	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
 	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
+- (void) playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex {
+	if ([audioManager isSongPlaying:[audioManager.songs objectAtIndex:songIndex]]) {
+		// stop the stream and switch back to the play button
+		[audioManager stopStreamer];
+		[self changeImageIcons:cell imageName:@"image-7.png"];
+	} else {
+		BlipSong *songToPlay = [audioManager.songs objectAtIndex:songIndex];
+		[audioManager startStreamerWithSong:songToPlay];
+		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
+		
+		[self changeImageIcons:cell imageName:@"stop.png"];
+		
+		// change any other image in any other row to the default play button
+		NSArray *visibleCells = [theTableView visibleCells];
+		NSUInteger i, count = [visibleCells count];
+		for (i = 0; i < count; i++) {
+			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+			if (![cell.songLocation isEqualToString:[[audioManager currentSong] location]]) {
+				[self changeImageIcons:cell imageName:@"image-7.png"];
+			}
+		}
+	}
+}
 @end

@@ -19,21 +19,11 @@
 @implementation iPhoneStreamingPlayerAppDelegate
 
 @synthesize window;
-@synthesize playlist;
 @synthesize viewController;
-@synthesize currentSong;
-@synthesize searchTerms;
-@synthesize songs;
-@synthesize songIndexOfPlaylistCurrentlyPlaying;
 
-// keep track of playlist objects in the delegate:
-//		(BOOL) isPlayingFromPlaylist
-//		(NSMutableArray) playlist
-//		(NSInteger) songIndexPlayingFromPlaylist
-//
-// maybe remove objects from playlist array?
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+	
+	audioManager = [AudioManager sharedAudioManager];
     
     [self createEditableCopyOfDatabaseIfNeeded];
     [self initializeDatabase];
@@ -47,7 +37,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
 	[self clearDatabase];
-	for (id song in playlist) {
+	for (id song in audioManager.playlist) {
 		[song insertIntoDatabase:database];
 	}
 	[BlipSong finalizeStatements];
@@ -60,10 +50,6 @@
 - (void)dealloc {
     [viewController release];
     [window release];
-	[playlist release];
-	[currentSong release];
-	[searchTerms release];
-	[songs release];
     [super dealloc];
 }
 
@@ -92,13 +78,14 @@
 - (void)initializeDatabase {
 	NSLog(@"initializing database...");
     NSMutableArray *songz = [[NSMutableArray alloc] init];
-    self.playlist = songz;
+    audioManager.playlist = songz;
     [songz release];
     // The database is stored in the application bundle. 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"boombox.sql"];
 	NSLog(@"db path: %@", path);
+	
 	
     // Open the database. The database was prepared outside the application.
     if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
@@ -120,8 +107,8 @@
                 // here will be in memory regardless of whether we use autorelease or release, because they are
                 // retained by the books array.
 				BlipSong *song = [[BlipSong alloc] initWithPrimaryKey:primaryKey database:database];
-                [playlist addObject:song];
-				//NSLog(@"initialized playlist from the database: %@", playlist);
+                [audioManager.playlist addObject:song];
+				NSLog(@"initialized playlist from the database: %@", audioManager.playlist);
                 [song release];
             }
         } else {
