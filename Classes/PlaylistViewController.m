@@ -84,35 +84,34 @@
     return [audioManager.playlist count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
 
-	tableCell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (tableCell == nil) {
-		UIViewController *vc=[[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
-		tableCell = vc.view;
+	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		UIViewController *vc = [[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
+		cell = (SearchTableCellView *) vc.view;
 		[vc release];
 	}
 	
     // Configure the cell
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = (BlipSong*) [audioManager.playlist objectAtIndex: songIndex];
-	[tableCell setCellData:song];
-	tableCell.buyButton.hidden = YES;
-	tableCell.addToPlaylistButton.hidden = YES;
-	[tableCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
-	tableCell.playButton.tag = indexPath.row;
-	[tableCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
+	[cell setCellData:song];
+	cell.buyButton.hidden = YES;
+	cell.addToPlaylistButton.hidden = YES;
+	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	cell.playButton.tag = indexPath.row;
+	[cell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	if ([audioManager isSongPlaying:song]) {
-		[self changeImageIcons:tableCell imageName:@"stop.png"];
+		[self changeImageIcons:cell imageName:@"stop.png"];
 	} else {
-		[self changeImageIcons:tableCell imageName:@"image-7.png"];
+		[self changeImageIcons:cell imageName:@"image-7.png"];
 	}
 	
-    return tableCell;
+    return cell;
 }
 
 #pragma mark UITableViewDelegate functions

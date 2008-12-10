@@ -198,7 +198,8 @@
 					audioManager.currentSong = nextSong;
 					NSLog(@"next playlist song: %@", nextSong.title);
 					
-					[audioManager startStreamerWithUrl:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
+					[audioManager startStreamerWithSong:nextSong];
+//					[audioManager startStreamerWithUrl:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					songLabel.text = [nextSong constructTitleArtist];
 				} else {

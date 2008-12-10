@@ -16,6 +16,8 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SearchViewController.m */; };
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
+		6A3690210EEEAF14000C7A23 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3690200EEEAF14000C7A23 /* Reachability.m */; };
+		6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */; };
 		6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A68F9300EDB3908001D7787 /* AudioManager.m */; };
 		6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */; };
 		6AC0D2EB0ECA52DB009F6BBD /* boombox_blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2DE0ECA52DB009F6BBD /* boombox_blank.png */; };
@@ -142,6 +144,9 @@
 		32CA4F630368D1EE00C91783 /* iPhoneStreamingPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayer_Prefix.pch; sourceTree = "<group>"; };
 		6A2DC1A60EB7D6EF0095FE98 /* BlipSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlipSong.h; sourceTree = "<group>"; };
 		6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlipSong.m; sourceTree = "<group>"; };
+		6A36901F0EEEAF14000C7A23 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		6A3690200EEEAF14000C7A23 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6A68F92F0EDB3908001D7787 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
 		6A68F9300EDB3908001D7787 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
@@ -288,6 +293,7 @@
 				6AC0D3F60ECB43CE009F6BBD /* libAdMobDevice.a in Frameworks */,
 				6AC0D3F70ECB43CE009F6BBD /* libAdMobSimulator.a in Frameworks */,
 				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
+				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +303,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6A36901E0EEEAF0A000C7A23 /* Reachability */,
 				6AC0D5F20ECCB9D9009F6BBD /* TouchJSON */,
 				6AC0D5DA0ECCB8EA009F6BBD /* Buy */,
 				6AC0D3F10ECB43B7009F6BBD /* AdMob */,
@@ -361,6 +368,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */,
 				6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */,
 				6AC0D26D0EC9DF98009F6BBD /* QuartzCore.framework */,
 				6AC139C40EC35700004146A4 /* libsqlite3.0.dylib */,
@@ -370,6 +378,15 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A36901E0EEEAF0A000C7A23 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				6A36901F0EEEAF14000C7A23 /* Reachability.h */,
+				6A3690200EEEAF14000C7A23 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		6AC0D3F10ECB43B7009F6BBD /* AdMob */ = {
@@ -742,6 +759,7 @@
 				6AC0D9FC0ECDF6A1009F6BBD /* EqualizerView.m in Sources */,
 				6AC0DC5B0ECF9C90009F6BBD /* SingleSpeakerView.m in Sources */,
 				6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */,
+				6A3690210EEEAF14000C7A23 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

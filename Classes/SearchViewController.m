@@ -124,39 +124,39 @@ char *rand_str(char *dst) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
-	searchCell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	if (searchCell == nil) {
-		UIViewController *vc=[[UIViewController alloc] initWithNibName:@"SearchTableCellView" bundle:nil];
-		searchCell = vc.view;
+	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	if (cell == nil) {
+		UIViewController *vc = [[UIViewController alloc] initWithNibName:@"SearchTableCellView" bundle:nil];
+		cell = (SearchTableCellView *) vc.view;
 		[vc release];
 	}
 	
 	// Set up the cell
 	int storyIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = (BlipSong*) [audioManager.songs objectAtIndex: storyIndex];
-	[searchCell setCellData:song];
-	[searchCell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
-	[searchCell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
-	[searchCell.buyButton addTarget:self action:@selector(buySong:) forControlEvents:UIControlEventTouchUpInside];
+	[cell setCellData:song];
+	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
+	[cell.buyButton addTarget:self action:@selector(buySong:) forControlEvents:UIControlEventTouchUpInside];
 	
-	searchCell.playButton.tag = indexPath.row;
-	searchCell.buyButton.tag = indexPath.row;
-	searchCell.addToPlaylistButton.tag = indexPath.row;
-	[searchCell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
+	cell.playButton.tag = indexPath.row;
+	cell.buyButton.tag = indexPath.row;
+	cell.addToPlaylistButton.tag = indexPath.row;
+//	[cell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
-	if ([[[audioManager.streamer getUrl] absoluteString] isEqualToString:searchCell.songLocation] && audioManager.streamer.isPlaying) {
-		[searchCell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
+	if ([[[audioManager.streamer getUrl] absoluteString] isEqualToString:cell.songLocation] && audioManager.streamer.isPlaying) {
+		[cell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 	} else {
-		[searchCell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
+		[cell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
 	}
 	
 	// check to see if the song was added to the playlist.  if so, change image to check mark
 	if ([audioManager.playlist indexOfObject:song] != NSNotFound) {
-		[searchCell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
+		[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	}
 	
-	return searchCell;
+	return cell;
 }
 // -----------------------------------------------------------------------------
 - (void)addSongToPlaylist:(id)sender {
@@ -236,7 +236,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			
-    NSLog(@"found this element: %@", elementName);
+    //NSLog(@"found this element: %@", elementName);
 	currentElement = [elementName copy];
 	if ([elementName isEqualToString:@"Song"]) {
 		// clear out our story item caches...
@@ -269,7 +269,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	NSLog(@"found characters: %@", string);
+	//NSLog(@"found characters: %@", string);
 	// save the characters for the current item...
 	if ([currentElement isEqualToString:@"title"]) {
 		[currentTitle appendString:string];

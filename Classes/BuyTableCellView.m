@@ -22,6 +22,9 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
         // Initialization code
+		songTitleLabel.font = [UIFont systemFontOfSize:26.0];
+		albumLabel.font = [UIFont systemFontOfSize:12.0];
+		[songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
     }
     return self;
 }
@@ -37,7 +40,8 @@
 	priceLabel.text = [[NSString stringWithFormat:@"$%f", [[songInfo objectForKey:@"trackPrice"] floatValue]] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"0"]];
 	
 	// display image
-	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[songInfo objectForKey:@"artworkUrl60"]]];
+//	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[songInfo objectForKey:@"artworkUrl60"]]];
+	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[songInfo objectForKey:@"artworkUrl60"]] options:NSMappedRead error:nil];
 	UIImage *tmpImg = [[UIImage alloc] initWithData:data];
 	albumImage.image = tmpImg;
 	[tmpImg release];
