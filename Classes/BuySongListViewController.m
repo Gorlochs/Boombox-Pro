@@ -119,6 +119,17 @@
 //		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
 //	}
 	self.searchResults = (NSMutableArray*) [dictionary objectForKey:@"results"];
-	[theTableView reloadData];
+	if ([self.searchResults count] == 0) {
+		UIAlertView *alert = [[UIAlertView alloc]
+							  initWithTitle:@"No Results Found"
+							  message:@"No results found. This song might not be available on iTunes."
+							  delegate:self
+							  cancelButtonTitle:@"OK"
+							  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	} else {
+		[theTableView reloadData];
+	}
 }
 @end
