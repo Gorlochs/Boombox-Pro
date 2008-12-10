@@ -10,7 +10,7 @@
 #import "BoomboxViewController.h"
 #import <sqlite3.h>
 #import "AudioManager.h"
-
+#import "Reachability.h"
 
 @class SearchViewController;
 
@@ -20,10 +20,17 @@
 	sqlite3 *database;
 	
 	AudioManager *audioManager;
+	
+	NetworkStatus remoteHostStatus;
+	NetworkStatus internetConnectionStatus;
+	NetworkStatus localWiFiConnectionStatus;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
+@property NetworkStatus remoteHostStatus;
+@property NetworkStatus internetConnectionStatus;
+@property NetworkStatus localWiFiConnectionStatus;
 
 @end
 

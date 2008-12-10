@@ -20,6 +20,9 @@
 
 @synthesize window;
 @synthesize viewController;
+@synthesize remoteHostStatus;
+@synthesize internetConnectionStatus;
+@synthesize localWiFiConnectionStatus;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
@@ -32,10 +35,43 @@
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
 	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+	
+	[[Reachability sharedReachability] setHostName:@"www.blip.fm"];
+	
+	// Query the SystemConfiguration framework for the state of the device's network connections.
+	self.remoteHostStatus           = [[Reachability sharedReachability] remoteHostStatus];
+//	self.internetConnectionStatus	= [[Reachability sharedReachability] internetConnectionStatus];
+//	self.localWiFiConnectionStatus	= [[Reachability sharedReachability] localWiFiConnectionStatus];
+
+	switch (self.remoteHostStatus) {
+		case NotReachable: {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+															message:@"You are currently do not have an internet connection.  You will not have acces to playing any songs until you reconnect."
+														   delegate:self 
+												  cancelButtonTitle:@"OK" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			break;
+		}
+		case ReachableViaCarrierDataNetwork: {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+															message:@"Hi, welcome to BoomBox. Please use a WiFi connection where available to improve performance and reduce network bandwidth."
+														   delegate:self 
+												  cancelButtonTitle:@"OK" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			break;
+		}
+		case ReachableViaWiFiNetwork:
+			break;
+		default:
+			break;
+	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-	
 	[self clearDatabase];
 	for (id song in audioManager.playlist) {
 		[song insertIntoDatabase:database];
