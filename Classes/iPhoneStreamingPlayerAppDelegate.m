@@ -14,6 +14,7 @@
 - (void)createEditableCopyOfDatabaseIfNeeded;
 - (void)initializeDatabase;
 - (void)clearDatabase;
+- (void)displayNetworkAlert:(NSString*)msg;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -21,8 +22,6 @@
 @synthesize window;
 @synthesize viewController;
 @synthesize remoteHostStatus;
-@synthesize internetConnectionStatus;
-@synthesize localWiFiConnectionStatus;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
@@ -39,29 +38,15 @@
 	[[Reachability sharedReachability] setHostName:@"www.blip.fm"];
 	
 	// Query the SystemConfiguration framework for the state of the device's network connections.
-	self.remoteHostStatus           = [[Reachability sharedReachability] remoteHostStatus];
-//	self.internetConnectionStatus	= [[Reachability sharedReachability] internetConnectionStatus];
-//	self.localWiFiConnectionStatus	= [[Reachability sharedReachability] localWiFiConnectionStatus];
+	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
 
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-															message:@"You are currently do not have an internet connection.  You will not have acces to playing any songs until you reconnect."
-														   delegate:self 
-												  cancelButtonTitle:@"OK" 
-												  otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have acces to playing any songs until you reconnect."];
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-															message:@"Hi, welcome to BoomBox. Please use a WiFi connection where available to improve performance and reduce network bandwidth."
-														   delegate:self 
-												  cancelButtonTitle:@"OK" 
-												  otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[self displayNetworkAlert:@"Hi, welcome to BoomBox. Please use a WiFi connection where available to improve performance and reduce network bandwidth."];
 			break;
 		}
 		case ReachableViaWiFiNetwork:
@@ -69,6 +54,16 @@
 		default:
 			break;
 	}
+}
+
+- (void) displayNetworkAlert:(NSString*)msg {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+													message:msg
+												   delegate:self 
+										  cancelButtonTitle:@"OK" 
+										  otherButtonTitles:nil];
+	[alert show];
+	[alert release];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -22,15 +22,11 @@
 	AudioManager *audioManager;
 	
 	NetworkStatus remoteHostStatus;
-	NetworkStatus internetConnectionStatus;
-	NetworkStatus localWiFiConnectionStatus;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 @property NetworkStatus remoteHostStatus;
-@property NetworkStatus internetConnectionStatus;
-@property NetworkStatus localWiFiConnectionStatus;
 
 @end
 
