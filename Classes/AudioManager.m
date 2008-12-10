@@ -8,9 +8,12 @@
 
 #import "AudioManager.h"
 #import "SynthesizeSingleton.h"
+#import "iPhoneStreamingPlayerAppDelegate.h"
+#import "Reachability.h"
 
 @interface AudioManager (Private)
 - (void)insertSongIntoDB:(BlipSong*)songToInsert;
+- (BOOL)isConnectedToNetwork;
 @end
 
 @implementation AudioManager
@@ -25,25 +28,35 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void) startStreamerWithSong:(BlipSong*)song {
-	// just in case a stream is playing, stop the stream before starting a new one
-	[self.streamer stop];
-	
-	// start the stream
-	NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-	streamer = [[AudioStreamer alloc] initWithURL:url];
-	[self.streamer start];
-	
-	// inset song into DB
-	[self insertSongIntoDB:song];
-	
-	// set currentSong
-	currentSong = song;
-	
-	// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
-	songIndexOfPlaylistCurrentlyPlaying = -1;
-	
-	// start the network indicator
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	if ([self isConnectedToNetwork]) {
+		// just in case a stream is playing, stop the stream before starting a new one
+		[self.streamer stop];
+		
+		// start the stream
+		NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+		streamer = [[AudioStreamer alloc] initWithURL:url];
+		[self.streamer start];
+		
+		// inset song into DB
+		[self insertSongIntoDB:song];
+		
+		// set currentSong
+		currentSong = song;
+		
+		// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
+		songIndexOfPlaylistCurrentlyPlaying = -1;
+		
+		// start the network indicator
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];	
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+														message:@"You are not connected to a network.  Please connect then try to play the song again."
+													   delegate:self 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex {
@@ -85,6 +98,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (BOOL) isSongPlaying:(BlipSong*)song {
 	return [[song location] isEqualToString:[[self.streamer getUrl] absoluteString]];
+}
+
+- (BOOL) isConnectedToNetwork {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return appDelegate.remoteHostStatus != NotReachable;
 }
 
 @end

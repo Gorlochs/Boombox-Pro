@@ -42,7 +42,7 @@
 
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
-			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have acces to playing any songs until you reconnect."];
+			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have access to playing any songs until you reconnect."];
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
