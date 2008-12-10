@@ -15,7 +15,6 @@
 
 @synthesize theTableView;
 @synthesize searchResults;
-@synthesize buyCell;
 @synthesize searchValueForItunesStore;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil valueToSearchItunesStore:(NSString*)searchValue {
@@ -54,7 +53,7 @@
 - (void)dealloc {
 	[theTableView release];
 	[searchValueForItunesStore release];
-	[buyCell release];
+	//[buyCell release];
 	[searchResults release];
 	
     [super dealloc];
