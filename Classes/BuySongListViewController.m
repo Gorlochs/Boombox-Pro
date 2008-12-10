@@ -3,7 +3,7 @@
 //  iPhoneStreamingPlayer
 //
 //  Created by Shawn Bernard on 11/13/08.
-//  Copyright 2008 Nau Inc.. All rights reserved.
+//  Copyright 2008 Gorloch Interactive, LLC. All rights reserved.
 //
 
 #import "BuySongListViewController.h"
