@@ -27,6 +27,8 @@
 	
 	// the list of songs returned from a search
 	NSMutableArray *songs;
+	
+	NSInteger numberOfSongsPlayedTodayOnCellNetwork;
 }
 
 @property (nonatomic, retain, readonly) AudioStreamer *streamer;
@@ -35,6 +37,7 @@
 @property (nonatomic, retain) BlipSong *currentSong;
 @property (nonatomic, retain) NSString *searchTerms;
 @property (nonatomic, retain) NSMutableArray *songs;
+@property NSInteger numberOfSongsPlayedTodayOnCellNetwork;
 
 + (AudioManager*) sharedAudioManager;
 - (void) startStreamerWithSong:(BlipSong*)song;
@@ -42,5 +45,7 @@
 - (void) insertSongIntoDB:(BlipSong*)songToInsert;
 - (BOOL) isSongPlaying:(BlipSong*)song;
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex;
+- (void) incrementCellNetworkSongsPlayed;
+- (BOOL) userHasReachedMaximumSongsForTheDay;
 
 @end

@@ -11,6 +11,8 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "Reachability.h"
 
+#define MAX_SONGS_FOR_CELL_NETWORK_PER_DAY 15
+
 @interface AudioManager (Private)
 - (void)insertSongIntoDB:(BlipSong*)songToInsert;
 - (BOOL)isConnectedToNetwork;
@@ -24,11 +26,24 @@
 @synthesize searchTerms;
 @synthesize songs;
 @synthesize songIndexOfPlaylistCurrentlyPlaying;
+@synthesize numberOfSongsPlayedTodayOnCellNetwork;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void) startStreamerWithSong:(BlipSong*)song {
 	if ([self isConnectedToNetwork]) {
+		
+		if ([self userHasReachedMaximumSongsForTheDay]) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+															message:@"You have reached the maximum number of songs for the day while attached to the cell network.  Please use wifi to continue listening for the day."
+														   delegate:self 
+												  cancelButtonTitle:@"OK" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			return;
+		}
+		
 		// just in case a stream is playing, stop the stream before starting a new one
 		[self.streamer stop];
 		
@@ -103,6 +118,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (BOOL) isConnectedToNetwork {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	return appDelegate.remoteHostStatus != NotReachable;
+}
+
+- (void) incrementCellNetworkSongsPlayed {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	if (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork) {
+		self.numberOfSongsPlayedTodayOnCellNetwork++;
+	}
+}
+
+- (BOOL) userHasReachedMaximumSongsForTheDay {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork && self.numberOfSongsPlayedTodayOnCellNetwork >= MAX_SONGS_FOR_CELL_NETWORK_PER_DAY);
 }
 
 @end

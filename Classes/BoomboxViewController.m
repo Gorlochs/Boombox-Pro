@@ -187,6 +187,9 @@
 		} else {
 			// the stream has ended
 			
+			// if user is on cell network, keep track of how many songs have been played for the day
+			[audioManager incrementCellNetworkSongsPlayed];
+			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
