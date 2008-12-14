@@ -188,7 +188,7 @@
 			// the stream has ended
 			
 			// if user is on cell network, keep track of how many songs have been played for the day
-			[audioManager incrementCellNetworkSongsPlayed];
+			//[audioManager incrementCellNetworkSongsPlayed];
 			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
@@ -202,7 +202,6 @@
 					NSLog(@"next playlist song: %@", nextSong.title);
 					
 					[audioManager startStreamerWithSong:nextSong];
-//					[audioManager startStreamerWithUrl:[NSURL URLWithString:[nextSong.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					songLabel.text = [nextSong constructTitleArtist];
 				} else {

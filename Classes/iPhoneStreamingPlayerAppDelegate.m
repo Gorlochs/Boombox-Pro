@@ -17,6 +17,8 @@ static sqlite3_stmt *insert_statement = nil;
 - (void)initializeDatabase;
 - (void)clearDatabase;
 - (void)displayNetworkAlert:(NSString*)msg;
+- (void)reachabilityChanged:(NSNotification *)note;
+- (void)updateStatus;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -40,15 +42,27 @@ static sqlite3_stmt *insert_statement = nil;
 	[[Reachability sharedReachability] setHostName:@"www.blip.fm"];
 	
 	// Query the SystemConfiguration framework for the state of the device's network connections.
-	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
+	[self updateStatus];
+	
+	// set observer to update the network status as it changes
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
+}
 
+- (void)reachabilityChanged:(NSNotification *)note {
+    [self updateStatus];
+}
+
+- (void)updateStatus {
+	// Query the SystemConfiguration framework for the state of the device's network connections.
+	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
+	
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
 			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have access to playing any songs until you reconnect."];
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
-			[self displayNetworkAlert:@"Hi, welcome to BoomBox. Please use a WiFi connection where available to improve performance and reduce network bandwidth."];
+			[self displayNetworkAlert:@"Hi, welcome to BoomBox. Due to bandwidth limitations, please connect via wifi in order to listen to music."];
 			break;
 		}
 		case ReachableViaWiFiNetwork:
@@ -150,47 +164,48 @@ static sqlite3_stmt *insert_statement = nil;
 			NSLog(@"something went wrong. statement: %@", statement);
 		}
 		
-		// All this stuff is to initalize the number of songs a user has played on the cell network
-		// We have to do this in order to limit the bandwidth while the user is on a cell network
-		NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-		[outputFormatter setDateFormat:@"yyyy-MM-dd"];
-		NSString *today = [outputFormatter stringFromDate:[NSDate date]];
-		//NSLog(@"today: %@", today);
-		
-		NSString *sqlQuery = [NSString stringWithFormat:@"SELECT pk, count, date_played FROM cell_network_song_count WHERE date_played = '%@'", today];
-		const char *sql2 = [sqlQuery cStringUsingEncoding:NSASCIIStringEncoding];
-        sqlite3_stmt *statement2;
-		// this SQL is to keep track of the number of cell network songs that are played
-		if (sqlite3_prepare_v2(database, sql2, -1, &statement2, NULL) == SQLITE_OK) {
-			NSLog(@"statement2 prepared...");
-			// We "step" through the results - once for each row.
-			int primaryKey2 = -1;
-			while (sqlite3_step(statement2) == SQLITE_ROW) {
-				// The second parameter indicates the column index into the result set.
-				primaryKey2 = sqlite3_column_int(statement2, 0);
-				audioManager.numberOfSongsPlayedTodayOnCellNetwork = sqlite3_column_int(statement2, 1);
-				
-				NSLog(@"pk: %d", primaryKey2);
-				NSLog(@"date: %@", [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement2, 2)]);
-			}
-			if (primaryKey2 == -1) {
-				// create entry and set session var to 0
-				static char *sql = "INSERT INTO cell_network_song_count (count, date_played) VALUES(0, ?)";
-				if (sqlite3_prepare_v2(database, sql, -1, &insert_statement, NULL) != SQLITE_OK) {
-					NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
-				}
-				sqlite3_bind_text(insert_statement, 1, [today cStringUsingEncoding:NSASCIIStringEncoding], -1, SQLITE_TRANSIENT);
-				int success = sqlite3_step(insert_statement);
-				sqlite3_reset(insert_statement);
-				audioManager.numberOfSongsPlayedTodayOnCellNetwork = 0;
-				if (success == SQLITE_ERROR) {
-					NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
-				}
-			}
-			NSLog(@"primaryKey2: %d", primaryKey2);
-		} else {
-			NSLog(@"something went wrong 2. statement: %@", statement2);
-		}
+//		// *** used for counting songs for limiting cell network access ***
+//		// All this stuff is to initalize the number of songs a user has played on the cell network
+//		// We have to do this in order to limit the bandwidth while the user is on a cell network
+//		NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+//		[outputFormatter setDateFormat:@"yyyy-MM-dd"];
+//		NSString *today = [outputFormatter stringFromDate:[NSDate date]];
+//		//NSLog(@"today: %@", today);
+//		
+//		NSString *sqlQuery = [NSString stringWithFormat:@"SELECT pk, count, date_played FROM cell_network_song_count WHERE date_played = '%@'", today];
+//		const char *sql2 = [sqlQuery cStringUsingEncoding:NSASCIIStringEncoding];
+//        sqlite3_stmt *statement2;
+//		// this SQL is to keep track of the number of cell network songs that are played
+//		if (sqlite3_prepare_v2(database, sql2, -1, &statement2, NULL) == SQLITE_OK) {
+//			NSLog(@"statement2 prepared...");
+//			// We "step" through the results - once for each row.
+//			int primaryKey2 = -1;
+//			while (sqlite3_step(statement2) == SQLITE_ROW) {
+//				// The second parameter indicates the column index into the result set.
+//				primaryKey2 = sqlite3_column_int(statement2, 0);
+//				audioManager.numberOfSongsPlayedTodayOnCellNetwork = sqlite3_column_int(statement2, 1);
+//				
+//				NSLog(@"pk: %d", primaryKey2);
+//				NSLog(@"date: %@", [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement2, 2)]);
+//			}
+//			if (primaryKey2 == -1) {
+//				// create entry and set session var to 0
+//				static char *sql = "INSERT INTO cell_network_song_count (count, date_played) VALUES(0, ?)";
+//				if (sqlite3_prepare_v2(database, sql, -1, &insert_statement, NULL) != SQLITE_OK) {
+//					NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+//				}
+//				sqlite3_bind_text(insert_statement, 1, [today cStringUsingEncoding:NSASCIIStringEncoding], -1, SQLITE_TRANSIENT);
+//				int success = sqlite3_step(insert_statement);
+//				sqlite3_reset(insert_statement);
+//				audioManager.numberOfSongsPlayedTodayOnCellNetwork = 0;
+//				if (success == SQLITE_ERROR) {
+//					NSAssert1(0, @"Error: failed to insert into the database with message '%s'.", sqlite3_errmsg(database));
+//				}
+//			}
+//			NSLog(@"primaryKey2: %d", primaryKey2);
+//		} else {
+//			NSLog(@"something went wrong 2. statement: %@", statement2);
+//		}
 		
         // "Finalize" the statement - releases the resources associated with the statement.
         sqlite3_finalize(statement);

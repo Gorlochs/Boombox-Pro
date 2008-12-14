@@ -16,6 +16,7 @@
 @interface AudioManager (Private)
 - (void)insertSongIntoDB:(BlipSong*)songToInsert;
 - (BOOL)isConnectedToNetwork;
+- (BOOL)isConnectedToWifi;
 @end
 
 @implementation AudioManager
@@ -31,11 +32,11 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void) startStreamerWithSong:(BlipSong*)song {
+	
 	if ([self isConnectedToNetwork]) {
-		
-		if ([self userHasReachedMaximumSongsForTheDay]) {
+		if (![self isConnectedToWifi]) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-															message:@"You have reached the maximum number of songs for the day while attached to the cell network.  Please use wifi to continue listening for the day."
+															message:@"Due to bandwidth limitations, you may only listen to music while on wifi.  However, Search is not limited to wifi."
 														   delegate:self 
 												  cancelButtonTitle:@"OK" 
 												  otherButtonTitles:nil];
@@ -120,13 +121,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	return appDelegate.remoteHostStatus != NotReachable;
 }
 
+- (BOOL) isConnectedToWifi {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return appDelegate.remoteHostStatus == ReachableViaWiFiNetwork;
+}
+
+// only used for cell network song limitations
 - (void) incrementCellNetworkSongsPlayed {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	if (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork) {
 		self.numberOfSongsPlayedTodayOnCellNetwork++;
+		NSLog(@"songs played on cell network today: %d", self.numberOfSongsPlayedTodayOnCellNetwork);
 	}
 }
 
+// only used for cell network song limitations
 - (BOOL) userHasReachedMaximumSongsForTheDay {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	return (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork && self.numberOfSongsPlayedTodayOnCellNetwork >= MAX_SONGS_FOR_CELL_NETWORK_PER_DAY);
