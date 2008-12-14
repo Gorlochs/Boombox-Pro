@@ -94,31 +94,32 @@
 }
 
 #pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
-	NSString *trackViewUrl = [obj objectForKey:@"trackViewUrl"];
-	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
-	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
-}
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 //	NSString *trackViewUrl = [obj objectForKey:@"trackViewUrl"];
 //	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
+//	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
+//	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
+	NSString *trackViewUrl = [obj objectForKey:@"trackViewUrl"];
+//	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
 //	NSLog(@"aff link builder: %@", affiliateLinkBuilder);
 //	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
 //	NSLog(@"aff link: %@", affiliateLink);
-////	NSString *activateAffiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLink]];
-////	//[[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
-////	NSString *revisedITunesLink = [trackViewUrl stringByReplacingOccurrencesOfString:@"http://itunes" withString:@"itms://ax.itunes"];
-////	NSLog(@"revisedITunesLink redirect? %@", [NSString stringWithContentsOfURL:[NSURL URLWithString:revisedITunesLink]]);
-//
+//	NSString *activateAffiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLink]];
+//	//[[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+	NSString *revisedITunesLink = [[trackViewUrl stringByReplacingOccurrencesOfString:@"http://itunes" withString:@"http://phobos"] stringByAppendingString:@"&partnerId=30&siteID=CzRPlDJ9RUU-WcFeXe8Ar3MiH9JyMK6bZg"];
+	NSLog(@"revisedITunesLink redirect? %@", revisedITunesLink);
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:revisedITunesLink]];
+
 //	NSString *affiliateLinkProxyLink = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/affiliate.php?afflink=%@", [affiliateLinkBuilder stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //	NSLog(@"aff proxy link: %@", affiliateLinkProxyLink);
 //	NSString *iTunesLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkProxyLink]];
 //	NSLog(@"itunes link: %@", iTunesLink);
 //	//[[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
-//}
+}
 
 #pragma mark iTunes call and JSON parsing
 
