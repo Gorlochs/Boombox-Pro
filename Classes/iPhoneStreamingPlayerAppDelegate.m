@@ -9,7 +9,7 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
 
-static sqlite3_stmt *insert_statement = nil;
+//static sqlite3_stmt *insert_statement = nil;
 
 // Private interface for AppDelegate - internal only methods.
 @interface iPhoneStreamingPlayerAppDelegate (Private)
@@ -43,18 +43,21 @@ static sqlite3_stmt *insert_statement = nil;
 	
 	// Query the SystemConfiguration framework for the state of the device's network connections.
 	[self updateStatus];
+	[[Reachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
 	
 	// set observer to update the network status as it changes
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
 }
 
 - (void)reachabilityChanged:(NSNotification *)note {
+	NSLog(@"update status called...");
     [self updateStatus];
 }
 
 - (void)updateStatus {
 	// Query the SystemConfiguration framework for the state of the device's network connections.
 	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
+	NSLog(@"remote host status: %d", self.remoteHostStatus);
 	
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
