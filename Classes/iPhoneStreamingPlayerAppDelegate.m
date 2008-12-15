@@ -57,7 +57,7 @@
 - (void)updateStatus {
 	// Query the SystemConfiguration framework for the state of the device's network connections.
 	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
-	NSLog(@"remote host status: %d", self.remoteHostStatus);
+	NSLog(@"remote host status (0 = unreachable; 1 = cell network, 2 = wifi): %d", self.remoteHostStatus);
 	
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
