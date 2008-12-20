@@ -23,7 +23,6 @@
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
         // Initialization code
-		[songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
     }
     return self;
 }
@@ -33,6 +32,9 @@
 }
 
 - (void)setCellData:(BlipSong*)mySong {
+	// this doesn't seem to work anywhere else, like initWithFrame :(
+	[songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
+	
 	songTitleLabel.font = [UIFont systemFontOfSize:18.0];
 	artistLabel.font = [UIFont systemFontOfSize:12.0];
 	
