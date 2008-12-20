@@ -35,6 +35,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	
 	if ([self isConnectedToNetwork]) {
 		if (![self isConnectedToWifi]) {
+			NSLog(@"*** device is NOT connected to wifi ***");
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
 															message:@"Due to bandwidth limitations, you may only listen to music while on wifi.  However, Search is not limited to wifi."
 														   delegate:self 
@@ -43,27 +44,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			[alert show];
 			[alert release];
 			return;
+		} else {
+			// just in case a stream is playing, stop the stream before starting a new one
+			[self.streamer stop];
+			
+			// start the stream
+			NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+			streamer = [[AudioStreamer alloc] initWithURL:url];
+			[self.streamer start];
+			
+			// inset song into DB
+			[self insertSongIntoDB:song];
+			
+			// set currentSong
+			currentSong = song;
+			
+			// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
+			songIndexOfPlaylistCurrentlyPlaying = -1;
+			
+			// start the network indicator
+			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];		
 		}
 		
-		// just in case a stream is playing, stop the stream before starting a new one
-		[self.streamer stop];
-		
-		// start the stream
-		NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-		streamer = [[AudioStreamer alloc] initWithURL:url];
-		[self.streamer start];
-		
-		// inset song into DB
-		[self insertSongIntoDB:song];
-		
-		// set currentSong
-		currentSong = song;
-		
-		// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
-		songIndexOfPlaylistCurrentlyPlaying = -1;
-		
-		// start the network indicator
-		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];	
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
 														message:@"You are not connected to a network.  Please connect then try to play the song again."

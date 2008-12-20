@@ -8,6 +8,7 @@
 
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
+#import "AudioManager.h"
 
 //static sqlite3_stmt *insert_statement = nil;
 
@@ -40,10 +41,11 @@
 	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
 	[[Reachability sharedReachability] setHostName:@"www.blip.fm"];
+	[[Reachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
 	
 	// Query the SystemConfiguration framework for the state of the device's network connections.
-	[self updateStatus];
-	[[Reachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
+	//[self updateStatus];
+	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
 	
 	// set observer to update the network status as it changes
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
@@ -62,10 +64,12 @@
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
 			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have access to playing any songs until you reconnect."];
+			[audioManager stopStreamer];
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
 			[self displayNetworkAlert:@"Hi, welcome to BoomBox. Due to bandwidth limitations, please connect via wifi in order to listen to music."];
+			[audioManager stopStreamer];
 			break;
 		}
 		case ReachableViaWiFiNetwork:
