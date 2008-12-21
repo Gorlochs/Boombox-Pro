@@ -63,12 +63,12 @@
 	
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
-			[self displayNetworkAlert:@"You are currently do not have an internet connection.  You will not have access to playing any songs until you reconnect."];
+			[self displayNetworkAlert:@"You currently do not have a WiFi connection. Please reconnect in order to resume playing music."];
 			[audioManager stopStreamer];
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
-			[self displayNetworkAlert:@"Hi, welcome to BoomBox. Due to bandwidth limitations, please connect via wifi in order to listen to music."];
+			[self displayNetworkAlert:@"Hi, welcome to Boombox! Due to bandwidth limitations, you may only listen to music while connected to a WiFi network. Please connect your device to a WiFi network."];
 			[audioManager stopStreamer];
 			break;
 		}
