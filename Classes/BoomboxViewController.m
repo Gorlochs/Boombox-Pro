@@ -199,6 +199,7 @@
 					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
 					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					audioManager.currentSong = nextSong;
+					NSLog(@"playlist song number about to play: %@", audioManager.songIndexOfPlaylistCurrentlyPlaying);
 					NSLog(@"next playlist song: %@", nextSong.title);
 					
 					[audioManager startStreamerWithSong:nextSong];
