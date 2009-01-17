@@ -106,7 +106,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (void)insertSongIntoDB:(BlipSong*)songToInsert {
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-dev.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
 											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
 											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 	NSLog(@"insert url: %@", insertUrl);
