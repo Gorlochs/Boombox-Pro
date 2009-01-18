@@ -20,6 +20,7 @@
 @interface SearchViewController (Private)
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName;
 - (void)playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex;
+- (void)insertSearchIntoDB:(NSString*)searchTerms;
 @end
 
 @implementation SearchViewController
@@ -105,11 +106,19 @@ char *rand_str(char *dst) {
 	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	[self parseXMLFileAtURL:url];
-	
+	[self insertSearchIntoDB:searchBar.text];
 	// save the search terms in the AudioManager in order to display when the screen is redisplayed
 	audioManager.searchTerms = searchBar.text;
 	
 	[searchBar resignFirstResponder];
+}
+- (void)insertSearchIntoDB:(NSString*)searchTerms {
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.0.1.php?searchTerms=%@&gkey=g0rl0ch1an5",
+											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+	
+	NSLog(@"insert url: %@", insertUrl);
+	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+	NSLog(@"insert result: %@", insertResult);
 }
 #pragma mark UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -260,7 +269,8 @@ char *rand_str(char *dst) {
 		[currentLocation release];
 		[currentArtist release];
 		
-		if (![item.location isEqualToString:@""]){
+		//if (![item.location isEqualToString:@""] && [audioManager.songs count] < 100){
+		if (![item.location isEqualToString:@""]) {
 			[audioManager.songs addObject:item];
 		}
 		[item release];
