@@ -51,6 +51,8 @@
 - (IBAction)displayPlaylistViewAction:(id)sender;
 - (IBAction)displayBuyViewAction:(id)sender;
 - (IBAction)stopStream;
+- (IBAction)playNextSongInPlaylist;
+- (IBAction)playPreviousSongInPlaylist;
 - (CAKeyframeAnimation*)imagesAnimation;
 
 @end

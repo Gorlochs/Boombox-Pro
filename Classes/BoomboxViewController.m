@@ -16,6 +16,7 @@
 - (void)stopStreamCleanup;
 - (CAAnimationGroup*)imagesAnimationLeftSpeaker;
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
+- (void) playSongInPlaylist:(NSInteger)songIndexToPlay;
 @end
 
 @implementation BoomboxViewController
@@ -155,6 +156,42 @@
 	[self stopStreamCleanup];
 }
 
+
+// I know the next three methods are kinda crappy, but it was the only way I could get it all to work
+// I really wanted to put the functions in AudioManager where they belong and make these functions
+// into simple delgating methods, but no luck.  There was something weird about stopping and starting
+// the stream with different urls.
+- (IBAction)playNextSongInPlaylist {
+	NSLog(@"inside playNextSongInPlaylist");
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
+		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying + 1;
+		audioManager.songIndexOfPlaylistCurrentlyPlaying++;
+		[self playSongInPlaylist:songIndexToPlayNext];
+	}
+}
+
+- (IBAction)playPreviousSongInPlaylist {
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0) {
+		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying - 1;
+		audioManager.songIndexOfPlaylistCurrentlyPlaying--;
+		[self playSongInPlaylist:songIndexToPlayNext];
+	}
+}
+
+// This function is similar to some code in the following function, but it was different enough
+// for me to have to keep them separate.  There might be a way to generalize, but it didn't
+// seem like it was worth the trouble considering everything else that needs to be done.
+- (void) playSongInPlaylist:(NSInteger)songIndexToPlay {
+	[audioManager stopStreamer];
+	[audioManager startStreamerWithPlaylistIndex:songIndexToPlay];
+	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+	
+	BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+	audioManager.currentSong = nextSong;
+	songLabel.text = [nextSong constructTitleArtist];
+}
+
+
 #pragma mark Audio Streaming Functions
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
@@ -194,6 +231,7 @@
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
 				if (audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
+					[audioManager.streamer stop];
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
 					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
@@ -212,6 +250,7 @@
 					[self stopStreamCleanup];
 				}
 			} else {
+				NSLog(@"no more songs.  cleanup");
 				[self stopStreamCleanup];
 			}
 		}

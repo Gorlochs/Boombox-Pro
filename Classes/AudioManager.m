@@ -105,10 +105,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
+//- (void) playNextSongInPlaylist {
+//	if (self.songIndexOfPlaylistCurrentlyPlaying > -1 && self.songIndexOfPlaylistCurrentlyPlaying < [playlist count] -1) {
+//		NSLog(@"playing next song...");
+//		NSInteger songIndexToPlay = self.songIndexOfPlaylistCurrentlyPlaying + 1;
+//		[self.streamer stop];
+//		[self startStreamerWithPlaylistIndex:songIndexToPlay];
+//	} else {
+//		NSLog(@"no next song to play");
+//	}
+//}
+//
+//- (void) playPreviousSongInPlaylist {
+//	if (self.songIndexOfPlaylistCurrentlyPlaying > 1) {
+//		NSLog(@"playing previous song...");
+//		[self.streamer stop];
+//		[self startStreamerWithSong:[playlist objectAtIndex:--self.songIndexOfPlaylistCurrentlyPlaying]];
+//		//[self startStreamerWithPlaylistIndex:--self.songIndexOfPlaylistCurrentlyPlaying];
+//	} else {
+//		NSLog(@"no previous song to play");
+//	}
+//}
+
 - (void)insertSongIntoDB:(BlipSong*)songToInsert {
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-dev.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.0.1-dev.php?song=%@&artist=%@&songUrl=%@&gkey=g0rl0ch1an5", 
 											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+											 [[songToInsert.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+//	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.0.1-dev.php?song=%@&artist=%@&gkey=g0rl0ch1an5", 
+//											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+//											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+											 
 	NSLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
 	NSLog(@"insert result: %@", insertResult);

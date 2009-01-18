@@ -47,5 +47,7 @@
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex;
 - (void) incrementCellNetworkSongsPlayed;
 - (BOOL) userHasReachedMaximumSongsForTheDay;
+- (void) playNextSongInPlaylist;
+- (void) playPreviousSongInPlaylist;
 
 @end
