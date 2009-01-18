@@ -117,6 +117,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	NSLog(@"number of rows returned: %d", [audioManager.songs count]);
 	return [audioManager.songs count];	
 }
 // -----------------------------------------------------------------------------
