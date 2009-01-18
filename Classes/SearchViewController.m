@@ -47,12 +47,11 @@
 	[theTableView release];
 	[blipSearchBar release];
 	[adMobAd release];
+	adMobAd = nil;
 	[buySongListController release];
 	[searchCell release];
 	
-	
 	[rssParser release];
-	//[songs release];
 	[item release];
 	[currentTitle release];
 	[currentLocation release];
@@ -263,6 +262,7 @@ char *rand_str(char *dst) {
 		if (![item.location isEqualToString:@""]){
 			[audioManager.songs addObject:item];
 		}
+		[item release];
 		NSLog(@"adding song: %@", currentTitle);
 		//		NSLog(@"1adding summary: %@", currentSummary);
 	}

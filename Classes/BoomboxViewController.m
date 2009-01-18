@@ -167,6 +167,8 @@
 		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying + 1;
 		audioManager.songIndexOfPlaylistCurrentlyPlaying++;
 		[self playSongInPlaylist:songIndexToPlayNext];
+	} else {
+		NSLog(@"sorry, no next song in the playlist, so nothing will happen");
 	}
 }
 
@@ -175,6 +177,8 @@
 		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying - 1;
 		audioManager.songIndexOfPlaylistCurrentlyPlaying--;
 		[self playSongInPlaylist:songIndexToPlayNext];
+	} else {
+		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
 }
 
