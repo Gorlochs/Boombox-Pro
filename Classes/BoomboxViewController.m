@@ -186,6 +186,7 @@
 // for me to have to keep them separate.  There might be a way to generalize, but it didn't
 // seem like it was worth the trouble considering everything else that needs to be done.
 - (void) playSongInPlaylist:(NSInteger)songIndexToPlay {
+	NSLog(@"playing song %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
 	[audioManager stopStreamer];
 	[audioManager startStreamerWithPlaylistIndex:songIndexToPlay];
 	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
@@ -234,7 +235,8 @@
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
-				if (audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
+				NSLog(@"playing song %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
+				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count]) {
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
 					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
