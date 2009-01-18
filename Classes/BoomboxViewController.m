@@ -235,18 +235,16 @@
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
 				if (audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
-					[audioManager.streamer stop];
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
 					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
 					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					audioManager.currentSong = nextSong;
-					NSLog(@"playlist song number about to play: %@", audioManager.songIndexOfPlaylistCurrentlyPlaying);
 					NSLog(@"next playlist song: %@", nextSong.title);
 					
 					[audioManager startStreamerWithSong:nextSong];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-					songLabel.text = [nextSong constructTitleArtist];
+					songLabel.text = [nextSong constructTitleArtist];					
 				} else {
 					NSLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
