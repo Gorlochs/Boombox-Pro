@@ -171,7 +171,7 @@
 // into simple delgating methods, but no luck.  There was something weird about stopping and starting
 // the stream with different urls.
 - (IBAction)playNextSongInPlaylist {
-	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1) {
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1 && [audioManager.streamer isPlaying]) {
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		[audioManager playNextSongInPlaylist];
 		[self nextPreviousCleanup];
