@@ -117,17 +117,17 @@
 						</object>
 						<object class="NSCustomResource" key="IBUIHighlightedImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">btn_on_05_1.0.1.png</string>
+							<string key="NSResourceName">btn_on_05_1.0.1a.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUIDisabledImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">btn_search_off.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUISelectedImage" id="606618108">
+						<object class="NSCustomResource" key="IBUISelectedImage" id="439392927">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">btn_off_05_1.0.1.png</string>
+							<string key="NSResourceName">btn_off_05_1.0.1a.png</string>
 						</object>
-						<reference key="IBUINormalImage" ref="606618108"/>
+						<reference key="IBUINormalImage" ref="439392927"/>
 					</object>
 					<object class="IBUIButton" id="629419180">
 						<reference key="NSNextResponder" ref="720235411"/>
@@ -180,17 +180,17 @@
 						</object>
 						<object class="NSCustomResource" key="IBUIHighlightedImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">btn_on_06_1.0.1.png</string>
+							<string key="NSResourceName">btn_on_06_1.0.1a.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUIDisabledImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">btn_playlist_off.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUISelectedImage" id="724719872">
+						<object class="NSCustomResource" key="IBUISelectedImage" id="223234042">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">btn_off_06_1.0.1.png</string>
+							<string key="NSResourceName">btn_off_06_1.0.1a.png</string>
 						</object>
-						<reference key="IBUINormalImage" ref="724719872"/>
+						<reference key="IBUINormalImage" ref="223234042"/>
 					</object>
 					<object class="IBUIButton" id="375949393">
 						<reference key="NSNextResponder" ref="720235411"/>
@@ -349,16 +349,16 @@
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
-			<object class="IBUIView" id="789597686">
+			<object class="IBUIView" id="386277537">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIButton" id="121603011">
-						<reference key="NSNextResponder" ref="789597686"/>
+					<object class="IBUIButton" id="794001592">
+						<reference key="NSNextResponder" ref="386277537"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 4}, {50, 50}}</string>
-						<reference key="NSSuperview" ref="789597686"/>
+						<reference key="NSSuperview" ref="386277537"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -378,11 +378,11 @@
 							<string key="NSResourceName">search_off.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="1007790178">
-						<reference key="NSNextResponder" ref="789597686"/>
+					<object class="IBUIButton" id="406839300">
+						<reference key="NSNextResponder" ref="386277537"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{411, 4}, {50, 50}}</string>
-						<reference key="NSSuperview" ref="789597686"/>
+						<reference key="NSSuperview" ref="386277537"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -521,14 +521,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">topButtonView</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="789597686"/>
+						<reference key="destination" ref="386277537"/>
 					</object>
 					<int key="connectionID">62</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">displaySearchViewAction:</string>
-						<reference key="source" ref="121603011"/>
+						<reference key="source" ref="794001592"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -537,7 +537,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">displayPlaylistViewAction:</string>
-						<reference key="source" ref="1007790178"/>
+						<reference key="source" ref="406839300"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -672,24 +672,24 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">57</int>
-						<reference key="object" ref="789597686"/>
+						<reference key="object" ref="386277537"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="121603011"/>
-							<reference ref="1007790178"/>
+							<reference ref="794001592"/>
+							<reference ref="406839300"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">TopButtonView</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
-						<reference key="object" ref="121603011"/>
-						<reference key="parent" ref="789597686"/>
+						<reference key="object" ref="794001592"/>
+						<reference key="parent" ref="386277537"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
-						<reference key="object" ref="1007790178"/>
-						<reference key="parent" ref="789597686"/>
+						<reference key="object" ref="406839300"/>
+						<reference key="parent" ref="386277537"/>
 					</object>
 				</object>
 			</object>
