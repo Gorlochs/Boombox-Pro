@@ -276,6 +276,7 @@
 	[leftSpeakerView.layer removeAnimationForKey:@"leftSpeakerAnimation"];
 	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
 	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+	songLabel.text = @"";
 }
 
 # pragma mark Equalizer Animation
