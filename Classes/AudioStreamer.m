@@ -7,8 +7,16 @@
 //
 
 #import "AudioStreamer.h"
+#import <CFNetwork/CFNetwork.h>
 
 #define PRINTERROR(LABEL)	printf("%s err %4.4s %d\n", LABEL, (char *)&err, (int)err)
+
+#pragma mark CFReadStream Callback Function Prototypes
+
+void ReadStreamCallBack(
+						CFReadStreamRef stream,
+						CFStreamEventType eventType,
+						void* dataIn);
 
 void MyAudioQueueOutputCallback(void* inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer);
 
@@ -147,6 +155,7 @@ void MyPacketsProc(				void *							inClientData,
 			// exit.
 			if (myData->finished)
 			{
+				pthread_mutex_unlock(&myData->mutex2);
 				return;
 			}
 			
@@ -187,6 +196,7 @@ void MyPacketsProc(				void *							inClientData,
 			// exit.
 			if (myData->finished)
 			{
+				pthread_mutex_unlock(&myData->mutex2);
 				return;
 			}
 			
@@ -319,6 +329,7 @@ void MyAudioQueueOutputCallback(	void*					inClientData,
 void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
 	AudioStreamer *myData = (AudioStreamer *)inUserData;
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	if (myData.isPlaying)
 	{
@@ -348,6 +359,8 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 		//
 		[NSRunLoop currentRunLoop];
 	}
+	
+	[pool release];
 }
 
 //
@@ -357,6 +370,107 @@ void MyAudioQueueIsRunningCallback(void *inUserData, AudioQueueRef inAQ, AudioQu
 //
 void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
+}
+#pragma mark CFReadStream Callback Function Implementations
+
+//
+// ReadStreamCallBack
+//
+// This is the callback for the CFReadStream from the network connection. This
+// is where all network data is passed to the AudioFileStream.
+//
+// Invoked when an error occurs, the stream ends or we have data to read.
+//
+void ReadStreamCallBack
+(
+ CFReadStreamRef stream,
+ CFStreamEventType eventType,
+ void* dataIn
+)
+{
+	AudioStreamer *myData = (AudioStreamer *)dataIn;
+	
+	if (eventType == kCFStreamEventErrorOccurred)
+	{
+		myData->failed = YES;
+	}
+	else if (eventType == kCFStreamEventEndEncountered)
+	{
+		if (myData->failed || myData->finished)
+		{
+			return;
+		}
+		
+		//
+		// If there is a partially filled buffer, pass it to the AudioQueue for
+		// processing
+		//
+		if (myData->bytesFilled)
+		{
+			MyEnqueueBuffer(myData);
+		}
+		
+		//
+		// If the AudioQueue started, then flush it (to make certain everything
+		// sent thus far will be processed) and subsequently stop the queue.
+		//
+		if (myData->started)
+		{
+			OSStatus err = AudioQueueFlush(myData->audioQueue);
+			if (err) { PRINTERROR("AudioQueueFlush"); return; }
+			
+			err = AudioQueueStop(myData->audioQueue, false);
+			if (err) { PRINTERROR("AudioQueueStop"); return; }
+			
+			CFReadStreamClose(stream);
+			CFRelease(stream);
+			myData->stream = nil;
+		}
+		else
+		{
+			//
+			// If we have reached the end of the file without starting, then we
+			// have failed to find any audio in the file. Abort.
+			//
+			myData->failed = YES;
+		}
+	}
+	else if (eventType == kCFStreamEventHasBytesAvailable)
+	{
+		if (myData->failed || myData->finished)
+		{
+			return;
+		}
+		
+		//
+		// Read the bytes from the stream
+		//
+		UInt8 bytes[kAQBufSize];
+		CFIndex length = CFReadStreamRead(stream, bytes, kAQBufSize);
+		
+		if (length == -1)
+		{
+			myData->failed = YES;
+			return;
+		}
+		
+		//
+		// Parse the bytes read by sending them through the AudioFileStream
+		//
+		if (length > 0)
+		{
+			if (myData->discontinuous)
+			{
+				OSStatus err = AudioFileStreamParseBytes(myData->audioFileStream, length, bytes, kAudioFileStreamParseFlag_Discontinuity);
+				if (err) { PRINTERROR("AudioFileStreamParseBytes"); myData->failed = true;}
+			}
+			else
+			{
+				OSStatus err = AudioFileStreamParseBytes(myData->audioFileStream, length, bytes, 0);
+				if (err) { PRINTERROR("AudioFileStreamParseBytes"); myData->failed = true; }
+			}
+		}
+	}
 }
 
 @implementation AudioStreamer
@@ -387,7 +501,7 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 - (void)dealloc
 {
 	[url release];
-	[connection release];
+	//[connection release];
 	[super dealloc];
 }
 
@@ -449,12 +563,12 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 	
 	//
 	// Attempt to guess the file type from the URL. Reading the MIME type
-	// from the NSURLConnection would be a better approach since lots of
+	// from the CFReadStream would be a better approach since lots of
 	// URL's don't have the right extension.
 	//
 	// If you have a fixed file-type, you may want to hardcode this.
 	//
-	AudioFileTypeID fileTypeHint = 0;
+	AudioFileTypeID fileTypeHint = kAudioFileMP3Type;
 	NSString *fileExtension = [[url path] pathExtension];
 	if ([fileExtension isEqual:@"mp3"])
 	{
@@ -497,13 +611,30 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 	// create an audio file stream parser
 	OSStatus err = AudioFileStreamOpen(self, MyPropertyListenerProc, MyPacketsProc, 
 									   fileTypeHint, &audioFileStream);
-	if (err) { PRINTERROR("AudioFileStreamOpen"); return; }
+	if (err) { PRINTERROR("AudioFileStreamOpen"); goto cleanup; }
 	
 	//
-	// Start the NSURLConnection
+	// Create the GET request
 	//
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    CFHTTPMessageRef message= CFHTTPMessageCreateRequest(NULL, (CFStringRef)@"GET", (CFURLRef)url, kCFHTTPVersion1_1);
+    stream = CFReadStreamCreateForHTTPRequest(NULL, message);
+    CFRelease(message);
+    if (!CFReadStreamOpen(stream))
+	{
+        CFRelease(stream);
+		goto cleanup;
+    }
+	
+	//
+	// Set our callback function to receive the data
+	//
+	CFStreamClientContext context = {0, self, NULL, NULL, NULL};
+	CFReadStreamSetClient(
+						  stream,
+						  kCFStreamEventHasBytesAvailable | kCFStreamEventErrorOccurred | kCFStreamEventEndEncountered,
+						  ReadStreamCallBack,
+						  &context);
+	CFReadStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
 	
 	//
 	// Process the run loop until playback is finished or failed.
@@ -551,20 +682,28 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 		}
 	} while (isPlaying || !finished);
 	
-	if (connection)
+cleanup:
+	
+	//
+	// Cleanup the read stream if it is still open
+	//
+	if (stream)
 	{
-		[connection cancel];
-		[connection release];
-		connection = nil;
+		CFReadStreamClose(stream);
+        CFRelease(stream);
+		stream = nil;
 	}
 	
+	//
+	// Close the audio file strea,
+	//
 	err = AudioFileStreamClose(audioFileStream);
-	if (err) { PRINTERROR("AudioFileStreamClose"); return; }
+	if (err) { PRINTERROR("AudioFileStreamClose"); goto cleanup; }
 	
 	if (started)
 	{
 		err = AudioQueueDispose(audioQueue, true);
-		if (err) { PRINTERROR("AudioQueueDispose"); return; }
+		if (err) { PRINTERROR("AudioQueueDispose"); goto cleanup; }
 	}
 	
 	[pool release];
@@ -588,11 +727,11 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 //
 - (void)stop
 {
-	if (connection)
+	if (stream)
 	{
-		[connection cancel];
-		[connection release];
-		connection = nil;
+		CFReadStreamClose(stream);
+        CFRelease(stream);
+		stream = nil;		
 		
 		if (finished)
 		{
@@ -630,96 +769,6 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 			finished = true;
 		}
 	}
-}
-
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse
-{
-	NSLog(@"connection:willCacheResponse");
-	return nil;
-}
-
-//
-// connection:didReceiveData:
-//
-// Passes data from the NSURLConnection to the AudioFileStream.
-//
-// The first packets passed are always passed using
-// kAudioFileStreamParseFlag_Discontinuity to avoid a crash bug.
-//
-- (void)connection:(NSURLConnection*)inConnection didReceiveData:(NSData*)data
-{
-	if (failed || finished)
-	{
-		return;
-	}
-	
-	if (discontinuous)
-	{
-		OSStatus err = AudioFileStreamParseBytes(audioFileStream, [data length], [data bytes], kAudioFileStreamParseFlag_Discontinuity);
-		if (err) { PRINTERROR("AudioFileStreamParseBytes"); failed = true;}
-	}
-	else
-	{
-		OSStatus err = AudioFileStreamParseBytes(audioFileStream, [data length], [data bytes], 0);
-		if (err) { PRINTERROR("AudioFileStreamParseBytes"); failed = true; }
-	}
-}
-
-//
-// connectionDidFinishLoading:
-//
-// Stops the AudioQueue at the end of the file.
-//
-- (void)connectionDidFinishLoading:(NSURLConnection *)inConnection
-{
-	if (failed || finished)
-	{
-		return;
-	}
-	
-	//
-	// If there is a partially filled buffer, pass it to the AudioQueue for
-	// processing
-	//
-	if (bytesFilled)
-	{
-		MyEnqueueBuffer(self);
-	}
-	
-	//
-	// If the AudioQueue started, then flush it (to make certain everything
-	// sent thus far will be processed) and subsequently stop the queue.
-	//
-	if (started)
-	{
-		OSStatus err = AudioQueueFlush(audioQueue);
-		if (err) { PRINTERROR("AudioQueueFlush"); return; }
-		
-		err = AudioQueueStop(audioQueue, false);
-		if (err) { PRINTERROR("AudioQueueStop"); return; }
-		
-		[connection release];
-		connection = nil;
-	}
-	else
-	{
-		//
-		// If we have reached the end of the file without starting, then we
-		// have failed to find any audio in the file. Abort.
-		//
-		failed = YES;
-	}
-}
-
-//
-// connection:didFailWithError:
-//
-// Set failed on error.
-//
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	failed = YES;
 }
 
 - (NSURL*)getUrl {

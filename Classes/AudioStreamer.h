@@ -49,6 +49,7 @@
 	pthread_mutex_t mutex;			// a mutex to protect the inuse flags
 	pthread_cond_t cond;			// a condition varable for handling the inuse flags
 	pthread_mutex_t mutex2;			// a mutex to protect the AudioQueue buffer
+	CFReadStreamRef stream;
 
 	NSThread *controlThread;
 }
