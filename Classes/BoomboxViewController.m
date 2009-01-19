@@ -137,7 +137,7 @@
 // plays the first song in the user's Playlist
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
-	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
 	if ([audioManager.playlist count] > 0) {
 		NSLog(@"play button clicked, and playlist exists, so play the first song");
 		[audioManager startStreamerWithPlaylistIndex:0];
@@ -149,6 +149,7 @@
 		[alert show];
 		[alert release];
 	}
+	[pool release];
 }
 
 - (IBAction)stopStream {
@@ -187,6 +188,7 @@
 // seem like it was worth the trouble considering everything else that needs to be done.
 - (void) playSongInPlaylist:(NSInteger)songIndexToPlay {
 	NSLog(@"playing song %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
 	[audioManager stopStreamer];
 	[audioManager startStreamerWithPlaylistIndex:songIndexToPlay];
 	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
@@ -194,6 +196,7 @@
 	BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 	audioManager.currentSong = nextSong;
 	songLabel.text = [nextSong constructTitleArtist];
+	[pool release];
 }
 
 
@@ -235,17 +238,19 @@
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
-				NSLog(@"playing song %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
-				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count]) {
+				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1) {
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
-					audioManager.songIndexOfPlaylistCurrentlyPlaying++;
-					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
-					audioManager.currentSong = nextSong;
-					NSLog(@"next playlist song: %@", nextSong.title);
+					//audioManager.songIndexOfPlaylistCurrentlyPlaying++;
+					//audioManager.currentSong = nextSong;
+					//NSLog(@"next playlist song: %@", nextSong.title);
 					
-					[audioManager startStreamerWithSong:nextSong];
+					//[audioManager startStreamerWithSong:nextSong];
+					//[audioManager startStreamerWithPlaylistIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+					[audioManager playNextSongInPlaylist];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
+					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					songLabel.text = [nextSong constructTitleArtist];					
 				} else {
 					NSLog(@"last song, nothing else left to play");
@@ -327,7 +332,6 @@
 	// set the timing function for the group and the animation duration
 	theGroup.duration=1.0;
 	theGroup.repeatCount=1e100f;
-	
 	return theGroup;
 }
 

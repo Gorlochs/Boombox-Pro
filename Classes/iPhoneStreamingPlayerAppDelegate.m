@@ -20,6 +20,7 @@
 - (void)displayNetworkAlert:(NSString*)msg;
 - (void)reachabilityChanged:(NSNotification *)note;
 - (void)updateStatus;
+- (NSString*)getCountryCode;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -49,6 +50,19 @@
 	
 	// set observer to update the network status as it changes
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
+	
+	// testing.  this should be utilized in v1.0.2
+	//[self getCountryCode];
+}
+
+- (NSString*)getCountryCode {
+	NSLocale *locale = [NSLocale currentLocale];
+	NSString *code;
+	if (locale) {
+		code = [locale objectForKey:NSLocaleCountryCode];
+		NSLog(@"country code: %@", code);
+	}
+	return code;
 }
 
 - (void)reachabilityChanged:(NSNotification *)note {
@@ -68,7 +82,7 @@
 			break;
 		}
 		case ReachableViaCarrierDataNetwork: {
-			[self displayNetworkAlert:@"Hi, welcome to Boombox! Due to bandwidth limitations, you may only listen to music while connected to a WiFi network. Please connect your device to a WiFi network."];
+			[self displayNetworkAlert:@"In order to play songs, please connect to a WiFi network. You may still search and add songs to your playlist."];
 			[audioManager stopStreamer];
 			break;
 		}

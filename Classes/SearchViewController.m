@@ -174,7 +174,9 @@ char *rand_str(char *dst) {
 	BlipSong *songToAdd = [cell song];
 	if (audioManager.playlist == nil) {
 		NSLog(@"playlist is nil");
-		audioManager.playlist = [[NSMutableArray alloc] init];
+		NSMutableArray *arr = [[NSMutableArray alloc] init];
+		audioManager.playlist = arr;
+		[arr release];
 	}
 	NSLog(@"adding song....");
 	[audioManager.playlist addObject:songToAdd];
@@ -211,6 +213,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parseXMLFileAtURL:(NSString *)URL {
+//	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
 	// always start with a fresh, empty array
 	audioManager.songs = [[NSMutableArray alloc] init];
 	
@@ -218,7 +221,10 @@ char *rand_str(char *dst) {
     NSURL *xmlURL = [NSURL URLWithString:URL];
 	//NSString *returnstring = [NSString stringWithContentsOfURL:xmlURL];
 //	NSLog(@"api return xml: %@", returnstring);
-
+	
+	// read somewhere that these lines help plug the leak in NSXMLParser
+	[[NSURLCache sharedURLCache] setMemoryCapacity:0];
+	[[NSURLCache sharedURLCache] setDiskCapacity:0];
     // here, for some reason you have to use NSClassFromString when trying to alloc NSXMLParser, otherwise you will get an object not found error
     // this may be necessary only for the toolchain
     rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
@@ -233,7 +239,8 @@ char *rand_str(char *dst) {
     [rssParser setShouldResolveExternalEntities:NO];
 	
     [rssParser parse];
-	
+	//[rssParser release];
+//	[pool release];
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -242,6 +249,7 @@ char *rand_str(char *dst) {
 	
 	UIAlertView * errorAlert = [[[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 	[errorAlert show];
+	[errorAlert release];
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			

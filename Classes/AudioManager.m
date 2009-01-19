@@ -53,14 +53,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			streamer = [[AudioStreamer alloc] initWithURL:url];
 			[self.streamer start];
 			
-			// inset song into DB
+			// insert song into DB
 			[self insertSongIntoDB:song];
 			
 			// set currentSong
-			currentSong = song;
+			self.currentSong = song;
 			
 			// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
-			songIndexOfPlaylistCurrentlyPlaying = -1;
+			self.songIndexOfPlaylistCurrentlyPlaying = -1;
 			
 			// start the network indicator
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];		
@@ -82,21 +82,32 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	BlipSong *songToPlay = [playlist objectAtIndex:playListIndex];
 	
 	// set currentSong
-	currentSong = songToPlay;
+	self.currentSong = songToPlay;
 	
 	// start stream
 	[self startStreamerWithSong:songToPlay];
 	
 	// set currently playing index correctly
-	songIndexOfPlaylistCurrentlyPlaying = playListIndex;
+	self.songIndexOfPlaylistCurrentlyPlaying = playListIndex;
+	
+	NSLog(@"AudioManager: current song index playing is: %d", self.songIndexOfPlaylistCurrentlyPlaying);
+}
+
+- (void) playNextSongInPlaylist {
+	[self startStreamerWithPlaylistIndex:++self.songIndexOfPlaylistCurrentlyPlaying];
+}
+
+- (void) playPreviousSongInPlaylist {
+	[self startStreamerWithPlaylistIndex:--self.songIndexOfPlaylistCurrentlyPlaying];
 }
 
 - (void) stopStreamer {
+	NSLog(@"AudioManager.stopStreamer is being called.  songIndex is being set to -1");
 	// if streamer is stopped, then reset the currently playing index
 	songIndexOfPlaylistCurrentlyPlaying = -1;
 
 	// the current song is now nil, since there is no song playing
-	currentSong = nil;
+	self.currentSong = nil;
 	
 	// stop the streamer
 	[self.streamer stop];
@@ -104,28 +115,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	// switch off the network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
-
-//- (void) playNextSongInPlaylist {
-//	if (self.songIndexOfPlaylistCurrentlyPlaying > -1 && self.songIndexOfPlaylistCurrentlyPlaying < [playlist count] -1) {
-//		NSLog(@"playing next song...");
-//		NSInteger songIndexToPlay = self.songIndexOfPlaylistCurrentlyPlaying + 1;
-//		[self.streamer stop];
-//		[self startStreamerWithPlaylistIndex:songIndexToPlay];
-//	} else {
-//		NSLog(@"no next song to play");
-//	}
-//}
-//
-//- (void) playPreviousSongInPlaylist {
-//	if (self.songIndexOfPlaylistCurrentlyPlaying > 1) {
-//		NSLog(@"playing previous song...");
-//		[self.streamer stop];
-//		[self startStreamerWithSong:[playlist objectAtIndex:--self.songIndexOfPlaylistCurrentlyPlaying]];
-//		//[self startStreamerWithPlaylistIndex:--self.songIndexOfPlaylistCurrentlyPlaying];
-//	} else {
-//		NSLog(@"no previous song to play");
-//	}
-//}
 
 - (void)insertSongIntoDB:(BlipSong*)songToInsert {
 	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.0.1-dev.php?song=%@&artist=%@&songUrl=%@&gkey=g0rl0ch1an5", 

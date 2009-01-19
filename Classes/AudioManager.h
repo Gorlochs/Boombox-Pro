@@ -49,5 +49,4 @@
 - (BOOL) userHasReachedMaximumSongsForTheDay;
 - (void) playNextSongInPlaylist;
 - (void) playPreviousSongInPlaylist;
-
 @end
