@@ -21,7 +21,7 @@
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, songLabel, streamer, audioManager;
+@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, topButtonView, songLabel, streamer, audioManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -65,6 +65,14 @@
 	equalizerView.frame = frame3;
 	equalizerView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:equalizerView];
+	
+	// determine the size of EqualizerView
+	CGRect frame4 = topButtonView.frame;
+	frame4.origin.x = 10;
+	frame4.origin.y = self.view.frame.size.height - 478;
+	topButtonView.frame = frame4;
+	topButtonView.backgroundColor = [UIColor clearColor];
+	[self.view addSubview:topButtonView];
 	
 	
 	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
