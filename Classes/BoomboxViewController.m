@@ -16,7 +16,7 @@
 - (void)stopStreamCleanup;
 - (CAAnimationGroup*)imagesAnimationLeftSpeaker;
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
-- (void) playSongInPlaylist:(NSInteger)songIndexToPlay;
+- (void) nextPreviousCleanup;
 @end
 
 @implementation BoomboxViewController
@@ -163,11 +163,10 @@
 // into simple delgating methods, but no luck.  There was something weird about stopping and starting
 // the stream with different urls.
 - (IBAction)playNextSongInPlaylist {
-	NSLog(@"inside playNextSongInPlaylist");
-	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying != [audioManager.playlist count] - 1) {
-		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying + 1;
-		audioManager.songIndexOfPlaylistCurrentlyPlaying++;
-		[self playSongInPlaylist:songIndexToPlayNext];
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1) {
+		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		[audioManager playNextSongInPlaylist];
+		[self nextPreviousCleanup];
 	} else {
 		NSLog(@"sorry, no next song in the playlist, so nothing will happen");
 	}
@@ -175,9 +174,9 @@
 
 - (IBAction)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0) {
-		NSInteger songIndexToPlayNext = audioManager.songIndexOfPlaylistCurrentlyPlaying - 1;
-		audioManager.songIndexOfPlaylistCurrentlyPlaying--;
-		[self playSongInPlaylist:songIndexToPlayNext];
+		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		[audioManager playPreviousSongInPlaylist];
+		[self nextPreviousCleanup];
 	} else {
 		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
@@ -186,17 +185,11 @@
 // This function is similar to some code in the following function, but it was different enough
 // for me to have to keep them separate.  There might be a way to generalize, but it didn't
 // seem like it was worth the trouble considering everything else that needs to be done.
-- (void) playSongInPlaylist:(NSInteger)songIndexToPlay {
-	NSLog(@"playing song %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
-	[audioManager stopStreamer];
-	[audioManager startStreamerWithPlaylistIndex:songIndexToPlay];
-	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-	
+- (void) nextPreviousCleanup {
 	BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 	audioManager.currentSong = nextSong;
-	songLabel.text = [nextSong constructTitleArtist];
-	[pool release];
+	songLabel.text = [nextSong constructTitleArtist];	
+	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 }
 
 
