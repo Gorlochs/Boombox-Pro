@@ -9,9 +9,9 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="46"/>
-			<integer value="42"/>
-			<integer value="1"/>
 			<integer value="6"/>
+			<integer value="3"/>
+			<integer value="42"/>
 			<integer value="34"/>
 			<integer value="57"/>
 		</object>
@@ -52,7 +52,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">boombox_blank_1.0.1.png</string>
+							<string key="NSResourceName">boombox_blank_1.0.1a.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="492025414">
@@ -92,7 +92,7 @@
 					<object class="IBUIButton" id="518426581">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{105, 0}, {52, 59}}</string>
+						<string key="NSFrame">{{53, 0}, {52, 59}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -162,7 +162,7 @@
 					<object class="IBUIButton" id="558938757">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{157, 0}, {52, 59}}</string>
+						<string key="NSFrame">{{105, 0}, {52, 59}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -225,7 +225,7 @@
 					<object class="IBUIButton" id="401813469">
 						<reference key="NSNextResponder" ref="720235411"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{53, 0}, {52, 59}}</string>
+						<string key="NSFrame">{{157, 0}, {52, 59}}</string>
 						<reference key="NSSuperview" ref="720235411"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -586,11 +586,11 @@
 						<reference key="object" ref="720235411"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="518426581"/>
-							<reference ref="375949393"/>
-							<reference ref="401813469"/>
 							<reference ref="629419180"/>
+							<reference ref="518426581"/>
 							<reference ref="558938757"/>
+							<reference ref="401813469"/>
+							<reference ref="375949393"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">ControlsView</string>
@@ -730,7 +730,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>BoomboxViewController</string>
 					<string>UIResponder</string>
-					<string>{{47, 96}, {481, 299}}</string>
+					<string>{{347, 141}, {481, 299}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
