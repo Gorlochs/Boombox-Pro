@@ -173,8 +173,10 @@
 - (IBAction)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1 && [audioManager.streamer isPlaying]) {
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
+		songLabel.text = [nextSong constructTitleArtist];	 
 		[audioManager playNextSongInPlaylist];
-		[self nextPreviousCleanup];
+		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
 		NSLog(@"sorry, no next song in the playlist, so nothing will happen");
 	}
@@ -183,8 +185,10 @@
 - (IBAction)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0) {
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
+		songLabel.text = [nextSong constructTitleArtist];	
 		[audioManager playPreviousSongInPlaylist];
-		[self nextPreviousCleanup];
+		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
 		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
@@ -194,10 +198,6 @@
 // for me to have to keep them separate.  There might be a way to generalize, but it didn't
 // seem like it was worth the trouble considering everything else that needs to be done.
 - (void) nextPreviousCleanup {
-	BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
-	audioManager.currentSong = nextSong;
-	songLabel.text = [nextSong constructTitleArtist];	
-	[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 }
 
 
