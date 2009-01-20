@@ -401,7 +401,7 @@ char *rand_str(char *dst) {
 	} else {
 		BlipSong *songToPlay = [audioManager.songs objectAtIndex:songIndex];
 		[audioManager startStreamerWithSong:songToPlay];
-		[[audioManager getStreamer] addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		
 		[self changeImageIcons:cell imageName:@"stop.png"];
