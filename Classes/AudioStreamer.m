@@ -761,6 +761,7 @@ cleanup:
 			pthread_mutex_lock(&mutex);
 			pthread_cond_signal(&cond);
 			pthread_mutex_unlock(&mutex);
+			self.isPlaying = false;
 		}
 		else
 		{
