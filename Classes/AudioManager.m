@@ -46,12 +46,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			return;
 		} else {
 			// just in case a stream is playing, stop the stream before starting a new one
-			[self.streamer stop];
+			[streamer stop];
 			
 			// start the stream
 			NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 			streamer = [[AudioStreamer alloc] initWithURL:url];
-			[self.streamer start];
+			[streamer start];
 			
 			// insert song into DB
 			[self insertSongIntoDB:song];
@@ -63,7 +63,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			self.songIndexOfPlaylistCurrentlyPlaying = -1;
 			
 			// start the network indicator
-			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];		
+			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 		}
 		
 	} else {
@@ -89,7 +89,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	
 	// set currently playing index correctly
 	self.songIndexOfPlaylistCurrentlyPlaying = playListIndex;
-	
 	NSLog(@"AudioManager: current song index playing is: %d", self.songIndexOfPlaylistCurrentlyPlaying);
 }
 
@@ -110,7 +109,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	self.currentSong = nil;
 	
 	// stop the streamer
-	[self.streamer stop];
+	[streamer stop];
 	
 	// switch off the network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -131,7 +130,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (BOOL) isSongPlaying:(BlipSong*)song {
-	return [[song location] isEqualToString:[[self.streamer getUrl] absoluteString]];
+	return [[song location] isEqualToString:[[streamer getUrl] absoluteString]];
 }
 
 - (BOOL) isConnectedToNetwork {

@@ -11,18 +11,21 @@
 #include <pthread.h>
 #include <AudioToolbox/AudioToolbox.h>
 
-#define kNumAQBufs 12			// number of audio queue buffers we allocate
-#define kAQBufSize 192 * 1024		// number of bytes in each audio queue buffer
+#define kNumAQBufs 6			// number of audio queue buffers we allocate
+#define kAQBufSize 32 * 1024		// number of bytes in each audio queue buffer
 #define kAQMaxPacketDescs 512		// number of packet descriptions in our array
 
-// original numbers
-//#define kNumAQBufs 3			// number of audio queue buffers we allocate
-//#define kAQBufSize 64 * 1024		// number of bytes in each audio queue buffer
+//#define kNumAQBufs 12			// number of audio queue buffers we allocate
+//#define kAQBufSize 192 * 1024		// number of bytes in each audio queue buffer
 //#define kAQMaxPacketDescs 512		// number of packet descriptions in our array
+//
+//// original numbers
+////#define kNumAQBufs 3			// number of audio queue buffers we allocate
+////#define kAQBufSize 64 * 1024		// number of bytes in each audio queue buffer
+////#define kAQMaxPacketDescs 512		// number of packet descriptions in our array
 
 @interface AudioStreamer : NSObject
 {
-	NSURLConnection *connection;
 	NSURL *url;
 	bool isPlaying;
 	
@@ -50,8 +53,6 @@
 	pthread_cond_t cond;			// a condition varable for handling the inuse flags
 	pthread_mutex_t mutex2;			// a mutex to protect the AudioQueue buffer
 	CFReadStreamRef stream;
-
-	NSThread *controlThread;
 }
 
 @property bool isPlaying;

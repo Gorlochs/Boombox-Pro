@@ -31,7 +31,7 @@
 	NSInteger numberOfSongsPlayedTodayOnCellNetwork;
 }
 
-@property (nonatomic, retain, readonly) AudioStreamer *streamer;
+@property (nonatomic, retain) AudioStreamer *streamer;
 @property (nonatomic, retain) NSMutableArray *playlist;
 @property NSInteger songIndexOfPlaylistCurrentlyPlaying;
 @property (nonatomic, retain) BlipSong *currentSong;

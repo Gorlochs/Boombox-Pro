@@ -18,10 +18,7 @@
 #import "AudioManager.h"
 #import "TopButtonView.h"
 
-@class AudioStreamer;
-
 @interface BoomboxViewController : UIViewController {
-	AudioStreamer *streamer;
 	AudioManager *audioManager;
 	
 	ControlsView *controlsView;
@@ -46,7 +43,6 @@
 @property (nonatomic, retain) IBOutlet EqualizerView *equalizerView;
 @property (nonatomic, retain) IBOutlet TopButtonView *topButtonView;
 @property (nonatomic, retain) IBOutlet UILabel *songLabel;
-@property (nonatomic, retain) AudioStreamer *streamer;
 @property (nonatomic, retain, readonly) AudioManager *audioManager;
 
 - (IBAction)playAction:(id)sender;

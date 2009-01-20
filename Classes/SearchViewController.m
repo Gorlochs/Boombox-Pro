@@ -154,7 +154,7 @@ char *rand_str(char *dst) {
 //	[cell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
 	
 	// check to see if the song is playing.  if so, then change the icon to the stop button
-	if ([[[audioManager.streamer getUrl] absoluteString] isEqualToString:cell.songLocation] && audioManager.streamer.isPlaying) {
+	if ([[[audioManager.streamer getUrl] absoluteString] isEqualToString:cell.songLocation] && [audioManager.streamer isPlaying]) {
 		[cell.playButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 	} else {
 		[cell.playButton setImage:[UIImage imageNamed:@"image-7.png"] forState:UIControlStateNormal];
@@ -401,7 +401,7 @@ char *rand_str(char *dst) {
 	} else {
 		BlipSong *songToPlay = [audioManager.songs objectAtIndex:songIndex];
 		[audioManager startStreamerWithSong:songToPlay];
-		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+		[[audioManager getStreamer] addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		
 		[self changeImageIcons:cell imageName:@"stop.png"];

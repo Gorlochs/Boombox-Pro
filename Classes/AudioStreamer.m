@@ -753,7 +753,7 @@ cleanup:
 			//
 			pthread_mutex_lock(&mutex2);
 			finished = true;
-			
+
 			OSStatus err = AudioQueueStop(audioQueue, true);
 			if (err) { PRINTERROR("AudioQueueStop"); }
 			pthread_mutex_unlock(&mutex2);

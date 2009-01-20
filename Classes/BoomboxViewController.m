@@ -17,11 +17,12 @@
 - (CAAnimationGroup*)imagesAnimationLeftSpeaker;
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
 - (void) nextPreviousCleanup;
+- (void) addAnimationsToBoombox;
 @end
 
 @implementation BoomboxViewController
 
-@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, topButtonView, songLabel, streamer, audioManager;
+@synthesize controlsView, equalizerView, leftSpeakerView, rightSpeakerView, topButtonView, songLabel, audioManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -166,16 +167,22 @@
 }
 
 
-// I know the next three methods are kinda crappy, but it was the only way I could get it all to work
+// I know the next two methods are kinda crappy, but it was the only way I could get it all to work.
 // I really wanted to put the functions in AudioManager where they belong and make these functions
 // into simple delgating methods, but no luck.  There was something weird about stopping and starting
 // the stream with different urls.
 - (IBAction)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1 && [audioManager.streamer isPlaying]) {
+		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		[self stopStreamCleanup];
+		// change song title immediately so that user knows what's happening
 		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
 		songLabel.text = [nextSong constructTitleArtist];	 
+		
 		[audioManager playNextSongInPlaylist];
+		[self addAnimationsToBoombox];
+		
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
 		NSLog(@"sorry, no next song in the playlist, so nothing will happen");
@@ -184,22 +191,21 @@
 
 - (IBAction)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0) {
+		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+		
+		[self stopStreamCleanup];
+		// change song title immediately so that user knows what's happening
 		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
-		songLabel.text = [nextSong constructTitleArtist];	
+		songLabel.text = [nextSong constructTitleArtist];
+		
 		[audioManager playPreviousSongInPlaylist];
+		[self addAnimationsToBoombox];
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
 		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
 }
-
-// This function is similar to some code in the following function, but it was different enough
-// for me to have to keep them separate.  There might be a way to generalize, but it didn't
-// seem like it was worth the trouble considering everything else that needs to be done.
-- (void) nextPreviousCleanup {
-}
-
 
 #pragma mark Audio Streaming Functions
 
@@ -216,18 +222,7 @@
 			// start network traffic indicator in the status bar
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 			
-			// start animation
-			[CATransaction begin];
-			
-			[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-			[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
-
-			// adding the animation to the target layer causes it to begin animating
-			[leftSpeakerView.layer addAnimation:[self imagesAnimationLeftSpeaker] forKey:@"leftSpeakerAnimation"];
-			[rightSpeakerView.layer addAnimation:[self imagesAnimationRightSpeaker] forKey:@"rightSpeakerAnimation"];
-			[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
-			
-			[CATransaction commit];
+			[self addAnimationsToBoombox];
 			
 			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 		} else {
@@ -270,6 +265,21 @@
 	}
 	
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void) addAnimationsToBoombox {
+	// start animation
+	[CATransaction begin];
+	
+	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+	[CATransaction setValue:[NSNumber numberWithFloat:2.0] forKey:kCATransactionAnimationDuration];
+	
+	// adding the animation to the target layer causes it to begin animating
+	[leftSpeakerView.layer addAnimation:[self imagesAnimationLeftSpeaker] forKey:@"leftSpeakerAnimation"];
+	[rightSpeakerView.layer addAnimation:[self imagesAnimationRightSpeaker] forKey:@"rightSpeakerAnimation"];
+	[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
+	
+	[CATransaction commit];
 }
 
 - (void) stopStreamCleanup {
