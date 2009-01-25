@@ -9,8 +9,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="46"/>
-			<integer value="6"/>
 			<integer value="1"/>
+			<integer value="6"/>
 			<integer value="57"/>
 			<integer value="42"/>
 			<integer value="34"/>
@@ -357,11 +357,10 @@
 					<object class="IBUIButton" id="126008183">
 						<reference key="NSNextResponder" ref="767876723"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 4}, {50, 50}}</string>
+						<string key="NSFrame">{{0, 4}, {398, 50}}</string>
 						<reference key="NSSuperview" ref="767876723"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="151126720"/>
 						<string key="IBUIHighlightedTitle"/>
