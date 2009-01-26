@@ -113,8 +113,10 @@ char *rand_str(char *dst) {
 	[searchBar resignFirstResponder];
 }
 - (void)insertSearchIntoDB:(NSString*)searchTerms {
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.1.1-dev.php?searchTerms=%@&gkey=g0rl0ch1an5",
-											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.1.1-dev.php?searchTerms=%@&cc=%@&gkey=g0rl0ch1an5",
+											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+											 [appDelegate getCountryCode]]];
 	
 	NSLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];

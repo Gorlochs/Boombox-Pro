@@ -28,5 +28,7 @@
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 @property NetworkStatus remoteHostStatus;
 
+- (NSString*) getCountryCode;
+
 @end
 
