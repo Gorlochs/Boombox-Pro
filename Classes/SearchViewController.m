@@ -50,6 +50,7 @@
 	[adMobAd release];
 	adMobAd = nil;
 	[buySongListController release];
+	[topSearchViewController release];
 	[searchCell release];
 	
 	[rssParser release];
@@ -324,6 +325,13 @@ char *rand_str(char *dst) {
 		[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	}
 	//	[bigSpinner stopAnimating];
+}
+
+#pragma mark Button functions
+
+- (IBAction)displayTopSearchesViewAction:(id)sender {
+	topSearchViewController = [[TopSearchViewController alloc] initWithNibName:@"TopSearchView" bundle:nil];
+	[self presentModalViewController:topSearchViewController animated:YES];
 }
 
 - (IBAction)removeModalView:(id)sender {

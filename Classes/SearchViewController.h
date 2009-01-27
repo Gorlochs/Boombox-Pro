@@ -13,6 +13,7 @@
 #import "AdMobDelegateProtocol.h";
 #import "BuySongListViewController.h"
 #import "AudioManager.h"
+#import "TopSearchViewController.h"
 
 @class AudioStreamer, SearchTableCellView, AdMobView;
 
@@ -24,6 +25,7 @@
 	IBOutlet UITableView *theTableView;
 	SearchTableCellView *searchCell;
 	BuySongListViewController *buySongListController;
+	TopSearchViewController *topSearchViewController;
 	
 	AudioManager *audioManager;
 	
@@ -51,6 +53,7 @@
 
 - (void)parseXMLFileAtURL:(NSString *)URL;
 - (IBAction)removeModalView:(id)sender;
+- (IBAction)displayTopSearchesViewAction:(id)sender;
 - (void)refreshAd:(NSTimer *)timer;
 
 @end
