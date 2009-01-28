@@ -58,7 +58,7 @@
 					<object class="IBUILabel" id="492025414">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{63, 11}, {360, 37}}</string>
+						<string key="NSFrame">{{64, 11}, {354, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -357,7 +357,7 @@
 					<object class="IBUIButton" id="126008183">
 						<reference key="NSNextResponder" ref="767876723"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 4}, {398, 49}}</string>
+						<string key="NSFrame">{{0, 4}, {408, 49}}</string>
 						<reference key="NSSuperview" ref="767876723"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -385,7 +385,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">buy_bkg.png</string>
+							<string key="NSResourceName">search_bkg.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="667301964">
@@ -570,8 +570,8 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="492025414"/>
 							<reference ref="935002435"/>
+							<reference ref="492025414"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -759,7 +759,7 @@
 					<string>{{310, 482}, {171, 166}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TopButtonView</string>
-					<string>{{533, 544}, {461, 59}}</string>
+					<string>{{359, 458}, {461, 59}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

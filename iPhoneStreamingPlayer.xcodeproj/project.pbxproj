@@ -30,6 +30,11 @@
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
 		6A3690210EEEAF14000C7A23 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3690200EEEAF14000C7A23 /* Reachability.m */; };
 		6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */; };
+		6A38D37F0F3001C1002B2763 /* Mobclix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D3780F3001C1002B2763 /* Mobclix.a */; };
+		6A38D3800F3001C1002B2763 /* MobclixAds.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D3790F3001C1002B2763 /* MobclixAds.o */; };
+		6A38D3810F3001C1002B2763 /* Mobclix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D37D0F3001C1002B2763 /* Mobclix.a */; };
+		6A38D3820F3001C1002B2763 /* MobclixAds.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D37E0F3001C1002B2763 /* MobclixAds.o */; };
+		6A38D3A40F302724002B2763 /* search_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A38D3A30F302724002B2763 /* search_bkg.png */; };
 		6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A68F9300EDB3908001D7787 /* AudioManager.m */; };
 		6A879B130EFDB2C4009B1539 /* image-5_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A879B110EFDB2C4009B1539 /* image-5_selected.png */; };
 		6A879B140EFDB2C4009B1539 /* iTunes4.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A879B120EFDB2C4009B1539 /* iTunes4.png */; };
@@ -181,6 +186,13 @@
 		6A36901F0EEEAF14000C7A23 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6A3690200EEEAF14000C7A23 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6A38D3780F3001C1002B2763 /* Mobclix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Mobclix.a; sourceTree = "<group>"; };
+		6A38D3790F3001C1002B2763 /* MobclixAds.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = MobclixAds.o; sourceTree = "<group>"; };
+		6A38D37A0F3001C1002B2763 /* Mobclix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobclix.h; sourceTree = "<group>"; };
+		6A38D37B0F3001C1002B2763 /* MobclixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAds.h; sourceTree = "<group>"; };
+		6A38D37D0F3001C1002B2763 /* Mobclix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Mobclix.a; sourceTree = "<group>"; };
+		6A38D37E0F3001C1002B2763 /* MobclixAds.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = MobclixAds.o; sourceTree = "<group>"; };
+		6A38D3A30F302724002B2763 /* search_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_bkg.png; sourceTree = "<group>"; };
 		6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6A68F92F0EDB3908001D7787 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
 		6A68F9300EDB3908001D7787 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
@@ -346,6 +358,10 @@
 				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
 				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 				6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */,
+				6A38D37F0F3001C1002B2763 /* Mobclix.a in Frameworks */,
+				6A38D3800F3001C1002B2763 /* MobclixAds.o in Frameworks */,
+				6A38D3810F3001C1002B2763 /* Mobclix.a in Frameworks */,
+				6A38D3820F3001C1002B2763 /* MobclixAds.o in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +371,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6A38D3760F3001C1002B2763 /* mobclix.lib */,
 				6A36901E0EEEAF0A000C7A23 /* Reachability */,
 				6AD04B870F2D85780089712B /* TouchXML */,
 				6AC0D5F20ECCB9D9009F6BBD /* TouchJSON */,
@@ -442,6 +459,35 @@
 				6A3690200EEEAF14000C7A23 /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		6A38D3760F3001C1002B2763 /* mobclix.lib */ = {
+			isa = PBXGroup;
+			children = (
+				6A38D3770F3001C1002B2763 /* ARM */,
+				6A38D37A0F3001C1002B2763 /* Mobclix.h */,
+				6A38D37B0F3001C1002B2763 /* MobclixAds.h */,
+				6A38D37C0F3001C1002B2763 /* X86 */,
+			);
+			path = mobclix.lib;
+			sourceTree = "<group>";
+		};
+		6A38D3770F3001C1002B2763 /* ARM */ = {
+			isa = PBXGroup;
+			children = (
+				6A38D3780F3001C1002B2763 /* Mobclix.a */,
+				6A38D3790F3001C1002B2763 /* MobclixAds.o */,
+			);
+			path = ARM;
+			sourceTree = "<group>";
+		};
+		6A38D37C0F3001C1002B2763 /* X86 */ = {
+			isa = PBXGroup;
+			children = (
+				6A38D37D0F3001C1002B2763 /* Mobclix.a */,
+				6A38D37E0F3001C1002B2763 /* MobclixAds.o */,
+			);
+			path = X86;
 			sourceTree = "<group>";
 		};
 		6AC0D3F10ECB43B7009F6BBD /* AdMob */ = {
@@ -616,6 +662,7 @@
 		6AC138580EBF9B63004146A4 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6A38D3A30F302724002B2763 /* search_bkg.png */,
 				6A1F4BD10F253C0700211F79 /* boombox_blank_1.0.1b.png */,
 				6A1F4B860F251C0500211F79 /* btn_off_05_1.0.1b.png */,
 				6A1F4B870F251C0500211F79 /* btn_off_06_1.0.1b.png */,
@@ -830,6 +877,7 @@
 				6A1F4B8D0F251C0500211F79 /* btn_on_06_1.0.1b.png in Resources */,
 				6A1F4BD20F253C0700211F79 /* boombox_blank_1.0.1b.png in Resources */,
 				6A0B3B990F2EA6C2002EC9B2 /* TopSearchView.xib in Resources */,
+				6A38D3A40F302724002B2763 /* search_bkg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -895,6 +943,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
@@ -919,6 +969,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
@@ -961,6 +1013,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
+					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
