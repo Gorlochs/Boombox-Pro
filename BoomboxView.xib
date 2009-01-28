@@ -8,12 +8,12 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="46"/>
 			<integer value="1"/>
-			<integer value="6"/>
-			<integer value="57"/>
-			<integer value="42"/>
+			<integer value="46"/>
 			<integer value="34"/>
+			<integer value="6"/>
+			<integer value="42"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -357,7 +357,7 @@
 					<object class="IBUIButton" id="126008183">
 						<reference key="NSNextResponder" ref="767876723"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 4}, {398, 50}}</string>
+						<string key="NSFrame">{{0, 4}, {398, 49}}</string>
 						<reference key="NSSuperview" ref="767876723"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -367,14 +367,25 @@
 						<string key="IBUIDisabledTitle"/>
 						<string key="IBUISelectedTitle"/>
 						<string key="IBUINormalTitle"/>
-						<reference key="IBUIHighlightedTitleColor" ref="793528726"/>
+						<object class="NSColor" key="IBUIHighlightedTitleColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">search_on.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">search_off.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">buy_bkg.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="667301964">
@@ -748,7 +759,7 @@
 					<string>{{310, 482}, {171, 166}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TopButtonView</string>
-					<string>{{491, 578}, {461, 59}}</string>
+					<string>{{533, 544}, {461, 59}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
