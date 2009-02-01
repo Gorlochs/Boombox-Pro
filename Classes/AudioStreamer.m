@@ -649,12 +649,11 @@ void ReadStreamCallBack
 		if (failed)
 		{
 			[self stop];
-			
-#ifdef TARGET_OS_IPHONE			
+				
 			UIAlertView *alert =
 			[[UIAlertView alloc]
 			 initWithTitle:NSLocalizedStringFromTable(@"Audio Error", @"Errors", nil)
-			 message:NSLocalizedStringFromTable(@"Attempt to play streaming audio failed.", @"Errors", nil)
+			 message:NSLocalizedStringFromTable(@"This song can no longer be found on Blip.fm. It may have been moved or deleted. Please update your playlist.", @"Errors", nil)
 			 delegate:self
 			 cancelButtonTitle:@"OK"
 			 otherButtonTitles: nil];
@@ -664,19 +663,6 @@ void ReadStreamCallBack
 			 withObject:nil
 			 waitUntilDone:YES];
 			[alert release];
-#else
-			NSAlert *alert =
-			[NSAlert
-			 alertWithMessageText:NSLocalizedString(@"Audio Error", @"")
-			 defaultButton:NSLocalizedString(@"OK", @"")
-			 alternateButton:nil
-			 otherButton:nil
-			 informativeTextWithFormat:@"Attempt to play streaming audio failed."];
-			[alert
-			 performSelector:@selector(runModal)
-			 onThread:[NSThread mainThread]
-			 withObject:nil waitUntilDone:NO];
-#endif
 			
 			break;
 		}
