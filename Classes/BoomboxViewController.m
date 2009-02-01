@@ -151,7 +151,7 @@
 		NSLog(@"play button clicked, and playlist exists, so play the first song");
 		[audioManager startStreamerWithPlaylistIndex:0];
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-		songLabel.text = [[audioManager.playlist objectAtIndex:0] constructTitleArtist];
+		songLabel.text = [audioManager.currentSong constructTitleArtist];
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
 													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
