@@ -40,7 +40,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 		if (![self isConnectedToWifi]) {
 			NSLog(@"*** device is NOT connected to wifi ***");
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-															message:@"Due to bandwidth limitations, you may only listen to music while connected to a WiFi network. You may, however, conduct searches and add songs to your playlist while on cellular networks."
+															message:@"In order to play songs, please connect to a WiFi network. You may still search and add songs to your playlist."
 														   delegate:self 
 												  cancelButtonTitle:@"OK" 
 												  otherButtonTitles:nil];
