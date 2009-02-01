@@ -21,6 +21,7 @@
 - (void)reachabilityChanged:(NSNotification *)note;
 - (void)updateStatus;
 - (NSString*)getCountryCode;
+- (void)checkForEmergencyMessage;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -47,6 +48,8 @@
 	// Query the SystemConfiguration framework for the state of the device's network connections.
 	//[self updateStatus];
 	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
+	
+	[self checkForEmergencyMessage];
 	
 	// set observer to update the network status as it changes
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
@@ -101,6 +104,20 @@
 										  otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+}
+
+- (void) checkForEmergencyMessage {
+	
+	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.emergency.message"]];
+	if (emergencyMessage != nil && [emergencyMessage isNotEqualTo:@""]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
+														message:emergencyMessage
+													   delegate:self 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];	
+	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
