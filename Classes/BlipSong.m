@@ -111,4 +111,11 @@ static sqlite3_stmt *dehydrate_statement = nil;
     //hydrated = YES;
 }
 
+- (void) dealloc {	
+	[title release];
+	[location release];
+	[artist release];
+	[super dealloc];
+}
+
 @end

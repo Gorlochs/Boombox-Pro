@@ -10,6 +10,7 @@
 #import "SynthesizeSingleton.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "Reachability.h"
+#import "TouchXML.h"
 
 #define MAX_SONGS_FOR_CELL_NETWORK_PER_DAY 15
 
@@ -17,6 +18,7 @@
 - (void)insertSongIntoDB:(BlipSong*)songToInsert;
 - (BOOL)isConnectedToNetwork;
 - (BOOL)isConnectedToWifi;
+- (void)populateTopSongs;
 @end
 
 @implementation AudioManager
@@ -26,6 +28,7 @@
 @synthesize currentSong;
 @synthesize searchTerms;
 @synthesize songs;
+@synthesize topSongs;
 @synthesize songIndexOfPlaylistCurrentlyPlaying;
 @synthesize numberOfSongsPlayedTodayOnCellNetwork;
 
@@ -79,7 +82,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex {
 	// find song to play
-	BlipSong *songToPlay = [playlist objectAtIndex:playListIndex];
+	BlipSong *songToPlay = NULL;
+	if (playlistMode == mine) {
+		songToPlay = [playlist objectAtIndex:playListIndex];
+	} else {
+		songToPlay = [topSongs objectAtIndex:playListIndex];
+	}
 	
 	// set currentSong
 	self.currentSong = songToPlay;
@@ -115,31 +123,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
-- (void)insertSongIntoDB:(BlipSong*)songToInsert {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.1.1-dev.php?song=%@&artist=%@&songUrl=%@&cc=%@&gkey=g0rl0ch1an5", 
-											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-											 [[songToInsert.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-											 [appDelegate getCountryCode]]];
-											 
-	NSLog(@"insert url: %@", insertUrl);
-	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
-	NSLog(@"insert result: %@", insertResult);
-}
-
 - (BOOL) isSongPlaying:(BlipSong*)song {
 	return [[song location] isEqualToString:[[streamer getUrl] absoluteString]];
-}
-
-- (BOOL) isConnectedToNetwork {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	return appDelegate.remoteHostStatus != NotReachable;
-}
-
-- (BOOL) isConnectedToWifi {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	return appDelegate.remoteHostStatus == ReachableViaWiFiNetwork;
 }
 
 // only used for cell network song limitations
@@ -155,6 +140,74 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (BOOL) userHasReachedMaximumSongsForTheDay {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	return (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork && self.numberOfSongsPlayedTodayOnCellNetwork >= MAX_SONGS_FOR_CELL_NETWORK_PER_DAY);
+}
+
+- (NSMutableArray*) retrieveTopSongs {
+	NSLog(@"retrieveTopSongs is starting");
+	if (self.topSongs == NULL) {
+		[self populateTopSongs];
+	}
+	return self.topSongs;
+}
+
+- (void)switchToPlaylistMode:(PlaylistMode*)pmode {
+	playlistMode = pmode;
+}
+
+- (PlaylistMode*)determinePlaylistMode {
+	if (playlistMode == NULL) {
+		playlistMode = mine;
+	}
+	return playlistMode;
+}
+
+#pragma mark Private Functions
+
+- (void) populateTopSongs {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	NSError *theError = NULL;
+	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/cache/topsongs.xml"] options:0 error:&theError] autorelease];
+	NSLog(@"finished getting the topsongs xml doc");
+	NSArray *theNodes = NULL;
+	
+	theNodes = [theXMLDocument nodesForXPath:@"//songs/song" error:&theError];
+	topSongs = [[NSMutableArray alloc] initWithCapacity:20];
+	for (CXMLElement *theElement in theNodes) {
+		NSLog(@"song: %@", theElement);
+		BlipSong *tempSong = [[BlipSong alloc] init];
+		tempSong.title = [[[theElement nodesForXPath:@"./song_name" error:NULL] objectAtIndex:0] stringValue];
+		tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
+		tempSong.location = [[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue];
+		//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
+		[topSongs addObject:tempSong];
+		[tempSong release];
+	}
+	NSLog(@"top songs: %@", topSongs);
+	//[theTableView reloadData];
+	[pool release];
+}
+
+- (BOOL) isConnectedToNetwork {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return appDelegate.remoteHostStatus != NotReachable;
+}
+
+- (BOOL) isConnectedToWifi {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	return appDelegate.remoteHostStatus == ReachableViaWiFiNetwork;
+}
+
+- (void)insertSongIntoDB:(BlipSong*)songToInsert {
+	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.1.1-dev.php?song=%@&artist=%@&songUrl=%@&cc=%@&gkey=g0rl0ch1an5", 
+											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+											 [[songToInsert.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+											 [appDelegate getCountryCode]]];
+	
+	NSLog(@"insert url: %@", insertUrl);
+	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+	NSLog(@"insert result: %@", insertResult);
 }
 
 @end

@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "AudioStreamer.h"
 #import "BlipSong.h"
+#import "AudioManager.h"
+
+typedef enum {
+	mine,
+	popular
+} PlaylistMode;
 
 @interface AudioManager : NSObject {
+	
 	AudioStreamer *streamer;
 	
 	// the user's compiled playlist of songs
@@ -28,8 +35,15 @@
 	// the list of songs returned from a search
 	NSMutableArray *songs;
 	
+	// list of BlipSongs that make up the Top Songs list
+	// this might not be the best place for it, but, oh well
+	NSMutableArray *topSongs;
+	
+	PlaylistMode *playlistMode;
+	
 	NSInteger numberOfSongsPlayedTodayOnCellNetwork;
 }
+
 
 @property (nonatomic, retain) AudioStreamer *streamer;
 @property (nonatomic, retain) NSMutableArray *playlist;
@@ -37,6 +51,7 @@
 @property (nonatomic, retain) BlipSong *currentSong;
 @property (nonatomic, retain) NSString *searchTerms;
 @property (nonatomic, retain) NSMutableArray *songs;
+@property (nonatomic, retain) NSMutableArray *topSongs;
 @property NSInteger numberOfSongsPlayedTodayOnCellNetwork;
 
 + (AudioManager*) sharedAudioManager;
@@ -49,4 +64,8 @@
 - (BOOL) userHasReachedMaximumSongsForTheDay;
 - (void) playNextSongInPlaylist;
 - (void) playPreviousSongInPlaylist;
+- (NSMutableArray*) retrieveTopSongs;
+- (void)switchToPlaylistMode:(PlaylistMode*)pmode;
+- (PlaylistMode*)determinePlaylistMode;
+
 @end

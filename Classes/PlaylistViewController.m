@@ -20,13 +20,14 @@
 
 @implementation PlaylistViewController
 
-@synthesize theTableView, tableCell, adMobAd;
+@synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell, adMobAd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
 		NSLog(@"initializing audiomanager...");
 		audioManager = [AudioManager sharedAudioManager];
+		[audioManager switchToPlaylistMode:mine];
 		NSLog(@"playlist: %@", audioManager.playlist);
 	}
 	return self;
@@ -44,7 +45,12 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+	if ([audioManager determinePlaylistMode] == mine) {
+		return YES;		
+	} else {
+		return NO;
+	}
+
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -81,7 +87,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	//NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
-    return [audioManager.playlist count];
+	if ([audioManager determinePlaylistMode] == mine) {
+		return [audioManager.playlist count];		
+	} else {
+		return [audioManager.topSongs count];
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -97,7 +107,12 @@
 	
     // Configure the cell
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
-	BlipSong *song = (BlipSong*) [audioManager.playlist objectAtIndex: songIndex];
+	BlipSong *song = NULL;
+	if ([audioManager determinePlaylistMode] == mine) {
+		song = (BlipSong*) [audioManager.playlist objectAtIndex: songIndex];
+	} else {
+		song = (BlipSong*) [[audioManager retrieveTopSongs] objectAtIndex: songIndex];
+	}
 	[cell setCellData:song];
 	cell.buyButton.hidden = YES;
 	cell.addToPlaylistButton.hidden = YES;
@@ -115,15 +130,33 @@
 }
 
 #pragma mark UITableViewDelegate functions
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	SearchTableCellView *currentCell = (SearchTableCellView*) [theTableView cellForRowAtIndexPath:indexPath];
 	[self playOrStopSong:indexPath.row targetCell:currentCell];
 }
 
+#pragma mark IBAction functions
+
 - (void)playSong:(id)sender {
 	UIButton *senderButton = (UIButton*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	[self playOrStopSong:senderButton.tag targetCell:cell];
+}
+
+- (void)removeModalView:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)displayMyPlaylist {
+	[audioManager switchToPlaylistMode:mine];
+	[theTableView reloadData];
+}
+
+- (void)displayPopularPlaylist {
+	[audioManager switchToPlaylistMode:popular];
+	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
+	[theTableView reloadData];
 }
 
 #pragma mark Row reordering
@@ -178,10 +211,6 @@
 	[theTableView reloadData];
 	
     [super viewWillAppear:animated];
-}
-
-- (IBAction)removeModalView:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)dealloc {
@@ -250,13 +279,14 @@
 	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];	
 	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
+
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay) {
 		// stop the stream and switch back to the play button
 		[audioManager stopStreamer];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {
-		[audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];
+		[audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
 		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		
 		// set song title label on boombox view
@@ -278,4 +308,3 @@
 }
 
 @end
-

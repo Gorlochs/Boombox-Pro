@@ -32,7 +32,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
 	audioManager = [AudioManager sharedAudioManager];
-    
+	
     [self createEditableCopyOfDatabaseIfNeeded];
     [self initializeDatabase];
 
