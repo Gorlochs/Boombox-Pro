@@ -177,7 +177,13 @@
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
-		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
+		BlipSong *nextSong = NULL;
+		if ([audioManager determinePlaylistMode] == mine) {
+			nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
+		} else {
+			nextSong = [audioManager.topSongs objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
+		}
+		
 		songLabel.text = [nextSong constructTitleArtist];	 
 		
 		[audioManager playNextSongInPlaylist];
@@ -196,7 +202,12 @@
 		
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
-		BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
+		BlipSong *nextSong = NULL;
+		if ([audioManager determinePlaylistMode] == mine) {
+			nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
+		} else {
+			nextSong = [audioManager.topSongs objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
+		}
 		songLabel.text = [nextSong constructTitleArtist];
 		
 		[audioManager playPreviousSongInPlaylist];
@@ -226,8 +237,8 @@
 			
 			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 		} else {
-			// the stream has ended
-			
+			// the stream has ended 
+			 
 			// if user is on cell network, keep track of how many songs have been played for the day
 			//[audioManager incrementCellNetworkSongsPlayed];
 			
@@ -237,12 +248,6 @@
 				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1) {
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
-					//audioManager.songIndexOfPlaylistCurrentlyPlaying++;
-					//audioManager.currentSong = nextSong;
-					//NSLog(@"next playlist song: %@", nextSong.title);
-					
-					//[audioManager startStreamerWithSong:nextSong];
-					//[audioManager startStreamerWithPlaylistIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					[audioManager playNextSongInPlaylist];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
