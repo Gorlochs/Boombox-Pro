@@ -67,5 +67,6 @@ typedef enum {
 - (NSMutableArray*) retrieveTopSongs;
 - (void)switchToPlaylistMode:(PlaylistMode*)pmode;
 - (PlaylistMode*)determinePlaylistMode;
+- (NSArray*)retrieveCurrentSongList;
 
 @end

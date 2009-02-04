@@ -147,7 +147,7 @@
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
-	if ([audioManager.playlist count] > 0) {
+	if ([[audioManager retrieveCurrentSongList] count] > 0) {
 		NSLog(@"play button clicked, and playlist exists, so play the first song");
 		[audioManager startStreamerWithPlaylistIndex:0];
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
@@ -172,18 +172,12 @@
 // into simple delgating methods, but no luck.  There was something weird about stopping and starting
 // the stream with different urls.
 - (IBAction)playNextSongInPlaylist {
-	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1 && [audioManager.streamer isPlaying]) {
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1 && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
-		BlipSong *nextSong = NULL;
-		if ([audioManager determinePlaylistMode] == mine) {
-			nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
-		} else {
-			nextSong = [audioManager.topSongs objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
-		}
-		
+		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
 		songLabel.text = [nextSong constructTitleArtist];	 
 		
 		[audioManager playNextSongInPlaylist];
@@ -202,12 +196,7 @@
 		
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
-		BlipSong *nextSong = NULL;
-		if ([audioManager determinePlaylistMode] == mine) {
-			nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
-		} else {
-			nextSong = [audioManager.topSongs objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
-		}
+		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
 		songLabel.text = [nextSong constructTitleArtist];
 		
 		[audioManager playPreviousSongInPlaylist];
@@ -245,13 +234,13 @@
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
 				NSLog(@"currently playing > -1");
-				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [audioManager.playlist count] - 1) {
+				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
 					NSLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
 					[audioManager playNextSongInPlaylist];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [audioManager.playlist count]);
-					BlipSong *nextSong = [audioManager.playlist objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
+					BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					songLabel.text = [nextSong constructTitleArtist];					
 				} else {
 					NSLog(@"last song, nothing else left to play");

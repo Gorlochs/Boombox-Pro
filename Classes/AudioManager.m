@@ -82,12 +82,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex {
 	// find song to play
-	BlipSong *songToPlay = NULL;
-	if (playlistMode == mine) {
-		songToPlay = [playlist objectAtIndex:playListIndex];
-	} else {
-		songToPlay = [topSongs objectAtIndex:playListIndex];
-	}
+	BlipSong *songToPlay = [[self retrieveCurrentSongList] objectAtIndex:playListIndex];
 	
 	// set currentSong
 	self.currentSong = songToPlay;
@@ -159,6 +154,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 		playlistMode = mine;
 	}
 	return playlistMode;
+}
+
+- (NSArray*)retrieveCurrentSongList {
+	if ([self determinePlaylistMode] == mine) {
+		return self.playlist;
+	} else if ([self determinePlaylistMode] == popular) {
+		return self.topSongs;
+	} else {
+		return self.playlist;
+	}
 }
 
 #pragma mark Private Functions
