@@ -64,7 +64,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	//NSLog(@"number of rows returned: %d", [audioManager.songs count]);
-	return 10;	
+	return [topSearches count];	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,34 +72,29 @@
 	
 	UITableViewCell *cell = (UITableViewCell *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectMake(0,0,320,84) reuseIdentifier:MyIdentifier] autorelease];
-		
-//		UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 84)];
-//		bgView.opaque = YES;
-//		UIImage *bgImage = [UIImage imageNamed:@"cell-bg.png"];
-//		[bgView setImage:bgImage];
-//		[bgImage release];
-//		[cell setBackgroundView:bgView];
-//		[bgView release];
-//		cell.opaque = NO;
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
 	}
 	
+	// ugh, what a royal pain in the ass. all just to add a background image
+	UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 84)];
+	bgView.opaque = YES;
+	UIImage *bgImage = [UIImage imageNamed:@"cell-bg.png"];
+	[bgView setImage:bgImage];
+	
+	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 300, 40)];
+	lbl.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
+	lbl.backgroundColor = [UIColor clearColor];
+	lbl.textColor = [UIColor whiteColor];
+	[bgView addSubview:lbl];
+	[lbl release];
+	
+	[cell setBackgroundView:bgView];
+	[bgView release];
+	cell.opaque = NO;
+	
 	// Set up the cell
-	cell.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
+	//cell.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
 	//cell.textColor = [UIColor whiteColor];
-	
-	
-	
-	
-	//CGRect *rect = CGRectMake(0.0, 0.0, 320.0, 60); 
-//	UIImage *image = [[UIImage imageNamed:@"cell-bg.png"] retain];
-//	UIImageView *imageView = [[UIImageView alloc] initWithImage:image]; 
-//	imageView.image = image; 
-//	imageView.opaque = YES; 
-//	[cell.backgroundView addSubview:imageView];
-//	cell.backgroundColor = [UIColor clearColor];
-//	[imageView release];
-	
 	return cell;
 }
 
