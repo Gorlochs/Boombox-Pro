@@ -27,8 +27,7 @@
 		// Initialization code
 		NSLog(@"initializing audiomanager...");
 		audioManager = [AudioManager sharedAudioManager];
-		[audioManager switchToPlaylistMode:mine];
-		NSLog(@"playlist: %@", audioManager.playlist);
+		//[audioManager switchToPlaylistMode:mine];
 	}
 	return self;
 }
@@ -39,6 +38,14 @@
 
 - (void)viewDidLoad {
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	
+	[myPlaylistButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+	[popularPlaylistsButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+	if ([audioManager determinePlaylistMode] == mine) {
+		myPlaylistButton.selected = YES;
+	} else {
+		popularPlaylistsButton.selected = YES;
+	}
 	
 	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 	[adMobAd retain]; // this will be released when it loads (or fails to load)
@@ -151,12 +158,16 @@
 - (void)displayMyPlaylist {
 	[audioManager switchToPlaylistMode:mine];
 	[theTableView reloadData];
+	myPlaylistButton.selected = YES;
+	popularPlaylistsButton.selected = NO;
 }
 
 - (void)displayPopularPlaylist {
 	[audioManager switchToPlaylistMode:popular];
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
+	popularPlaylistsButton.selected = YES;
+	myPlaylistButton.selected = NO;
 }
 
 #pragma mark Row reordering
