@@ -285,8 +285,6 @@ char *rand_str(char *dst) {
 			[audioManager.songs addObject:item];
 		}
 		[item release];
-		NSLog(@"adding song: %@", currentTitle);
-		//		NSLog(@"1adding summary: %@", currentSummary);
 	}
 }
 // -----------------------------------------------------------------------------
