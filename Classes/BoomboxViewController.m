@@ -190,7 +190,7 @@
 }
 
 - (IBAction)playPreviousSongInPlaylist {
-	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0) {
+	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		
