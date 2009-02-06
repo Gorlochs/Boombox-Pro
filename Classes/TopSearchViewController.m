@@ -83,9 +83,10 @@
 	
 	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 300, 40)];
 	lbl.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
+	lbl.highlightedTextColor = [UIColor blackColor];
 	lbl.backgroundColor = [UIColor clearColor];
 	lbl.textColor = [UIColor whiteColor];
-	[bgView addSubview:lbl];
+	[cell addSubview:lbl];
 	[lbl release];
 	
 	[cell setBackgroundView:bgView];
