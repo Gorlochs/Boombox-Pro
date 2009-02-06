@@ -180,8 +180,8 @@
 		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
 		songLabel.text = [nextSong constructTitleArtist];	 
 		
-		[self addAnimationsToBoombox];
 		[audioManager playNextSongInPlaylist];
+		[self addAnimationsToBoombox];
 		
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
@@ -199,9 +199,8 @@
 		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
 		songLabel.text = [nextSong constructTitleArtist];
 		
-		[self addAnimationsToBoombox];
 		[audioManager playPreviousSongInPlaylist];
-		
+		[self addAnimationsToBoombox];
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 	} else {
 		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
