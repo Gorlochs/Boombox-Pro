@@ -67,8 +67,16 @@
 	if (audioManager.searchTerms != nil) {
 		blipSearchBar.text = audioManager.searchTerms;
 	}
-	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-	[adMobAd retain]; // this will be released when it loads (or fails to load)
+	//MMABannerXLAdView *adView = 
+//		[[MMABannerXLAdView alloc] initWithFrame:CGRectMake(0, 
+//															0, 
+//															300.0, 
+//															50.0)]; 
+	bannerAd.adCode = @"3703d77a-e812-444a-b117-50b8fcef88d8";
+	[bannerAd getAd];
+	
+//	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
+//	[adMobAd retain]; // this will be released when it loads (or fails to load)
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -256,7 +264,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			
-    //NSLog(@"found this element: %@", elementName);
+    NSLog(@"found this element: %@", elementName);
 	currentElement = [elementName copy];
 	if ([elementName isEqualToString:@"Song"]) {
 		// clear out our story item caches...
@@ -269,13 +277,15 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{     
-	//NSLog(@"ended element: %@", elementName);
+	NSLog(@"ended element: %@", elementName);
 	if ([elementName isEqualToString:@"Song"]) {
 		// save values to an item, then store that item into the array...
 		[item setTitle:currentTitle];
 		[item setArtist:currentArtist];
 		[item setLocation:[currentLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-		
+		NSLog(@"title: %@", item.title);
+		NSLog(@"artist: %@", item.artist);
+		NSLog(@"location: %@", item.location);
 		[currentTitle release];
 		[currentLocation release];
 		[currentArtist release];
@@ -289,7 +299,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	//NSLog(@"found characters: %@", string);
+	NSLog(@"found characters: %@", string);
 	// save the characters for the current item...
 	if ([currentElement isEqualToString:@"title"]) {
 		[currentTitle appendString:string];
@@ -404,6 +414,7 @@ char *rand_str(char *dst) {
 - (void) playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex {
 	if ([audioManager isSongPlaying:[audioManager.songs objectAtIndex:songIndex]]) {
 		// stop the stream and switch back to the play button
+		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
 		[audioManager stopStreamer];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {

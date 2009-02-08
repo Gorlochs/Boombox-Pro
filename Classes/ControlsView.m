@@ -11,7 +11,7 @@
 
 @implementation ControlsView
 
-@synthesize playButton;
+@synthesize playButton, nextButton, previousButton;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

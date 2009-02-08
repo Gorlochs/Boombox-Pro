@@ -11,8 +11,12 @@
 
 @interface ControlsView : UIView {
 	UIButton *playButton;
+	UIButton *nextButton;
+	UIButton *previousButton;
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *playButton;
+@property (nonatomic, retain) IBOutlet UIButton *nextButton;
+@property (nonatomic, retain) IBOutlet UIButton *previousButton;
 
 @end

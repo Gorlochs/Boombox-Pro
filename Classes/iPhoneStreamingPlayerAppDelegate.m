@@ -9,6 +9,7 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
 #import "AudioManager.h"
+#import "mobclix.h"
 
 //static sqlite3_stmt *insert_statement = nil;
 
@@ -56,6 +57,13 @@
 	
 	// testing.  this should be utilized in v1.0.2
 	//[self getCountryCode];
+	
+	[Mobclix startApplicationWithId:@"3703d77a-e812-444a-b117-50b8fcef88d8"
+					applicationType:APPLICATION_TYPE_DEBUG
+				applicationLogLevel:LOG_LEVEL_WARN
+					 recordLocation:NO 
+						 notifyUser:NO
+	]; 
 }
 
 - (NSString*)getCountryCode {
@@ -130,6 +138,9 @@
     if (sqlite3_close(database) != SQLITE_OK) {
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
+	
+	[Mobclix endApplication]; 
+	
 }
 
 - (void)dealloc {

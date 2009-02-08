@@ -173,12 +173,13 @@
 // the stream with different urls.
 - (IBAction)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1 && [audioManager.streamer isPlaying]) {
+		NSLog(@"moving to the next song...");
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
 		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
-		songLabel.text = [nextSong constructTitleArtist];	 
+		songLabel.text = [nextSong constructTitleArtist];
 		
 		[audioManager playNextSongInPlaylist];
 		[self addAnimationsToBoombox];
@@ -192,6 +193,7 @@
 - (IBAction)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
+		NSLog(@"moving to the previous song...");
 		[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 		
 		[self stopStreamCleanup];

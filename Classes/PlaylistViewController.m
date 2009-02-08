@@ -294,9 +294,11 @@
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay) {
 		// stop the stream and switch back to the play button
+		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
 		[audioManager stopStreamer];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {
+		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
 		[audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
 		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		
