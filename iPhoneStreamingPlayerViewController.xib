@@ -179,14 +179,6 @@
 					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">adMobAd</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="798479429"/>
-					</object>
-					<int key="connectionID">35</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">removeModalView:</string>
 						<reference key="source" ref="1023827746"/>
@@ -201,6 +193,22 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">48</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">bannerAd</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="798479429"/>
+					</object>
+					<int key="connectionID">49</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="798479429"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">50</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -313,8 +321,8 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>AdMobView</string>
-					<string>{{121, 834}, {320, 48}}</string>
+					<string>MMABannerXLAdView</string>
+					<string>{{681, 701}, {320, 48}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -344,7 +352,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">48</int>
+			<int key="maxID">50</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -356,6 +364,23 @@
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/AdMobView.h</string>
 					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MMABannerXLAdView</string>
+					<string key="superclassName">MobclixAdView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="401535203">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/mobclix.lib/MobclixAds.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MobclixAdView</string>
+					<string key="superclassName">UIWebView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<reference key="sourceIdentifier" ref="401535203"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">SearchViewController</string>
@@ -378,12 +403,14 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>adMobAd</string>
+							<string>bannerAd</string>
 							<string>blipSearchBar</string>
 							<string>theTableView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>AdMobView</string>
+							<string>MMABannerXLAdView</string>
 							<string>UISearchBar</string>
 							<string>UITableView</string>
 						</object>
