@@ -60,7 +60,7 @@
 	
 	[Mobclix startApplicationWithId:@"3703d77a-e812-444a-b117-50b8fcef88d8"
 					applicationType:APPLICATION_TYPE_DEBUG
-				applicationLogLevel:LOG_LEVEL_WARN
+				applicationLogLevel:LOG_LEVEL_INFO
 					 recordLocation:NO 
 						 notifyUser:NO
 	]; 
