@@ -649,20 +649,27 @@ void ReadStreamCallBack
 		if (failed)
 		{
 			[self stop];
-				
-			UIAlertView *alert =
-			[[UIAlertView alloc]
-			 initWithTitle:NSLocalizedStringFromTable(@"Audio Error", @"Errors", nil)
-			 message:NSLocalizedStringFromTable(@"This song can no longer be found on Blip.fm. It may have been moved or deleted. Please update your playlist.", @"Errors", nil)
-			 delegate:self
-			 cancelButtonTitle:@"OK"
-			 otherButtonTitles: nil];
-			[alert
-			 performSelector:@selector(show)
-			 onThread:[NSThread mainThread]
-			 withObject:nil
-			 waitUntilDone:YES];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Audio Alert" 
+															message:@"This song can no longer be found on Blip.fm. It may have been moved or deleted. Please update your playlist."
+														   delegate:self 
+												  cancelButtonTitle:@"OK" 
+												  otherButtonTitles:nil];
+			[alert show];
 			[alert release];
+			
+//			UIAlertView *alert =
+//			[[UIAlertView alloc]
+//				 initWithTitle:NSLocalizedStringFromTable(@"Audio Error", @"Errors", nil)
+//				 message:NSLocalizedStringFromTable(@"This song can no longer be found on Blip.fm. It may have been moved or deleted. Please update your playlist.", @"Errors", nil)
+//				 delegate:self
+//				 cancelButtonTitle:@"OK"
+//				 otherButtonTitles: nil];
+//			[alert
+//				 performSelector:@selector(show)
+//				 onThread:[NSThread mainThread]
+//				 withObject:nil
+//				 waitUntilDone:YES];
+//			[alert release];
 			
 			break;
 		}
