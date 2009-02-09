@@ -44,13 +44,15 @@
 	[pool release];
 	
 	// mobclix test
-	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
+	[Mobclix logEventWithLevel: LOG_LEVEL_WARN
 				   processName: @"TopSearchViewController"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing the top searches" 
 				appleFramework: FW_UI_KIT
 						  stop: NO
 	]; 
+	[Mobclix sync];
+	NSLog(@"mobclix logging...");
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
