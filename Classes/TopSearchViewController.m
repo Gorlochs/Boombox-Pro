@@ -9,6 +9,7 @@
 #import "TopSearchViewController.h"
 #import "TouchXML.h"
 #import "SearchViewController.h"
+#import "Mobclix.h"
 
 @implementation TopSearchViewController
 
@@ -41,6 +42,15 @@
 	}
 	[theTableView reloadData];
 	[pool release];
+	
+	// mobclix test
+	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
+				   processName: @"TopSearchViewController"
+					 eventName: @"viewDidLoad"
+				   description: @"someone is viewing the top searches" 
+				appleFramework: FW_UI_KIT
+						  stop: NO
+	]; 
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
