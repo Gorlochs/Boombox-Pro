@@ -72,8 +72,8 @@
 //															0, 
 //															300.0, 
 //															50.0)]; 
-	bannerAd.adCode = @"3703d77a-e812-444a-b117-50b8fcef88d8";
-	[bannerAd getAd];
+//	bannerAd.adCode = @"3703d77a-e812-444a-b117-50b8fcef88d8";
+//	[bannerAd getAd];
 	
 //	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 //	[adMobAd retain]; // this will be released when it loads (or fails to load)

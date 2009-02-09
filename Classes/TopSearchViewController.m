@@ -12,7 +12,7 @@
 
 @implementation TopSearchViewController
 
-@synthesize theTableView, topSearches;
+@synthesize theTableView, topSearches, searchCell;
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -56,6 +56,7 @@
 - (void)dealloc {
 	[theTableView release];
 	[topSearches release];
+	[searchCell release];
 	
     [super dealloc];
 }
@@ -70,32 +71,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
-	UITableViewCell *cell = (UITableViewCell *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	TopSearchTableCellView *cell = (TopSearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
+		//cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
+		
+		UIViewController *vc = [[UIViewController alloc] initWithNibName:@"TopSearchCell" bundle:nil];
+		cell = (TopSearchTableCellView *) vc.view;
+		[vc release];
 	}
-	
-	// ugh, what a royal pain in the ass. all just to add a background image
-	UIImageView *bgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 84)];
-	bgView.opaque = YES;
-	UIImage *bgImage = [UIImage imageNamed:@"cell-bg.png"];
-	[bgView setImage:bgImage];
-	
-	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 300, 40)];
-	lbl.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
-	lbl.highlightedTextColor = [UIColor blackColor];
-	lbl.backgroundColor = [UIColor clearColor];
-	lbl.textColor = [UIColor whiteColor];
-	[cell addSubview:lbl];
-	[lbl release];
-	
-	[cell setBackgroundView:bgView];
-	[bgView release];
-	cell.opaque = NO;
-	
-	// Set up the cell
-	//cell.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
-	//cell.textColor = [UIColor whiteColor];
+
+	cell.artistLabel.text = [[topSearches objectAtIndex:indexPath.row] capitalizedString];
+
 	return cell;
 }
 
