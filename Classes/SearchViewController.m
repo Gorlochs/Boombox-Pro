@@ -368,7 +368,7 @@ char *rand_str(char *dst) {
 }
 
 - (BOOL)mayAskForLocation {
-	return NO; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
+	return YES; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
 }
 
 // Sent when an ad request loaded an ad; this is a good opportunity to attach
