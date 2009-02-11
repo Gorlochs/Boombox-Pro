@@ -44,7 +44,7 @@
 	[pool release];
 	
 	// mobclix test
-	[Mobclix logEventWithLevel: LOG_LEVEL_WARN
+	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
 				   processName: @"TopSearchViewController"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing the top searches" 

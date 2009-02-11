@@ -47,6 +47,15 @@
 		popularPlaylistsButton.selected = YES;
 	}
 	
+	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
+				   processName: @"PlaylistViewController"
+					 eventName: @"viewDidLoad"
+				   description: @"someone is viewing their playlist" 
+				appleFramework: FW_UI_KIT
+						  stop: NO
+	 ]; 
+	[Mobclix sync];
+	
 	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 	[adMobAd retain]; // this will be released when it loads (or fails to load)
 }

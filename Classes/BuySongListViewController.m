@@ -34,6 +34,15 @@
 - (void)viewDidLoad {
 	[self getItunesSearchResults];
     [super viewDidLoad];
+	
+	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
+				   processName: @"BuySongListViewController"
+					 eventName: @"viewDidLoad"
+				   description: @"someone is viewing the buy screen" 
+				appleFramework: FW_UI_KIT
+						  stop: NO
+	 ]; 
+	[Mobclix sync];
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -67,13 +67,15 @@
 	if (audioManager.searchTerms != nil) {
 		blipSearchBar.text = audioManager.searchTerms;
 	}
-	//MMABannerXLAdView *adView = 
-//		[[MMABannerXLAdView alloc] initWithFrame:CGRectMake(0, 
-//															0, 
-//															300.0, 
-//															50.0)]; 
-//	bannerAd.adCode = @"3703d77a-e812-444a-b117-50b8fcef88d8";
-//	[bannerAd getAd];
+	
+	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
+				   processName: @"SearchViewController"
+					 eventName: @"viewDidLoad"
+				   description: @"someone is viewing the search screen" 
+				appleFramework: FW_UI_KIT
+						  stop: NO
+	 ]; 
+	[Mobclix sync];
 	
 	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 	[adMobAd retain]; // this will be released when it loads (or fails to load)
