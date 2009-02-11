@@ -13,6 +13,7 @@
 #import "BoomboxViewController.h"
 #import "SearchTableCellView.h"
 #import "AdMobView.h"
+#import "Mobclix.h"
 
 #define API_KEY @"b6075b6c7ec95c4c5ecf"
 

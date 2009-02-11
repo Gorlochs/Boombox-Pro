@@ -11,6 +11,7 @@
 #import "SearchTableCellView.h"
 #import "AdMobView.h"
 #import "BoomboxViewController.h"
+#import "Mobclix.h"
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
@@ -165,18 +166,18 @@
 }
 
 - (void)displayMyPlaylist {
-	[audioManager switchToPlaylistMode:mine];
-	[theTableView reloadData];
 	myPlaylistButton.selected = YES;
 	popularPlaylistsButton.selected = NO;
+	[audioManager switchToPlaylistMode:mine];
+	[theTableView reloadData];
 }
 
 - (void)displayPopularPlaylist {
+	popularPlaylistsButton.selected = YES;
+	myPlaylistButton.selected = NO;
 	[audioManager switchToPlaylistMode:popular];
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
-	popularPlaylistsButton.selected = YES;
-	myPlaylistButton.selected = NO;
 }
 
 #pragma mark Row reordering
