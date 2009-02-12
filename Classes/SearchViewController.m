@@ -127,6 +127,8 @@ char *rand_str(char *dst) {
 	audioManager.searchTerms = searchBar.text;
 	
 	[searchBar resignFirstResponder];
+	
+	[mobclixAdView getAd];
 }
 - (void)insertSearchIntoDB:(NSString*)searchTerms {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
