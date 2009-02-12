@@ -118,15 +118,17 @@
 	NSString *countryCode = [appDelegate getCountryCode];	
 	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 	NSLog(@"buy dictionary object: %@", obj);
-
-//	if ([countryCode isEqualToString:@"GB"] || [countryCode isEqualToString:@"IE"]) {
-		[self affiliateProgramGB:obj];
-//	} else if ([countryCode isEqualToString:@"AU"]) {
-//		[self affiliateProgramAU:obj];
-//	} else {
-//		[self affiliateProgramUS:obj];
-//	}
 	
+	NSArray *europeanCountries;
+	[europeanCountries initWithObjects:@"AD",@"AL",@"AT",@"BA",@"BE",@"BG",@"BY",@"CH",@"CY",@"CZ",@"DE",@"DK",@"EE",@"ES",@"FI",@"FO",@"FR",@"GB",@"GG",@"GI",@"GR",@"HR",@"HU",@"IE",@"IM",@"IS",@"IT",@"JE",@"LI",@"LT",@"LU",@"LV",@"MC",@"MD",@"MK",@"MT",@"NL",@"NO",@"PL",@"PT",@"RO",@"RU",@"SE",@"SI",@"SJ",@"SK",@"SM",@"TR",@"UA",@"UK",@"VA",@"YU",nil];
+
+	if ([europeanCountries containsObject:countryCode]) {
+		[self affiliateProgramGB:obj];
+	} else if ([countryCode isEqualToString:@"AU"]) {
+		[self affiliateProgramAU:obj];
+	} else {
+		[self affiliateProgramUS:obj];
+	}
 }
 
 - (void)affiliateProgramUS:(NSDictionary*)obj {
