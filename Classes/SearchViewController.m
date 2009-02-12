@@ -30,6 +30,7 @@
 @synthesize theTableView;
 @synthesize searchCell;
 @synthesize adMobAd;
+@synthesize mobclixAdView;
 
 // -----------------------------------------------------------------------------
 #pragma mark setup & tear down
@@ -77,9 +78,12 @@
 						  stop: NO
 	 ]; 
 	[Mobclix sync];
+
+	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
+	[mobclixAdView getAd];
 	
-	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-	[adMobAd retain]; // this will be released when it loads (or fails to load)
+//	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
+//	[adMobAd retain]; // this will be released when it loads (or fails to load)
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -406,6 +410,17 @@ char *rand_str(char *dst) {
 	adMobAd = nil;
 	// we could start a new ad request here, but it is unlikely that anything has changed in the last few seconds,
 	// so in the interests of the user's battery life, let's not
+}
+
+#pragma mark Mobclix Delegate functions
+
+- (void) adViewDidFinishLoad:(MobclixAdView *) adView {
+	NSLog(@"****** ad finished loading *******");
+}
+
+
+- (void) adViewDidFailLoad: (MobclixAdView *) adView {
+	NSLog(@"****** ad failed to load *******");
 }
 
 #pragma mark private functions
