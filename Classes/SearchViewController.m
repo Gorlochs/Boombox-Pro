@@ -54,6 +54,7 @@
 	[buySongListController release];
 	[topSearchViewController release];
 	[searchCell release];
+	[mobclixAdView release];
 	
 	[rssParser release];
 	[item release];
