@@ -45,7 +45,7 @@
 	
 	// mobclix test
 	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"TopSearchViewController"
+				   processName: @"TopSearches"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing the top searches" 
 				appleFramework: FW_UI_KIT

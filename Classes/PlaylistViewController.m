@@ -49,7 +49,7 @@
 	}
 	
 	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"PlaylistViewController"
+				   processName: @"Playlist"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing their playlist" 
 				appleFramework: FW_UI_KIT

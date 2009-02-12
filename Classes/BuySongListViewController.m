@@ -45,7 +45,7 @@
     [super viewDidLoad];
 	
 	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"BuySongListViewController"
+				   processName: @"Buy"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing the buy screen" 
 				appleFramework: FW_UI_KIT

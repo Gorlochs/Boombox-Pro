@@ -70,7 +70,7 @@
 	}
 	
 	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"SearchViewController"
+				   processName: @"Search"
 					 eventName: @"viewDidLoad"
 				   description: @"someone is viewing the search screen" 
 				appleFramework: FW_UI_KIT
