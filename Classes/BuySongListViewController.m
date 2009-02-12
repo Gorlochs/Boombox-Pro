@@ -123,10 +123,13 @@
 	[europeanCountries initWithObjects:@"AD",@"AL",@"AT",@"BA",@"BE",@"BG",@"BY",@"CH",@"CY",@"CZ",@"DE",@"DK",@"EE",@"ES",@"FI",@"FO",@"FR",@"GB",@"GG",@"GI",@"GR",@"HR",@"HU",@"IE",@"IM",@"IS",@"IT",@"JE",@"LI",@"LT",@"LU",@"LV",@"MC",@"MD",@"MK",@"MT",@"NL",@"NO",@"PL",@"PT",@"RO",@"RU",@"SE",@"SI",@"SJ",@"SK",@"SM",@"TR",@"UA",@"UK",@"VA",@"YU",nil];
 
 	if ([europeanCountries containsObject:countryCode]) {
+		NSLog(@"European affiliate program");
 		[self affiliateProgramGB:obj];
 	} else if ([countryCode isEqualToString:@"AU"]) {
+		NSLog(@"Australian affiliate program");
 		[self affiliateProgramAU:obj];
 	} else {
+		NSLog(@"US affiliate program");
 		[self affiliateProgramUS:obj];
 	}
 }
