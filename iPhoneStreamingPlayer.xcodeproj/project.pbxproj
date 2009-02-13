@@ -60,8 +60,6 @@
 		6AC0D2F50ECA52DB009F6BBD /* btn_stop_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2E80ECA52DB009F6BBD /* btn_stop_on.png */; };
 		6AC0D2F60ECA52DB009F6BBD /* left_spkr.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2E90ECA52DB009F6BBD /* left_spkr.png */; };
 		6AC0D2F70ECA52DB009F6BBD /* right_spkr.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D2EA0ECA52DB009F6BBD /* right_spkr.png */; };
-		6AC0D3F60ECB43CE009F6BBD /* libAdMobDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */; };
-		6AC0D3F70ECB43CE009F6BBD /* libAdMobSimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */; };
 		6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */; };
 		6AC0D5DD0ECCB922009F6BBD /* BuySongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC0D5DC0ECCB922009F6BBD /* BuySongListViewController.m */; };
 		6AC0D5DF0ECCB935009F6BBD /* BuySongListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC0D5DE0ECCB935009F6BBD /* BuySongListView.xib */; };
@@ -229,10 +227,6 @@
 		6AC0D2E80ECA52DB009F6BBD /* btn_stop_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_stop_on.png; sourceTree = "<group>"; };
 		6AC0D2E90ECA52DB009F6BBD /* left_spkr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_spkr.png; sourceTree = "<group>"; };
 		6AC0D2EA0ECA52DB009F6BBD /* right_spkr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_spkr.png; sourceTree = "<group>"; };
-		6AC0D3F20ECB43CE009F6BBD /* AdMobDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobDelegateProtocol.h; sourceTree = "<group>"; };
-		6AC0D3F30ECB43CE009F6BBD /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
-		6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobDevice.a; sourceTree = "<group>"; };
-		6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobSimulator.a; sourceTree = "<group>"; };
 		6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6AC0D5DB0ECCB922009F6BBD /* BuySongListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuySongListViewController.h; sourceTree = "<group>"; };
 		6AC0D5DC0ECCB922009F6BBD /* BuySongListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuySongListViewController.m; sourceTree = "<group>"; };
@@ -372,8 +366,6 @@
 				C9C2D8C90EB6E30000A3D071 /* AudioToolbox.framework in Frameworks */,
 				6AC139C50EC35700004146A4 /* libsqlite3.0.dylib in Frameworks */,
 				6AC0D26E0EC9DF98009F6BBD /* QuartzCore.framework in Frameworks */,
-				6AC0D3F60ECB43CE009F6BBD /* libAdMobDevice.a in Frameworks */,
-				6AC0D3F70ECB43CE009F6BBD /* libAdMobSimulator.a in Frameworks */,
 				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
 				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 				6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */,
@@ -395,7 +387,6 @@
 				6AD04B870F2D85780089712B /* TouchXML */,
 				6AC0D5F20ECCB9D9009F6BBD /* TouchJSON */,
 				6AC0D5DA0ECCB8EA009F6BBD /* Buy */,
-				6AC0D3F10ECB43B7009F6BBD /* AdMob */,
 				6AC138170EBF955C004146A4 /* Boombox */,
 				6AC137330EBE1F9E004146A4 /* Playlist */,
 				6AC137320EBE1F97004146A4 /* Search */,
@@ -508,17 +499,6 @@
 				6A38D37E0F3001C1002B2763 /* MobclixAds.o */,
 			);
 			path = X86;
-			sourceTree = "<group>";
-		};
-		6AC0D3F10ECB43B7009F6BBD /* AdMob */ = {
-			isa = PBXGroup;
-			children = (
-				6AC0D3F20ECB43CE009F6BBD /* AdMobDelegateProtocol.h */,
-				6AC0D3F30ECB43CE009F6BBD /* AdMobView.h */,
-				6AC0D3F40ECB43CE009F6BBD /* libAdMobDevice.a */,
-				6AC0D3F50ECB43CE009F6BBD /* libAdMobSimulator.a */,
-			);
-			name = AdMob;
 			sourceTree = "<group>";
 		};
 		6AC0D5DA0ECCB8EA009F6BBD /* Buy */ = {
