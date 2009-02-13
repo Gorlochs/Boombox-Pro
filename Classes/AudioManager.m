@@ -138,7 +138,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (NSMutableArray*) retrieveTopSongs {
-	NSLog(@"retrieveTopSongs is starting");
 	if (self.topSongs == NULL) {
 		[self populateTopSongs];
 	}
@@ -204,7 +203,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 - (void)insertSongIntoDB:(BlipSong*)songToInsert {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.1.1-dev.php?song=%@&artist=%@&songUrl=%@&cc=%@&gkey=g0rl0ch1an5", 
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.1.1.php?song=%@&artist=%@&songUrl=%@&cc=%@&gkey=g0rl0ch1an5", 
 											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
 											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
 											 [[songToInsert.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],

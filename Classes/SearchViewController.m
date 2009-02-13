@@ -126,7 +126,7 @@ char *rand_str(char *dst) {
 }
 - (void)insertSearchIntoDB:(NSString*)searchTerms {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.1.1-dev.php?searchTerms=%@&cc=%@&gkey=g0rl0ch1an5",
+	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.1.1.php?searchTerms=%@&cc=%@&gkey=g0rl0ch1an5",
 											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
 											 [appDelegate getCountryCode]]];
 	

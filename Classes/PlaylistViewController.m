@@ -124,11 +124,7 @@
     // Configure the cell
 	int songIndex = [indexPath indexAtPosition: [indexPath length] - 1];
 	BlipSong *song = NULL;
-	if ([audioManager determinePlaylistMode] == mine) {
-		song = (BlipSong*) [audioManager.playlist objectAtIndex: songIndex];
-	} else {
-		song = (BlipSong*) [[audioManager retrieveTopSongs] objectAtIndex: songIndex];
-	}
+	song = (BlipSong*) [[audioManager retrieveCurrentSongList] objectAtIndex:songIndex];
 	[cell setCellData:song];
 	cell.buyButton.hidden = YES;
 	cell.addToPlaylistButton.hidden = YES;
@@ -257,7 +253,11 @@
 		[audioManager stopStreamer];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {
-		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+		if ([NSObject keyPathsForValuesAffectingValueForKey:@"isPlaying"] != NULL) {
+			[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+		} else {
+			NSLog(@"**** no observer to remove ****");
+		}
 		[audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
 		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		
