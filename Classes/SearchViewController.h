@@ -10,15 +10,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BlipSong.h"
-#import "AdMobDelegateProtocol.h";
 #import "BuySongListViewController.h"
 #import "AudioManager.h"
 #import "TopSearchViewController.h"
 #import "MobclixAds.h"
 
-@class AudioStreamer, SearchTableCellView, AdMobView;
+@class AudioStreamer, SearchTableCellView;
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, AdMobDelegate, MobclixAdViewDelegate>
+@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MobclixAdViewDelegate>
 {
 	AudioStreamer *streamer;
 	
@@ -41,10 +40,6 @@
 	NSString *currentElement;
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
 	
-	// AdMob code  
-	AdMobView *adMobAd;  // the actual ad; self.view is a placeholder to indicate where the ad should be placed; intentially _not_ an IBOutlet
-	NSTimer *autoslider; // timer to slide in fresh ads
-	
 	// Mobclix ad
 	MMABannerXLAdView *mobclixAdView;
 }
@@ -52,7 +47,6 @@
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *searchCell;
-@property (nonatomic, retain) IBOutlet AdMobView *adMobAd;
 @property (nonatomic, retain) IBOutlet MMABannerXLAdView *mobclixAdView;
 
 - (void)parseXMLFileAtURL:(NSString *)URL;
