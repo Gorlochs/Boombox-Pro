@@ -9,11 +9,11 @@
 #define AD_REFRESH_PERIOD 60.0 // display fresh ads once per minute
 
 #import <UIKit/UIKit.h>
-#import "AdMobDelegateProtocol.h"
 #import "SearchTableCellView.h"
 #import "AudioManager.h"
+#import "MobclixAds.h"
 
-@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdMobDelegate> {
+@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	
 	UITableView *theTableView;
 	UIView *buttonView;
@@ -23,9 +23,8 @@
 	
 	AudioManager *audioManager;
 	
-	// AdMob code  
-	AdMobView *adMobAd;  // the actual ad; self.view is a placeholder to indicate where the ad should be placed; intentially _not_ an IBOutlet
-	NSTimer *autoslider; // timer to slide in fresh ads
+	// Mobclix ad
+	MMABannerXLAdView *mobclixAdView;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
@@ -33,14 +32,11 @@
 @property (nonatomic, retain) IBOutlet UIButton *popularPlaylistsButton;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *tableCell;
-@property (nonatomic, retain) IBOutlet AdMobView *adMobAd;
+@property (nonatomic, retain) IBOutlet MMABannerXLAdView *mobclixAdView;
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)playSong:(id)sender;
 - (IBAction)displayPopularPlaylist;
 - (IBAction)displayMyPlaylist;
-
-// AdMob
-- (void)refreshAd:(NSTimer *)timer;
 
 @end

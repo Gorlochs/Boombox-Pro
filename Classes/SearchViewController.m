@@ -82,9 +82,6 @@
 
 	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
 	[mobclixAdView getAd];
-	
-//	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-//	[adMobAd retain]; // this will be released when it loads (or fails to load)
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {

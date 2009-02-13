@@ -9,7 +9,6 @@
 #import "PlaylistViewController.h"
 #import "BlipSong.h"
 #import "SearchTableCellView.h"
-#import "AdMobView.h"
 #import "BoomboxViewController.h"
 #import "Mobclix.h"
 
@@ -21,7 +20,7 @@
 
 @implementation PlaylistViewController
 
-@synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell, adMobAd;
+@synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell, mobclixAdView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -57,8 +56,8 @@
 	 ]; 
 	[Mobclix sync];
 	
-	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-	[adMobAd retain]; // this will be released when it loads (or fails to load)
+	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
+	[mobclixAdView getAd];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -170,6 +169,7 @@
 	popularPlaylistsButton.selected = NO;
 	[audioManager switchToPlaylistMode:mine];
 	[theTableView reloadData];
+	[mobclixAdView getAd];
 }
 
 - (void)displayPopularPlaylist {
@@ -178,6 +178,7 @@
 	[audioManager switchToPlaylistMode:popular];
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
+	[mobclixAdView getAd];
 }
 
 #pragma mark Row reordering
@@ -236,62 +237,10 @@
 
 - (void)dealloc {
 	[theTableView release];
-	[adMobAd release];
+	[mobclixAdView release];
 	[tableCell release];
 	
     [super dealloc];
-}
-
-#pragma mark AdMobDelegate methods
-
-- (NSString *)publisherId {
-	return @"a1491a75a3b24ed"; // this should be prefilled; if not, get it from www.admob.com
-}
-
-- (UIColor *)adBackgroundColor {
-	return [UIColor colorWithRed:0 green:0 blue:0 alpha:1]; // this should be prefilled; if not, provide a UIColor
-}
-
-- (UIColor *)adTextColor {
-	return [UIColor colorWithRed:1 green:1 blue:1 alpha:1]; // this should be prefilled; if not, provide a UIColor
-}
-
-- (BOOL)mayAskForLocation {
-	return YES; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
-}
-
-// Sent when an ad request loaded an ad; this is a good opportunity to attach
-// the ad view to the hierachy.
-- (void)didReceiveAd:(AdMobView *)adView {
-	NSLog(@"AdMob: Did receive ad");
-	self.view.hidden = NO;
-	//adMobAd.frame = CGRectMake(0, 350, 320, 48); 
-	
-	CGRect frame = adMobAd.frame;
-	frame.origin.x = 80;
-	frame.origin.y = 252;
-	adMobAd.frame = frame;
-	adMobAd.hidden = NO;
-	//adMobAd.frame = [self.view convertRect:self.view.frame fromView:self.view.superview]; // put the ad in the placeholder's location
-	[self.view addSubview:adMobAd];
-	[self.view bringSubviewToFront:adMobAd];
-	NSLog(@"subview added");
-	autoslider = [NSTimer scheduledTimerWithTimeInterval:AD_REFRESH_PERIOD target:self selector:@selector(refreshAd:) userInfo:nil repeats:YES];
-}
-
-// Request a new ad. If a new ad is successfully loaded, it will be animated into location.
-- (void)refreshAd:(NSTimer *)timer {
-	NSLog(@"ad is refreshing...");
-	[adMobAd requestFreshAd];
-}
-
-// Sent when an ad request failed to load an ad
-- (void)didFailToReceiveAd:(AdMobView *)adView {
-	NSLog(@"AdMob: Did fail to receive ad");
-	[adMobAd release];
-	adMobAd = nil;
-	// we could start a new ad request here, but it is unlikely that anything has changed in the last few seconds,
-	// so in the interests of the user's battery life, let's not
 }
 
 #pragma mark private functions
