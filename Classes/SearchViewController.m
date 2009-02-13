@@ -13,6 +13,7 @@
 #import "BoomboxViewController.h"
 #import "SearchTableCellView.h"
 #import "Mobclix.h"
+#import "TouchXML.h"
 
 // Private interface - internal only methods.
 @interface SearchViewController (Private)
@@ -113,7 +114,8 @@ char *rand_str(char *dst) {
 	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
-	[self parseXMLFileAtURL:url];
+//	[self parseXMLFileAtURL:url];
+	[self parseTouchXMLFileAtURL:url];
 	[self insertSearchIntoDB:searchBar.text];
 	// save the search terms in the AudioManager in order to display when the screen is redisplayed
 	audioManager.searchTerms = searchBar.text;
@@ -219,6 +221,40 @@ char *rand_str(char *dst) {
 	[self presentModalViewController:buySongListController animated:YES];
 }
 // -----------------------------------------------------------------------------
+#pragma mark TouchXML parser Test
+- (void)parseTouchXMLFileAtURL:(NSString*)URL {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	NSError *theError = NULL;
+	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:URL] options:0 error:&theError] autorelease];
+	NSLog(@"finished getting the search songs xml doc");
+	NSArray *theNodes = NULL;
+	
+	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
+	audioManager.songs = [[NSMutableArray alloc] init];
+	//NSMutableArray *songArrray = [[NSMutableArray alloc] initWithCapacity:[theNodes count]];
+	for (CXMLElement *theElement in theNodes) {
+		NSLog(@"song: %@", theElement);
+		BlipSong *tempSong = [[BlipSong alloc] init];
+		tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
+		tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
+		tempSong.location = [[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue];
+		//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
+		[audioManager.songs addObject:tempSong];
+		[tempSong release];
+	}
+	[pool release];
+	if (theError != NULL) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Search Error" 
+														message:@"Your search resulted in an error.  Please try again, or try a different search."
+													   delegate:self 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else {
+		[theTableView reloadData];
+	}
+}
 #pragma mark Parser 
 - (void)parserDidStartDocument:(NSXMLParser *)parser{	
 	//	NSLog(@"found file and started parsing");
@@ -302,6 +338,7 @@ char *rand_str(char *dst) {
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 	//NSLog(@"found characters: %@", string);
 	// save the characters for the current item...
+//	NSString *tmpString = [string stringByTrimmingCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
 	if ([currentElement isEqualToString:@"title"]) {
 		[currentTitle appendString:string];
 	} else if ([currentElement isEqualToString:@"artist"]) {
