@@ -49,10 +49,8 @@
 @property (nonatomic, retain) SearchTableCellView *searchCell;
 @property (nonatomic, retain) IBOutlet MMABannerXLAdView *mobclixAdView;
 
-- (void)parseXMLFileAtURL:(NSString *)URL;
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)displayTopSearchesViewAction:(id)sender;
-- (void)refreshAd:(NSTimer *)timer;
 
 @end
 

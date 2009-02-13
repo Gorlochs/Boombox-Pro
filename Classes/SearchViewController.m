@@ -20,6 +20,7 @@
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName;
 - (void)playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex;
 - (void)insertSearchIntoDB:(NSString*)searchTerms;
+- (void)parseTouchXMLFileAtURL:(NSString*)URL;
 @end
 
 @implementation SearchViewController
@@ -114,7 +115,6 @@ char *rand_str(char *dst) {
 	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
-//	[self parseXMLFileAtURL:url];
 	[self parseTouchXMLFileAtURL:url];
 	[self insertSearchIntoDB:searchBar.text];
 	// save the search terms in the AudioManager in order to display when the screen is redisplayed
@@ -221,7 +221,7 @@ char *rand_str(char *dst) {
 	[self presentModalViewController:buySongListController animated:YES];
 }
 // -----------------------------------------------------------------------------
-#pragma mark TouchXML parser Test
+#pragma mark TouchXML parser
 - (void)parseTouchXMLFileAtURL:(NSString*)URL {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSError *theError = NULL;
@@ -231,13 +231,13 @@ char *rand_str(char *dst) {
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
 	audioManager.songs = [[NSMutableArray alloc] init];
-	//NSMutableArray *songArrray = [[NSMutableArray alloc] initWithCapacity:[theNodes count]];
+	
 	for (CXMLElement *theElement in theNodes) {
 		NSLog(@"song: %@", theElement);
 		BlipSong *tempSong = [[BlipSong alloc] init];
 		tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
 		tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
-		tempSong.location = [[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue];
+		tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
 		[audioManager.songs addObject:tempSong];
 		[tempSong release];
@@ -251,126 +251,12 @@ char *rand_str(char *dst) {
 											  otherButtonTitles:nil];
 		[alert show];
 		[alert release];
+		NSLog(@"TouchXML error");
 	} else {
 		[theTableView reloadData];
-	}
-}
-#pragma mark Parser 
-- (void)parserDidStartDocument:(NSXMLParser *)parser{	
-	//	NSLog(@"found file and started parsing");
-}
-// -----------------------------------------------------------------------------
-- (void)parseXMLFileAtURL:(NSString *)URL {
-//	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
-	// always start with a fresh, empty array
-	audioManager.songs = [[NSMutableArray alloc] init];
-	
-    //you must then convert the path to a proper NSURL or it won't work
-    NSURL *xmlURL = [NSURL URLWithString:URL];
-	//NSString *returnstring = [NSString stringWithContentsOfURL:xmlURL];
-//	NSLog(@"api return xml: %@", returnstring);
-	
-	// read somewhere that these lines help plug the leak in NSXMLParser
-	[[NSURLCache sharedURLCache] setMemoryCapacity:0];
-	[[NSURLCache sharedURLCache] setDiskCapacity:0];
-    // here, for some reason you have to use NSClassFromString when trying to alloc NSXMLParser, otherwise you will get an object not found error
-    // this may be necessary only for the toolchain
-    rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-	//rssParser = [[NSXMLParser alloc] initWithData:[returnstring dataUsingEncoding:NSASCIIStringEncoding]];
-	
-    // Set self as the delegate of the parser so that it will receive the parser delegate methods callbacks.
-    [rssParser setDelegate:self];
-	
-    // Depending on the XML document you're parsing, you may want to enable these features of NSXMLParser.
-    [rssParser setShouldProcessNamespaces:NO];
-    [rssParser setShouldReportNamespacePrefixes:NO];
-    [rssParser setShouldResolveExternalEntities:NO];
-	
-    [rssParser parse];
-	//[rssParser release];
-//	[pool release];
-}
-// -----------------------------------------------------------------------------
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSString * errorString = [NSString stringWithFormat:@"Unable to download story feed from web site (Error code %i )", [parseError code]];
-	NSLog(@"error parsing XML: %@", errorString);
-	
-	UIAlertView * errorAlert = [[[UIAlertView alloc] initWithTitle:@"Error loading content" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
-	[errorAlert show];
-	[errorAlert release];
-}
-// -----------------------------------------------------------------------------
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{			
-    //NSLog(@"found this element: %@", elementName);
-	currentElement = [elementName copy];
-	if ([elementName isEqualToString:@"Song"]) {
-		// clear out our story item caches...
-		item = [[BlipSong alloc] init];
-		
-		currentTitle = [[NSMutableString alloc] init];
-		currentArtist = [[NSMutableString alloc] init];
-		currentLocation = [[NSMutableString alloc] init];
-	}
-}
-// -----------------------------------------------------------------------------
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{     
-	//NSLog(@"ended element: %@", elementName);
-	if ([elementName isEqualToString:@"Song"]) {
-		// save values to an item, then store that item into the array...
-		[item setTitle:currentTitle];
-		[item setArtist:currentArtist];
-		[item setLocation:[currentLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-		NSLog(@"title: %@", item.title);
-		NSLog(@"artist: %@", item.artist);
-		NSLog(@"location: %@", item.location);
-		[currentTitle release];
-		[currentLocation release];
-		[currentArtist release];
-		
-		//if (![item.location isEqualToString:@""] && [audioManager.songs count] < 100){
-		if (![item.location isEqualToString:@""]) {
-			[audioManager.songs addObject:item];
-		}
-		[item release];
-	}
-}
-// -----------------------------------------------------------------------------
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	//NSLog(@"found characters: %@", string);
-	// save the characters for the current item...
-//	NSString *tmpString = [string stringByTrimmingCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
-	if ([currentElement isEqualToString:@"title"]) {
-		[currentTitle appendString:string];
-	} else if ([currentElement isEqualToString:@"artist"]) {
-		[currentArtist appendString:string];
-	} else if ([currentElement isEqualToString:@"location"]) {
-		[currentLocation appendString:string];
-	} else if ([currentElement isEqualToString:@"message"]) {
-		NSLog(@"******* error message: %@", string);
-	}
-}
-// -----------------------------------------------------------------------------
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	//	NSLog(@"songs array has %d items", [songs count]);
-	
-	[theTableView reloadData];
-	[theTableView setHidden:NO];
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	if ([audioManager.songs count] == 0) {
-		UIAlertView *alert = [[UIAlertView alloc]
-								initWithTitle:@"No Results Found"
-								message:@"No results found. Please check your spelling or try another search."
-								delegate:self
-								cancelButtonTitle:@"OK"
-								otherButtonTitles: nil];
-		[alert show];
-		[alert release];
-	} else {
 		unsigned indexes[2] = {0,0};
 		[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	}
-	//	[bigSpinner stopAnimating];
 }
 
 #pragma mark Button functions
