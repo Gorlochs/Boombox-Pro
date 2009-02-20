@@ -12,6 +12,7 @@
 #import "SearchTableCellView.h"
 #import "AudioManager.h"
 #import "MobclixAds.h"
+#import "BuySongListViewController.h"
 
 @interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	
@@ -20,6 +21,7 @@
 	UIButton *myPlaylistButton;
 	UIButton *popularPlaylistsButton;
 	SearchTableCellView *tableCell;
+	BuySongListViewController *buySongListController;
 	
 	AudioManager *audioManager;
 	

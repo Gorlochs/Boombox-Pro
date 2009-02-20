@@ -126,8 +126,15 @@
 	BlipSong *song = NULL;
 	song = (BlipSong*) [[audioManager retrieveCurrentSongList] objectAtIndex:songIndex];
 	[cell setCellData:song];
-	cell.buyButton.hidden = YES;
-	cell.addToPlaylistButton.hidden = YES;
+	if ([audioManager determinePlaylistMode] == mine) {
+		cell.buyButton.hidden = YES;
+		cell.addToPlaylistButton.hidden = YES;
+	} else {
+		cell.buyButton.hidden = NO;
+		cell.addToPlaylistButton.hidden = NO;
+		[cell.buyButton addTarget:self action:@selector(buySong:) forControlEvents:UIControlEventTouchUpInside];
+		[cell.addToPlaylistButton addTarget:self action:@selector(addSongToPlaylist:) forControlEvents:UIControlEventTouchUpInside];
+	}
 	[cell.playButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
 	cell.playButton.tag = indexPath.row;
 	[cell.songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
@@ -136,6 +143,11 @@
 		[self changeImageIcons:cell imageName:@"stop.png"];
 	} else {
 		[self changeImageIcons:cell imageName:@"image-7.png"];
+	}
+	
+	// check to see if the song was added to the playlist.  if so, change image to check mark
+	if ([audioManager.playlist indexOfObject:song] != NSNotFound) {
+		[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	}
 	
     return cell;
@@ -175,6 +187,34 @@
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
 	[mobclixAdView getAd];
+}
+
+- (void)addSongToPlaylist:(id)sender {
+	UIView *senderButton = (UIView*) sender;
+	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+	BlipSong *songToAdd = [cell song];
+	if (audioManager.playlist == nil) {
+		NSLog(@"playlist is nil");
+		NSMutableArray *arr = [[NSMutableArray alloc] init];
+		audioManager.playlist = arr;
+		[arr release];
+	}
+	NSLog(@"adding song....");
+	[audioManager.playlist addObject:songToAdd];
+	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
+	
+}
+
+-(void)buySong:(id)sender {
+	UIButton *senderButton = (UIButton*) sender;
+	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
+	BlipSong *song = [cell song];
+	NSLog(@"song to buy: %@", song.title);
+	
+	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" 
+																		bundle:nil 
+													  valueToSearchItunesStore:[NSString stringWithFormat:@"%@ %@", [song.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], [song.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]];
+	[self presentModalViewController:buySongListController animated:YES];
 }
 
 #pragma mark Row reordering
