@@ -116,6 +116,7 @@ char *rand_str(char *dst) {
 	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	NSLog(@"final url: %@", url);
 	[self parseTouchXMLFileAtURL:url];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[self insertSearchIntoDB:searchBar.text];
 	// save the search terms in the AudioManager in order to display when the screen is redisplayed
 	audioManager.searchTerms = searchBar.text;
@@ -231,16 +232,20 @@ char *rand_str(char *dst) {
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
 	audioManager.songs = [[NSMutableArray alloc] init];
+	NSLog(@"theNodes: %@", theNodes);
 	
 	for (CXMLElement *theElement in theNodes) {
 		NSLog(@"song: %@", theElement);
-		BlipSong *tempSong = [[BlipSong alloc] init];
-		tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
-		tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
-		tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
-		[audioManager.songs addObject:tempSong];
-		[tempSong release];
+		NSLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
+		if ([[theElement nodesForXPath:@"./location" error:NULL] count] > 0) {
+			BlipSong *tempSong = [[BlipSong alloc] init];
+			tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
+			tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
+			tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
+			[audioManager.songs addObject:tempSong];
+			[tempSong release];
+		}
 	}
 	[pool release];
 	if (theError != NULL) {
@@ -254,8 +259,10 @@ char *rand_str(char *dst) {
 		NSLog(@"TouchXML error");
 	} else {
 		[theTableView reloadData];
-		unsigned indexes[2] = {0,0};
-		[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		if ([[theTableView visibleCells] count] > 0) {
+			unsigned indexes[2] = {0,0};
+			[theTableView scrollToRowAtIndexPath:[NSIndexPath indexPathWithIndexes:indexes length:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		}
 	}
 }
 
