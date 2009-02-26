@@ -53,17 +53,13 @@
 									<string key="IBUITitle">Back</string>
 									<int key="IBUIStyle">1</int>
 								</object>
-								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="687662282">
-									<string key="IBUITitle">Top Searches</string>
-									<int key="IBUIStyle">1</int>
-								</object>
 							</object>
 						</object>
 					</object>
 					<object class="IBUISearchBar" id="904190726">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{64, 0}, {304, 44}}</string>
+						<string key="NSFrame">{{64, 0}, {407, 44}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUIContentMode">3</int>
@@ -177,14 +173,6 @@
 					<int key="connectionID">45</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">displayTopSearchesViewAction:</string>
-						<reference key="source" ref="687662282"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">48</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
@@ -229,10 +217,10 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="648543853"/>
-							<reference ref="904190726"/>
 							<reference ref="291579300"/>
 							<reference ref="798479429"/>
 							<reference ref="790364056"/>
+							<reference ref="904190726"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -261,7 +249,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1023827746"/>
-							<reference ref="687662282"/>
 						</object>
 						<reference key="parent" ref="648543853"/>
 					</object>
@@ -274,11 +261,6 @@
 						<int key="objectID">46</int>
 						<reference key="object" ref="790364056"/>
 						<reference key="parent" ref="774585933"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">47</int>
-						<reference key="object" ref="687662282"/>
-						<reference key="parent" ref="545406617"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">34</int>
@@ -302,7 +284,6 @@
 					<string>42.IBPluginDependency</string>
 					<string>43.IBPluginDependency</string>
 					<string>44.IBPluginDependency</string>
-					<string>47.IBPluginDependency</string>
 					<string>6.IBEditorWindowLastContentRect</string>
 					<string>6.IBPluginDependency</string>
 				</object>
@@ -314,7 +295,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>MMABannerXLAdView</string>
 					<string>{{681, 701}, {320, 48}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -348,14 +328,6 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="IBPartialClassDescription">
-					<string key="className">AdMobView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/AdMobView.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MMABannerXLAdView</string>
 					<string key="superclassName">MobclixAdView</string>
@@ -393,14 +365,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>adMobAd</string>
 							<string>blipSearchBar</string>
 							<string>mobclixAdView</string>
 							<string>theTableView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>AdMobView</string>
 							<string>UISearchBar</string>
 							<string>MMABannerXLAdView</string>
 							<string>UITableView</string>
