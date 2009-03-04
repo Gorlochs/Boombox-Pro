@@ -617,6 +617,7 @@ void ReadStreamCallBack
 	// Create the GET request
 	//
     CFHTTPMessageRef message= CFHTTPMessageCreateRequest(NULL, (CFStringRef)@"GET", (CFURLRef)url, kCFHTTPVersion1_1);
+	if (!message) { PRINTERROR("AudioFileStreamOpen"); goto cleanup; }
     stream = CFReadStreamCreateForHTTPRequest(NULL, message);
     CFRelease(message);
     if (!CFReadStreamOpen(stream))
@@ -676,7 +677,6 @@ void ReadStreamCallBack
 	} while (isPlaying || !finished);
 	
 cleanup:
-	
 	//
 	// Cleanup the read stream if it is still open
 	//

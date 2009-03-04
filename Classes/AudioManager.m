@@ -83,6 +83,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (void) startStreamerWithPlaylistIndex:(NSInteger)playListIndex {
 	// find song to play
 	BlipSong *songToPlay = [[self retrieveCurrentSongList] objectAtIndex:playListIndex];
+
+//	NSLog(@"checking song url");
+//	NSURL *tmpurl = [NSURL URLWithString:songToPlay.location];
+//	NSLog(@"tmpurl: %@", tmpurl);
+//	if (tmpurl == nil || tmpurl == NULL) {
+//		[self playNextSongInPlaylist];
+//	}
 	
 	// set currentSong
 	self.currentSong = songToPlay;
@@ -178,13 +185,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	topSongs = [[NSMutableArray alloc] initWithCapacity:20];
 	for (CXMLElement *theElement in theNodes) {
 		NSLog(@"song: %@", theElement);
-		BlipSong *tempSong = [[BlipSong alloc] init];
-		tempSong.title = [[[theElement nodesForXPath:@"./song_name" error:NULL] objectAtIndex:0] stringValue];
-		tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
-		tempSong.location = [[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue];
-		//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
-		[topSongs addObject:tempSong];
-		[tempSong release];
+		
+		NSURL *tmpurl = [NSURL URLWithString:[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue]];
+		NSLog(@"tmpurl: %@", tmpurl);
+		if (tmpurl != NULL) {
+			BlipSong *tempSong = [[BlipSong alloc] init];
+			tempSong.title = [[[theElement nodesForXPath:@"./song_name" error:NULL] objectAtIndex:0] stringValue];
+			tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
+			tempSong.location = [[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue];
+			//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
+			[topSongs addObject:tempSong];
+			[tempSong release];
+		}
 	}
 	NSLog(@"top songs: %@", topSongs);
 	//[theTableView reloadData];

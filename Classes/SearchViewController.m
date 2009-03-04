@@ -112,10 +112,10 @@ char *rand_str(char *dst) {
 	NSLog(@"timestamp: %@", timestamp);	
 
 	// retrieve the hash from the php page
-	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/encrypt2.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-	NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSLog(@"final url: %@", url);
-	[self parseTouchXMLFileAtURL:url];
+	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/search-1.1.1.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	//NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSLog(@"final url: %@", tempurl);
+	[self parseTouchXMLFileAtURL:tempurl];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[self insertSearchIntoDB:searchBar.text];
 	// save the search terms in the AudioManager in order to display when the screen is redisplayed
