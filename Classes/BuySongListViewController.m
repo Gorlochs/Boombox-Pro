@@ -137,22 +137,58 @@
 	NSString *trackViewUrl = [obj objectForKey:@"trackViewUrl"];
 	NSLog(@"track to buy link: %@", trackViewUrl);
 	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
+	NSLog(@"link builder link: %@", affiliateLinkBuilder);
 	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	if (affiliateLink) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc]
+							  initWithTitle:@"No Results Found"
+							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
+							  delegate:self
+							  cancelButtonTitle:@"OK"
+							  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
+	NSLog(@"affiliate link: %@", affiliateLink);
+	
 }
 
 - (void)affiliateProgramAU:(NSDictionary*)obj {
 	NSString *baseLink = [[[obj objectForKey:@"trackViewUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingString:@"%26partnerId%3D2003"];
 	NSString *affiliateLink = [@"http://www.s2d6.com/x/?x=c&z=s&v=1541356&t=" stringByAppendingString:baseLink];
 	NSLog(@"Australia affiliate link: %@", affiliateLink);
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	if (affiliateLink) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc]
+							  initWithTitle:@"No Results Found"
+							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
+							  delegate:self
+							  cancelButtonTitle:@"OK"
+							  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 - (void)affiliateProgramGB:(NSDictionary*)obj {	
 	NSString *baseLink = [[[obj objectForKey:@"trackViewUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingString:@"%26partnerId%3D2003"];
 	NSString *affiliateLink = [@"http://clk.tradedoubler.com/click?p=23708&a=1607228&url=" stringByAppendingString:baseLink];
 	NSLog(@"United Kingdom affiliate link: %@", affiliateLink);
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	if (affiliateLink) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc]
+							  initWithTitle:@"No Results Found"
+							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
+							  delegate:self
+							  cancelButtonTitle:@"OK"
+							  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 #pragma mark iTunes call and JSON parsing
