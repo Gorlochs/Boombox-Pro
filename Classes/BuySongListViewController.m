@@ -155,7 +155,7 @@
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:baseLink]];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[obj objectForKey:@"trackViewUrl"]]];
 	}
 }
 
@@ -166,7 +166,7 @@
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:baseLink]];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[obj objectForKey:@"trackViewUrl"]]];
 	}
 }
 
