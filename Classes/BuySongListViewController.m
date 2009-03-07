@@ -140,16 +140,9 @@
 	NSLog(@"link builder link: %@", affiliateLinkBuilder);
 	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder]];
 	if (affiliateLink) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]]; 
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"No Results Found"
-							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
-							  delegate:self
-							  cancelButtonTitle:@"OK"
-							  otherButtonTitles: nil];
-		[alert show];
-		[alert release];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]];
 	}
 	NSLog(@"affiliate link: %@", affiliateLink);
 	
@@ -162,14 +155,7 @@
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"No Results Found"
-							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
-							  delegate:self
-							  cancelButtonTitle:@"OK"
-							  otherButtonTitles: nil];
-		[alert show];
-		[alert release];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:baseLink]];
 	}
 }
 
@@ -180,14 +166,7 @@
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"No Results Found"
-							  message:@"We apologize, the iTunes link builder seems to be temporarily down. Please try again later."
-							  delegate:self
-							  cancelButtonTitle:@"OK"
-							  otherButtonTitles: nil];
-		[alert show];
-		[alert release];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:baseLink]];
 	}
 }
 
