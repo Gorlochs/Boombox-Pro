@@ -287,7 +287,14 @@ char *rand_str(char *dst) {
 - (void) playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex {
 	if ([audioManager isSongPlaying:[audioManager.songs objectAtIndex:songIndex]]) {
 		// stop the stream and switch back to the play button
-		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+		if ([[audioManager streamer] isPlaying]) {
+			@try {
+				[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+			}
+			@catch (NSException * e) {
+				NSLog(@"****** exception removing observer ****", e);
+			}
+		}
 		[audioManager stopStreamer];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {

@@ -176,7 +176,12 @@
 		NSLog(@"moving to the next song...");
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		if ([[audioManager streamer] isPlaying]) {
-			[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+			@try {
+				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+			}
+			@catch (NSException * e) {
+				NSLog(@"****** exception removing observer ****", e);
+			}
 		}
 		[self stopStreamCleanup];
 		// change song title immediately so that user knows what's happening
@@ -197,7 +202,12 @@
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		NSLog(@"moving to the previous song...");
 		if ([[audioManager streamer] isPlaying]) {
-			[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+			@try {
+				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+			}
+			@catch (NSException * e) {
+				NSLog(@"****** exception removing observer ****", e);
+			}
 		}
 		
 		[self stopStreamCleanup];

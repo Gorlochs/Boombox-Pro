@@ -287,32 +287,37 @@
 }
 
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell {
-	if ([[audioManager streamer] isPlaying]) {
-		[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
-	}
-	if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay) {
-		// stop the stream and switch back to the play button		[audioManager stopStreamer];
-		[self changeImageIcons:cell imageName:@"image-7.png"];
-	} else {
-		[audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
-		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-		
-		// set song title label on boombox view
-		((BoomboxViewController*) self.parentViewController).songLabel.text = [[audioManager currentSong] constructTitleArtist];
-		
-		// change image to the stop button
-		[self changeImageIcons:cell imageName:@"stop.png"];
-		
-		// change any other image in any other row to the default play button
-		NSArray *visibleCells = [theTableView visibleCells];
-		NSUInteger i, count = [visibleCells count];
-		for (i = 0; i < count; i++) {
-			SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
-			if (![cell.songLocation isEqualToString:[[audioManager currentSong] location]]) {
-				[self changeImageIcons:cell imageName:@"image-7.png"];
-			}
-		}
-	}
+    if ([[audioManager streamer] isPlaying]) {
+        @try {
+            [audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+        }
+        @catch (NSException * e) {
+            NSLog(@"****** exception removing observer ****", e);
+        }
+    }
+    if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay) {
+        // stop the stream and switch back to the play button		[audioManager stopStreamer];
+        [self changeImageIcons:cell imageName:@"image-7.png"];
+    } else {
+        [audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
+        [audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+        
+        // set song title label on boombox view
+        ((BoomboxViewController*) self.parentViewController).songLabel.text = [[audioManager currentSong] constructTitleArtist];
+        
+        // change image to the stop button
+        [self changeImageIcons:cell imageName:@"stop.png"];
+        
+        // change any other image in any other row to the default play button
+        NSArray *visibleCells = [theTableView visibleCells];
+        NSUInteger i, count = [visibleCells count];
+        for (i = 0; i < count; i++) {
+            SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+            if (![cell.songLocation isEqualToString:[[audioManager currentSong] location]]) {
+                [self changeImageIcons:cell imageName:@"image-7.png"];
+            }
+        }
+    }
 }
 
 @end
