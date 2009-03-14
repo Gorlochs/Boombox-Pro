@@ -19,8 +19,6 @@
 
 @interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MobclixAdViewDelegate>
 {
-	AudioStreamer *streamer;
-	
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
 	SearchTableCellView *searchCell;

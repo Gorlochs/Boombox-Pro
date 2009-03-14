@@ -120,8 +120,12 @@
 	[equalizerView release];
 	[leftSpeakerView release];
 	[rightSpeakerView release];
+    [topButtonView release];
 	
 	[songLabel release];
+    
+    [images release];
+    [speakerImages release];
 	
     [super dealloc];
 }

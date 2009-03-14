@@ -274,7 +274,14 @@
 - (void)dealloc {
 	[theTableView release];
 	[mobclixAdView release];
+    [buttonView release];
+    
 	[tableCell release];
+    
+    [myPlaylistButton release];
+    [popularPlaylistsButton release];
+    
+    [buySongListController release];
 	
     [super dealloc];
 }
