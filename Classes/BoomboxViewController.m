@@ -259,6 +259,7 @@
 					// start streamer for next song
 					[audioManager playNextSongInPlaylist];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+					[audioManager.streamer addObserver:playlistController forKeyPath:@"isPlaying" options:0 context:nil];
 					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
 					BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					songLabel.text = [nextSong constructTitleArtist];					

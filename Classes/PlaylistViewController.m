@@ -286,6 +286,24 @@
     [super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqual:@"isPlaying"]) {
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+        NSArray *visibleCells = [theTableView visibleCells];
+        NSUInteger i, count = [visibleCells count];
+        for (i = 0; i < count; i++) {
+            SearchTableCellView *cell = (SearchTableCellView*) [visibleCells objectAtIndex:i];
+            if (![cell.songLocation isEqualToString:[[audioManager currentSong] location]]) {
+                [self changeImageIcons:cell imageName:@"image-7.png"];
+            } else {
+                [self changeImageIcons:cell imageName:@"stop.png"];
+            }
+        }
+		[pool release];
+	}
+}
+
 #pragma mark private functions
 
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName {
@@ -297,17 +315,20 @@
     if ([[audioManager streamer] isPlaying]) {
         @try {
             [audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
+            [audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
         }
         @catch (NSException * e) {
             NSLog(@"****** exception removing observer ****", e);
         }
     }
-    if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay) {
-        // stop the stream and switch back to the play button		[audioManager stopStreamer];
+    if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay && [audioManager streamer]) {
+        // stop the stream and switch back to the play button		
+        [audioManager stopStreamer];
         [self changeImageIcons:cell imageName:@"image-7.png"];
     } else {
         [audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
         [audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
+		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
         
         // set song title label on boombox view
         ((BoomboxViewController*) self.parentViewController).songLabel.text = [[audioManager currentSong] constructTitleArtist];
