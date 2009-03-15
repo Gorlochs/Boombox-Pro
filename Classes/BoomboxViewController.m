@@ -150,19 +150,21 @@
 // plays the first song in the user's Playlist
 - (IBAction)playAction:(id)sender {
 	NSLog(@"play button clicked");
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
-	if ([[audioManager retrieveCurrentSongList] count] > 0) {
-		NSLog(@"play button clicked, and playlist exists, so play the first song");
-		[audioManager startStreamerWithPlaylistIndex:0];
-		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-		songLabel.text = [audioManager.currentSong constructTitleArtist];
-	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
-													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
-	[pool release];
+    if (![audioManager.streamer isPlaying]) {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
+        if ([[audioManager retrieveCurrentSongList] count] > 0) {
+            NSLog(@"play button clicked, and playlist exists, so play the first song");
+            [audioManager startStreamerWithPlaylistIndex:0];
+            [audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+            songLabel.text = [audioManager.currentSong constructTitleArtist];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
+                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        [pool release];
+    }
 }
 
 - (IBAction)stopStream {
