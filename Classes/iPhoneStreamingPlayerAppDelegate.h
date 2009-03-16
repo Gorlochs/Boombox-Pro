@@ -14,7 +14,7 @@
 
 @class SearchViewController;
 
-@interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate> {
+@interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     UIWindow *window;
 	BoomboxViewController *viewController;
 	sqlite3 *database;

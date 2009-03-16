@@ -23,6 +23,7 @@
 - (void)updateStatus;
 - (NSString*)getCountryCode;
 - (void)checkForEmergencyMessage;
+- (void)checkForUpgradeMessage;
 @end
 
 @implementation iPhoneStreamingPlayerAppDelegate
@@ -51,6 +52,7 @@
 	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
 	
 	[self checkForEmergencyMessage];
+	[self checkForUpgradeMessage];
 	
 	// set observer to update the network status as it changes
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:@"kNetworkReachabilityChangedNotification" object:nil];
@@ -117,7 +119,7 @@
 - (void) checkForEmergencyMessage {
 	
 	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.emergency.message"]];
-	if (emergencyMessage != nil && [emergencyMessage isNotEqualTo:@""]) {
+	if (emergencyMessage != nil && ![emergencyMessage isEqualToString:@""]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
 														message:emergencyMessage
 													   delegate:self 
@@ -126,6 +128,29 @@
 		[alert show];
 		[alert release];	
 	}
+}
+
+- (void) checkForUpgradeMessage {
+	
+	NSString *upgradeMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
+    if (upgradeMessage != nil && ![upgradeMessage isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
+														message:@"Upgrade to Boombox Pro! Access your blip.fm account!"
+													   delegate:self 
+											  cancelButtonTitle:@"No Thanks" 
+											  otherButtonTitles:@"Upgrade!",nil];
+		[alert show];
+		[alert release];	
+	}
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
+    if (buttonIndex == 1) {
+        NSLog(@"custom button has been clicked");
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emergencyMessage]];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
