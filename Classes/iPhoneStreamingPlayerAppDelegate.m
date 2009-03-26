@@ -118,7 +118,7 @@
 
 - (void) checkForEmergencyMessage {
 	
-	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.emergency.message"]];
+	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.1.1.3.emergency.message"]];
 	if (emergencyMessage != nil && ![emergencyMessage isEqualToString:@""]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
 														message:emergencyMessage
@@ -132,8 +132,10 @@
 
 - (void) checkForUpgradeMessage {
 	
+    NSInteger msgCount =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"upgradeMessageCount"] intValue];
 	NSString *upgradeMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
-    if (upgradeMessage != nil && ![upgradeMessage isEqualToString:@""]) {
+    if (upgradeMessage != nil && ![upgradeMessage isEqualToString:@""] && msgCount < 3) {
+        [[NSUserDefaults standardUserDefaults] setInteger:msgCount+1 forKey:@"upgradeMessageCount"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
 														message:@"Upgrade to Boombox Pro! Access your blip.fm account!"
 													   delegate:self 

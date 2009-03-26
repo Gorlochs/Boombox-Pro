@@ -13,8 +13,9 @@
 #import "AudioManager.h"
 #import "MobclixAds.h"
 #import "BuySongListViewController.h"
+#import "AdMobDelegateProtocol.h"
 
-@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdMobDelegate> {
 	
 	UITableView *theTableView;
 	UIView *buttonView;
@@ -27,6 +28,10 @@
 	
 	// Mobclix ad
 	MMABannerXLAdView *mobclixAdView;
+    
+    // AdMob code
+    NSTimer *autoslider; // timer to slide in fresh ads
+    AdMobView *adMobAd;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
@@ -35,10 +40,12 @@
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *tableCell;
 @property (nonatomic, retain) IBOutlet MMABannerXLAdView *mobclixAdView;
+@property (nonatomic, retain) IBOutlet AdMobView *adMobAd;
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)playSong:(id)sender;
 - (IBAction)displayPopularPlaylist;
 - (IBAction)displayMyPlaylist;
+- (void)refreshAd:(NSTimer *)timer;
 
 @end

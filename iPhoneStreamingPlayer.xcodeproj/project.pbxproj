@@ -147,6 +147,8 @@
 		6AC13C960EC662A7004146A4 /* SearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC13C950EC662A7004146A4 /* SearchTableCellView.m */; };
 		6AC523080F3FCD65000B3708 /* TopSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC523070F3FCD65000B3708 /* TopSearchCell.xib */; };
 		6AC5230C0F3FCD8D000B3708 /* TopSearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */; };
+		6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */; };
+		6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */; };
 		6AD04B860F2D849E0089712B /* TopSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04B850F2D849E0089712B /* TopSearchViewController.m */; };
 		6AD04BAB0F2D85AE0089712B /* CXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA00F2D85AE0089712B /* CXMLDocument.m */; };
 		6AD04BAC0F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA20F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m */; };
@@ -330,6 +332,10 @@
 		6AC523070F3FCD65000B3708 /* TopSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopSearchCell.xib; sourceTree = "<group>"; };
 		6AC5230A0F3FCD8D000B3708 /* TopSearchTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopSearchTableCellView.h; sourceTree = "<group>"; };
 		6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopSearchTableCellView.m; sourceTree = "<group>"; };
+		6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobDevice.a; sourceTree = "<group>"; };
+		6ACFCEA80F7B220900A9C6D1 /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
+		6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobSimulator.a; sourceTree = "<group>"; };
+		6ACFCEAA0F7B220900A9C6D1 /* AdMobDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobDelegateProtocol.h; sourceTree = "<group>"; };
 		6AD04B840F2D849E0089712B /* TopSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopSearchViewController.h; sourceTree = "<group>"; };
 		6AD04B850F2D849E0089712B /* TopSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopSearchViewController.m; sourceTree = "<group>"; };
 		6AD04B9E0F2D85AE0089712B /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchXML.h; sourceTree = "<group>"; };
@@ -373,6 +379,8 @@
 				6A38D3800F3001C1002B2763 /* MobclixAds.o in Frameworks */,
 				6A38D3810F3001C1002B2763 /* Mobclix.a in Frameworks */,
 				6A38D3820F3001C1002B2763 /* MobclixAds.o in Frameworks */,
+				6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */,
+				6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +390,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6ACFCE980F7B21FD00A9C6D1 /* AdMob */,
 				6A38D3760F3001C1002B2763 /* mobclix.lib */,
 				6A36901E0EEEAF0A000C7A23 /* Reachability */,
 				6AD04B870F2D85780089712B /* TouchXML */,
@@ -722,6 +731,17 @@
 				C9C2D87F0EB6E0DB00A3D071 /* stopbutton.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		6ACFCE980F7B21FD00A9C6D1 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				6ACFCEA80F7B220900A9C6D1 /* AdMobView.h */,
+				6ACFCEAA0F7B220900A9C6D1 /* AdMobDelegateProtocol.h */,
+				6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */,
+				6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */,
+			);
+			name = AdMob;
 			sourceTree = "<group>";
 		};
 		6AD04B870F2D85780089712B /* TouchXML */ = {
