@@ -287,6 +287,7 @@
 	[theTableView release];
     [buttonView release];
 	[adMobAd release];
+    [adViewController_ release];
     
 	[tableCell release];
     

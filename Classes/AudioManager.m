@@ -131,7 +131,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 // only used for cell network song limitations
 - (void) incrementCellNetworkSongsPlayed {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	if (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork) {
 		self.numberOfSongsPlayedTodayOnCellNetwork++;
 		NSLog(@"songs played on cell network today: %d", self.numberOfSongsPlayedTodayOnCellNetwork);
@@ -140,7 +140,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 
 // only used for cell network song limitations
 - (BOOL) userHasReachedMaximumSongsForTheDay {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	return (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork && self.numberOfSongsPlayedTodayOnCellNetwork >= MAX_SONGS_FOR_CELL_NETWORK_PER_DAY);
 }
 
@@ -204,17 +204,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (BOOL) isConnectedToNetwork {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	return appDelegate.remoteHostStatus != NotReachable;
 }
 
 - (BOOL) isConnectedToWifi {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	return appDelegate.remoteHostStatus == ReachableViaWiFiNetwork;
 }
 
 - (void)insertSongIntoDB:(BlipSong*)songToInsert {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-1.1.1.php?song=%@&artist=%@&songUrl=%@&cc=%@&gkey=g0rl0ch1an5", 
 											 [[songToInsert.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
 											 [[songToInsert.artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
