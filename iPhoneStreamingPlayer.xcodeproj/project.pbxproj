@@ -37,10 +37,6 @@
 		6A2DC1A80EB7D6EF0095FE98 /* BlipSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DC1A70EB7D6EF0095FE98 /* BlipSong.m */; };
 		6A3690210EEEAF14000C7A23 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3690200EEEAF14000C7A23 /* Reachability.m */; };
 		6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */; };
-		6A38D37F0F3001C1002B2763 /* Mobclix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D3780F3001C1002B2763 /* Mobclix.a */; };
-		6A38D3800F3001C1002B2763 /* MobclixAds.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D3790F3001C1002B2763 /* MobclixAds.o */; };
-		6A38D3810F3001C1002B2763 /* Mobclix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D37D0F3001C1002B2763 /* Mobclix.a */; };
-		6A38D3820F3001C1002B2763 /* MobclixAds.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A38D37E0F3001C1002B2763 /* MobclixAds.o */; };
 		6A38D3A40F302724002B2763 /* search_bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A38D3A30F302724002B2763 /* search_bkg.png */; };
 		6A68F9310EDB3908001D7787 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A68F9300EDB3908001D7787 /* AudioManager.m */; };
 		6A79CF780F3BFB78003F13B3 /* tab_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A79CF740F3BFB78003F13B3 /* tab_bar.png */; };
@@ -148,6 +144,7 @@
 		6AC523080F3FCD65000B3708 /* TopSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC523070F3FCD65000B3708 /* TopSearchCell.xib */; };
 		6AC5230C0F3FCD8D000B3708 /* TopSearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */; };
 		6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */; };
+		6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */; };
 		6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */; };
 		6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */; };
 		6AD04B860F2D849E0089712B /* TopSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04B850F2D849E0089712B /* TopSearchViewController.m */; };
@@ -203,12 +200,6 @@
 		6A36901F0EEEAF14000C7A23 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6A3690200EEEAF14000C7A23 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		6A38D3780F3001C1002B2763 /* Mobclix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Mobclix.a; sourceTree = "<group>"; };
-		6A38D3790F3001C1002B2763 /* MobclixAds.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = MobclixAds.o; sourceTree = "<group>"; };
-		6A38D37A0F3001C1002B2763 /* Mobclix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobclix.h; sourceTree = "<group>"; };
-		6A38D37B0F3001C1002B2763 /* MobclixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAds.h; sourceTree = "<group>"; };
-		6A38D37D0F3001C1002B2763 /* Mobclix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Mobclix.a; sourceTree = "<group>"; };
-		6A38D37E0F3001C1002B2763 /* MobclixAds.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = MobclixAds.o; sourceTree = "<group>"; };
 		6A38D3A30F302724002B2763 /* search_bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_bkg.png; sourceTree = "<group>"; };
 		6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		6A68F92F0EDB3908001D7787 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
@@ -335,6 +326,9 @@
 		6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopSearchTableCellView.m; sourceTree = "<group>"; };
 		6ACF0E6D0F8C41D500568224 /* GADAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdViewController.h; sourceTree = "<group>"; };
 		6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAds.a; sourceTree = "<group>"; };
+		6ACF0ED60F8C6D5000568224 /* Beacon+FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Beacon+FBConnect.h"; sourceTree = "<group>"; };
+		6ACF0ED70F8C6D5000568224 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
+		6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPMAnalytics-r47.a"; sourceTree = "<group>"; };
 		6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobDevice.a; sourceTree = "<group>"; };
 		6ACFCEA80F7B220900A9C6D1 /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
 		6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobSimulator.a; sourceTree = "<group>"; };
@@ -378,13 +372,10 @@
 				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
 				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 				6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */,
-				6A38D37F0F3001C1002B2763 /* Mobclix.a in Frameworks */,
-				6A38D3800F3001C1002B2763 /* MobclixAds.o in Frameworks */,
-				6A38D3810F3001C1002B2763 /* Mobclix.a in Frameworks */,
-				6A38D3820F3001C1002B2763 /* MobclixAds.o in Frameworks */,
 				6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */,
 				6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */,
 				6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */,
+				6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,9 +385,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6ACF0ED50F8C6D3400568224 /* PinchMedia */,
 				6ACF0E6C0F8C41AC00568224 /* Google */,
 				6ACFCE980F7B21FD00A9C6D1 /* AdMob */,
-				6A38D3760F3001C1002B2763 /* mobclix.lib */,
 				6A36901E0EEEAF0A000C7A23 /* Reachability */,
 				6AD04B870F2D85780089712B /* TouchXML */,
 				6AC0D5F20ECCB9D9009F6BBD /* TouchJSON */,
@@ -484,35 +475,6 @@
 				6A3690200EEEAF14000C7A23 /* Reachability.m */,
 			);
 			name = Reachability;
-			sourceTree = "<group>";
-		};
-		6A38D3760F3001C1002B2763 /* mobclix.lib */ = {
-			isa = PBXGroup;
-			children = (
-				6A38D3770F3001C1002B2763 /* ARM */,
-				6A38D37A0F3001C1002B2763 /* Mobclix.h */,
-				6A38D37B0F3001C1002B2763 /* MobclixAds.h */,
-				6A38D37C0F3001C1002B2763 /* X86 */,
-			);
-			path = mobclix.lib;
-			sourceTree = "<group>";
-		};
-		6A38D3770F3001C1002B2763 /* ARM */ = {
-			isa = PBXGroup;
-			children = (
-				6A38D3780F3001C1002B2763 /* Mobclix.a */,
-				6A38D3790F3001C1002B2763 /* MobclixAds.o */,
-			);
-			path = ARM;
-			sourceTree = "<group>";
-		};
-		6A38D37C0F3001C1002B2763 /* X86 */ = {
-			isa = PBXGroup;
-			children = (
-				6A38D37D0F3001C1002B2763 /* Mobclix.a */,
-				6A38D37E0F3001C1002B2763 /* MobclixAds.o */,
-			);
-			path = X86;
 			sourceTree = "<group>";
 		};
 		6AC0D5DA0ECCB8EA009F6BBD /* Buy */ = {
@@ -745,6 +707,16 @@
 				6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */,
 			);
 			name = Google;
+			sourceTree = "<group>";
+		};
+		6ACF0ED50F8C6D3400568224 /* PinchMedia */ = {
+			isa = PBXGroup;
+			children = (
+				6ACF0ED60F8C6D5000568224 /* Beacon+FBConnect.h */,
+				6ACF0ED70F8C6D5000568224 /* Beacon.h */,
+				6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */,
+			);
+			name = PinchMedia;
 			sourceTree = "<group>";
 		};
 		6ACFCE980F7B21FD00A9C6D1 /* AdMob */ = {

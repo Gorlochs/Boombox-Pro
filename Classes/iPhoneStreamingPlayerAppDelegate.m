@@ -9,7 +9,7 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
 #import "AudioManager.h"
-#import "mobclix.h"
+#import "Beacon.h"
 
 //static sqlite3_stmt *insert_statement = nil;
 
@@ -59,13 +59,9 @@
 	
 	// testing.  this should be utilized in v1.0.2
 	//[self getCountryCode];
-	
-	[Mobclix startApplicationWithId:@"3703d77a-e812-444a-b117-50b8fcef88d8"
-					applicationType:APPLICATION_TYPE_BETA
-				applicationLogLevel:LOG_LEVEL_INFO
-					 recordLocation:YES
-						 notifyUser:NO
-	]; 
+
+    NSString *applicationCode = @"51512b37fa78552a6981778e1e652682";
+    [Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
 }
 
 - (NSString*)getCountryCode {
@@ -151,6 +147,7 @@
     NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
     if (buttonIndex == 1) {
         NSLog(@"custom button has been clicked");
+        [[Beacon shared] startSubBeaconWithName:@"Upgrade Clicked" timeSession:NO];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emergencyMessage]];
     }
 }
@@ -166,8 +163,7 @@
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
 	
-	[Mobclix endApplication]; 
-	
+    [[Beacon shared] endBeacon];
 }
 
 - (void)dealloc {

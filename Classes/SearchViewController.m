@@ -12,9 +12,9 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BoomboxViewController.h"
 #import "SearchTableCellView.h"
-#import "Mobclix.h"
 #import "TouchXML.h"
 #import "AdMobView.h"
+#import "Beacon.h"
 
 // Private interface - internal only methods.
 @interface SearchViewController (Private)
@@ -29,7 +29,6 @@
 @synthesize blipSearchBar;
 @synthesize theTableView;
 @synthesize searchCell;
-@synthesize mobclixAdView;
 @synthesize adMobAd;
 
 // -----------------------------------------------------------------------------
@@ -52,7 +51,6 @@
 	[buySongListController release];
 	[topSearchViewController release];
 	[searchCell release];
-	[mobclixAdView release];
 	[adMobAd release];
     [adViewController_ release];
 	
@@ -70,21 +68,9 @@
 	if (audioManager.searchTerms != nil) {
 		blipSearchBar.text = audioManager.searchTerms;
 	}
-	
-	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"Search"
-					 eventName: @"viewDidLoad"
-				   description: @"someone is viewing the search screen" 
-				appleFramework: FW_UI_KIT
-						  stop: NO
-	 ]; 
-	[Mobclix sync];
     
 //	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 //	[adMobAd retain]; // this will be released when it loads (or fails to load)
-    
-//	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
-//	[mobclixAdView getAd];
     
     adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
     adViewController_.adSize = kGADAdSize320x50;
@@ -114,6 +100,8 @@
     rect.origin = CGPointMake(80,250);
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
+    
+    [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -158,11 +146,10 @@ char *rand_str(char *dst) {
 	audioManager.searchTerms = searchBar.text;
 	
 	[searchBar resignFirstResponder];
-	
-	[mobclixAdView getAd];
+    [[Beacon shared] startSubBeaconWithName:@"Search Performed" timeSession:NO];
 }
 - (void)insertSearchIntoDB:(NSString*)searchTerms {
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	NSURL *insertUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://literalshore.com/gorloch/blip/insert-search-1.1.1.php?searchTerms=%@&cc=%@&gkey=g0rl0ch1an5",
 											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
 											 [appDelegate getCountryCode]]];
@@ -350,6 +337,7 @@ char *rand_str(char *dst) {
 				[self changeImageIcons:cell imageName:@"image-7.png"];
 			}
 		}
+        [[Beacon shared] startSubBeaconWithName:@"Search Played" timeSession:NO];
 	}
 }
 

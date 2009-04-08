@@ -13,7 +13,6 @@
 #import "BuySongListViewController.h"
 #import "AudioManager.h"
 #import "TopSearchViewController.h"
-#import "MobclixAds.h"
 #import "AdMobDelegateProtocol.h"
 #import "GADAdViewController.h"
 
@@ -39,9 +38,6 @@
 	// we use these to track each current item, until it's ready to be added to the "stories" array
 	NSString *currentElement;
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
-	
-	// Mobclix ad
-	MMABannerXLAdView *mobclixAdView;
     
     // AdMob code
     NSTimer *autoslider; // timer to slide in fresh ads
@@ -53,7 +49,6 @@
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *searchCell;
-@property (nonatomic, retain) IBOutlet MMABannerXLAdView *mobclixAdView;
 @property (nonatomic, retain) IBOutlet AdMobView *adMobAd;
 
 - (IBAction)removeModalView:(id)sender;

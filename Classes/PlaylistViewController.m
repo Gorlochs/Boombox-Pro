@@ -10,8 +10,8 @@
 #import "BlipSong.h"
 #import "SearchTableCellView.h"
 #import "BoomboxViewController.h"
-#import "Mobclix.h"
 #import "AdMobView.h"
+#import "Beacon.h"
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
@@ -21,7 +21,7 @@
 
 @implementation PlaylistViewController
 
-@synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell, mobclixAdView;
+@synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
 @synthesize adMobAd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -49,20 +49,8 @@
 		popularPlaylistsButton.selected = YES;
 	}
 	
-	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"Playlist"
-					 eventName: @"viewDidLoad"
-				   description: @"someone is viewing their playlist" 
-				appleFramework: FW_UI_KIT
-						  stop: NO
-	 ]; 
-	[Mobclix sync];
-	
 //	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
 //	[adMobAd retain]; // this will be released when it loads (or fails to load)
-    
-//	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
-//	[mobclixAdView getAd];
     
     adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
     adViewController_.adSize = kGADAdSize320x50;
@@ -82,6 +70,8 @@
     rect.origin = CGPointMake(80,250);
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
+    
+    [[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,6 +179,7 @@
 	UIButton *senderButton = (UIButton*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	[self playOrStopSong:senderButton.tag targetCell:cell];
+    [[Beacon shared] startSubBeaconWithName:@"Playlist Play" timeSession:NO];
 }
 
 - (void)removeModalView:(id)sender {
@@ -200,7 +191,6 @@
 	popularPlaylistsButton.selected = NO;
 	[audioManager switchToPlaylistMode:mine];
 	[theTableView reloadData];
-	[mobclixAdView getAd];
 }
 
 - (void)displayPopularPlaylist {
@@ -209,7 +199,6 @@
 	[audioManager switchToPlaylistMode:popular];
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
-	[mobclixAdView getAd];
 }
 
 - (void)addSongToPlaylist:(id)sender {
@@ -296,7 +285,6 @@
 
 - (void)dealloc {
 	[theTableView release];
-	[mobclixAdView release];
     [buttonView release];
 	[adMobAd release];
     

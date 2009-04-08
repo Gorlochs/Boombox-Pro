@@ -11,7 +11,7 @@
 #import "BoomboxViewController.h"
 #import "CJSONDeserializer.h"
 #import "BuyTableCellView.h"
-#import "Mobclix.h"
+#import "Beacon.h"
 
 @interface BuySongListViewController (Private)
 - (void)affiliateProgramUS:(NSDictionary*)obj;
@@ -44,14 +44,7 @@
 	[self getItunesSearchResults];
     [super viewDidLoad];
 	
-	[Mobclix logEventWithLevel: LOG_LEVEL_INFO
-				   processName: @"Buy"
-					 eventName: @"viewDidLoad"
-				   description: @"someone is viewing the buy screen" 
-				appleFramework: FW_UI_KIT
-						  stop: NO
-	 ]; 
-	[Mobclix sync];
+    [[Beacon shared] startSubBeaconWithName:@"Buy View" timeSession:NO];
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -114,7 +107,7 @@
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	NSString *countryCode = [appDelegate getCountryCode];	
 	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
 	NSLog(@"buy dictionary object: %@", obj);
