@@ -15,10 +15,11 @@
 #import "TopSearchViewController.h"
 #import "MobclixAds.h"
 #import "AdMobDelegateProtocol.h"
+#import "GADAdViewController.h"
 
 @class AudioStreamer, SearchTableCellView, AdMobView;
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, AdMobDelegate>
+@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, AdMobDelegate, GADAdViewControllerDelegate>
 {
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
@@ -45,6 +46,8 @@
     // AdMob code
     NSTimer *autoslider; // timer to slide in fresh ads
     AdMobView *adMobAd;
+    
+    GADAdViewController *adViewController_;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;

@@ -22,6 +22,7 @@
 @implementation PlaylistViewController
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell, mobclixAdView;
+@synthesize adMobAd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -57,11 +58,30 @@
 	 ]; 
 	[Mobclix sync];
 	
-	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-	[adMobAd retain]; // this will be released when it loads (or fails to load)
+//	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
+//	[adMobAd retain]; // this will be released when it loads (or fails to load)
     
 //	mobclixAdView.adCode = @"a9a7c3c8-49c5-102c-8da0-12313a002cd2";
 //	[mobclixAdView getAd];
+    
+    adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
+    adViewController_.adSize = kGADAdSize320x50;
+    
+    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:6305633648];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"ca-pub-6987410175123792", kGADAdSenseClientID,
+                                @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
+                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
+                                [NSNumber numberWithInt:1], kGADAdSenseIsTestAdRequest,
+                                nil];
+    [adViewController_ loadGoogleAd:attributes];
+    
+    // Position ad at bottom of screen
+    //CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGRect rect = adViewController_.view.frame;
+    rect.origin = CGPointMake(80,250);
+    adViewController_.view.frame = rect;
+    [self.view addSubview:adViewController_.view];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -400,6 +420,16 @@
     adMobAd = nil;
     // we could start a new ad request here, but it is unlikely that anything has changed in the last few seconds,
     // so in the interests of the user's battery life, let's not
+}
+
+- (GADAdClickAction)adControllerActionModelForAdClick:
+(GADAdViewController *)adController {
+    return GAD_ACTION_DISPLAY_INTERNAL_WEBSITE_VIEW;
+}
+
+- (void)adController:(GADAdViewController *)adController
+     failedWithError:(NSError *)error {
+    // Handle error here
 }
 
 @end

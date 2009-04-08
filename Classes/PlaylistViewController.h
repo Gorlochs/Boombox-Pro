@@ -14,8 +14,9 @@
 #import "MobclixAds.h"
 #import "BuySongListViewController.h"
 #import "AdMobDelegateProtocol.h"
+#import "GADAdViewController.h"
 
-@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdMobDelegate> {
+@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, AdMobDelegate, GADAdViewControllerDelegate> {
 	
 	UITableView *theTableView;
 	UIView *buttonView;
@@ -32,6 +33,8 @@
     // AdMob code
     NSTimer *autoslider; // timer to slide in fresh ads
     AdMobView *adMobAd;
+    
+    GADAdViewController *adViewController_;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
