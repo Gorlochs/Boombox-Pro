@@ -129,11 +129,12 @@
 - (void) checkForUpgradeMessage {
 	
     NSInteger msgCount =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"upgradeMessageCount"] intValue];
-	NSString *upgradeMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
-    if (upgradeMessage != nil && ![upgradeMessage isEqualToString:@""] && msgCount < 3) {
+	NSString *upgradeUrl = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
+	NSString *upgradeMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.real.message"]];
+    if (upgradeUrl != nil && ![upgradeUrl isEqualToString:@""] && msgCount < 3) {
         [[NSUserDefaults standardUserDefaults] setInteger:msgCount+1 forKey:@"upgradeMessageCount"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
-														message:@"Upgrade to Boombox Pro! Access your blip.fm account!"
+														message:upgradeMessage
 													   delegate:self 
 											  cancelButtonTitle:@"No Thanks" 
 											  otherButtonTitles:@"Upgrade!",nil];
@@ -144,7 +145,7 @@
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
+    NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.url"]];
     if (buttonIndex == 1) {
         NSLog(@"custom button has been clicked");
         [[Beacon shared] startSubBeaconWithName:@"Upgrade Clicked" timeSession:NO];
