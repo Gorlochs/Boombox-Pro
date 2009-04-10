@@ -60,7 +60,7 @@
                                 @"ca-pub-6987410175123792", kGADAdSenseClientID,
                                 @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:1], kGADAdSenseIsTestAdRequest,
+                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
                                 nil];
     [adViewController_ loadGoogleAd:attributes];
     
