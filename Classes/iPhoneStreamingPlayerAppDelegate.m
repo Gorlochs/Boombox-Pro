@@ -131,7 +131,7 @@
     NSInteger msgCount =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"upgradeMessageCount"] intValue];
 	NSString *upgradeUrl = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.message"]];
 	NSString *upgradeMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.lite.upgrade.real.message"]];
-    if (upgradeUrl != nil && ![upgradeUrl isEqualToString:@""] && msgCount < 3) {
+    if (upgradeUrl != nil && ![upgradeUrl isEqualToString:@""] && msgCount < 4) {
         [[NSUserDefaults standardUserDefaults] setInteger:msgCount+1 forKey:@"upgradeMessageCount"];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
 														message:upgradeMessage
