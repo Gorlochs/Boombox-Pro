@@ -55,12 +55,12 @@
     adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
     adViewController_.adSize = kGADAdSize320x50;
     
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:6305633648];
+    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-6987410175123792", kGADAdSenseClientID,
+                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
                                 @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
+                                [NSNumber numberWithInt:1], kGADAdSenseIsTestAdRequest,
                                 nil];
     [adViewController_ loadGoogleAd:attributes];
     

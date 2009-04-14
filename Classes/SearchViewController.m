@@ -85,12 +85,12 @@
     // PLEASE DO NOT CLICK ON THE AD UNLESS YOU ARE IN TEST MODE. OTHERWISE, YOUR
     // ACCOUNT MAY BE DISABLED.
     // **************************************************************************
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:6305633648];
+    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-6987410175123792", kGADAdSenseClientID,
+                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
                                 @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
+                                [NSNumber numberWithInt:1], kGADAdSenseIsTestAdRequest,
                                 nil];
     [adViewController_ loadGoogleAd:attributes];
     
@@ -100,6 +100,7 @@
     rect.origin = CGPointMake(80,250);
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
+    NSLog(@"google ad has loaded");
     
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
 }
