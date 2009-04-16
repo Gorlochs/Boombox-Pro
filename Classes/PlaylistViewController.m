@@ -60,7 +60,7 @@
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
                                 @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:1], kGADAdSenseIsTestAdRequest,
+                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
                                 @"333333", kGADAdSenseAdBackgroundColor,
                                 @"333333", kGADAdSenseAdBorderColor,
                                 @"CCCCCC", kGADAdSenseAdURLColor,
