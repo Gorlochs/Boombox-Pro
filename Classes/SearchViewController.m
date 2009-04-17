@@ -265,7 +265,9 @@ char *rand_str(char *dst) {
 	for (CXMLElement *theElement in theNodes) {
 		NSLog(@"song: %@", theElement);
 		NSLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
-		if ([[theElement nodesForXPath:@"./location" error:NULL] count] > 0) {
+		NSString *loc = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([[loc substringFromIndex:[loc length] - 4] isEqualToString:@".mp3"] && [[loc substringToIndex:7] isEqualToString:@"http://"]) {
+            //if ([[theElement nodesForXPath:@"./location" error:NULL] count] > 0) {
 			BlipSong *tempSong = [[BlipSong alloc] init];
 			tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
 			tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
