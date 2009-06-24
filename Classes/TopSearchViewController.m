@@ -88,7 +88,7 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
-	SearchViewController *parentController = self.parentViewController;
+	SearchViewController *parentController = (SearchViewController*)self.parentViewController;
 	parentController.blipSearchBar.text = [topSearches objectAtIndex:indexPath.row];
 	[parentController searchBarSearchButtonClicked:parentController.blipSearchBar];
 	[self dismissModalViewControllerAnimated:YES];
