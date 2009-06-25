@@ -10,7 +10,6 @@
 #import "BlipSong.h"
 #import "SearchTableCellView.h"
 #import "BoomboxViewController.h"
-#import "AdMobView.h"
 #import "Beacon.h"
 
 // Private interface - internal only methods.
@@ -22,7 +21,6 @@
 @implementation PlaylistViewController
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
-@synthesize adMobAd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -48,9 +46,6 @@
 	} else {
 		popularPlaylistsButton.selected = YES;
 	}
-	
-//	adMobAd = [AdMobView requestAdWithDelegate:self]; // start a new ad request
-//	[adMobAd retain]; // this will be released when it loads (or fails to load)
     
     adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
     adViewController_.adSize = kGADAdSize320x50;
@@ -290,7 +285,6 @@
 - (void)dealloc {
 	[theTableView release];
     [buttonView release];
-	[adMobAd release];
     [adViewController_ release];
     
 	[tableCell release];
@@ -363,66 +357,6 @@
             }
         }
     }
-}
-
-#pragma mark -
-#pragma mark AdMobDelegate methods
-
-- (NSString *)publisherId {
-    return @"a1491a75a3b24ed"; // this should be prefilled; if not, get it from www.admob.com
-}
-
-- (UIColor *)adBackgroundColor {
-    return [UIColor colorWithRed:0 green:0 blue:0 alpha:1]; // this should be prefilled; if not, provide a UIColor
-}
-
-- (UIColor *)adTextColor {
-    return [UIColor colorWithRed:1 green:1 blue:1 alpha:1]; // this should be prefilled; if not, provide a UIColor
-}
-
-- (BOOL)mayAskForLocation {
-    return YES; // this should be prefilled; if not, see AdMobProtocolDelegate.h for instructions
-}
-
-// Sent when an ad request loaded an ad; this is a good opportunity to attach
-// the ad view to the hierachy.
-- (void)didReceiveAd:(AdMobView *)adView {
-    NSLog(@"AdMob: Did receive ad");
-    self.view.hidden = NO;
-	CGRect frame = adMobAd.frame;
-	frame.origin.x = 80;
-	frame.origin.y = 252;
-	adMobAd.frame = frame;
-	
-	adMobAd.backgroundColor = [UIColor blueColor];
-    //adMobAd.frame = [self.view convertRect:self.view.frame fromView:self.view.superview]; // put the ad in the placeholder's location
-    [self.view addSubview:adMobAd];
-	[self.view bringSubviewToFront:adMobAd];
-    autoslider = [NSTimer scheduledTimerWithTimeInterval:AD_REFRESH_PERIOD target:self selector:@selector(refreshAd:) userInfo:nil repeats:YES];
-}
-
-// Request a new ad. If a new ad is successfully loaded, it will be animated into location.
-- (void)refreshAd:(NSTimer *)timer {
-    [adMobAd requestFreshAd];
-}
-
-// Sent when an ad request failed to load an ad
-- (void)didFailToReceiveAd:(AdMobView *)adView {
-    NSLog(@"AdMob: Did fail to receive ad");
-    [adMobAd release];
-    adMobAd = nil;
-    // we could start a new ad request here, but it is unlikely that anything has changed in the last few seconds,
-    // so in the interests of the user's battery life, let's not
-}
-
-- (GADAdClickAction)adControllerActionModelForAdClick:
-(GADAdViewController *)adController {
-    return GAD_ACTION_DISPLAY_INTERNAL_WEBSITE_VIEW;
-}
-
-- (void)adController:(GADAdViewController *)adController
-     failedWithError:(NSError *)error {
-    // Handle error here
 }
 
 @end

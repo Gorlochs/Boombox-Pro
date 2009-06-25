@@ -145,8 +145,6 @@
 		6AC5230C0F3FCD8D000B3708 /* TopSearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */; };
 		6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */; };
 		6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */; };
-		6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */; };
-		6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */; };
 		6AD04B860F2D849E0089712B /* TopSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04B850F2D849E0089712B /* TopSearchViewController.m */; };
 		6AD04BAB0F2D85AE0089712B /* CXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA00F2D85AE0089712B /* CXMLDocument.m */; };
 		6AD04BAC0F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA20F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m */; };
@@ -329,10 +327,6 @@
 		6ACF0ED60F8C6D5000568224 /* Beacon+FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Beacon+FBConnect.h"; sourceTree = "<group>"; };
 		6ACF0ED70F8C6D5000568224 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
 		6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPMAnalytics-r47.a"; sourceTree = "<group>"; };
-		6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobDevice.a; sourceTree = "<group>"; };
-		6ACFCEA80F7B220900A9C6D1 /* AdMobView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobView.h; sourceTree = "<group>"; };
-		6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMobSimulator.a; sourceTree = "<group>"; };
-		6ACFCEAA0F7B220900A9C6D1 /* AdMobDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobDelegateProtocol.h; sourceTree = "<group>"; };
 		6AD04B840F2D849E0089712B /* TopSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopSearchViewController.h; sourceTree = "<group>"; };
 		6AD04B850F2D849E0089712B /* TopSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopSearchViewController.m; sourceTree = "<group>"; };
 		6AD04B9E0F2D85AE0089712B /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchXML.h; sourceTree = "<group>"; };
@@ -372,8 +366,6 @@
 				6AC0D4090ECB4589009F6BBD /* CoreLocation.framework in Frameworks */,
 				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 				6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */,
-				6ACFCEAB0F7B220900A9C6D1 /* libAdMobDevice.a in Frameworks */,
-				6ACFCEAC0F7B220900A9C6D1 /* libAdMobSimulator.a in Frameworks */,
 				6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */,
 				6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */,
 			);
@@ -387,7 +379,6 @@
 			children = (
 				6ACF0ED50F8C6D3400568224 /* PinchMedia */,
 				6ACF0E6C0F8C41AC00568224 /* Google */,
-				6ACFCE980F7B21FD00A9C6D1 /* AdMob */,
 				6A36901E0EEEAF0A000C7A23 /* Reachability */,
 				6AD04B870F2D85780089712B /* TouchXML */,
 				6AC0D5F20ECCB9D9009F6BBD /* TouchJSON */,
@@ -719,17 +710,6 @@
 			name = PinchMedia;
 			sourceTree = "<group>";
 		};
-		6ACFCE980F7B21FD00A9C6D1 /* AdMob */ = {
-			isa = PBXGroup;
-			children = (
-				6ACFCEA80F7B220900A9C6D1 /* AdMobView.h */,
-				6ACFCEAA0F7B220900A9C6D1 /* AdMobDelegateProtocol.h */,
-				6ACFCEA70F7B220900A9C6D1 /* libAdMobDevice.a */,
-				6ACFCEA90F7B220900A9C6D1 /* libAdMobSimulator.a */,
-			);
-			name = AdMob;
-			sourceTree = "<group>";
-		};
 		6AD04B870F2D85780089712B /* TouchXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,7 +996,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
 		};
@@ -1061,7 +1041,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};
@@ -1079,7 +1059,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};
