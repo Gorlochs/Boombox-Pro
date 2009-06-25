@@ -126,6 +126,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (BOOL) isSongPlaying:(BlipSong*)song {
+    if (song == NULL || [song location] == NULL || streamer == NULL || ![streamer isPlaying]) {
+        return NO;
+    }
 	return [[song location] isEqualToString:[[streamer getUrl] absoluteString]];
 }
 

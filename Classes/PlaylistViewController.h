@@ -38,6 +38,5 @@
 - (IBAction)playSong:(id)sender;
 - (IBAction)displayPopularPlaylist;
 - (IBAction)displayMyPlaylist;
-- (void)refreshAd:(NSTimer *)timer;
 
 @end

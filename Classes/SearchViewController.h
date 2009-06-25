@@ -47,7 +47,6 @@
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)displayTopSearchesViewAction:(id)sender;
-- (void)refreshAd:(NSTimer *)timer;
 
 @end
 

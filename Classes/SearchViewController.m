@@ -101,6 +101,8 @@
     NSLog(@"google ad has loaded");
     
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
+    
+    [blipSearchBar becomeFirstResponder];
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -257,8 +259,8 @@ char *rand_str(char *dst) {
 	NSLog(@"theNodes: %@", theNodes);
 	
 	for (CXMLElement *theElement in theNodes) {
-		NSLog(@"song: %@", theElement);
-		NSLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
+//		NSLog(@"song: %@", theElement);
+//		NSLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
 		NSString *loc = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([[loc substringFromIndex:[loc length] - 4] isEqualToString:@".mp3"] && [[loc substringToIndex:7] isEqualToString:@"http://"]) {
             //if ([[theElement nodesForXPath:@"./location" error:NULL] count] > 0) {
@@ -267,6 +269,8 @@ char *rand_str(char *dst) {
 			tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
 			tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
+            
+            NSLog(@"song location: %@", tempSong.location);
 			[audioManager.songs addObject:tempSong];
 			[tempSong release];
 		}

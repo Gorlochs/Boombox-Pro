@@ -27,9 +27,10 @@
     return self;
 }
 
-- (NSString*)songLocation {
-	return [songLocation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
+//- (NSString*)songLocation {
+//    //NSLog(@"song location: %@", songLocation);
+//	return [song.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//}
 
 - (void)setCellData:(BlipSong*)mySong {
 	// this doesn't seem to work anywhere else, like initWithFrame :(
@@ -41,7 +42,8 @@
 	self.song = mySong;
 	artistLabel.text = [song.artist uppercaseString];
 	songTitleLabel.text = song.title;
-	songLocation = song.location;
+    [songLocation initWithString:song.location];
+    //songLocation = [NSString stringWithString:song.location];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
