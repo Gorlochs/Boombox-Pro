@@ -35,6 +35,10 @@
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
 		audioManager = [AudioManager sharedAudioManager];
+        adwords = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adwords.txt"] 
+                                           encoding:NSASCIIStringEncoding 
+                                              error:nil];
+        NSLog(@"adwords in the initWithNibName: %@", adwords);
 	}
 	return self;
 }
@@ -57,6 +61,7 @@
 	[currentLocation release];
 	[currentArtist release];
 	[currentElement release];
+    [adwords release];
 	
     [super dealloc];
 }
@@ -79,10 +84,15 @@
     // PLEASE DO NOT CLICK ON THE AD UNLESS YOU ARE IN TEST MODE. OTHERWISE, YOUR
     // ACCOUNT MAY BE DISABLED.
     // **************************************************************************
+    //NSLog(@"adwords from search view1: %@", adwords);
+    if (adwords == nil || [adwords isEqualToString:@""]) {
+        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
+    }
+    //NSLog(@"adwords from search view2: %@", adwords);
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                @"music+downloads,free+music,downloads,free+downloads", kGADAdSenseKeywords,
+                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
                                 [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
                                 nil];
@@ -103,6 +113,12 @@
         [blipSearchBar becomeFirstResponder];
     }
 }
+//- (void)adController:(GADAdViewController *)adController failedWithError:(NSError *)error {
+//    NSLog(@"ad controller error: %@", error);
+//}
+//- (void)adControllerDidFinishLoading:(GADAdViewController *)adController {
+//    NSLog(@"ad controller finished loading");
+//}
 -(void)reloadAd:(id)sender{
     NSLog(@"reload ad has been called");
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
@@ -266,7 +282,7 @@ char *rand_str(char *dst) {
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
 	audioManager.songs = [[NSMutableArray alloc] init];
-	NSLog(@"theNodes: %@", theNodes);
+	//NSLog(@"theNodes: %@", theNodes);
 	
 	for (CXMLElement *theElement in theNodes) {
 //		NSLog(@"song: %@", theElement);

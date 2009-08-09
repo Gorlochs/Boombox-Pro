@@ -41,6 +41,7 @@
     GADAdViewController *adViewController_;
 //    NSDictionary *attributes;
 //    NSNumber *channel;
+    NSString *adwords;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
