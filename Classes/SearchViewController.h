@@ -39,6 +39,8 @@
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
     
     GADAdViewController *adViewController_;
+//    NSDictionary *attributes;
+//    NSNumber *channel;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;

@@ -987,7 +987,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Bernard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shawn Bernard";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -995,7 +995,7 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
@@ -1031,7 +1031,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Bernard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shawn Bernard";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1040,7 +1040,7 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
@@ -1050,7 +1050,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Bernard";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shawn Bernard";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1058,7 +1058,7 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Release;

@@ -82,13 +82,9 @@
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
+                                @"music+downloads,free+music,downloads,free+downloads", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
                                 [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                @"333333", kGADAdSenseAdBackgroundColor,
-                                @"333333", kGADAdSenseAdBorderColor,
-                                @"CCCCCC", kGADAdSenseAdURLColor,
-                                @"6666BB", kGADAdSenseAdLinkColor,
                                 nil];
     [adViewController_ loadGoogleAd:attributes];
     
@@ -99,10 +95,24 @@
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
     NSLog(@"google ad has loaded");
-    
+    //[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(reloadAd:) userInfo:nil repeats:YES];
+
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
     
-    [blipSearchBar becomeFirstResponder];
+    if (blipSearchBar.text == nil || [blipSearchBar.text isEqualToString:@""]) {
+        [blipSearchBar becomeFirstResponder];
+    }
+}
+-(void)reloadAd:(id)sender{
+    NSLog(@"reload ad has been called");
+    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
+                                @"music,free+music,downloads,free+downloads", kGADAdSenseKeywords,
+                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
+                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
+                                nil];
+    [adViewController_ loadGoogleAd:attributes];
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {

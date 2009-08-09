@@ -56,10 +56,6 @@
                                 @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
                                 [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                @"333333", kGADAdSenseAdBackgroundColor,
-                                @"333333", kGADAdSenseAdBorderColor,
-                                @"CCCCCC", kGADAdSenseAdURLColor,
-                                @"6666BB", kGADAdSenseAdLinkColor,
                                 nil];
     [adViewController_ loadGoogleAd:attributes];
     

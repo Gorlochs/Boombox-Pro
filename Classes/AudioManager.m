@@ -37,17 +37,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (void) startStreamerWithSong:(BlipSong*)song {
 	
 	if ([self isConnectedToNetwork]) {
-		if (![self isConnectedToWifi]) {
-			NSLog(@"*** device is NOT connected to wifi ***");
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-															message:@"In order to play songs, please connect to a WiFi network. You may still search and add songs to your playlist."
-														   delegate:self 
-												  cancelButtonTitle:@"OK" 
-												  otherButtonTitles:nil];
-			[alert show];
-			[alert release];
-			return;
-		} else {
+//		if (![self isConnectedToWifi]) {
+//			NSLog(@"*** device is NOT connected to wifi ***");
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
+//															message:@"In order to play songs, please connect to a WiFi network. You may still search and add songs to your playlist."
+//														   delegate:self 
+//												  cancelButtonTitle:@"OK" 
+//												  otherButtonTitles:nil];
+//			[alert show];
+//			[alert release];
+//			return;
+//		} else {
 			// just in case a stream is playing, stop the stream before starting a new one
 			[streamer stop];
 			
@@ -67,7 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			
 			// start the network indicator
 			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-		}
+//		}
 		
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
