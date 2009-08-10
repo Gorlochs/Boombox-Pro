@@ -124,7 +124,7 @@
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                @"music,free+music,downloads,free+downloads", kGADAdSenseKeywords,
+                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
                                 [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
                                 nil];

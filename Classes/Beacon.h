@@ -1,5 +1,5 @@
 //
-//  Beacon.h r47
+//  Beacon.h r67
 //  Pinch Media Analytics Library
 //
 //  Created by Jesse Rohland on 4/6/08.

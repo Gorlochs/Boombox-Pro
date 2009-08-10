@@ -144,7 +144,6 @@
 		6AC523080F3FCD65000B3708 /* TopSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC523070F3FCD65000B3708 /* TopSearchCell.xib */; };
 		6AC5230C0F3FCD8D000B3708 /* TopSearchTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC5230B0F3FCD8D000B3708 /* TopSearchTableCellView.m */; };
 		6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */; };
-		6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */; };
 		6AD04B860F2D849E0089712B /* TopSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04B850F2D849E0089712B /* TopSearchViewController.m */; };
 		6AD04BAB0F2D85AE0089712B /* CXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA00F2D85AE0089712B /* CXMLDocument.m */; };
 		6AD04BAC0F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA20F2D85AE0089712B /* CXMLDocument_PrivateExtensions.m */; };
@@ -152,6 +151,8 @@
 		6AD04BAE0F2D85AE0089712B /* CXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA60F2D85AE0089712B /* CXMLNode.m */; };
 		6AD04BAF0F2D85AE0089712B /* CXMLNode_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BA80F2D85AE0089712B /* CXMLNode_PrivateExtensions.m */; };
 		6AD04BB00F2D85AE0089712B /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD04BAA0F2D85AE0089712B /* CXMLNode_XPathExtensions.m */; };
+		6AF4B289102F974D0026AE7D /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF4B288102F974D0026AE7D /* libGoogleAnalytics.a */; };
+		6AF4B28B102F9A2E0026AE7D /* libPMAnalytics-r67.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF4B28A102F9A2E0026AE7D /* libPMAnalytics-r67.a */; };
 		6AF4C7B20ED3B051002510B0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AF4C7B10ED3B051002510B0 /* Default.png */; };
 		C9C2D87A0EB6E09C00A3D071 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */; };
 		C9C2D8800EB6E0DB00A3D071 /* loadingbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C2D87D0EB6E0DB00A3D071 /* loadingbutton.png */; };
@@ -326,7 +327,6 @@
 		6ACF0E6E0F8C41D500568224 /* libGoogleAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAds.a; sourceTree = "<group>"; };
 		6ACF0ED60F8C6D5000568224 /* Beacon+FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Beacon+FBConnect.h"; sourceTree = "<group>"; };
 		6ACF0ED70F8C6D5000568224 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
-		6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPMAnalytics-r47.a"; sourceTree = "<group>"; };
 		6AD04B840F2D849E0089712B /* TopSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopSearchViewController.h; sourceTree = "<group>"; };
 		6AD04B850F2D849E0089712B /* TopSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopSearchViewController.m; sourceTree = "<group>"; };
 		6AD04B9E0F2D85AE0089712B /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchXML.h; sourceTree = "<group>"; };
@@ -342,6 +342,9 @@
 		6AD04BA80F2D85AE0089712B /* CXMLNode_PrivateExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode_PrivateExtensions.m; sourceTree = "<group>"; };
 		6AD04BA90F2D85AE0089712B /* CXMLNode_XPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXMLNode_XPathExtensions.h; sourceTree = "<group>"; };
 		6AD04BAA0F2D85AE0089712B /* CXMLNode_XPathExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXMLNode_XPathExtensions.m; sourceTree = "<group>"; };
+		6AF4B287102F974D0026AE7D /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
+		6AF4B288102F974D0026AE7D /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		6AF4B28A102F9A2E0026AE7D /* libPMAnalytics-r67.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPMAnalytics-r67.a"; sourceTree = "<group>"; };
 		6AF4C7B10ED3B051002510B0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2D8780EB6E09C00A3D071 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
@@ -367,7 +370,8 @@
 				6A3690F90EEEB262000C7A23 /* SystemConfiguration.framework in Frameworks */,
 				6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */,
 				6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */,
-				6ACF0ED90F8C6D5000568224 /* libPMAnalytics-r47.a in Frameworks */,
+				6AF4B289102F974D0026AE7D /* libGoogleAnalytics.a in Frameworks */,
+				6AF4B28B102F9A2E0026AE7D /* libPMAnalytics-r67.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +381,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6AF4B27C102F972B0026AE7D /* Google Analytics */,
 				6ACF0ED50F8C6D3400568224 /* PinchMedia */,
 				6ACF0E6C0F8C41AC00568224 /* Google */,
 				6A36901E0EEEAF0A000C7A23 /* Reachability */,
@@ -705,7 +710,7 @@
 			children = (
 				6ACF0ED60F8C6D5000568224 /* Beacon+FBConnect.h */,
 				6ACF0ED70F8C6D5000568224 /* Beacon.h */,
-				6ACF0ED80F8C6D5000568224 /* libPMAnalytics-r47.a */,
+				6AF4B28A102F9A2E0026AE7D /* libPMAnalytics-r67.a */,
 			);
 			name = PinchMedia;
 			sourceTree = "<group>";
@@ -728,6 +733,15 @@
 				6AD04BAA0F2D85AE0089712B /* CXMLNode_XPathExtensions.m */,
 			);
 			name = TouchXML;
+			sourceTree = "<group>";
+		};
+		6AF4B27C102F972B0026AE7D /* Google Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				6AF4B287102F974D0026AE7D /* GANTracker.h */,
+				6AF4B288102F974D0026AE7D /* libGoogleAnalytics.a */,
+			);
+			name = "Google Analytics";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
