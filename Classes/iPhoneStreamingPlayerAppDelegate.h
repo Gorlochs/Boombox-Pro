@@ -12,7 +12,7 @@
 #import "AudioManager.h"
 #import "Reachability.h"
 
-@class SearchViewController;
+@class SearchViewController, GANTracker;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     UIWindow *window;
@@ -22,11 +22,14 @@
 	AudioManager *audioManager;
 	
 	NetworkStatus remoteHostStatus;
+    
+    GANTracker *ga_;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 @property NetworkStatus remoteHostStatus;
+@property (nonatomic, retain) GANTracker *ga_;
 
 - (NSString*) getCountryCode;
 

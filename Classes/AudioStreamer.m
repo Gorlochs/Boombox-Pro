@@ -13,7 +13,7 @@
 
 #pragma mark CFReadStream Callback Function Prototypes
 
-void ReadStreamCallBack(
+void ASReadStreamCallBack(
 						CFReadStreamRef stream,
 						CFStreamEventType eventType,
 						void* dataIn);
@@ -381,7 +381,7 @@ void MyAudioSessionInterruptionListener(void *inClientData, UInt32 inInterruptio
 //
 // Invoked when an error occurs, the stream ends or we have data to read.
 //
-void ReadStreamCallBack
+void ASReadStreamCallBack
 (
  CFReadStreamRef stream,
  CFStreamEventType eventType,
@@ -633,7 +633,7 @@ void ReadStreamCallBack
 	CFReadStreamSetClient(
 						  stream,
 						  kCFStreamEventHasBytesAvailable | kCFStreamEventErrorOccurred | kCFStreamEventEndEncountered,
-						  ReadStreamCallBack,
+						  ASReadStreamCallBack,
 						  &context);
 	CFReadStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
 	

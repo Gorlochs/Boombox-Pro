@@ -14,6 +14,7 @@
 #import "SearchTableCellView.h"
 #import "TouchXML.h"
 #import "Beacon.h"
+#import "GANTracker.h"
 
 // Private interface - internal only methods.
 @interface SearchViewController (Private)
@@ -88,7 +89,7 @@
     if (adwords == nil || [adwords isEqualToString:@""]) {
         adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
     }
-    //NSLog(@"adwords from search view2: %@", adwords);
+    NSLog(@"adwords from search view: %@", adwords);
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
@@ -99,36 +100,23 @@
     [adViewController_ loadGoogleAd:attributes];
     
     // Position ad at bottom of screen
-    //CGRect bounds = [[UIScreen mainScreen] bounds];
     CGRect rect = adViewController_.view.frame;
     rect.origin = CGPointMake(80,250);
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
     NSLog(@"google ad has loaded");
-    //[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(reloadAd:) userInfo:nil repeats:YES];
 
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
     
     if (blipSearchBar.text == nil || [blipSearchBar.text isEqualToString:@""]) {
         [blipSearchBar becomeFirstResponder];
     }
-}
-//- (void)adController:(GADAdViewController *)adController failedWithError:(NSError *)error {
-//    NSLog(@"ad controller error: %@", error);
-//}
-//- (void)adControllerDidFinishLoading:(GADAdViewController *)adController {
-//    NSLog(@"ad controller finished loading");
-//}
--(void)reloadAd:(id)sender{
-    NSLog(@"reload ad has been called");
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
-                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                nil];
-    [adViewController_ loadGoogleAd:attributes];
+    
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    if (![appDelegate.ga_ trackPageview:@"/search" withError:&error]) {
+        // Handle error here
+    }
 }
 // -----------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
@@ -247,6 +235,15 @@ char *rand_str(char *dst) {
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	
+    NSError *error;
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.ga_ trackEvent:@"search"
+                  action:@"add_song_to_playlist"
+                   label:nil
+                   value:-1
+               withError:&error]) {
+        // Handle error here
+    }
 }
 // -----------------------------------------------------------------------------
 - (void)playSong:(id)sender {
@@ -369,6 +366,16 @@ char *rand_str(char *dst) {
 			}
 		}
         [[Beacon shared] startSubBeaconWithName:@"Search Played" timeSession:NO];
+        
+        NSError *error;
+        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+        if (![appDelegate.ga_ trackEvent:@"search"
+                      action:@"play_song"
+                       label:nil
+                       value:-1
+                   withError:&error]) {
+            // Handle error here
+        }
 	}
 }
 

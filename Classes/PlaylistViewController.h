@@ -26,6 +26,7 @@
 	AudioManager *audioManager;
     
     GADAdViewController *adViewController_;
+    NSString *adwords;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;

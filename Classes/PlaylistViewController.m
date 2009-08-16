@@ -11,6 +11,9 @@
 #import "SearchTableCellView.h"
 #import "BoomboxViewController.h"
 #import "Beacon.h"
+#import "iPhoneStreamingPlayerAppDelegate.h"
+#import "GANTracker.h"
+
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
@@ -28,6 +31,10 @@
 		NSLog(@"initializing audiomanager...");
 		audioManager = [AudioManager sharedAudioManager];
 		//[audioManager switchToPlaylistMode:mine];
+        adwords = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adwords.txt"] 
+                                           encoding:NSASCIIStringEncoding 
+                                              error:nil];
+        NSLog(@"adwords in the initWithNibName: %@", adwords);
 	}
 	return self;
 }
@@ -50,10 +57,13 @@
     adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
     adViewController_.adSize = kGADAdSize320x50;
     
+    if (adwords == nil || [adwords isEqualToString:@""]) {
+        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
+    }
     NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                @"free+music+mp3+download+streaming", kGADAdSenseKeywords,
+                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
                                 [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
                                 [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
                                 nil];
@@ -67,6 +77,12 @@
     [self.view addSubview:adViewController_.view];
     
     [[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
+    
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    if (![appDelegate.ga_ trackPageview:@"/playlist" withError:&error]) {
+        // Handle error here
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -186,6 +202,12 @@
 	popularPlaylistsButton.selected = NO;
 	[audioManager switchToPlaylistMode:mine];
 	[theTableView reloadData];
+    
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    if (![appDelegate.ga_ trackPageview:@"/playlist/my_playlist" withError:&error]) {
+        // Handle error here
+    }
 }
 
 - (void)displayPopularPlaylist {
@@ -194,6 +216,12 @@
 	[audioManager switchToPlaylistMode:popular];
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
+    
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    if (![appDelegate.ga_ trackPageview:@"/playlist/top_songs" withError:&error]) {
+        // Handle error here
+    }
 }
 
 - (void)addSongToPlaylist:(id)sender {
@@ -209,7 +237,16 @@
 	NSLog(@"adding song....");
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
-	
+    
+    NSError *error;
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    if (![appDelegate.ga_ trackEvent:@"playlist"
+                  action:@"add_song_to_playlist"
+                   label:nil
+                   value:-1
+               withError:&error]) {
+        // Handle error here
+    }
 }
 
 -(void)buySong:(id)sender {
@@ -351,6 +388,16 @@
             if (![cell.songLocation isEqualToString:[[audioManager currentSong] location]]) {
                 [self changeImageIcons:cell imageName:@"image-7.png"];
             }
+        }
+        
+        NSError *error;
+        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+        if (![appDelegate.ga_ trackEvent:@"playlist"
+              action:@"play_song"
+              label:nil
+              value:-1
+              withError:&error]) {
+            // Handle error here
         }
     }
 }

@@ -12,6 +12,7 @@
 #import "CJSONDeserializer.h"
 #import "BuyTableCellView.h"
 #import "Beacon.h"
+#import "GANTracker.h"
 
 @interface BuySongListViewController (Private)
 - (void)affiliateProgramUS:(NSDictionary*)obj;
@@ -45,6 +46,12 @@
     [super viewDidLoad];
 	
     [[Beacon shared] startSubBeaconWithName:@"Buy View" timeSession:NO];
+    
+    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    if (![appDelegate.ga_ trackPageview:@"/buy" withError:&error]) {
+        // Handle error here
+    }
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -113,7 +120,16 @@
 	NSLog(@"buy dictionary object: %@", obj);
 	
 	NSArray *europeanCountries = [NSArray arrayWithObjects:@"AD",@"AL",@"AT",@"BA",@"BE",@"BG",@"BY",@"CH",@"CY",@"CZ",@"DE",@"DK",@"EE",@"ES",@"FI",@"FO",@"FR",@"GB",@"GG",@"GI",@"GR",@"HR",@"HU",@"IE",@"IM",@"IS",@"IT",@"JE",@"LI",@"LT",@"LU",@"LV",@"MC",@"MD",@"MK",@"MT",@"NL",@"NO",@"PL",@"PT",@"RO",@"RU",@"SE",@"SI",@"SJ",@"SK",@"SM",@"TR",@"UA",@"UK",@"VA",@"YU",nil];
-
+    
+    NSError *error;
+    if (![appDelegate.ga_ trackEvent:@"buy"
+                  action:@"click_to_itunes"
+                   label:@"buy event"
+                   value:-1
+               withError:&error]) {
+        // Handle error here
+    }
+    
 	if ([europeanCountries containsObject:countryCode]) {
 		NSLog(@"European affiliate program");
 		[self affiliateProgramGB:obj];

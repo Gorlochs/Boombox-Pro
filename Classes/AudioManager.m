@@ -71,7 +71,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 		
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-														message:@"You are not connected to a network. Please connect to a WiFi network and then try to play the song again."
+														message:@"You are not connected to a network. Please connect to a network and then try to play the song again."
 													   delegate:self 
 											  cancelButtonTitle:@"OK" 
 											  otherButtonTitles:nil];
