@@ -67,7 +67,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     [Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
     
     // Google Analytics
-    ga_ = [[GANTracker alloc] initWithAccountID:@"UA-304406-11"
+    ga_ = [[GANTracker alloc] initWithAccountID:@"UA-304406-12"
                                  dispatchPeriod:kGANDispatchPeriodSec
                                        delegate:nil];
     
