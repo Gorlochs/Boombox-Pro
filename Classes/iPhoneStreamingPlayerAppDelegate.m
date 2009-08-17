@@ -72,7 +72,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
                                        delegate:nil];
     
     NSError *error;
-    if (![ga_ trackPageview:@"/app_entry_point" withError:&error]) {
+    if (![ga_ trackPageview:@"/startup" withError:&error]) {
         // Handle error here
     }
 }
