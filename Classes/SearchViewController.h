@@ -13,11 +13,11 @@
 #import "BuySongListViewController.h"
 #import "AudioManager.h"
 #import "TopSearchViewController.h"
-#import "GADAdViewController.h"
+#import "AbstractAdViewController.h"
 
 @class AudioStreamer, SearchTableCellView;
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, GADAdViewControllerDelegate>
+@interface SearchViewController : AbstractAdViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 {
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
@@ -25,7 +25,7 @@
 	BuySongListViewController *buySongListController;
 	TopSearchViewController *topSearchViewController;
 	
-	AudioManager *audioManager;
+//	AudioManager *audioManager;
 	
 	NSXMLParser *rssParser;
 	
@@ -37,11 +37,6 @@
 	// we use these to track each current item, until it's ready to be added to the "stories" array
 	NSString *currentElement;
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
-    
-    GADAdViewController *adViewController_;
-//    NSDictionary *attributes;
-//    NSNumber *channel;
-    NSString *adwords;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;

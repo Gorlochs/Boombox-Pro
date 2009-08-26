@@ -35,11 +35,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
-		audioManager = [AudioManager sharedAudioManager];
-        adwords = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adwords.txt"] 
-                                           encoding:NSASCIIStringEncoding 
-                                              error:nil];
-        NSLog(@"adwords in the initWithNibName: %@", adwords);
 	}
 	return self;
 }
@@ -72,39 +67,26 @@
 		blipSearchBar.text = audioManager.searchTerms;
 	}
     
-    adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
-    adViewController_.adSize = kGADAdSize320x50;
-    
-    // **************************************************************************
-    // Please replace the kGADAdSenseClientID, kGADAdSenseKeywords, and
-    // kGADAdSenseChannelIDs values with your own AdSense client ID, keywords,
-    // and channel IDs respectively. If this application has an associated
-    // iPhone Website, then set the site's URL using kGADAdSenseAppWebContentURL
-    // for improved ad targeting.
-    //
-    // PLEASE DO NOT CLICK ON THE AD UNLESS YOU ARE IN TEST MODE. OTHERWISE, YOUR
-    // ACCOUNT MAY BE DISABLED.
-    // **************************************************************************
-    //NSLog(@"adwords from search view1: %@", adwords);
-    if (adwords == nil || [adwords isEqualToString:@""]) {
-        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
+    NSInteger returnedValue = [self adToDisplay];
+    int rand = random() % 2;
+    switch (returnedValue) {
+        case 0:
+            [self createGoogleAd];
+            break;
+        case 1:
+            [self createMobclixAd];
+            break;
+        case 2:
+            if (rand == 0) {
+                [self createGoogleAd];
+            } else {
+                [self createMobclixAd];
+            }
+            break;
+        default:
+            [self createGoogleAd];
+            break;
     }
-    NSLog(@"adwords from search view: %@", adwords);
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
-                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                nil];
-    [adViewController_ loadGoogleAd:attributes];
-    
-    // Position ad at bottom of screen
-    CGRect rect = adViewController_.view.frame;
-    rect.origin = CGPointMake(80,250);
-    adViewController_.view.frame = rect;
-    [self.view addSubview:adViewController_.view];
-    NSLog(@"google ad has loaded");
 
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
     

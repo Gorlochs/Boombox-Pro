@@ -17,8 +17,10 @@
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
+
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName;
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell;
+
 @end
 
 @implementation PlaylistViewController
@@ -28,13 +30,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
-		NSLog(@"initializing audiomanager...");
-		audioManager = [AudioManager sharedAudioManager];
-		//[audioManager switchToPlaylistMode:mine];
-        adwords = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adwords.txt"] 
-                                           encoding:NSASCIIStringEncoding 
-                                              error:nil];
-        NSLog(@"adwords in the initWithNibName: %@", adwords);
 	}
 	return self;
 }
@@ -54,28 +49,27 @@
 		popularPlaylistsButton.selected = YES;
 	}
     
-    adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
-    adViewController_.adSize = kGADAdSize320x50;
-    
-    if (adwords == nil || [adwords isEqualToString:@""]) {
-        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
+    NSInteger returnedValue = [self adToDisplay];
+    int rand = random() % 2;
+    switch (returnedValue) {
+        case 0:
+            [self createGoogleAd];
+            break;
+        case 1:
+            [self createMobclixAd];
+            break;
+        case 2:
+            if (rand == 0) {
+                [self createGoogleAd];
+            } else {
+                [self createMobclixAd];
+            }
+            break;
+        default:
+            [self createGoogleAd];
+            break;
     }
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
-                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                nil];
-    [adViewController_ loadGoogleAd:attributes];
-    
-    // Position ad at bottom of screen
-    //CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGRect rect = adViewController_.view.frame;
-    rect.origin = CGPointMake(80,250);
-    adViewController_.view.frame = rect;
-    [self.view addSubview:adViewController_.view];
-    
+
     [[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
     
     iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -83,6 +77,7 @@
     if (![appDelegate.ga_ trackPageview:@"/playlist" withError:&error]) {
         // Handle error here
     }
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

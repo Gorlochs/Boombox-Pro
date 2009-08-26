@@ -11,6 +11,7 @@
 #import "AudioManager.h"
 #import "Beacon.h"
 #import "GANTracker.h"
+#import "Mobclix.h"
 
 //static sqlite3_stmt *insert_statement = nil;
 static const NSInteger kGANDispatchPeriodSec = 30;
@@ -34,6 +35,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 @synthesize viewController;
 @synthesize remoteHostStatus;
 @synthesize ga_;
+@synthesize adType;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
@@ -75,6 +77,11 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     if (![ga_ trackPageview:@"/startup" withError:&error]) {
         // Handle error here
     }
+    
+    // Mobclix
+    [Mobclix start];
+    
+    [self setAdTypeToDisplay];
 }
 
 - (NSString*)getCountryCode {
@@ -85,6 +92,24 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 		NSLog(@"country code: %@", code);
 	}
 	return code;
+}
+
+- (void) setAdTypeToDisplay {
+    NSString *result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adtype.txt"]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    switch ([result intValue]) {
+        case 0:
+            self.adType = GOOGLE_AD_DISPLAY;
+            break;
+        case 1:
+            self.adType =  MOBCLIX_AD_DISPLAY;
+            break;
+        case 2:
+            self.adType =  HALF_AND_HALF_AD_DISPLAY;
+            break;
+        default:
+            self.adType =  GOOGLE_AD_DISPLAY;
+            break;
+    }
 }
 
 - (void)reachabilityChanged:(NSNotification *)note {

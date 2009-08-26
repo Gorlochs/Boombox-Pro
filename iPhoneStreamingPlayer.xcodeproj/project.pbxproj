@@ -16,6 +16,11 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SearchViewController.m */; };
 		6A0B3B990F2EA6C2002EC9B2 /* TopSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A0B3B980F2EA6C2002EC9B2 /* TopSearchView.xib */; };
+		6A1552251041D601004CDBF1 /* Mobclix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A15521A1041D601004CDBF1 /* Mobclix.a */; };
+		6A1552261041D601004CDBF1 /* MobclixAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A15521D1041D601004CDBF1 /* MobclixAds.a */; };
+		6A1552271041D601004CDBF1 /* MobclixBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1552201041D601004CDBF1 /* MobclixBrowser.a */; };
+		6A1552281041D601004CDBF1 /* MobclixFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1552231041D601004CDBF1 /* MobclixFeedback.a */; };
+		6A1552C8104239BD004CDBF1 /* AbstractAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1552C6104239BD004CDBF1 /* AbstractAdViewController.m */; };
 		6A1F4B250F24DAC700211F79 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1F4B240F24DAC700211F79 /* CFNetwork.framework */; };
 		6A1F4B470F2512C700211F79 /* playlist_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F4B3E0F2512C700211F79 /* playlist_off.png */; };
 		6A1F4B480F2512C700211F79 /* playlist_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F4B3F0F2512C700211F79 /* playlist_on.png */; };
@@ -175,6 +180,16 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iPhoneStreamingPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayer_Prefix.pch; sourceTree = "<group>"; };
 		6A0B3B980F2EA6C2002EC9B2 /* TopSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopSearchView.xib; sourceTree = "<group>"; };
+		6A15521A1041D601004CDBF1 /* Mobclix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Mobclix.a; sourceTree = "<group>"; };
+		6A15521B1041D601004CDBF1 /* Mobclix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobclix.h; sourceTree = "<group>"; };
+		6A15521D1041D601004CDBF1 /* MobclixAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MobclixAds.a; sourceTree = "<group>"; };
+		6A15521E1041D601004CDBF1 /* MobclixAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixAds.h; sourceTree = "<group>"; };
+		6A1552201041D601004CDBF1 /* MobclixBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MobclixBrowser.a; sourceTree = "<group>"; };
+		6A1552211041D601004CDBF1 /* MobclixBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixBrowser.h; sourceTree = "<group>"; };
+		6A1552231041D601004CDBF1 /* MobclixFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MobclixFeedback.a; sourceTree = "<group>"; };
+		6A1552241041D601004CDBF1 /* MobclixFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobclixFeedback.h; sourceTree = "<group>"; };
+		6A1552C5104239BD004CDBF1 /* AbstractAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractAdViewController.h; sourceTree = "<group>"; };
+		6A1552C6104239BD004CDBF1 /* AbstractAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractAdViewController.m; sourceTree = "<group>"; };
 		6A1F4B240F24DAC700211F79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6A1F4B3E0F2512C700211F79 /* playlist_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playlist_off.png; sourceTree = "<group>"; };
 		6A1F4B3F0F2512C700211F79 /* playlist_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playlist_on.png; sourceTree = "<group>"; };
@@ -372,6 +387,10 @@
 				6ACF0E6F0F8C41D500568224 /* libGoogleAds.a in Frameworks */,
 				6AF4B289102F974D0026AE7D /* libGoogleAnalytics.a in Frameworks */,
 				6AF4B28B102F9A2E0026AE7D /* libPMAnalytics-r67.a in Frameworks */,
+				6A1552251041D601004CDBF1 /* Mobclix.a in Frameworks */,
+				6A1552261041D601004CDBF1 /* MobclixAds.a in Frameworks */,
+				6A1552271041D601004CDBF1 /* MobclixBrowser.a in Frameworks */,
+				6A1552281041D601004CDBF1 /* MobclixFeedback.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +400,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6A1552171041D5CD004CDBF1 /* MobClix */,
 				6AF4B27C102F972B0026AE7D /* Google Analytics */,
 				6ACF0ED50F8C6D3400568224 /* PinchMedia */,
 				6ACF0E6C0F8C41AC00568224 /* Google */,
@@ -462,6 +482,53 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A1552171041D5CD004CDBF1 /* MobClix */ = {
+			isa = PBXGroup;
+			children = (
+				6A1552191041D600004CDBF1 /* mobclix-core */,
+				6A15521C1041D601004CDBF1 /* plugin-advertising */,
+				6A15521F1041D601004CDBF1 /* plugin-browser */,
+				6A1552221041D601004CDBF1 /* plugin-feedback */,
+			);
+			name = MobClix;
+			sourceTree = "<group>";
+		};
+		6A1552191041D600004CDBF1 /* mobclix-core */ = {
+			isa = PBXGroup;
+			children = (
+				6A15521A1041D601004CDBF1 /* Mobclix.a */,
+				6A15521B1041D601004CDBF1 /* Mobclix.h */,
+			);
+			path = "mobclix-core";
+			sourceTree = "<group>";
+		};
+		6A15521C1041D601004CDBF1 /* plugin-advertising */ = {
+			isa = PBXGroup;
+			children = (
+				6A15521D1041D601004CDBF1 /* MobclixAds.a */,
+				6A15521E1041D601004CDBF1 /* MobclixAds.h */,
+			);
+			path = "plugin-advertising";
+			sourceTree = "<group>";
+		};
+		6A15521F1041D601004CDBF1 /* plugin-browser */ = {
+			isa = PBXGroup;
+			children = (
+				6A1552201041D601004CDBF1 /* MobclixBrowser.a */,
+				6A1552211041D601004CDBF1 /* MobclixBrowser.h */,
+			);
+			path = "plugin-browser";
+			sourceTree = "<group>";
+		};
+		6A1552221041D601004CDBF1 /* plugin-feedback */ = {
+			isa = PBXGroup;
+			children = (
+				6A1552231041D601004CDBF1 /* MobclixFeedback.a */,
+				6A1552241041D601004CDBF1 /* MobclixFeedback.h */,
+			);
+			path = "plugin-feedback";
 			sourceTree = "<group>";
 		};
 		6A36901E0EEEAF0A000C7A23 /* Reachability */ = {
@@ -588,6 +655,8 @@
 				6A68F92E0EDB38C7001D7787 /* SynthesizeSingleton.h */,
 				6A68F92F0EDB3908001D7787 /* AudioManager.h */,
 				6A68F9300EDB3908001D7787 /* AudioManager.m */,
+				6A1552C5104239BD004CDBF1 /* AbstractAdViewController.h */,
+				6A1552C6104239BD004CDBF1 /* AbstractAdViewController.m */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -936,6 +1005,7 @@
 				6AD04BAF0F2D85AE0089712B /* CXMLNode_PrivateExtensions.m in Sources */,
 				6AD04BB00F2D85AE0089712B /* CXMLNode_XPathExtensions.m in Sources */,
 				6AC5230C0F3FCD8D000B3708 /* TopSearchTableCellView.m in Sources */,
+				6A1552C8104239BD004CDBF1 /* AbstractAdViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,6 +1033,10 @@
 					"\"$(SRCROOT)/Classes\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
+					"\"$(SRCROOT)/Classes/mobclix-core\"",
+					"\"$(SRCROOT)/Classes/plugin-advertising\"",
+					"\"$(SRCROOT)/Classes/plugin-browser\"",
+					"\"$(SRCROOT)/Classes/plugin-feedback\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
@@ -989,6 +1063,10 @@
 					"\"$(SRCROOT)/Classes\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
+					"\"$(SRCROOT)/Classes/mobclix-core\"",
+					"\"$(SRCROOT)/Classes/plugin-advertising\"",
+					"\"$(SRCROOT)/Classes/plugin-browser\"",
+					"\"$(SRCROOT)/Classes/plugin-feedback\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
@@ -1033,6 +1111,10 @@
 					"\"$(SRCROOT)/Classes\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/ARM\"",
 					"\"$(SRCROOT)/Classes/mobclix.lib/X86\"",
+					"\"$(SRCROOT)/Classes/mobclix-core\"",
+					"\"$(SRCROOT)/Classes/plugin-advertising\"",
+					"\"$(SRCROOT)/Classes/plugin-browser\"",
+					"\"$(SRCROOT)/Classes/plugin-feedback\"",
 				);
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";

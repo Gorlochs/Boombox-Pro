@@ -12,9 +12,9 @@
 #import "SearchTableCellView.h"
 #import "AudioManager.h"
 #import "BuySongListViewController.h"
-#import "GADAdViewController.h"
+#import "AbstractAdViewController.h"
 
-@interface PlaylistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, GADAdViewControllerDelegate> {
+@interface PlaylistViewController : AbstractAdViewController <UITableViewDelegate, UITableViewDataSource> {
 	
 	UITableView *theTableView;
 	UIView *buttonView;
@@ -22,11 +22,6 @@
 	UIButton *popularPlaylistsButton;
 	SearchTableCellView *tableCell;
 	BuySongListViewController *buySongListController;
-	
-	AudioManager *audioManager;
-    
-    GADAdViewController *adViewController_;
-    NSString *adwords;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;

@@ -12,6 +12,10 @@
 #import "AudioManager.h"
 #import "Reachability.h"
 
+#define GOOGLE_AD_DISPLAY 0
+#define MOBCLIX_AD_DISPLAY 1
+#define HALF_AND_HALF_AD_DISPLAY 2
+
 @class SearchViewController, GANTracker;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
@@ -24,14 +28,18 @@
 	NetworkStatus remoteHostStatus;
     
     GANTracker *ga_;
+    
+    NSInteger adType;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 @property NetworkStatus remoteHostStatus;
 @property (nonatomic, retain) GANTracker *ga_;
+@property (nonatomic) NSInteger adType;
 
 - (NSString*) getCountryCode;
+- (void) setAdTypeToDisplay;
 
 @end
 
