@@ -49,7 +49,6 @@
 	[buySongListController release];
 	[topSearchViewController release];
 	[searchCell release];
-    [adViewController_ release];
 	
 	[rssParser release];
 	[item release];
@@ -57,7 +56,6 @@
 	[currentLocation release];
 	[currentArtist release];
 	[currentElement release];
-    [adwords release];
 	
     [super dealloc];
 }

@@ -68,12 +68,6 @@
 - (NSInteger) adToDisplay {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
     return appDelegate.adType;
-    
-//    NSString *returnedValue = [[NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adtype.txt"]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    if (returnedValue == nil || [returnedValue isEqualToString:@""]) {
-//        returnedValue == @"0";
-//    }
-//    return [returnedValue intValue];
 }
 
 
