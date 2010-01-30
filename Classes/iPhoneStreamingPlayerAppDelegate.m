@@ -86,7 +86,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 
 - (NSString*)getCountryCode {
 	NSLocale *locale = [NSLocale currentLocale];
-	NSString *code;
+	NSString *code = nil;
 	if (locale) {
 		code = [locale objectForKey:NSLocaleCountryCode];
 		NSLog(@"country code: %@", code);
