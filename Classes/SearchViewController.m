@@ -128,15 +128,7 @@ char *rand_str(char *dst) {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	// search blip.fm api for keywords
-	NSString *nonce = [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c", 
-                       (char)(65 + (arc4random() % 25)),
-                       (char)(65 + (arc4random() % 25)),
-                       (char)(48 + (arc4random() % 9)),
-                       (char)(65 + (arc4random() % 25)),
-                       (char)(65 + (arc4random() % 25)),
-                       (char)(65 + (arc4random() % 25)),
-                       (char)(48 + (arc4random() % 9)),
-                       (char)(65 + (arc4random() % 25))];
+	NSString *nonce = [AudioManager createNonce];
     
 	NSString *timestamp = [NSString stringWithFormat:@"%d", abs([[NSDate date] timeIntervalSince1970])];
 	NSLog(@"timestamp: %@", timestamp);	

@@ -229,4 +229,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	NSLog(@"AM insert result: %@", insertResult);
 }
 
++ (NSString*)createNonce {
+    return [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c", 
+            (char)(65 + (arc4random() % 25)),
+            (char)(65 + (arc4random() % 25)),
+            (char)(48 + (arc4random() % 9)),
+            (char)(65 + (arc4random() % 25)),
+            (char)(65 + (arc4random() % 25)),
+            (char)(65 + (arc4random() % 25)),
+            (char)(48 + (arc4random() % 9)),
+            (char)(65 + (arc4random() % 25))];
+}
+
 @end

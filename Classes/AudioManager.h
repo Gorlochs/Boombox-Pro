@@ -68,5 +68,6 @@ typedef enum {
 - (void)switchToPlaylistMode:(PlaylistMode*)pmode;
 - (PlaylistMode*)determinePlaylistMode;
 - (NSArray*)retrieveCurrentSongList;
++ (NSString*)createNonce;
 
 @end
