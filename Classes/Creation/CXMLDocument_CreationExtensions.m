@@ -1,8 +1,8 @@
 //
-//  CXMLNode_PrivateExtensions.h
+//  CXMLDocument_CreationExtensions.m
 //  TouchCode
 //
-//  Created by Jonathan Wight on 03/07/08.
+//  Created by Jonathan Wight on 11/11/08.
 //  Copyright 2008 toxicsoftware.com. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person
@@ -27,14 +27,27 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "CXMLNode.h"
+#import "CXMLDocument_CreationExtensions.h"
 
-@interface CXMLNode (CXMLNode_PrivateExtensions)
+#import "CXMLElement.h"
+#import "CXMLNode_PrivateExtensions.h"
+#import "CXMLDocument_PrivateExtensions.h"
 
-@property (readonly, nonatomic, assign) xmlNodePtr node;
+@implementation CXMLDocument (CXMLDocument_CreationExtensions)
 
-- (id)initWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
+- (void)insertChild:(CXMLNode *)child atIndex:(NSUInteger)index
+{
+[self.nodePool addObject:child];
 
-+ (id)nodeWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
+CXMLNode *theCurrentNode = [self.children objectAtIndex:index];
+xmlAddPrevSibling(theCurrentNode->_node, child->_node);
+}
+
+- (void)addChild:(CXMLNode *)child
+{
+[self.nodePool addObject:child];
+
+xmlAddChild(self->_node, child->_node);
+}
 
 @end

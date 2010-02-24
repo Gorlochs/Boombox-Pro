@@ -1,9 +1,30 @@
 //
 //  CXMLNode.m
-//  TouchXML
+//  TouchCode
 //
 //  Created by Jonathan Wight on 03/07/08.
-//  Copyright 2008 Toxic Software. All rights reserved.
+//  Copyright 2008 toxicsoftware.com. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person
+//  obtaining a copy of this software and associated documentation
+//  files (the "Software"), to deal in the Software without
+//  restriction, including without limitation the rights to use,
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the
+//  Software is furnished to do so, subject to the following
+//  conditions:
+//
+//  The above copyright notice and this permission notice shall be
+//  included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+//  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+//  OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "CXMLNode.h"
@@ -29,15 +50,25 @@ if (_node)
 [super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone;
+{
+xmlNodePtr theNewNode = xmlCopyNode(_node, 1);
+CXMLNode *theNode = [[[self class] alloc] initWithLibXMLNode:theNewNode];
+theNewNode->_private = theNode;
+return(theNode);
+}
+
+#pragma mark -
+
 - (CXMLNodeKind)kind
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 return(_node->type); // TODO this isn't 100% accurate!
 }
 
 - (NSString *)name
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 // TODO use xmlCheckUTF8 to check name
 if (_node->name == NULL)
 	return(NULL);
@@ -47,19 +78,25 @@ else
 
 - (NSString *)stringValue
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 xmlChar *theXMLString;
-if ( _node->type == CXMLTextKind ) 
+BOOL theFreeReminderFlag = NO;
+if (_node->type == XML_TEXT_NODE || _node->type == XML_CDATA_SECTION_NODE) 
 	theXMLString = _node->content;
 else
+	{
 	theXMLString = xmlNodeListGetString(_node->doc, _node->children, YES);
+	theFreeReminderFlag = YES;
+	}
 
 NSString *theStringValue = NULL;
 if (theXMLString != NULL)
 	{
 	theStringValue = [NSString stringWithUTF8String:(const char *)theXMLString];
-	if ( _node->type != CXMLTextKind )
+	if (theFreeReminderFlag == YES)
+		{
 		xmlFree(theXMLString);
+		}
 	}
 
 return(theStringValue);
@@ -67,7 +104,7 @@ return(theStringValue);
 
 - (NSUInteger)index
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 xmlNodePtr theCurrentNode = _node->prev;
 NSUInteger N;
@@ -78,7 +115,7 @@ return(N);
 
 - (NSUInteger)level
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 xmlNodePtr theCurrentNode = _node->parent;
 NSUInteger N;
@@ -89,14 +126,14 @@ return(N);
 
 - (CXMLDocument *)rootDocument
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 return(_node->doc->_private);
 }
 
 - (CXMLNode *)parent
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 if (_node->parent == NULL)
 	return(NULL);
@@ -106,7 +143,7 @@ else
 
 - (NSUInteger)childCount
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 xmlNodePtr theCurrentNode = _node->children;
 NSUInteger N;
@@ -117,7 +154,7 @@ return(N);
 
 - (NSArray *)children
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 NSMutableArray *theChildren = [NSMutableArray array];
 xmlNodePtr theCurrentNode = _node->children;
@@ -132,7 +169,7 @@ return(theChildren);
 
 - (CXMLNode *)childAtIndex:(NSUInteger)index
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 xmlNodePtr theCurrentNode = _node->children;
 NSUInteger N;
@@ -145,7 +182,7 @@ return(NULL);
 
 - (CXMLNode *)previousSibling
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 if (_node->prev == NULL)
 	return(NULL);
@@ -155,7 +192,7 @@ else
 
 - (CXMLNode *)nextSibling
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 if (_node->next == NULL)
 	return(NULL);
@@ -166,29 +203,54 @@ else
 //- (CXMLNode *)previousNode;
 //- (CXMLNode *)nextNode;
 //- (NSString *)XPath;
-//- (NSString *)localName;
-//- (NSString *)prefix;
-//- (NSString *)URI;
+
+- (NSString *)localName
+{
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
+// TODO use xmlCheckUTF8 to check name
+if (_node->name == NULL)
+	return(NULL);
+else
+	return([NSString stringWithUTF8String:(const char *)_node->name]); // TODO this is the same as name. What's up with thaat?
+}
+
+- (NSString *)prefix
+{
+if (_node->ns)
+	return([NSString stringWithUTF8String:(const char *)_node->ns->prefix]);
+else
+	return(NULL);
+}
+
+- (NSString *)URI
+{
+if (_node->ns)
+	return([NSString stringWithUTF8String:(const char *)_node->ns->href]);
+else
+	return(NULL);
+}
+
 //+ (NSString *)localNameForName:(NSString *)name;
 //+ (NSString *)prefixForName:(NSString *)name;
 //+ (CXMLNode *)predefinedNamespaceForPrefix:(NSString *)name;
 
 - (NSString *)description
 {
-NSAssert(_node != NULL, @"TODO");
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
-	return([NSString stringWithFormat:@"<%@ %p [%p] %@ %@>", NSStringFromClass([self class]), self, self->_node, [self name], [self XMLStringWithOptions:0]]);
+return([NSString stringWithFormat:@"<%@ %p [%p] %@ %@>", NSStringFromClass([self class]), self, self->_node, [self name], [self XMLStringWithOptions:0]]);
 }
 
 - (NSString *)XMLString
 {
-return [self XMLStringWithOptions:0];
+return([self XMLStringWithOptions:0]);
 }
-
 
 - (NSString*)_XMLStringWithOptions:(NSUInteger)options appendingToString:(NSMutableString*)str
 {
-id value;
+#pragma unused (options)
+
+id value = NULL;
 switch([self kind])
 	{
 	case CXMLAttributeKind:
@@ -217,12 +279,13 @@ return [self _XMLStringWithOptions:options appendingToString:[NSMutableString st
 
 - (NSArray *)nodesForXPath:(NSString *)xpath error:(NSError **)error
 {
-NSAssert(_node != NULL, @"TODO");
+#pragma unused (error)
+
+NSAssert(_node != NULL, @"CXMLNode does not have attached libxml2 _node.");
 
 NSArray *theResult = NULL;
 
-CXMLNode *theRootDocument = [self rootDocument];
-xmlXPathContextPtr theXPathContext = xmlXPathNewContext((xmlDocPtr)theRootDocument->_node);
+xmlXPathContextPtr theXPathContext = xmlXPathNewContext(_node->doc);
 theXPathContext->node = _node;
 
 // TODO considering putting xmlChar <-> UTF8 into a NSString category

@@ -226,7 +226,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	
 	NSLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
-	NSLog(@"insert result: %@", insertResult);
+	NSLog(@"AM insert result: %@", insertResult);
 }
 
 @end

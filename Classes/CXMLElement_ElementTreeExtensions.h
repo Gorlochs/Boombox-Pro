@@ -1,8 +1,8 @@
 //
-//  CXMLNode_PrivateExtensions.h
+//  CXMLElement_ElementTreeExtensions.h
 //  TouchCode
 //
-//  Created by Jonathan Wight on 03/07/08.
+//  Created by Jonathan Wight on 11/14/08.
 //  Copyright 2008 toxicsoftware.com. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person
@@ -27,14 +27,11 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "CXMLNode.h"
+#import "CXMLElement.h"
 
-@interface CXMLNode (CXMLNode_PrivateExtensions)
 
-@property (readonly, nonatomic, assign) xmlNodePtr node;
+@interface CXMLElement (CXMLElement_ElementTreeExtensions)
 
-- (id)initWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
-
-+ (id)nodeWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
+- (CXMLElement *)subelement:(NSString *)inName;
 
 @end

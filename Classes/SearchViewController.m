@@ -30,7 +30,6 @@
 @synthesize theTableView;
 @synthesize searchCell;
 
-// -----------------------------------------------------------------------------
 #pragma mark setup & tear down
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -38,11 +37,18 @@
 	}
 	return self;
 }
-// -----------------------------------------------------------------------------
+
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
-// -----------------------------------------------------------------------------
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    NSLog(@"******************************************************");
+    NSLog(@"******************* MEMORY WARNING!!! ****************");
+    NSLog(@"******************************************************");
+    [super didReceiveMemoryWarning];
+}
 - (void)dealloc {
 	[theTableView release];
 	[blipSearchBar release];
@@ -59,7 +65,7 @@
 	
     [super dealloc];
 }
-// -----------------------------------------------------------------------------
+
 - (void)viewDidLoad {
 	if (audioManager.searchTerms != nil) {
 		blipSearchBar.text = audioManager.searchTerms;
@@ -67,24 +73,24 @@
     
     NSInteger returnedValue = [self adToDisplay];
     int rand = random() % 2;
-    switch (returnedValue) {
-        case 0:
-            [self createGoogleAd];
-            break;
-        case 1:
-            [self createMobclixAd];
-            break;
-        case 2:
-            if (rand == 0) {
-                [self createGoogleAd];
-            } else {
-                [self createMobclixAd];
-            }
-            break;
-        default:
-            [self createGoogleAd];
-            break;
-    }
+//    switch (returnedValue) {
+//        case 0:
+//            [self createGoogleAd];
+//            break;
+//        case 1:
+//            [self createMobclixAd];
+//            break;
+//        case 2:
+//            if (rand == 0) {
+//                [self createGoogleAd];
+//            } else {
+//                [self createMobclixAd];
+//            }
+//            break;
+//        default:
+//            [self createGoogleAd];
+//            break;
+//    }
 
     [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
     
@@ -98,11 +104,11 @@
         // Handle error here
     }
 }
-// -----------------------------------------------------------------------------
+
 - (BOOL)textFieldShouldReturn:(UITextField *)sender {
 	return NO;
 }
-// -----------------------------------------------------------------------------
+
 char *rand_str(char *dst) {
 	static const char text[] = "abcdefghijklmnopqrstuvwxyz"
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -115,18 +121,23 @@ char *rand_str(char *dst) {
 	dst[i] = '\0';
 	return dst;
 }
-// -----------------------------------------------------------------------------
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	NSLog(@"search button has been clicked!");
 	// display activity
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	// search blip.fm api for keywords
-	char mytext[8];
-	srand(time(0));
-	puts(rand_str(mytext));
-	
-	NSString *nonce = [NSString stringWithCString:mytext];
+	NSString *nonce = [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c", 
+                       (char)(65 + (arc4random() % 25)),
+                       (char)(65 + (arc4random() % 25)),
+                       (char)(48 + (arc4random() % 9)),
+                       (char)(65 + (arc4random() % 25)),
+                       (char)(65 + (arc4random() % 25)),
+                       (char)(65 + (arc4random() % 25)),
+                       (char)(48 + (arc4random() % 9)),
+                       (char)(65 + (arc4random() % 25))];
+    
 	NSString *timestamp = [NSString stringWithFormat:@"%d", abs([[NSDate date] timeIntervalSince1970])];
 	NSLog(@"timestamp: %@", timestamp);	
 
@@ -151,7 +162,7 @@ char *rand_str(char *dst) {
 	
 	NSLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
-	NSLog(@"insert result: %@", insertResult);
+	NSLog(@"SVC insert result: %@", insertResult);
 }
 #pragma mark UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -164,6 +175,7 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"loading table cell: %d", indexPath.row);
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
 	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -254,7 +266,7 @@ char *rand_str(char *dst) {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSError *theError = NULL;
 	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:URL] options:0 error:&theError] autorelease];
-	NSLog(@"finished getting the search songs xml doc");
+	//NSLog(@"finished getting the search songs xml doc: %@", theXMLDocument);
 	NSArray *theNodes = NULL;
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
@@ -289,6 +301,7 @@ char *rand_str(char *dst) {
 		[alert release];
 		NSLog(@"TouchXML error");
 	} else {
+        NSLog(@"table about to reload");
 		[theTableView reloadData];
 		if ([[theTableView visibleCells] count] > 0) {
 			unsigned indexes[2] = {0,0};

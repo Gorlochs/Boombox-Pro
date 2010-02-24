@@ -1,8 +1,8 @@
 //
-//  CXMLNode_PrivateExtensions.h
+//  CXMLElement_CreationExtensions.m
 //  TouchCode
 //
-//  Created by Jonathan Wight on 03/07/08.
+//  Created by Jonathan Wight on 04/01/08.
 //  Copyright 2008 toxicsoftware.com. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person
@@ -27,14 +27,29 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "CXMLNode.h"
+#import "CXMLElement_CreationExtensions.h"
 
-@interface CXMLNode (CXMLNode_PrivateExtensions)
+@implementation CXMLElement (CXMLElement_CreationExtensions)
 
-@property (readonly, nonatomic, assign) xmlNodePtr node;
+- (void)addChild:(CXMLNode *)inNode
+{
+NSAssert(inNode->_node->doc == NULL, @"Cannot addChild with a node that already is part of a document. Copy it first!");
+NSAssert(self->_node != NULL, @"_node should not be null");
+NSAssert(inNode->_node != NULL, @"_node should not be null");
+xmlAddChild(self->_node, inNode->_node);
+}
 
-- (id)initWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
+- (void)addNamespace:(CXMLNode *)inNamespace
+{
+xmlSetNs(self->_node, (xmlNsPtr)inNamespace->_node);
+}
 
-+ (id)nodeWithLibXMLNode:(xmlNodePtr)inLibXMLNode;
+- (void)setStringValue:(NSString *)inStringValue
+{
+NSAssert(inStringValue != NULL, @"CXMLElement setStringValue should not be null");
+xmlNodePtr theContentNode = xmlNewText((const xmlChar *)[inStringValue UTF8String]);
+NSAssert(self->_node != NULL, @"_node should not be null");
+xmlAddChild(self->_node, theContentNode);
+}
 
 @end
