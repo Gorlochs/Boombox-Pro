@@ -37,37 +37,25 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (void) startStreamerWithSong:(BlipSong*)song {
 	
 	if ([self isConnectedToNetwork]) {
-//		if (![self isConnectedToWifi]) {
-//			NSLog(@"*** device is NOT connected to wifi ***");
-//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
-//															message:@"In order to play songs, please connect to a WiFi network. You may still search and add songs to your playlist."
-//														   delegate:self 
-//												  cancelButtonTitle:@"OK" 
-//												  otherButtonTitles:nil];
-//			[alert show];
-//			[alert release];
-//			return;
-//		} else {
-			// just in case a stream is playing, stop the stream before starting a new one
-			[streamer stop];
-			
-			// start the stream
-			NSURL *url = [NSURL URLWithString:[[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-			streamer = [[AudioStreamer alloc] initWithURL:url];
-			[streamer start];
-			
-			// insert song into DB
-			[self insertSongIntoDB:song];
-			
-			// set currentSong
-			self.currentSong = song;
-			
-			// set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
-			self.songIndexOfPlaylistCurrentlyPlaying = -1;
-			
-			// start the network indicator
-			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//		}
+        [streamer stop];
+        
+        // start the stream
+        NSString *trimmed = [[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSURL *url = [NSURL URLWithString:[trimmed stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        streamer = [[AudioStreamer alloc] initWithURL:url];
+        [streamer start];
+        
+        // insert song into DB
+        [self insertSongIntoDB:song];
+        
+        // set currentSong
+        self.currentSong = song;
+        
+        // set currently playing song to -1 (if this is a playlist song, the playlist function will set it correctly)
+        self.songIndexOfPlaylistCurrentlyPlaying = -1;
+        
+        // start the network indicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 		
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox" 
