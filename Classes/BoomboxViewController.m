@@ -135,23 +135,23 @@
 
 #pragma mark Button functions
 
-- (IBAction)displaySearchViewAction:(id)sender {
+- (void)displaySearchViewAction:(id)sender {
 	searchViewController = [[SearchViewController alloc] initWithNibName:@"iPhoneStreamingPlayerViewController" bundle:nil];
 	[self presentModalViewController:searchViewController animated:YES];
 }
 
-- (IBAction)displayPlaylistViewAction:(id)sender {
+- (void)displayPlaylistViewAction:(id)sender {
 	playlistController = [[PlaylistViewController alloc] initWithNibName:@"PlaylistView" bundle:nil];
 	[self presentModalViewController:playlistController animated:YES];
 }
 
-- (IBAction)displayBuyViewAction:(id)sender {
+- (void)displayBuyViewAction:(id)sender {
 	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" bundle:nil valueToSearchItunesStore:self.songLabel.text];
 	[self presentModalViewController:buySongListController animated:YES];	
 }
 
 // plays the first song in the user's Playlist
-- (IBAction)playAction:(id)sender {
+- (void)playAction:(id)sender {
 	NSLog(@"play button clicked");
     if (![audioManager.streamer isPlaying]) {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
@@ -170,9 +170,9 @@
     }
 }
 
-- (IBAction)stopStream {
-	[audioManager stopStreamer];
+- (void) stopStream {
 	[self stopStreamCleanup];
+	[audioManager stopStreamer];
 }
 
 
@@ -180,7 +180,7 @@
 // I really wanted to put the functions in AudioManager where they belong and make these functions
 // into simple delgating methods, but no luck.  There was something weird about stopping and starting
 // the stream with different urls.
-- (IBAction)playNextSongInPlaylist {
+- (void)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1 && [audioManager.streamer isPlaying]) {
 		NSLog(@"moving to the next song...");
         [[Beacon shared] startSubBeaconWithName:@"Next Song" timeSession:NO];
@@ -203,13 +203,13 @@
 		
 		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
         
-        NSError *error;
+        NSError *error = nil;
         iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
         if (![appDelegate.ga_ trackEvent:@"boombox"
-              action:@"play_next_song"
-              label:nil
-              value:-1
-              withError:&error]) {
+                                  action:@"play_next_song"
+                                   label:nil
+                                   value:-1
+                               withError:&error]) {
             // Handle error here
         }
 	} else {
@@ -217,7 +217,7 @@
 	}
 }
 
-- (IBAction)playPreviousSongInPlaylist {
+- (void)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		NSLog(@"moving to the previous song...");
@@ -336,15 +336,14 @@
 
 - (void) stopStreamCleanup {
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
-	[leftSpeakerView.layer removeAnimationForKey:@"leftSpeakerAnimation"];
-	[rightSpeakerView.layer removeAnimationForKey:@"rightSpeakerAnimation"];
-	[equalizerView.layer removeAnimationForKey:@"equalizerAnimation"];
+	[leftSpeakerView.layer removeAllAnimations];
+	[rightSpeakerView.layer removeAllAnimations];
+	[equalizerView.layer removeAllAnimations];
 	songLabel.text = @"";
 }
 
 # pragma mark Equalizer Animation
-- (CAKeyframeAnimation*)imagesAnimation;
-{
+- (CAKeyframeAnimation*)imagesAnimation {
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
     [anim setDuration:5.0];
 //    if( !images ) {        
@@ -358,6 +357,7 @@
         [anim setRepeatCount:1e100f];
 		
         [anim setValues:images];
+    [images release];
 		NSLog(@"images added for animation");
 //    }
     return anim;

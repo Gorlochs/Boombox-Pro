@@ -114,10 +114,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (BOOL) isSongPlaying:(BlipSong*)song {
-    if (song == NULL || [song location] == NULL || streamer == NULL || ![streamer isPlaying]) {
+    if (song == nil || [song location] == nil || streamer == nil || ![streamer isPlaying]) {
         return NO;
     }
-	return [[song location] isEqualToString:[[streamer getUrl] absoluteString]];
+    NSLog(@"song location: %@", song.location);
+    NSLog(@"streamer url: %@", [[streamer getUrl] absoluteString]);
+    NSLog(@"decoded url: %@", [[[streamer getUrl] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    return [[song location] isEqualToString:[[[streamer getUrl] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] && [streamer isPlaying];
 }
 
 // only used for cell network song limitations
@@ -213,7 +216,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 											 [appDelegate getCountryCode]]];
 	
 	NSLog(@"insert url: %@", insertUrl);
-	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl encoding:NSUTF8StringEncoding error:nil];
 	NSLog(@"AM insert result: %@", insertResult);
 }
 

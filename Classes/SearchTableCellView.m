@@ -27,11 +27,6 @@
     return self;
 }
 
-//- (NSString*)songLocation {
-//    //NSLog(@"song location: %@", songLocation);
-//	return [song.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//}
-
 - (void)setCellData:(BlipSong*)mySong {
 	// this doesn't seem to work anywhere else, like initWithFrame :(
 	[songTitleLabel setHighlightedTextColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
@@ -41,9 +36,8 @@
 	
 	self.song = mySong;
 	artistLabel.text = [song.artist uppercaseString];
+    songLocation = [NSString stringWithString:song.location];
 	songTitleLabel.text = song.title;
-    [songLocation initWithString:song.location];
-    //songLocation = [NSString stringWithString:song.location];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

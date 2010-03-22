@@ -16,6 +16,8 @@
 #import "Beacon.h"
 #import "GANTracker.h"
 
+#define MAX_FAIL_COUNT 3
+
 // Private interface - internal only methods.
 @interface SearchViewController (Private)
 - (void)changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName;
@@ -71,8 +73,8 @@
 		blipSearchBar.text = audioManager.searchTerms;
 	}
     
-    NSInteger returnedValue = [self adToDisplay];
-    int rand = random() % 2;
+//    NSInteger returnedValue = [self adToDisplay];
+//    int rand = random() % 2;
 //    switch (returnedValue) {
 //        case 0:
 //            [self createGoogleAd];
@@ -153,7 +155,7 @@ char *rand_str(char *dst) {
 											 [appDelegate getCountryCode]]];
 	
 	NSLog(@"insert url: %@", insertUrl);
-	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl];
+	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl encoding:NSUTF8StringEncoding error:nil];
 	NSLog(@"SVC insert result: %@", insertResult);
 }
 #pragma mark UITableViewDataSource
@@ -274,11 +276,14 @@ char *rand_str(char *dst) {
 			BlipSong *tempSong = [[BlipSong alloc] init];
 			tempSong.title = [[[theElement nodesForXPath:@"./title" error:NULL] objectAtIndex:0] stringValue];
 			tempSong.artist = [[[theElement nodesForXPath:@"./artist" error:NULL] objectAtIndex:0] stringValue];
+            tempSong.failCount = [[[[theElement nodesForXPath:@"./failCount" error:NULL] objectAtIndex:0] stringValue] intValue]; 
 			tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
             
             NSLog(@"song location: %@", tempSong.location);
-			[audioManager.songs addObject:tempSong];
+            if (tempSong.failCount <= MAX_FAIL_COUNT) {
+                [audioManager.songs addObject:tempSong];
+            }
 			[tempSong release];
 		}
 	}
@@ -317,7 +322,7 @@ char *rand_str(char *dst) {
 #pragma mark private functions
 - (void) changeImageIcons:(SearchTableCellView*)cell imageName:(NSString*)imageName {
 	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-	[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+	//[cell.playButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
 - (void) playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex {

@@ -17,12 +17,14 @@
 	NSString *title;
 	NSString *location;
 	NSString *artist;
+    NSInteger failCount;
 }
 
 @property (nonatomic, assign, readonly) NSInteger songId;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *location;
 @property (nonatomic, retain) NSString *artist;
+@property (nonatomic, assign) NSInteger failCount;
 
 - (id)initWithPrimaryKey:(NSInteger)pk database:(sqlite3 *)db;
 - (void)insertIntoDatabase:(sqlite3 *)db;

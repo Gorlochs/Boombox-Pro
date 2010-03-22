@@ -20,6 +20,7 @@ static sqlite3_stmt *dehydrate_statement = nil;
 @synthesize title;
 @synthesize location;
 @synthesize artist;
+@synthesize failCount;
 
 - (NSString*)constructTitleArtist {
 	return [NSString stringWithFormat:@"%@ - %@", [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], [artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];

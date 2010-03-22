@@ -95,7 +95,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 }
 
 - (void) setAdTypeToDisplay {
-    NSString *result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adtype.txt"]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/adtype.txt"] encoding:NSUTF8StringEncoding error:nil] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     switch ([result intValue]) {
         case 0:
             self.adType = GOOGLE_AD_DISPLAY;
@@ -152,7 +152,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 
 - (void) checkForEmergencyMessage {
 	
-	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.1.1.3.emergency.message"]];
+	NSString *emergencyMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/messages/boombox.1.1.3.emergency.message"] encoding:NSUTF8StringEncoding error:nil];
 	if (emergencyMessage != nil && ![emergencyMessage isEqualToString:@""]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Boombox Message" 
 														message:emergencyMessage
