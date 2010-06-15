@@ -89,7 +89,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 	NSString *code = nil;
 	if (locale) {
 		code = [locale objectForKey:NSLocaleCountryCode];
-		NSLog(@"country code: %@", code);
+		DLog(@"country code: %@", code);
 	}
 	return code;
 }
@@ -113,14 +113,14 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 }
 
 - (void)reachabilityChanged:(NSNotification *)note {
-	NSLog(@"update status called...");
+	DLog(@"update status called...");
     [self updateStatus];
 }
 
 - (void)updateStatus {
 	// Query the SystemConfiguration framework for the state of the device's network connections.
 	self.remoteHostStatus = [[Reachability sharedReachability] remoteHostStatus];
-	NSLog(@"remote host status (0 = unreachable; 1 = cell network, 2 = wifi): %d", self.remoteHostStatus);
+	DLog(@"remote host status (0 = unreachable; 1 = cell network, 2 = wifi): %d", self.remoteHostStatus);
 	
 	switch (self.remoteHostStatus) {
 		case NotReachable: {
@@ -185,7 +185,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *emergencyMessage = [NSString stringWithString:@"http://tinyurl.com/cvl4c6"];
     if (buttonIndex == 1) {
-        NSLog(@"custom button has been clicked");
+        DLog(@"custom button has been clicked");
         [[Beacon shared] startSubBeaconWithName:@"Upgrade Clicked" timeSession:NO];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emergencyMessage]];
     }
@@ -221,11 +221,11 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"boombox.sql"];
     success = [fileManager fileExistsAtPath:writableDBPath];
-	NSLog(@"writableDBPath: %@", writableDBPath);
+	DLog(@"writableDBPath: %@", writableDBPath);
     if (success) return;
     // The writable database does not exist, so copy the default to the appropriate location.
     NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"boombox.sql"];
-	NSLog(@"default db path: %@", defaultDBPath);
+	DLog(@"default db path: %@", defaultDBPath);
     success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
     if (!success) {
         NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
@@ -234,7 +234,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 
 // Open the database connection and retrieve minimal information for all objects.
 - (void)initializeDatabase {
-	NSLog(@"initializing database...");
+	DLog(@"initializing database...");
     NSMutableArray *songz = [[NSMutableArray alloc] init];
     audioManager.playlist = songz;
     [songz release];
@@ -242,12 +242,12 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"boombox.sql"];
-	NSLog(@"db path: %@", path);
+	DLog(@"db path: %@", path);
 	
 	
     // Open the database. The database was prepared outside the application.
     if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
-		NSLog(@"sqlite db found...");
+		DLog(@"sqlite db found...");
         // Get the primary key for all songs.
 		
 		// FIRST TABLE INITIALIZATION
@@ -256,7 +256,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
         // Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
         // The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
         if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-			NSLog(@"statement prepared...");
+			DLog(@"statement prepared...");
             // We "step" through the results - once for each row.
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 // The second parameter indicates the column index into the result set.
@@ -268,11 +268,11 @@ static const NSInteger kGANDispatchPeriodSec = 30;
                 // retained by the books array.
 				BlipSong *song = [[BlipSong alloc] initWithPrimaryKey:primaryKey database:database];
                 [audioManager.playlist addObject:song];
-				NSLog(@"initialized playlist from the database: %@", audioManager.playlist);
+				DLog(@"initialized playlist from the database: %@", audioManager.playlist);
                 [song release];
             }
         } else {
-			NSLog(@"something went wrong. statement: %@", statement);
+			DLog(@"something went wrong. statement: %@", statement);
 		}
 
 		
@@ -297,10 +297,10 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 	if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
 		int success = sqlite3_step(statement);
 		if (success) {
-			NSLog(@"delete executed...");
+			DLog(@"delete executed...");
 		} 
 	} else {
-		NSLog(@"something went wrong. statement: %@", statement);
+		DLog(@"something went wrong. statement: %@", statement);
 	}
 	// "Finalize" the statement - releases the resources associated with the statement.
 	sqlite3_finalize(statement);

@@ -21,11 +21,11 @@
                                                   error:nil];
         }
         @catch (NSException * e) {
-            NSLog(@"error retrieving adwords");
+            DLog(@"error retrieving adwords");
             adwords = @"";
         }
         
-        NSLog(@"adwords in the initWithNibName: %@", adwords);
+        DLog(@"adwords in the initWithNibName: %@", adwords);
 	}
 	return self;
 }

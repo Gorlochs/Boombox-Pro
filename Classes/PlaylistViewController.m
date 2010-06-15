@@ -121,7 +121,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	//NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
+	//DLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
 	if ([audioManager determinePlaylistMode] == mine) {
 		return [audioManager.playlist count];		
 	} else {
@@ -224,12 +224,12 @@
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	BlipSong *songToAdd = [cell song];
 	if (audioManager.playlist == nil) {
-		NSLog(@"playlist is nil");
+		DLog(@"playlist is nil");
 		NSMutableArray *arr = [[NSMutableArray alloc] init];
 		audioManager.playlist = arr;
 		[arr release];
 	}
-	NSLog(@"adding song....");
+	DLog(@"adding song....");
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
     
@@ -248,7 +248,7 @@
 	UIButton *senderButton = (UIButton*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	BlipSong *song = [cell song];
-	NSLog(@"song to buy: %@", song.title);
+	DLog(@"song to buy: %@", song.title);
 	
 	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" 
 																		bundle:nil 
@@ -265,7 +265,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-	NSLog(@"moving row from index %d to index %d", fromIndexPath.row, toIndexPath.row);
+	DLog(@"moving row from index %d to index %d", fromIndexPath.row, toIndexPath.row);
 	// change the order of the playlist array
 	BlipSong *movedSong = [audioManager.playlist objectAtIndex:fromIndexPath.row];
 	NSMutableArray *tmpArray = [NSMutableArray arrayWithCapacity:[audioManager.playlist count]];
@@ -357,7 +357,7 @@
             [audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
         }
         @catch (NSException * e) {
-            NSLog(@"****** exception removing observer ****", e);
+            DLog(@"****** exception removing observer ****", e);
         }
     }
     if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay && [audioManager streamer]) {

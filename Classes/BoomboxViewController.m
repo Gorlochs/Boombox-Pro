@@ -152,11 +152,11 @@
 
 // plays the first song in the user's Playlist
 - (void)playAction:(id)sender {
-	NSLog(@"play button clicked");
+	DLog(@"play button clicked");
     if (![audioManager.streamer isPlaying]) {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
         if ([[audioManager retrieveCurrentSongList] count] > 0) {
-            NSLog(@"play button clicked, and playlist exists, so play the first song");
+            DLog(@"play button clicked, and playlist exists, so play the first song");
             [audioManager startStreamerWithPlaylistIndex:0];
             [audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
             songLabel.text = [audioManager.currentSong constructTitleArtist];
@@ -182,7 +182,7 @@
 // the stream with different urls.
 - (void)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1 && [audioManager.streamer isPlaying]) {
-		NSLog(@"moving to the next song...");
+		DLog(@"moving to the next song...");
         [[Beacon shared] startSubBeaconWithName:@"Next Song" timeSession:NO];
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		if ([[audioManager streamer] isPlaying]) {
@@ -190,7 +190,7 @@
 				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 			}
 			@catch (NSException * e) {
-				NSLog(@"****** exception removing observer ****", e);
+				DLog(@"****** exception removing observer ****", e);
 			}
 		}
 		[self stopStreamCleanup];
@@ -213,21 +213,21 @@
             // Handle error here
         }
 	} else {
-		NSLog(@"sorry, no next song in the playlist, so nothing will happen");
+		DLog(@"sorry, no next song in the playlist, so nothing will happen");
 	}
 }
 
 - (void)playPreviousSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
-		NSLog(@"moving to the previous song...");
+		DLog(@"moving to the previous song...");
         [[Beacon shared] startSubBeaconWithName:@"Previous Song" timeSession:NO];
 		if ([[audioManager streamer] isPlaying]) {
 			@try {
 				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
 			}
 			@catch (NSException * e) {
-				NSLog(@"****** exception removing observer ****", e);
+				DLog(@"****** exception removing observer ****", e);
 			}
 		}
 		
@@ -250,7 +250,7 @@
             // Handle error here
         }
 	} else {
-		NSLog(@"sorry, no previous song in the playlist, so nothing will happen");
+		DLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
 }
 
@@ -280,14 +280,14 @@
 			
 			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
 			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
-				NSLog(@"currently playing > -1");
+				DLog(@"currently playing > -1");
 				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
-					NSLog(@"another song detected - getting ready to play!");
+					DLog(@"another song detected - getting ready to play!");
 					// start streamer for next song
 					[audioManager playNextSongInPlaylist];
 					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
 					[audioManager.streamer addObserver:playlistController forKeyPath:@"isPlaying" options:0 context:nil];
-					NSLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
+					DLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
 					BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
 					songLabel.text = [nextSong constructTitleArtist];
                     
@@ -301,13 +301,13 @@
                         // Handle error here
                     }
 				} else {
-					NSLog(@"last song, nothing else left to play");
+					DLog(@"last song, nothing else left to play");
 					// allow streamer to stop and reset index
 					[audioManager stopStreamer];
 					[self stopStreamCleanup];
 				}
 			} else {
-				NSLog(@"no more songs.  cleanup");
+				DLog(@"no more songs.  cleanup");
 				[self stopStreamCleanup];
 			}
 		}
@@ -358,7 +358,7 @@
 		
         [anim setValues:images];
     [images release];
-		NSLog(@"images added for animation");
+		DLog(@"images added for animation");
 //    }
     return anim;
 }

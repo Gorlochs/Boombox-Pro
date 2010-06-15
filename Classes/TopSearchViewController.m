@@ -9,6 +9,7 @@
 #import "TopSearchViewController.h"
 #import "TouchXML.h"
 #import "SearchViewController.h"
+#import "iPhoneStreamingPlayerAppDelegate.h"
 
 @implementation TopSearchViewController
 
@@ -30,7 +31,7 @@
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSError *theError = NULL;
 	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/cache/topsearches.xml"] options:0 error:&theError] autorelease];
-	NSLog(@"finished getting the xml doc");
+	DLog(@"finished getting the xml doc");
 	NSArray *theNodes = NULL;
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//searches/search" error:&theError];
@@ -64,7 +65,7 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	//NSLog(@"number of rows returned: %d", [audioManager.songs count]);
+	//DLog(@"number of rows returned: %d", [audioManager.songs count]);
 	return [topSearches count];	
 }
 

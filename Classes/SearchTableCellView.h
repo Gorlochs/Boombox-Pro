@@ -24,7 +24,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *playButton;
 @property (nonatomic, retain) IBOutlet UIButton *addToPlaylistButton;
 @property (nonatomic, retain) IBOutlet UIButton *buyButton;
-@property (nonatomic, retain) NSString *songLocation;
+@property (nonatomic) NSString *songLocation;
 @property (nonatomic, retain) BlipSong *song;
 
 - (void)setCellData:(BlipSong*)song;

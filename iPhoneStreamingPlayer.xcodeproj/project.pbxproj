@@ -1080,8 +1080,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shawn Bernard (6MN36SS56H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shawn Bernard (6MN36SS56H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Winiecki (73XW6X7UZD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adam Winiecki (73XW6X7UZD)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1101,8 +1101,8 @@
 					"\"$(SRCROOT)/Classes/plugin-feedback\"",
 				);
 				PRODUCT_NAME = Boombox;
-				PROVISIONING_PROFILE = "7C29CE78-4C19-4BCF-A7E6-E1BE7236E0A8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7C29CE78-4C19-4BCF-A7E6-E1BE7236E0A8";
+				PROVISIONING_PROFILE = "3D142FD2-6B40-4C6E-89CE-1543502B328D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3D142FD2-6B40-4C6E-89CE-1543502B328D";
 			};
 			name = Release;
 		};

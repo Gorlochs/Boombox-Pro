@@ -36,7 +36,7 @@
 	
 	self.song = mySong;
 	artistLabel.text = [song.artist uppercaseString];
-    songLocation = [NSString stringWithString:song.location];
+  songLocation = [NSString stringWithString:song.location];
 	songTitleLabel.text = song.title;
 }
 
@@ -53,7 +53,6 @@
 	[playButton release];
 	[addToPlaylistButton release];
 	[buyButton release];
-	[songLocation release];
 	[song release];
 	
     [super dealloc];

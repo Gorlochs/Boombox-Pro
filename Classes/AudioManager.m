@@ -72,9 +72,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	// find song to play
 	BlipSong *songToPlay = [[self retrieveCurrentSongList] objectAtIndex:playListIndex];
 
-//	NSLog(@"checking song url");
+//	DLog(@"checking song url");
 //	NSURL *tmpurl = [NSURL URLWithString:songToPlay.location];
-//	NSLog(@"tmpurl: %@", tmpurl);
+//	DLog(@"tmpurl: %@", tmpurl);
 //	if (tmpurl == nil || tmpurl == NULL) {
 //		[self playNextSongInPlaylist];
 //	}
@@ -87,7 +87,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	
 	// set currently playing index correctly
 	self.songIndexOfPlaylistCurrentlyPlaying = playListIndex;
-	NSLog(@"AudioManager: current song index playing is: %d", self.songIndexOfPlaylistCurrentlyPlaying);
+	DLog(@"AudioManager: current song index playing is: %d", self.songIndexOfPlaylistCurrentlyPlaying);
 }
 
 - (void) playNextSongInPlaylist {
@@ -99,7 +99,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 }
 
 - (void) stopStreamer {
-	NSLog(@"AudioManager.stopStreamer is being called.  songIndex is being set to -1");
+	DLog(@"AudioManager.stopStreamer is being called.  songIndex is being set to -1");
 	// if streamer is stopped, then reset the currently playing index
 	songIndexOfPlaylistCurrentlyPlaying = -1;
 
@@ -117,9 +117,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
     if (song == nil || [song location] == nil || streamer == nil || ![streamer isPlaying]) {
         return NO;
     }
-    NSLog(@"song location: %@", song.location);
-    NSLog(@"streamer url: %@", [[streamer getUrl] absoluteString]);
-    NSLog(@"decoded url: %@", [[[streamer getUrl] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    DLog(@"song location: %@", song.location);
+    DLog(@"streamer url: %@", [[streamer getUrl] absoluteString]);
+    DLog(@"decoded url: %@", [[[streamer getUrl] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     return [[song location] isEqualToString:[[[streamer getUrl] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] && [streamer isPlaying];
 }
 
@@ -128,7 +128,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	if (appDelegate.remoteHostStatus == ReachableViaCarrierDataNetwork) {
 		self.numberOfSongsPlayedTodayOnCellNetwork++;
-		NSLog(@"songs played on cell network today: %d", self.numberOfSongsPlayedTodayOnCellNetwork);
+		DLog(@"songs played on cell network today: %d", self.numberOfSongsPlayedTodayOnCellNetwork);
 	}
 }
 
@@ -172,16 +172,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSError *theError = NULL;
 	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://www.literalshore.com/gorloch/blip/cache/topsongs.xml"] options:0 error:&theError] autorelease];
-	NSLog(@"finished getting the topsongs xml doc");
+	DLog(@"finished getting the topsongs xml doc");
 	NSArray *theNodes = NULL;
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//songs/song" error:&theError];
 	topSongs = [[NSMutableArray alloc] initWithCapacity:20];
 	for (CXMLElement *theElement in theNodes) {
-		NSLog(@"song: %@", theElement);
+		DLog(@"song: %@", theElement);
 		
 		NSURL *tmpurl = [NSURL URLWithString:[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue]];
-		NSLog(@"tmpurl: %@", tmpurl);
+		DLog(@"tmpurl: %@", tmpurl);
 		if (tmpurl != NULL) {
 			BlipSong *tempSong = [[BlipSong alloc] init];
 			tempSong.title = [[[theElement nodesForXPath:@"./song_name" error:NULL] objectAtIndex:0] stringValue];
@@ -192,7 +192,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 			[tempSong release];
 		}
 	}
-	NSLog(@"top songs: %@", topSongs);
+	DLog(@"top songs: %@", topSongs);
 	//[theTableView reloadData];
 	[pool release];
 }
@@ -215,9 +215,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 											 [[songToInsert.location stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
 											 [appDelegate getCountryCode]]];
 	
-	NSLog(@"insert url: %@", insertUrl);
+	DLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl encoding:NSUTF8StringEncoding error:nil];
-	NSLog(@"AM insert result: %@", insertResult);
+	DLog(@"AM insert result: %@", insertResult);
 }
 
 + (NSString*)createNonce {

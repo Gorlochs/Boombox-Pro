@@ -46,9 +46,9 @@
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
-    NSLog(@"******************************************************");
-    NSLog(@"******************* MEMORY WARNING!!! ****************");
-    NSLog(@"******************************************************");
+    DLog(@"******************************************************");
+    DLog(@"******************* MEMORY WARNING!!! ****************");
+    DLog(@"******************************************************");
     [super didReceiveMemoryWarning];
 }
 - (void)dealloc {
@@ -125,7 +125,7 @@ char *rand_str(char *dst) {
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"search button has been clicked!");
+	DLog(@"search button has been clicked!");
 	// display activity
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
@@ -133,12 +133,12 @@ char *rand_str(char *dst) {
 	NSString *nonce = [AudioManager createNonce];
     
 	NSString *timestamp = [NSString stringWithFormat:@"%d", abs([[NSDate date] timeIntervalSince1970])];
-	NSLog(@"timestamp: %@", timestamp);	
+	DLog(@"timestamp: %@", timestamp);	
 
 	// retrieve the hash from the php page
 	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/search-1.1.1.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	//NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSLog(@"final url: %@", tempurl);
+	DLog(@"final url: %@", tempurl);
 	[self parseTouchXMLFileAtURL:tempurl];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[self insertSearchIntoDB:searchBar.text];
@@ -154,9 +154,9 @@ char *rand_str(char *dst) {
 											 [[searchTerms stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
 											 [appDelegate getCountryCode]]];
 	
-	NSLog(@"insert url: %@", insertUrl);
+	DLog(@"insert url: %@", insertUrl);
 	NSString *insertResult = [NSString stringWithContentsOfURL:insertUrl encoding:NSUTF8StringEncoding error:nil];
-	NSLog(@"SVC insert result: %@", insertResult);
+	DLog(@"SVC insert result: %@", insertResult);
 }
 #pragma mark UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -164,12 +164,12 @@ char *rand_str(char *dst) {
 }
 // -----------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSLog(@"number of rows returned: %d", [audioManager.songs count]);
+	DLog(@"number of rows returned: %d", [audioManager.songs count]);
 	return [audioManager.songs count];	
 }
 // -----------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"loading table cell: %d", indexPath.row);
+    DLog(@"loading table cell: %d", indexPath.row);
 	static NSString *MyIdentifier = @"MyIdentifier";
 	
 	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -212,12 +212,12 @@ char *rand_str(char *dst) {
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	BlipSong *songToAdd = [cell song];
 	if (audioManager.playlist == nil) {
-		NSLog(@"playlist is nil");
+		DLog(@"playlist is nil");
 		NSMutableArray *arr = [[NSMutableArray alloc] init];
 		audioManager.playlist = arr;
 		[arr release];
 	}
-	NSLog(@"adding song....");
+	DLog(@"adding song....");
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	
@@ -247,7 +247,7 @@ char *rand_str(char *dst) {
 -(void)buySong:(id)sender {
 	UIButton *senderButton = (UIButton*) sender;
 	BlipSong *songToSearch = [audioManager.songs objectAtIndex:senderButton.tag];
-	NSLog(@"song to search on: %@", songToSearch);
+	DLog(@"song to search on: %@", songToSearch);
 	
 	buySongListController = [[BuySongListViewController alloc] initWithNibName:@"BuySongListView" 
 																		bundle:nil 
@@ -260,16 +260,16 @@ char *rand_str(char *dst) {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSError *theError = NULL;
 	CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:URL] options:0 error:&theError] autorelease];
-	//NSLog(@"finished getting the search songs xml doc: %@", theXMLDocument);
+	//DLog(@"finished getting the search songs xml doc: %@", theXMLDocument);
 	NSArray *theNodes = NULL;
 	
 	theNodes = [theXMLDocument nodesForXPath:@"//BlipApiResponse/result/collection/Song" error:&theError];
 	audioManager.songs = [[NSMutableArray alloc] init];
-	//NSLog(@"theNodes: %@", theNodes);
+	//DLog(@"theNodes: %@", theNodes);
 	
 	for (CXMLElement *theElement in theNodes) {
-//		NSLog(@"song: %@", theElement);
-//		NSLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
+//		DLog(@"song: %@", theElement);
+//		DLog(@"song location: %@", [theElement nodesForXPath:@"./location" error:NULL]);
 		NSString *loc = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([[loc substringFromIndex:[loc length] - 4] isEqualToString:@".mp3"] && [[loc substringToIndex:7] isEqualToString:@"http://"]) {
             //if ([[theElement nodesForXPath:@"./location" error:NULL] count] > 0) {
@@ -280,7 +280,7 @@ char *rand_str(char *dst) {
 			tempSong.location = [[[[theElement nodesForXPath:@"./location" error:NULL] objectAtIndex:0] stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			//theNodes = [theElement nodesForXPath:@"./song_name" error:NULL];
             
-            NSLog(@"song location: %@", tempSong.location);
+            DLog(@"song location: %@", tempSong.location);
             if (tempSong.failCount <= MAX_FAIL_COUNT) {
                 [audioManager.songs addObject:tempSong];
             }
@@ -296,9 +296,9 @@ char *rand_str(char *dst) {
 											  otherButtonTitles:nil];
 		[alert show];
 		[alert release];
-		NSLog(@"TouchXML error");
+		DLog(@"TouchXML error");
 	} else {
-        NSLog(@"table about to reload");
+        DLog(@"table about to reload");
 		[theTableView reloadData];
 		if ([[theTableView visibleCells] count] > 0) {
 			unsigned indexes[2] = {0,0};
@@ -333,7 +333,7 @@ char *rand_str(char *dst) {
 				[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
 			}
 			@catch (NSException * e) {
-				NSLog(@"****** exception removing observer ****", e);
+				DLog(@"****** exception removing observer ****", e);
 			}
 		}
 		[audioManager stopStreamer];

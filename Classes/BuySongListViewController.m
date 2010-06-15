@@ -88,9 +88,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	//iPhoneStreamingPlayerAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-	//NSLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
+	//DLog(@"inside playlist table. playlist: %@", appDelegate.playlist);
     //return [appDelegate.playlist count];
-	NSLog(@"total row count: %d", [searchResults count]);
+	DLog(@"total row count: %d", [searchResults count]);
 	return [searchResults count];
 }
 
@@ -117,7 +117,7 @@
 	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 	NSString *countryCode = [appDelegate getCountryCode];	
 	NSDictionary *obj = [self.searchResults objectAtIndex:indexPath.row];
-	NSLog(@"buy dictionary object: %@", obj);
+	DLog(@"buy dictionary object: %@", obj);
 	
 	NSArray *europeanCountries = [NSArray arrayWithObjects:@"AD",@"AL",@"AT",@"BA",@"BE",@"BG",@"BY",@"CH",@"CY",@"CZ",@"DE",@"DK",@"EE",@"ES",@"FI",@"FO",@"FR",@"GB",@"GG",@"GI",@"GR",@"HR",@"HU",@"IE",@"IM",@"IS",@"IT",@"JE",@"LI",@"LT",@"LU",@"LV",@"MC",@"MD",@"MK",@"MT",@"NL",@"NO",@"PL",@"PT",@"RO",@"RU",@"SE",@"SI",@"SJ",@"SK",@"SM",@"TR",@"UA",@"UK",@"VA",@"YU",nil];
     
@@ -131,36 +131,36 @@
     }
     
 	if ([europeanCountries containsObject:countryCode]) {
-		NSLog(@"European affiliate program");
+		DLog(@"European affiliate program");
 		[self affiliateProgramGB:obj];
 	} else if ([countryCode isEqualToString:@"AU"]) {
-		NSLog(@"Australian affiliate program");
+		DLog(@"Australian affiliate program");
 		[self affiliateProgramAU:obj];
 	} else {
-		NSLog(@"US affiliate program");
+		DLog(@"US affiliate program");
 		[self affiliateProgramUS:obj];
 	}
 }
 
 - (void)affiliateProgramUS:(NSDictionary*)obj {
 	NSString *trackViewUrl = [obj objectForKey:@"trackViewUrl"];
-	NSLog(@"track to buy link: %@", trackViewUrl);
+	DLog(@"track to buy link: %@", trackViewUrl);
 	NSString *affiliateLinkBuilder = [NSString stringWithFormat:@"http://feed.linksynergy.com/createcustomlink.shtml?token=70e56c6252f8c5cc06a3fca6586cf5f4fe767f998a9a2ac06727a0c29b1de3c8&mid=13508&murl=%@", trackViewUrl];
-	NSLog(@"link builder link: %@", affiliateLinkBuilder);
+	DLog(@"link builder link: %@", affiliateLinkBuilder);
 	NSString *affiliateLink = [NSString stringWithContentsOfURL:[NSURL URLWithString:affiliateLinkBuilder] encoding:NSUTF8StringEncoding error:nil];
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]]; 
 	} else {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]];
 	}
-	NSLog(@"affiliate link: %@", affiliateLink);
+	DLog(@"affiliate link: %@", affiliateLink);
 	
 }
 
 - (void)affiliateProgramAU:(NSDictionary*)obj {
 	NSString *baseLink = [[[obj objectForKey:@"trackViewUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingString:@"%26partnerId%3D2003"];
 	NSString *affiliateLink = [@"http://www.s2d6.com/x/?x=c&z=s&v=1541356&t=" stringByAppendingString:baseLink];
-	NSLog(@"Australia affiliate link: %@", affiliateLink);
+	DLog(@"Australia affiliate link: %@", affiliateLink);
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
@@ -171,7 +171,7 @@
 - (void)affiliateProgramGB:(NSDictionary*)obj {	
 	NSString *baseLink = [[[obj objectForKey:@"trackViewUrl"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingString:@"%26partnerId%3D2003"];
 	NSString *affiliateLink = [@"http://clk.tradedoubler.com/click?p=23708&a=1607228&url=" stringByAppendingString:baseLink];
-	NSLog(@"United Kingdom affiliate link: %@", affiliateLink);
+	DLog(@"United Kingdom affiliate link: %@", affiliateLink);
 	if (affiliateLink) {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:affiliateLink]]; 
 	} else {
@@ -183,17 +183,17 @@
 
 - (void) getItunesSearchResults {
 	NSString *termsToSearchOn = [self.searchValueForItunesStore stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-	NSLog(@"termstosearchon: %@", termsToSearchOn);
+	DLog(@"termstosearchon: %@", termsToSearchOn);
 	NSString *searchResultInJSON = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStoreServices.woa/wa/wsSearch?term=%@", termsToSearchOn]] encoding:NSUTF8StringEncoding error:nil] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	//NSLog(searchResultInJSON);
+	//DLog(searchResultInJSON);
 	NSData *jsonData = [searchResultInJSON dataUsingEncoding:NSUTF32BigEndianStringEncoding];
 	NSError *error = nil;
 	NSDictionary *dictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
 	if (error) {
-		NSLog(@"error with JSON conversion: %@", error);
+		DLog(@"error with JSON conversion: %@", error);
 	}
 //	for (id key in dictionary) {
-//		NSLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
+//		DLog(@"key: %@, value: %@", key, [dictionary objectForKey:key]);
 //	}
 	self.searchResults = (NSMutableArray*) [dictionary objectForKey:@"results"];
 	if ([self.searchResults count] == 0) {
