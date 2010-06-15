@@ -16,8 +16,6 @@
 #define MOBCLIX_AD_DISPLAY 1
 #define HALF_AND_HALF_AD_DISPLAY 2
 
-#define DEBUG
-
 #ifdef DEBUG
 #   define DLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else

@@ -38,7 +38,6 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 @synthesize adType;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
 	audioManager = [AudioManager sharedAudioManager];
 	
     [self createEditableCopyOfDatabaseIfNeeded];
