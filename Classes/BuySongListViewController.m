@@ -11,7 +11,7 @@
 #import "BoomboxViewController.h"
 #import "CJSONDeserializer.h"
 #import "BuyTableCellView.h"
-#import "Beacon.h"
+//#import "Beacon.h"
 #import "GANTracker.h"
 
 @interface BuySongListViewController (Private)
@@ -45,7 +45,7 @@
 	[self getItunesSearchResults];
     [super viewDidLoad];
 	
-    [[Beacon shared] startSubBeaconWithName:@"Buy View" timeSession:NO];
+    //[[Beacon shared] startSubBeaconWithName:@"Buy View" timeSession:NO];
     
     iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
     NSError *error;

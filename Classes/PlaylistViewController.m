@@ -10,10 +10,34 @@
 #import "BlipSong.h"
 #import "SearchTableCellView.h"
 #import "BoomboxViewController.h"
-#import "Beacon.h"
+//#import "Beacon.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "GANTracker.h"
 
+/*
+Setting and Getting the Delegate
+
+    *   delegate  property
+
+Configuring the Advertising Shown in a Banner View
+
+    *   advertisingSection  property
+    *   requiredContentSizeIdentifiers  property
+
+Resizing a Banner View
+
+    *   currentContentSizeIdentifier  property
+    * + sizeFromBannerContentSizeIdentifier:
+
+Determining If a Banner View Is Showing an Advertisement
+
+    *   bannerLoaded  property
+
+Banner Actions
+
+    *   bannerViewActionInProgress  property
+    * – cancelBannerViewAction
+*/    
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
@@ -56,13 +80,13 @@
             [self createGoogleAd];
             break;
         case 1:
-            [self createMobclixAd];
+            //[self createMobclixAd];
             break;
         case 2:
             if (rand == 0) {
                 [self createGoogleAd];
             } else {
-                [self createMobclixAd];
+                //[self createMobclixAd];
             }
             break;
         default:
@@ -70,7 +94,7 @@
             break;
     }
 
-    [[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
+    //[[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
     
     iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
     NSError *error;
@@ -185,7 +209,7 @@
 	UIButton *senderButton = (UIButton*) sender;
 	SearchTableCellView *cell = ((SearchTableCellView*) [[senderButton superview] superview]);
 	[self playOrStopSong:senderButton.tag targetCell:cell];
-    [[Beacon shared] startSubBeaconWithName:@"Playlist Play" timeSession:NO];
+    //[[Beacon shared] startSubBeaconWithName:@"Playlist Play" timeSession:NO];
 }
 
 - (void)removeModalView:(id)sender {

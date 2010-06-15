@@ -30,7 +30,7 @@
 //  report user demographics.
 
 
-#import "Beacon.h"
+//#import "Beacon.h"
 #import "FBConnect/FBSession.h"
 
 @interface Beacon (Facebook)

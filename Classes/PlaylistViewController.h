@@ -9,23 +9,23 @@
 #define AD_REFRESH_PERIOD 60.0 // display fresh ads once per minute
 
 #import <UIKit/UIKit.h>
+#import <iAd/iAd.h>
 #import "SearchTableCellView.h"
 #import "AudioManager.h"
 #import "BuySongListViewController.h"
 #import "AbstractAdViewController.h"
 
 @interface PlaylistViewController : AbstractAdViewController <UITableViewDelegate, UITableViewDataSource> {
-	
 	UITableView *theTableView;
 	UIView *buttonView;
 	UIButton *myPlaylistButton;
 	UIButton *popularPlaylistsButton;
 	SearchTableCellView *tableCell;
 	BuySongListViewController *buySongListController;
-//  ADBannerView *adView;
+  ADBannerView *adView;
 }
 
-//@property (nonatomic, retain) IBOutlet ADBannerView *adView;
+@property (nonatomic, retain) IBOutlet ADBannerView *adView;
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
 @property (nonatomic, retain) IBOutlet UIButton *myPlaylistButton;
 @property (nonatomic, retain) IBOutlet UIButton *popularPlaylistsButton;

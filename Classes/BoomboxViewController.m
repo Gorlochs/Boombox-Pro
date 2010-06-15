@@ -9,7 +9,7 @@
 #import "BoomboxViewController.h"
 #import "ControlsView.h"
 #import "BlipSong.h"
-#import "Beacon.h"
+//#import "Beacon.h"
 #import <QuartzCore/CoreAnimation.h>
 #import "GANTracker.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
@@ -183,7 +183,7 @@
 - (void)playNextSongInPlaylist {
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1 && [audioManager.streamer isPlaying]) {
 		DLog(@"moving to the next song...");
-        [[Beacon shared] startSubBeaconWithName:@"Next Song" timeSession:NO];
+        //[[Beacon shared] startSubBeaconWithName:@"Next Song" timeSession:NO];
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		if ([[audioManager streamer] isPlaying]) {
 			@try {
@@ -221,7 +221,7 @@
 	if (audioManager.songIndexOfPlaylistCurrentlyPlaying > 0 && audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] && [audioManager.streamer isPlaying]) {
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		DLog(@"moving to the previous song...");
-        [[Beacon shared] startSubBeaconWithName:@"Previous Song" timeSession:NO];
+        //[[Beacon shared] startSubBeaconWithName:@"Previous Song" timeSession:NO];
 		if ([[audioManager streamer] isPlaying]) {
 			@try {
 				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];

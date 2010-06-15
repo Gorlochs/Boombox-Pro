@@ -55,14 +55,14 @@
 }
 
 - (void) createMobclixAd {
-    MMABannerXLAdView* bannerAdView = [MMABannerXLAdView new];
+    /*MMABannerXLAdView* bannerAdView = [MMABannerXLAdView new];
     bannerAdView.center = CGPointMake(240,276);
     bannerAdView.delegate = self; //Optional
     [self.view addSubview:bannerAdView];
     [bannerAdView release];
     
     // Get a single advertisement once.
-    [bannerAdView getAd];
+    [bannerAdView getAd];*/
 }
 
 - (NSInteger) adToDisplay {

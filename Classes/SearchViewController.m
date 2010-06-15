@@ -13,7 +13,7 @@
 #import "BoomboxViewController.h"
 #import "SearchTableCellView.h"
 #import "TouchXML.h"
-#import "Beacon.h"
+//#import "Beacon.h"
 #import "GANTracker.h"
 
 #define MAX_FAIL_COUNT 3
@@ -94,7 +94,7 @@
 //            break;
 //    }
 
-    [[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
+    //[[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
     
     if (blipSearchBar.text == nil || [blipSearchBar.text isEqualToString:@""]) {
         [blipSearchBar becomeFirstResponder];
@@ -146,7 +146,7 @@ char *rand_str(char *dst) {
 	audioManager.searchTerms = searchBar.text;
 	
 	[searchBar resignFirstResponder];
-    [[Beacon shared] startSubBeaconWithName:@"Search Performed" timeSession:NO];
+    //[[Beacon shared] startSubBeaconWithName:@"Search Performed" timeSession:NO];
 }
 - (void)insertSearchIntoDB:(NSString*)searchTerms {
 	iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -355,7 +355,7 @@ char *rand_str(char *dst) {
 				[self changeImageIcons:cell imageName:@"image-7.png"];
 			}
 		}
-        [[Beacon shared] startSubBeaconWithName:@"Search Played" timeSession:NO];
+        //[[Beacon shared] startSubBeaconWithName:@"Search Played" timeSession:NO];
         
         NSError *error;
         iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;

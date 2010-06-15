@@ -9,9 +9,9 @@
 #import "iPhoneStreamingPlayerAppDelegate.h"
 #import "BlipSong.h"
 #import "AudioManager.h"
-#import "Beacon.h"
+//#import "Beacon.h"
 #import "GANTracker.h"
-#import "Mobclix.h"
+//#import "Mobclix.h"
 
 //static sqlite3_stmt *insert_statement = nil;
 static const NSInteger kGANDispatchPeriodSec = 30;
@@ -65,7 +65,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 	//[self getCountryCode];
 
     NSString *applicationCode = @"51512b37fa78552a6981778e1e652682";
-    [Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
+    //[Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
     
     // Google Analytics
     ga_ = [[GANTracker alloc] initWithAccountID:@"UA-304406-12"
@@ -78,7 +78,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     }
     
     // Mobclix
-    [Mobclix start];
+    //[Mobclix start];
     
     [self setAdTypeToDisplay];
 }
@@ -100,7 +100,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
             self.adType = GOOGLE_AD_DISPLAY;
             break;
         case 1:
-            self.adType =  MOBCLIX_AD_DISPLAY;
+            //self.adType =  MOBCLIX_AD_DISPLAY;
             break;
         case 2:
             self.adType =  HALF_AND_HALF_AD_DISPLAY;
@@ -185,7 +185,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     NSString *emergencyMessage = [NSString stringWithString:@"http://tinyurl.com/cvl4c6"];
     if (buttonIndex == 1) {
         DLog(@"custom button has been clicked");
-        [[Beacon shared] startSubBeaconWithName:@"Upgrade Clicked" timeSession:NO];
+        //[[Beacon shared] startSubBeaconWithName:@"Upgrade Clicked" timeSession:NO];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emergencyMessage]];
     }
 }
@@ -201,7 +201,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
 	
-    [[Beacon shared] endBeacon];
+    //[[Beacon shared] endBeacon];
 }
 
 - (void)dealloc {
