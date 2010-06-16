@@ -18,7 +18,7 @@
 		078455AC11C83AB800F769BB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 078455A311C83AB700F769BB /* QuartzCore.framework */; };
 		078455C611C83B0D00F769BB /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 078455C511C83B0D00F769BB /* libGoogleAnalytics.a */; };
 		0784563411C83CA600F769BB /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0784563311C83CA600F769BB /* MainWindow-iPad.xib */; };
-		0784585511C841DF00F769BB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0784585411C841DF00F769BB /* iAd.framework */; };
+		07C6DA5611C890F8008794D0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0784585411C841DF00F769BB /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D3623260D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		2899E5220DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPhoneStreamingPlayerViewController.xib */; };
@@ -388,7 +388,7 @@
 				078455AB11C83AB700F769BB /* AudioToolbox.framework in Frameworks */,
 				078455AC11C83AB800F769BB /* QuartzCore.framework in Frameworks */,
 				078455C611C83B0D00F769BB /* libGoogleAnalytics.a in Frameworks */,
-				0784585511C841DF00F769BB /* iAd.framework in Frameworks */,
+				07C6DA5611C890F8008794D0 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,7 +1043,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
@@ -1144,6 +1144,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "3D142FD2-6B40-4C6E-89CE-1543502B328D";

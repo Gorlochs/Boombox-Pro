@@ -51,10 +51,6 @@ Banner Actions
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
 
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-  DLog(@"loaded iADs");
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
@@ -67,7 +63,7 @@ Banner Actions
 }
 
 - (void)createiAd {
-  ADBannerView *adView = [[ADBannerView alloc] initWithFrame:(CGRect){80,270,320,50}];
+  Class adView = [[NSClassFromString(@"ADBannerView") alloc] initWithFrame:(CGRect){80,270,320,50}];
   [[self view] addSubview:adView];
   [adView release];
 }
@@ -85,9 +81,8 @@ Banner Actions
     
     NSInteger returnedValue = [self adToDisplay];
     int rand = random() % 2;
-//TODO: remove this after debugging
-    returnedValue = IAD_AD_DISPLAY;
-///////////////////////////////////
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0) returnedValue = IAD_AD_DISPLAY;
+    else returnedValue = GOOGLE_AD_DISPLAY;
     switch (returnedValue) {
         case 0:
             [self createGoogleAd];

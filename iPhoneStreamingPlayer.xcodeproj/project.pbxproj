@@ -171,6 +171,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07ED62B611C87A8B00748671 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = iphoneos4.0/System/Library/Frameworks/iAd.framework; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneStreamingPlayerAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iPhoneStreamingPlayerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneStreamingPlayerAppDelegate.m; sourceTree = "<group>"; };
@@ -483,6 +484,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07ED62B611C87A8B00748671 /* iAd.framework */,
 				6A1F4B240F24DAC700211F79 /* CFNetwork.framework */,
 				6A3690F80EEEB262000C7A23 /* SystemConfiguration.framework */,
 				6AC0D4080ECB4589009F6BBD /* CoreLocation.framework */,
@@ -1054,6 +1056,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/iphoneos4.0/System/Library/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1086,6 +1089,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/iphoneos4.0/System/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
@@ -1100,6 +1104,7 @@
 					"\"$(SRCROOT)/Classes/plugin-browser\"",
 					"\"$(SRCROOT)/Classes/plugin-feedback\"",
 				);
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "3D142FD2-6B40-4C6E-89CE-1543502B328D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3D142FD2-6B40-4C6E-89CE-1543502B328D";
@@ -1134,6 +1139,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/iphoneos4.0/System/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoneStreamingPlayer_Prefix.pch;
