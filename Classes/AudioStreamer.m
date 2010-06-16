@@ -16,6 +16,7 @@
 #ifdef TARGET_OS_IPHONE			
 #import <CFNetwork/CFNetwork.h>
 #endif
+#import "iPhoneStreamingPlayerAppDelegate.h"
 
 #define BitRateEstimationMaxPackets 5000
 #define BitRateEstimationMinPackets 50
@@ -412,14 +413,14 @@ void ASReadStreamCallBack
 		if (err)
 		{
 			char *errChars = (char *)&err;
-			NSLog(@"%@ err: %c%c%c%c %d\n",
+			DLog(@"%@ err: %c%c%c%c %d\n",
 				[AudioStreamer stringForErrorCode:anErrorCode],
 				errChars[3], errChars[2], errChars[1], errChars[0],
 				(int)err);
 		}
 		else
 		{
-			NSLog(@"%@", [AudioStreamer stringForErrorCode:anErrorCode]);
+			DLog(@"%@", [AudioStreamer stringForErrorCode:anErrorCode]);
 		}
 
 		if (state == AS_PLAYING ||
@@ -736,7 +737,7 @@ void ASReadStreamCallBack
 			if (state != AS_STOPPING &&
 				state != AS_STOPPED)
 			{
-				NSLog(@"### Not starting audio thread. State code is: %ld", state);
+				DLog(@"### Not starting audio thread. State code is: %ld", state);
 			}
 			self.state = AS_INITIALIZED;
 			[pool release];
@@ -1624,7 +1625,7 @@ cleanup:
 		}
 		else
 		{
-//			NSLog(@"Property is %c%c%c%c",
+//			DLog(@"Property is %c%c%c%c",
 //				((char *)&inPropertyID)[3],
 //				((char *)&inPropertyID)[2],
 //				((char *)&inPropertyID)[1],
@@ -1851,7 +1852,7 @@ cleanup:
 //  Enable this logging to measure how many buffers are queued at any time.
 //
 #if LOG_QUEUED_BUFFERS
-	NSLog(@"Queued buffers: %ld", buffersUsed);
+	DLog(@"Queued buffers: %ld", buffersUsed);
 #endif
 	
 	pthread_cond_signal(&queueBufferReadyCondition);
@@ -1903,7 +1904,7 @@ cleanup:
 			}
 			else
 			{
-				NSLog(@"AudioQueue changed state in unexpected way.");
+				DLog(@"AudioQueue changed state in unexpected way.");
 			}
 		}
 	}

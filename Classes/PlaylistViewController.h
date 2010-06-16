@@ -15,17 +15,15 @@
 #import "BuySongListViewController.h"
 #import "AbstractAdViewController.h"
 
-@interface PlaylistViewController : AbstractAdViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface PlaylistViewController : AbstractAdViewController <UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate> {
 	UITableView *theTableView;
 	UIView *buttonView;
 	UIButton *myPlaylistButton;
 	UIButton *popularPlaylistsButton;
 	SearchTableCellView *tableCell;
 	BuySongListViewController *buySongListController;
-  ADBannerView *adView;
 }
 
-@property (nonatomic, retain) IBOutlet ADBannerView *adView;
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
 @property (nonatomic, retain) IBOutlet UIButton *myPlaylistButton;
 @property (nonatomic, retain) IBOutlet UIButton *popularPlaylistsButton;

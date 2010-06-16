@@ -15,6 +15,7 @@
 #define GOOGLE_AD_DISPLAY 0
 #define MOBCLIX_AD_DISPLAY 1
 #define HALF_AND_HALF_AD_DISPLAY 2
+#define IAD_AD_DISPLAY 3
 
 #ifdef DEBUG
 #   define DLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)

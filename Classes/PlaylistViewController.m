@@ -51,6 +51,10 @@ Banner Actions
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
 
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+  DLog(@"loaded iADs");
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Initialization code
@@ -60,6 +64,12 @@ Banner Actions
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
+
+- (void)createiAd {
+  ADBannerView *adView = [[ADBannerView alloc] initWithFrame:(CGRect){80,270,320,50}];
+  [[self view] addSubview:adView];
+  [adView release];
 }
 
 - (void)viewDidLoad {
@@ -75,6 +85,9 @@ Banner Actions
     
     NSInteger returnedValue = [self adToDisplay];
     int rand = random() % 2;
+//TODO: remove this after debugging
+    returnedValue = IAD_AD_DISPLAY;
+///////////////////////////////////
     switch (returnedValue) {
         case 0:
             [self createGoogleAd];
@@ -89,6 +102,9 @@ Banner Actions
                 //[self createMobclixAd];
             }
             break;
+        case 3:
+          [self createiAd];
+        break;
         default:
             [self createGoogleAd];
             break;
@@ -338,7 +354,6 @@ Banner Actions
 	[theTableView release];
     [buttonView release];
     [adViewController_ release];
-    
 	[tableCell release];
     
     [myPlaylistButton release];

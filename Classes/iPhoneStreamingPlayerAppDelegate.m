@@ -105,6 +105,8 @@ static const NSInteger kGANDispatchPeriodSec = 30;
         case 2:
             self.adType =  HALF_AND_HALF_AD_DISPLAY;
             break;
+        case 3:
+            self.adType = IAD_AD_DISPLAY;
         default:
             self.adType =  GOOGLE_AD_DISPLAY;
             break;
