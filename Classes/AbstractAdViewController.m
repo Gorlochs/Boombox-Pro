@@ -49,7 +49,7 @@
     // Position ad at bottom of screen
     //CGRect bounds = [[UIScreen mainScreen] bounds];
     CGRect rect = adViewController_.view.frame;
-    rect.origin = CGPointMake(80,250);
+    rect.origin = CGPointMake(80,270);
     adViewController_.view.frame = rect;
     [self.view addSubview:adViewController_.view];
 }
