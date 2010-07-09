@@ -155,6 +155,7 @@ extern NSString * const ASStatusChangedNotification;
 								// time)
 	double packetDuration;		// sample rate times frames per packet
 	double lastProgress;		// last calculated progress point
+  int _maxWait;
 }
 
 @property AudioStreamerErrorCode errorCode;

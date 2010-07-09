@@ -15,29 +15,29 @@
 #import "GANTracker.h"
 
 /*
-Setting and Getting the Delegate
-
-    *   delegate  property
-
-Configuring the Advertising Shown in a Banner View
-
-    *   advertisingSection  property
-    *   requiredContentSizeIdentifiers  property
-
-Resizing a Banner View
-
-    *   currentContentSizeIdentifier  property
-    * + sizeFromBannerContentSizeIdentifier:
-
-Determining If a Banner View Is Showing an Advertisement
-
-    *   bannerLoaded  property
-
-Banner Actions
-
-    *   bannerViewActionInProgress  property
-    * – cancelBannerViewAction
-*/    
+ Setting and Getting the Delegate
+ 
+ *   delegate  property
+ 
+ Configuring the Advertising Shown in a Banner View
+ 
+ *   advertisingSection  property
+ *   requiredContentSizeIdentifiers  property
+ 
+ Resizing a Banner View
+ 
+ *   currentContentSizeIdentifier  property
+ * + sizeFromBannerContentSizeIdentifier:
+ 
+ Determining If a Banner View Is Showing an Advertisement
+ 
+ *   bannerLoaded  property
+ 
+ Banner Actions
+ 
+ *   bannerViewActionInProgress  property
+ * – cancelBannerViewAction
+ */    
 
 // Private interface - internal only methods.
 @interface PlaylistViewController (Private)
@@ -50,6 +50,7 @@ Banner Actions
 @implementation PlaylistViewController
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
+@synthesize adBannerView = _adBannerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -63,9 +64,22 @@ Banner Actions
 }
 
 - (void)createiAd {
-  Class adView = [[NSClassFromString(@"ADBannerView") alloc] initWithFrame:(CGRect){80,270,320,50}];
-  [[self view] addSubview:adView];
-  [adView release];
+	Class classAdBannerView = NSClassFromString(@"ADBannerView");
+    if (classAdBannerView != nil) {
+        self.adBannerView = [[[classAdBannerView alloc] 
+							  initWithFrame:CGRectZero] autorelease];
+        [_adBannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects: 
+														  ADBannerContentSizeIdentifier480x32, nil]];
+		[_adBannerView setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifier480x32];
+		
+        [_adBannerView setFrame:CGRectOffset([_adBannerView frame], 0, 248)];
+        [_adBannerView setDelegate:self];
+		
+        [self.view addSubview:_adBannerView];        
+    }
+	
+//	adView = [[NSClassFromString(@"ADBannerView") alloc] initWithFrame:(CGRect){0,288,480,32}];
+//	[[self view] addSubview:adView];
 }
 
 - (void)viewDidLoad {
@@ -78,40 +92,42 @@ Banner Actions
 	} else {
 		popularPlaylistsButton.selected = YES;
 	}
-    
-    NSInteger returnedValue = [self adToDisplay];
-    int rand = random() % 2;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0) returnedValue = IAD_AD_DISPLAY;
-    else returnedValue = GOOGLE_AD_DISPLAY;
-    switch (returnedValue) {
-        case 0:
-            [self createGoogleAd];
-            break;
-        case 1:
-            //[self createMobclixAd];
-            break;
-        case 2:
-            if (rand == 0) {
-                [self createGoogleAd];
-            } else {
-                //[self createMobclixAd];
-            }
-            break;
-        case 3:
-          [self createiAd];
-        break;
-        default:
-            [self createGoogleAd];
-            break;
-    }
 
+    [self createiAd];
+	
+//    NSInteger returnedValue = [self adToDisplay];
+//    int rand = random() % 2;
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0) returnedValue = IAD_AD_DISPLAY;
+//    else returnedValue = GOOGLE_AD_DISPLAY;
+//    switch (returnedValue) {
+//        case 0:
+//            [self createGoogleAd];
+//            break;
+//        case 1:
+//            //[self createMobclixAd];
+//            break;
+//        case 2:
+//            if (rand == 0) {
+//                [self createGoogleAd];
+//            } else {
+//                //[self createMobclixAd];
+//            }
+//            break;
+//        case 3:
+//			[self createiAd];
+//			break;
+//        default:
+//            [self createGoogleAd];
+//            break;
+//    }
+	
     //[[Beacon shared] startSubBeaconWithName:@"Playlist" timeSession:NO];
     
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    NSError *error;
-    if (![appDelegate.ga_ trackPageview:@"/playlist" withError:&error]) {
-        // Handle error here
-    }
+	//    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+	//    NSError *error;
+	//    if (![appDelegate.ga_ trackPageview:@"/playlist" withError:&error]) {
+	//        // Handle error here
+	//    }
     
 }
 
@@ -167,7 +183,7 @@ Banner Actions
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
-
+	
 	SearchTableCellView *cell = (SearchTableCellView *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		UIViewController *vc = [[UIViewController alloc]initWithNibName:@"SearchTableCellView" bundle:nil];
@@ -233,11 +249,11 @@ Banner Actions
 	[audioManager switchToPlaylistMode:mine];
 	[theTableView reloadData];
     
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    NSError *error;
-    if (![appDelegate.ga_ trackPageview:@"/playlist/my_playlist" withError:&error]) {
-        // Handle error here
-    }
+	//    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+	//    NSError *error;
+	//    if (![appDelegate.ga_ trackPageview:@"/playlist/my_playlist" withError:&error]) {
+	//        // Handle error here
+	//    }
 }
 
 - (void)displayPopularPlaylist {
@@ -247,11 +263,11 @@ Banner Actions
 	[audioManager retrieveTopSongs]; // not the best way to do this.  there should be a different way to initialize the Top Songs
 	[theTableView reloadData];
     
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    NSError *error;
-    if (![appDelegate.ga_ trackPageview:@"/playlist/top_songs" withError:&error]) {
-        // Handle error here
-    }
+	//    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+	//    NSError *error;
+	//    if (![appDelegate.ga_ trackPageview:@"/playlist/top_songs" withError:&error]) {
+	//        // Handle error here
+	//    }
 }
 
 - (void)addSongToPlaylist:(id)sender {
@@ -268,15 +284,15 @@ Banner Actions
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
     
-    NSError *error;
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.ga_ trackEvent:@"playlist"
-                  action:@"add_song_to_playlist"
-                   label:nil
-                   value:-1
-               withError:&error]) {
-        // Handle error here
-    }
+	//    NSError *error;
+	//    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+	//    if (![appDelegate.ga_ trackEvent:@"playlist"
+	//                  action:@"add_song_to_playlist"
+	//                   label:nil
+	//                   value:-1
+	//               withError:&error]) {
+	//        // Handle error here
+	//    }
 }
 
 -(void)buySong:(id)sender {
@@ -295,7 +311,7 @@ Banner Actions
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath 
 	   toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-		
+	
 	return proposedDestinationIndexPath;
 }
 
@@ -337,7 +353,7 @@ Banner Actions
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
+	
 	// it would be nice to compare the current size of the table to the size of the playlist
 	// but I can't seem to find a programmatic way to determine how many rows are being displayed
 	[theTableView reloadData];
@@ -348,7 +364,7 @@ Banner Actions
 - (void)dealloc {
 	[theTableView release];
     [buttonView release];
-    [adViewController_ release];
+    //[adViewController_ release];
 	[tableCell release];
     
     [myPlaylistButton release];
@@ -385,23 +401,12 @@ Banner Actions
 }
 
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell {
-    if ([[audioManager streamer] isPlaying]) {
-        @try {
-            [audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
-            [audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
-        }
-        @catch (NSException * e) {
-            DLog(@"****** exception removing observer ****", e);
-        }
-    }
     if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay && [audioManager streamer]) {
-        // stop the stream and switch back to the play button		
-        [audioManager stopStreamer];
+        // stop the stream and switch back to the play button
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
         [self changeImageIcons:cell imageName:@"image-7.png"];
     } else {
         [audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
-        [audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
-		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
         
         // set song title label on boombox view
         ((BoomboxViewController*) self.parentViewController).songLabel.text = [[audioManager currentSong] constructTitleArtist];
@@ -419,15 +424,15 @@ Banner Actions
             }
         }
         
-        NSError *error;
-        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-        if (![appDelegate.ga_ trackEvent:@"playlist"
-              action:@"play_song"
-              label:nil
-              value:-1
-              withError:&error]) {
-            // Handle error here
-        }
+		//        NSError *error;
+		//        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+		//        if (![appDelegate.ga_ trackEvent:@"playlist"
+		//              action:@"play_song"
+		//              label:nil
+		//              value:-1
+		//              withError:&error]) {
+		//            // Handle error here
+		//        }
     }
 }
 

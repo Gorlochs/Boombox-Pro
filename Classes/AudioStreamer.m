@@ -16,6 +16,7 @@
 #ifdef TARGET_OS_IPHONE			
 #import <CFNetwork/CFNetwork.h>
 #endif
+
 #import "iPhoneStreamingPlayerAppDelegate.h"
 
 #define BitRateEstimationMaxPackets 5000
@@ -215,7 +216,6 @@ void ASReadStreamCallBack
 @synthesize state;
 @synthesize bitRate;
 @synthesize httpHeaders;
-
 //
 // initWithURL
 //
@@ -226,6 +226,7 @@ void ASReadStreamCallBack
 	self = [super init];
 	if (self != nil)
 	{
+//    aURL = [NSURL URLWithString:@"http://www.artwerkz.com/2019.mp3"];
 		url = [aURL retain];
 	}
 	return self;
@@ -241,6 +242,25 @@ void ASReadStreamCallBack
 	[self stop];
 	[url release];
 	[super dealloc];
+}
+
+- (void)setStatePlay:(AudioStreamerState)newState {
+  if (state != AS_PLAYING && newState == AS_PLAYING) {
+    DLog(@"state changed to %i %i", newState, state);
+    state = newState;
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"playerStarted" object:nil];
+  } else if (state == AS_PLAYING && newState != AS_PLAYING) {
+    DLog(@"state changed to %i %i", newState, state);
+    state = newState;
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"playerStopped" object:nil];
+  } else if (newState == AS_INITIALIZED && state == AS_STOPPED) {
+    DLog(@"player is stopping, send notif");
+    state = newState;  
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
+  } else {
+    DLog(@"changing state to %i %i", newState, state);
+    state = newState;  
+  }
 }
 
 //
@@ -427,7 +447,7 @@ void ASReadStreamCallBack
 			state == AS_PAUSED ||
 			state == AS_BUFFERING)
 		{
-			self.state = AS_STOPPING;
+			[self setStatePlay:AS_STOPPING];
 			stopReason = AS_STOPPING_ERROR;
 			AudioQueueStop(audioQueue, true);
 		}
@@ -469,7 +489,7 @@ void ASReadStreamCallBack
 	{
 		if (state != aStatus)
 		{
-			state = aStatus;
+			[self setStatePlay:aStatus];
 			
 			if ([[NSThread currentThread] isEqual:[NSThread mainThread]])
 			{
@@ -673,7 +693,7 @@ void ASReadStreamCallBack
 		//
 		// We're now ready to receive data
 		//
-		self.state = AS_WAITING_FOR_DATA;
+  	[self setStatePlay:AS_WAITING_FOR_DATA];
 
 		//
 		// Open the stream
@@ -739,7 +759,8 @@ void ASReadStreamCallBack
 			{
 				DLog(@"### Not starting audio thread. State code is: %ld", state);
 			}
-			self.state = AS_INITIALIZED;
+                        DLog(@"setting state to initialized 1");
+    	[self setStatePlay:AS_INITIALIZED];
 			[pool release];
 			return;
 		}
@@ -804,7 +825,7 @@ void ASReadStreamCallBack
 				[self failWithErrorCode:AS_AUDIO_QUEUE_PAUSE_FAILED];
 				return;
 			}
-			self.state = AS_BUFFERING;
+    	[self setStatePlay:AS_BUFFERING];
 		}
 	} while (isRunning && ![self runLoopShouldExit]);
 	
@@ -862,7 +883,8 @@ cleanup:
 		packetsFilled = 0;
 		seekByteOffset = 0;
 		packetBufferSize = 0;
-		self.state = AS_INITIALIZED;
+                        DLog(@"setting state to initialized 2");
+   	[self setStatePlay:AS_INITIALIZED];
 
 		internalThread = nil;
 		[internalThread release];
@@ -886,11 +908,11 @@ cleanup:
 		}
 		else if (state == AS_INITIALIZED)
 		{
-			NSAssert([[NSThread currentThread] isEqual:[NSThread mainThread]],
-				@"Playback can only be started from the main thread.");
+			//NSAssert([[NSThread currentThread] isEqual:[NSThread mainThread]],
+		//		@"Playback can only be started from the main thread.");
 			notificationCenter =
 				[[NSNotificationCenter defaultCenter] retain];
-			self.state = AS_STARTING_FILE_THREAD;
+    	[self setStatePlay:AS_STARTING_FILE_THREAD];
 			internalThread =
 				[[NSThread alloc]
 					initWithTarget:self
@@ -965,7 +987,7 @@ cleanup:
 	//
 	// Stop the audio queue
 	//
-	self.state = AS_STOPPING;
+ 	[self setStatePlay:AS_STOPPING];
 	stopReason = AS_STOPPING_TEMPORARILY;
 	err = AudioQueueStop(audioQueue, true);
 	if (err)
@@ -1103,7 +1125,7 @@ cleanup:
 				[self failWithErrorCode:AS_AUDIO_QUEUE_PAUSE_FAILED];
 				return;
 			}
-			self.state = AS_PAUSED;
+   	[self setStatePlay:AS_PAUSED];
 		}
 		else if (state == AS_PAUSED)
 		{
@@ -1113,7 +1135,7 @@ cleanup:
 				[self failWithErrorCode:AS_AUDIO_QUEUE_START_FAILED];
 				return;
 			}
-			self.state = AS_PLAYING;
+    	[self setStatePlay:AS_PLAYING];
 		}
 	}
 }
@@ -1136,7 +1158,7 @@ cleanup:
 			(state == AS_PLAYING || state == AS_PAUSED ||
 				state == AS_BUFFERING || state == AS_WAITING_FOR_QUEUE_TO_START))
 		{
-			self.state = AS_STOPPING;
+    	[self setStatePlay:AS_STOPPING];
 			stopReason = AS_STOPPING_USER_ACTION;
 			err = AudioQueueStop(audioQueue, true);
 			if (err)
@@ -1147,16 +1169,22 @@ cleanup:
 		}
 		else if (state != AS_INITIALIZED)
 		{
-			self.state = AS_STOPPED;
+    	[self setStatePlay:AS_STOPPED];
 			stopReason = AS_STOPPING_USER_ACTION;
 		}
 		seekWasRequested = NO;
 	}
 	
-	while (state != AS_INITIALIZED)
+	// atw - this was waiting forever
+  _maxWait = 0;
+  while (state != AS_INITIALIZED)
 	{
+          DLog(@"waiting for initialized");
 		[NSThread sleepForTimeInterval:0.1];
+    if (++_maxWait > 50) break;
 	}
+  DLog(@"done waiting, quitting");
+  _maxWait = 0;
 }
 
 //
@@ -1204,7 +1232,7 @@ cleanup:
 				//
 				// Force audio data smaller than one whole buffer to play.
 				//
-				self.state = AS_FLUSHING_EOF;
+      	[self setStatePlay:AS_FLUSHING_EOF];
 			}
 			[self enqueueBuffer];
 		}
@@ -1235,7 +1263,7 @@ cleanup:
 						return;
 					}
 
-					self.state = AS_STOPPING;
+        	[self setStatePlay:AS_STOPPING];
 					stopReason = AS_STOPPING_EOF;
 					err = AudioQueueStop(audioQueue, false);
 					if (err)
@@ -1246,7 +1274,7 @@ cleanup:
 				}
 				else
 				{
-					self.state = AS_STOPPED;
+        	[self setStatePlay:AS_STOPPED];
 					stopReason = AS_STOPPING_EOF;
 				}
 			}
@@ -1404,11 +1432,11 @@ cleanup:
 						[self failWithErrorCode:AS_AUDIO_QUEUE_START_FAILED];
 						return;
 					}
-					self.state = AS_PLAYING;
+        	[self setStatePlay:AS_PLAYING];
 				}
 				else
 				{
-					self.state = AS_WAITING_FOR_QUEUE_TO_START;
+        	[self setStatePlay:AS_WAITING_FOR_QUEUE_TO_START];
 
 					err = AudioQueueStart(audioQueue, NULL);
 					if (err)
@@ -1879,7 +1907,7 @@ cleanup:
 		{
 			if (state == AS_STOPPING)
 			{
-				self.state = AS_STOPPED;
+       	[self setStatePlay:AS_STOPPED];
 			}
 			else if (state == AS_WAITING_FOR_QUEUE_TO_START)
 			{
@@ -1900,7 +1928,7 @@ cleanup:
 				//
 				[NSRunLoop currentRunLoop];
 
-				self.state = AS_PLAYING;
+       	[self setStatePlay:AS_PLAYING];
 			}
 			else
 			{

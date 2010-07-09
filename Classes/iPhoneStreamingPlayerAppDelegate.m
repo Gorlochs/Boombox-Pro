@@ -34,7 +34,6 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 @synthesize window;
 @synthesize viewController;
 @synthesize remoteHostStatus;
-@synthesize ga_;
 @synthesize adType;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -68,14 +67,14 @@ static const NSInteger kGANDispatchPeriodSec = 30;
     //[Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
     
     // Google Analytics
-    ga_ = [[GANTracker alloc] initWithAccountID:@"UA-304406-12"
-                                 dispatchPeriod:kGANDispatchPeriodSec
-                                       delegate:nil];
-    
-    NSError *error;
-    if (![ga_ trackPageview:@"/startup" withError:&error]) {
-        // Handle error here
-    }
+//    ga_ = [[GANTracker alloc] initWithAccountID:@"UA-304406-12"
+//                                 dispatchPeriod:kGANDispatchPeriodSec
+//                                       delegate:nil];
+//    
+//    NSError *error;
+//    if (![ga_ trackPageview:@"/startup" withError:&error]) {
+//        // Handle error here
+//    }
     
     // Mobclix
     //[Mobclix start];

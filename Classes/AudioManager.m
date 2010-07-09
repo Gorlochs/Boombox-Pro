@@ -37,11 +37,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 - (void) startStreamerWithSong:(BlipSong*)song {
 	
 	if ([self isConnectedToNetwork]) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"playerStarted" object:nil];
         [streamer stop];
         
         // start the stream
         NSString *trimmed = [[song location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:[trimmed stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+		streamer = nil;
+		[streamer release];
         streamer = [[AudioStreamer alloc] initWithURL:url];
         [streamer start];
         
@@ -108,6 +111,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 	
 	// stop the streamer
 	[streamer stop];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"playerStopped" object:nil];
 	
 	// switch off the network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

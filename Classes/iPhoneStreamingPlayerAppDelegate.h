@@ -23,7 +23,7 @@
 #   define DLog(...) do {} while (0)
 #endif
 
-@class SearchViewController, GANTracker;
+@class SearchViewController;
 
 @interface iPhoneStreamingPlayerAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     UIWindow *window;
@@ -33,16 +33,13 @@
 	AudioManager *audioManager;
 	
 	NetworkStatus remoteHostStatus;
-    
-    GANTracker *ga_;
-    
+        
     NSInteger adType;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet BoomboxViewController *viewController;
 @property NetworkStatus remoteHostStatus;
-@property (nonatomic, retain) GANTracker *ga_;
 @property (nonatomic) NSInteger adType;
 
 - (NSString*) getCountryCode;

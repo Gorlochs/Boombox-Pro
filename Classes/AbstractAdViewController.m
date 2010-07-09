@@ -31,27 +31,27 @@
 }
 
 - (void) createGoogleAd {
-    adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
-    adViewController_.adSize = kGADAdSize320x50;
-    
-    if (adwords == nil || [adwords isEqualToString:@""]) {
-        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
-    }
-    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
-                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
-                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
-                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
-                                nil];
-    [adViewController_ loadGoogleAd:attributes];
-    
-    // Position ad at bottom of screen
-    //CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGRect rect = adViewController_.view.frame;
-    rect.origin = CGPointMake(80,270);
-    adViewController_.view.frame = rect;
-    [self.view addSubview:adViewController_.view];
+//    adViewController_ = [[GADAdViewController alloc] initWithDelegate:self];
+//    adViewController_.adSize = kGADAdSize320x50;
+//    
+//    if (adwords == nil || [adwords isEqualToString:@""]) {
+//        adwords = [NSString stringWithString:@"music+downloads,free+music,downloads,free+downloads"];
+//    }
+//    NSNumber *channel = [NSNumber numberWithUnsignedLongLong:2638511974];
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                @"ca-pub-4358000644319833", kGADAdSenseClientID,
+//                                [adwords stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], kGADAdSenseKeywords,
+//                                [NSArray arrayWithObjects:channel, nil], kGADAdSenseChannelIDs,
+//                                [NSNumber numberWithInt:0], kGADAdSenseIsTestAdRequest,
+//                                nil];
+//    [adViewController_ loadGoogleAd:attributes];
+//    
+//    // Position ad at bottom of screen
+//    //CGRect bounds = [[UIScreen mainScreen] bounds];
+//    CGRect rect = adViewController_.view.frame;
+//    rect.origin = CGPointMake(80,270);
+//    adViewController_.view.frame = rect;
+//    [self.view addSubview:adViewController_.view];
 }
 
 - (void) createMobclixAd {
@@ -85,7 +85,7 @@
 
 
 - (void)dealloc {
-    [adViewController_ release];
+    //[adViewController_ release];
     [adwords release];
     [super dealloc];
 }

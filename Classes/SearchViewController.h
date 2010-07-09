@@ -14,10 +14,11 @@
 #import "AudioManager.h"
 #import "TopSearchViewController.h"
 #import "AbstractAdViewController.h"
+#import <iAd/iAd.h>
 
 @class AudioStreamer, SearchTableCellView;
 
-@interface SearchViewController : AbstractAdViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SearchViewController : AbstractAdViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate>
 {
 	IBOutlet UISearchBar *blipSearchBar;
 	IBOutlet UITableView *theTableView;
@@ -37,11 +38,13 @@
 	// we use these to track each current item, until it's ready to be added to the "stories" array
 	NSString *currentElement;
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
+	ADBannerView *_adBannerView;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *searchCell;
+@property (nonatomic, retain) id adBannerView;
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)displayTopSearchesViewAction:(id)sender;

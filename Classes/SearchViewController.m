@@ -14,7 +14,7 @@
 #import "SearchTableCellView.h"
 #import "TouchXML.h"
 //#import "Beacon.h"
-#import "GANTracker.h"
+
 
 #define MAX_FAIL_COUNT 3
 
@@ -31,6 +31,7 @@
 @synthesize blipSearchBar;
 @synthesize theTableView;
 @synthesize searchCell;
+@synthesize adBannerView = _adBannerView;
 
 #pragma mark setup & tear down
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -38,6 +39,23 @@
 		// Initialization code
 	}
 	return self;
+}
+
+
+- (void)createiAd {
+	Class classAdBannerView = NSClassFromString(@"ADBannerView");
+    if (classAdBannerView != nil) {
+        self.adBannerView = [[[classAdBannerView alloc] 
+							  initWithFrame:CGRectZero] autorelease];
+        [_adBannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects: 
+														  ADBannerContentSizeIdentifier480x32, nil]];
+		[_adBannerView setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifier480x32];
+		
+        [_adBannerView setFrame:CGRectOffset([_adBannerView frame], 0, 248)];
+        [_adBannerView setDelegate:self];
+		
+        [self.view addSubview:_adBannerView];        
+    }
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -73,37 +91,10 @@
 		blipSearchBar.text = audioManager.searchTerms;
 	}
     
-//    NSInteger returnedValue = [self adToDisplay];
-//    int rand = random() % 2;
-//    switch (returnedValue) {
-//        case 0:
-//            [self createGoogleAd];
-//            break;
-//        case 1:
-//            [self createMobclixAd];
-//            break;
-//        case 2:
-//            if (rand == 0) {
-//                [self createGoogleAd];
-//            } else {
-//                [self createMobclixAd];
-//            }
-//            break;
-//        default:
-//            [self createGoogleAd];
-//            break;
-//    }
-
-    //[[Beacon shared] startSubBeaconWithName:@"SearchView" timeSession:NO];
+	[self createiAd];
     
     if (blipSearchBar.text == nil || [blipSearchBar.text isEqualToString:@""]) {
         [blipSearchBar becomeFirstResponder];
-    }
-    
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    NSError *error;
-    if (![appDelegate.ga_ trackPageview:@"/search" withError:&error]) {
-        // Handle error here
     }
 }
 
@@ -221,15 +212,15 @@ char *rand_str(char *dst) {
 	[audioManager.playlist addObject:songToAdd];
 	[cell.addToPlaylistButton setImage:[UIImage imageNamed:@"image-4.png"] forState:UIControlStateNormal];
 	
-    NSError *error;
-    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-    if (![appDelegate.ga_ trackEvent:@"search"
-                  action:@"add_song_to_playlist"
-                   label:nil
-                   value:-1
-               withError:&error]) {
-        // Handle error here
-    }
+//    NSError *error;
+//    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+//    if (![appDelegate.ga_ trackEvent:@"search"
+//                  action:@"add_song_to_playlist"
+//                   label:nil
+//                   value:-1
+//               withError:&error]) {
+//        // Handle error here
+//    }
 }
 // -----------------------------------------------------------------------------
 - (void)playSong:(id)sender {
@@ -341,7 +332,6 @@ char *rand_str(char *dst) {
 	} else {
 		BlipSong *songToPlay = [audioManager.songs objectAtIndex:songIndex];
 		[audioManager startStreamerWithSong:songToPlay];
-		[audioManager.streamer addObserver:self.parentViewController forKeyPath:@"isPlaying" options:0 context:nil];
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		
 		[self changeImageIcons:cell imageName:@"stop.png"];
@@ -357,15 +347,15 @@ char *rand_str(char *dst) {
 		}
         //[[Beacon shared] startSubBeaconWithName:@"Search Played" timeSession:NO];
         
-        NSError *error;
-        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-        if (![appDelegate.ga_ trackEvent:@"search"
-                      action:@"play_song"
-                       label:nil
-                       value:-1
-                   withError:&error]) {
-            // Handle error here
-        }
+//        NSError *error;
+//        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+//        if (![appDelegate.ga_ trackEvent:@"search"
+//                      action:@"play_song"
+//                       label:nil
+//                       value:-1
+//                   withError:&error]) {
+//            // Handle error here
+//        }
 	}
 }
 

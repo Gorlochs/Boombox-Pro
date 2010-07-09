@@ -23,6 +23,7 @@
 	
 	ControlsView *controlsView;
 	EqualizerView *equalizerView;
+	IBOutlet UIImageView *equalizerAnimationView;
 	SingleSpeakerView *leftSpeakerView;
 	SingleSpeakerView *rightSpeakerView;
 	TopButtonView *topButtonView;
@@ -35,6 +36,7 @@
 	
     NSMutableArray *images;
     NSMutableArray *speakerImages;
+    BOOL _isPlaying;
 }
 
 @property (nonatomic, retain) IBOutlet ControlsView *controlsView;

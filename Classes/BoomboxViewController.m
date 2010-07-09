@@ -11,7 +11,6 @@
 #import "BlipSong.h"
 //#import "Beacon.h"
 #import <QuartzCore/CoreAnimation.h>
-#import "GANTracker.h"
 #import "iPhoneStreamingPlayerAppDelegate.h"
 
 // Private interface - internal only methods.
@@ -38,11 +37,12 @@
 	// I think that this is the wrong place for this, but initWithNibName isn't being called
 	audioManager = [AudioManager sharedAudioManager];
 	songLabel.font = [UIFont boldSystemFontOfSize:30];
+	[self prepEqualizerAnimation];
 	
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
 	frame.origin.x = 110;
-	frame.origin.y = self.view.frame.size.height - 221;
+	frame.origin.y = self.view.frame.size.height - 241;
 	controlsView.frame = frame;
 	controlsView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:controlsView];
@@ -78,6 +78,10 @@
 	topButtonView.backgroundColor = [UIColor clearColor];
 	[self.view addSubview:topButtonView];
 	
+	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStarted) name:@"playerStarted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStopped) name:@"playerStopped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopStream) name:@"completelyStop" object:nil];  // a small hack
 	
 //	// the following code was obtained from Apple's iPhoneAppProgrammingGuide.pdf on pp 34-35
 //	UIInterfaceOrientation orientation=[[UIApplication sharedApplication] statusBarOrientation]; 
@@ -158,7 +162,6 @@
         if ([[audioManager retrieveCurrentSongList] count] > 0) {
             DLog(@"play button clicked, and playlist exists, so play the first song");
             [audioManager startStreamerWithPlaylistIndex:0];
-            [audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
             songLabel.text = [audioManager.currentSong constructTitleArtist];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No song selected" message:@"Please search for a song or add a song to your playlist." 
@@ -187,7 +190,7 @@
 		// remove observer so that observeValueForKeyPath:keyPath isn't triggered by stopping the song
 		if ([[audioManager streamer] isPlaying]) {
 			@try {
-				[audioManager.streamer removeObserver:self forKeyPath:@"isPlaying"];
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"playerStopped" object:nil];
 			}
 			@catch (NSException * e) {
 				DLog(@"****** exception removing observer ****", e);
@@ -200,18 +203,16 @@
 		
 		[audioManager playNextSongInPlaylist];
 		[self addAnimationsToBoombox];
-		
-		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
         
         NSError *error = nil;
         iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-        if (![appDelegate.ga_ trackEvent:@"boombox"
-                                  action:@"play_next_song"
-                                   label:nil
-                                   value:-1
-                               withError:&error]) {
-            // Handle error here
-        }
+//        if (![appDelegate.ga_ trackEvent:@"boombox"
+//                                  action:@"play_next_song"
+//                                   label:nil
+//                                   value:-1
+//                               withError:&error]) {
+//            // Handle error here
+//        }
 	} else {
 		DLog(@"sorry, no next song in the playlist, so nothing will happen");
 	}
@@ -238,17 +239,16 @@
 		
 		[audioManager playPreviousSongInPlaylist];
 		[self addAnimationsToBoombox];
-		[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
         
-        NSError *error;
-        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-        if (![appDelegate.ga_ trackEvent:@"boombox"
-              action:@"play_previous_song"
-              label:nil
-              value:-1
-              withError:&error]) {
-            // Handle error here
-        }
+//        NSError *error;
+//        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+//        if (![appDelegate.ga_ trackEvent:@"boombox"
+//              action:@"play_previous_song"
+//              label:nil
+//              value:-1
+//              withError:&error]) {
+//            // Handle error here
+//        }
 	} else {
 		DLog(@"sorry, no previous song in the playlist, so nothing will happen");
 	}
@@ -256,71 +256,115 @@
 
 #pragma mark Audio Streaming Functions
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-						change:(NSDictionary *)change context:(void *)context {
-		
-	// detects if the stream is playing a stream or not
-	if ([keyPath isEqual:@"isPlaying"]) {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		
-		if ([(AudioStreamer *)object isPlaying]) {
-			// a stream has started playing
-			
-			// start network traffic indicator in the status bar
-			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-			
-			[self addAnimationsToBoombox];
-			
-			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
-		} else {
-			// the stream has ended 
-			 
-			// if user is on cell network, keep track of how many songs have been played for the day
-			//[audioManager incrementCellNetworkSongsPlayed];
-			
-			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
-			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
-				DLog(@"currently playing > -1");
-				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
-					DLog(@"another song detected - getting ready to play!");
-					// start streamer for next song
-					[audioManager playNextSongInPlaylist];
-					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
-					[audioManager.streamer addObserver:playlistController forKeyPath:@"isPlaying" options:0 context:nil];
-					DLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
-					BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
-					songLabel.text = [nextSong constructTitleArtist];
-                    
-                    NSError *error;
-                    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
-                    if (![appDelegate.ga_ trackEvent:@"boombox"
-                          action:@"play_next_song"
-                          label:nil
-                          value:-1
-                          withError:&error]) {
-                        // Handle error here
-                    }
-				} else {
-					DLog(@"last song, nothing else left to play");
-					// allow streamer to stop and reset index
-					[audioManager stopStreamer];
-					[self stopStreamCleanup];
-				}
-			} else {
-				DLog(@"no more songs.  cleanup");
-				[self stopStreamCleanup];
-			}
-		}
-		
-		[pool release];
-		return;
-	}
+- (void)playerStarted {
+	DLog(@"got started playing notification in boomboxcontroller");
+	_isPlaying = true;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
-	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	[self addAnimationsToBoombox];
+	[equalizerAnimationView startAnimating];
+	
+	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
 }
+
+- (void)playerStopped {
+	_isPlaying = false;
+    // the stream has ended 
+	DLog(@"player stopped in boombox controller");
+    // if user is on cell network, keep track of how many songs have been played for the day
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // check to see if the finished song is in the playlist.  if so, then play next song in playlist
+    if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
+		DLog(@"currently playing > -1");
+		if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
+			DLog(@"another song detected - getting ready to play!");
+			// start streamer for next song
+			[audioManager playNextSongInPlaylist];
+			DLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count] - 1);
+			BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+			if (nextSong) {
+				songLabel.text = [nextSong constructTitleArtist];
+			}
+		} else {
+			DLog(@"last song, nothing else left to play");
+			// allow streamer to stop and reset index
+			[self stopStream];
+		}
+    } else {
+		DLog(@"no more songs.  cleanup %i", audioManager.songIndexOfPlaylistCurrentlyPlaying);
+		[self stopStreamCleanup];
+    }
+	
+	[pool release];
+}
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+//						change:(NSDictionary *)change context:(void *)context {
+//		
+//	// detects if the stream is playing a stream or not
+//	if ([keyPath isEqual:@"isPlaying"]) {
+//		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//		
+//		if ([(AudioStreamer *)object isPlaying]) {
+//			// a stream has started playing
+//			
+//			// start network traffic indicator in the status bar
+//			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//			
+//			[self addAnimationsToBoombox];
+//			
+//			[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_on.png"] forState:UIControlStateNormal];
+//		} else {
+//			// the stream has ended 
+//			 
+//			// if user is on cell network, keep track of how many songs have been played for the day
+//			//[audioManager incrementCellNetworkSongsPlayed];
+//			
+//			// check to see if the finished song is in the playlist.  if so, then play next song in playlist
+//			if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
+//				DLog(@"currently playing > -1");
+//				if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
+//					DLog(@"another song detected - getting ready to play!");
+//					// start streamer for next song
+//					[audioManager playNextSongInPlaylist];
+//					[audioManager.streamer addObserver:self forKeyPath:@"isPlaying" options:0 context:nil];
+//					[audioManager.streamer addObserver:playlistController forKeyPath:@"isPlaying" options:0 context:nil];
+//					DLog(@"playing song index %d out of %d", audioManager.songIndexOfPlaylistCurrentlyPlaying, [[audioManager retrieveCurrentSongList] count]);
+//					BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying];
+//					songLabel.text = [nextSong constructTitleArtist];
+//                    
+//                    NSError *error;
+//                    iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+////                    if (![appDelegate.ga_ trackEvent:@"boombox"
+////                          action:@"play_next_song"
+////                          label:nil
+////                          value:-1
+////                          withError:&error]) {
+////                        // Handle error here
+////                    }
+//				} else {
+//					DLog(@"last song, nothing else left to play");
+//					// allow streamer to stop and reset index
+//					[audioManager stopStreamer];
+//					[self stopStreamCleanup];
+//				}
+//			} else {
+//				DLog(@"no more songs.  cleanup");
+//				[self stopStreamCleanup];
+//			}
+//		}
+//		
+//		[pool release];
+//		return;
+//	}
+//	
+//	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//}
 
 - (void) addAnimationsToBoombox {
 	// start animation
+	[equalizerAnimationView startAnimating];
 	[CATransaction begin];
 	
 	[CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
@@ -329,7 +373,6 @@
 	// adding the animation to the target layer causes it to begin animating
 	[leftSpeakerView.layer addAnimation:[self imagesAnimationLeftSpeaker] forKey:@"leftSpeakerAnimation"];
 	[rightSpeakerView.layer addAnimation:[self imagesAnimationRightSpeaker] forKey:@"rightSpeakerAnimation"];
-	[equalizerView.layer addAnimation:[self imagesAnimation] forKey:@"equalizerAnimation"];
 	
 	[CATransaction commit];
 }
@@ -338,29 +381,49 @@
 	[controlsView.playButton setImage:[UIImage imageNamed:@"btn_play_off.png"] forState:UIControlStateNormal];
 	[leftSpeakerView.layer removeAllAnimations];
 	[rightSpeakerView.layer removeAllAnimations];
-	[equalizerView.layer removeAllAnimations];
+	[equalizerAnimationView stopAnimating];
 	songLabel.text = @"";
 }
 
 # pragma mark Equalizer Animation
-- (CAKeyframeAnimation*)imagesAnimation {
-    CAKeyframeAnimation *anim = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
-    [anim setDuration:5.0];
-//    if( !images ) {        
-        images = [[NSMutableArray alloc] initWithCapacity:32];
-		
-		for (int i = 1; i < 33; i++) {
-			[images addObject:[[UIImage imageWithContentsOfFile: [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"eq%d", i] ofType:@"png"]] CGImage]];
-		}
-        
-        [anim setCalculationMode:kCAAnimationDiscrete];
-        [anim setRepeatCount:1e100f];
-		
-        [anim setValues:images];
-    [images release];
-		DLog(@"images added for animation");
-//    }
-    return anim;
+- (void) prepEqualizerAnimation {
+	equalizerAnimationView.animationImages = [NSArray arrayWithObjects:  
+                                              [UIImage imageNamed:@"eq1.png"],
+											  [UIImage imageNamed:@"eq2.png"],
+											  [UIImage imageNamed:@"eq3.png"],
+											  [UIImage imageNamed:@"eq4.png"],
+											  [UIImage imageNamed:@"eq5.png"],
+											  [UIImage imageNamed:@"eq6.png"],
+											  [UIImage imageNamed:@"eq7.png"],
+											  [UIImage imageNamed:@"eq8.png"],
+											  [UIImage imageNamed:@"eq9.png"],
+											  [UIImage imageNamed:@"eq10.png"],
+											  [UIImage imageNamed:@"eq11.png"],
+											  [UIImage imageNamed:@"eq12.png"],
+											  [UIImage imageNamed:@"eq13.png"],
+											  [UIImage imageNamed:@"eq14.png"],
+											  [UIImage imageNamed:@"eq15.png"],
+											  [UIImage imageNamed:@"eq16.png"],
+											  [UIImage imageNamed:@"eq17.png"],
+											  [UIImage imageNamed:@"eq18.png"],
+											  [UIImage imageNamed:@"eq19.png"],
+											  [UIImage imageNamed:@"eq20.png"],
+											  [UIImage imageNamed:@"eq21.png"],
+											  [UIImage imageNamed:@"eq22.png"],
+											  [UIImage imageNamed:@"eq23.png"],
+											  [UIImage imageNamed:@"eq24.png"],
+											  [UIImage imageNamed:@"eq25.png"],
+											  [UIImage imageNamed:@"eq26.png"],
+											  [UIImage imageNamed:@"eq27.png"],
+											  [UIImage imageNamed:@"eq28.png"],
+											  [UIImage imageNamed:@"eq29.png"],
+											  [UIImage imageNamed:@"eq30.png"],
+											  [UIImage imageNamed:@"eq31.png"],
+											  [UIImage imageNamed:@"eq32.png"],
+                                              nil];
+    
+    equalizerAnimationView.animationDuration = 5.0;
+    equalizerAnimationView.animationRepeatCount = 0;
 }
 
 // The following two functions should be refactored

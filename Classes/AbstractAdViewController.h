@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GADAdViewController.h"
 //#import "MobclixAds.h"
 #import "AudioManager.h"
 
 //@interface AbstractAdViewController : UIViewController  <GADAdViewControllerDelegate, MobclixAdViewDelegate> {
-@interface AbstractAdViewController : UIViewController  <GADAdViewControllerDelegate> {
-    GADAdViewController *adViewController_;
+@interface AbstractAdViewController : UIViewController {
     NSString *adwords;
 	AudioManager *audioManager;
 }
