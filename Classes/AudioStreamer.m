@@ -254,9 +254,10 @@ void ASReadStreamCallBack
     state = newState;
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"playerStopped" object:nil];
   } else if (newState == AS_INITIALIZED && state == AS_STOPPED) {
-    DLog(@"player is stopping, send notif");
-    state = newState;  
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
+      DLog(@"player is stopping, send notif");
+	  state = newState;  
+	  [[NSNotificationCenter defaultCenter] postNotificationName:@"playerStopped" object:nil];
+      //[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
   } else {
     DLog(@"changing state to %i %i", newState, state);
     state = newState;  

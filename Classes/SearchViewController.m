@@ -319,18 +319,11 @@ char *rand_str(char *dst) {
 - (void) playOrStopSong:(SearchTableCellView*)cell songIndex:(NSInteger)songIndex {
 	if ([audioManager isSongPlaying:[audioManager.songs objectAtIndex:songIndex]]) {
 		// stop the stream and switch back to the play button
-		if ([[audioManager streamer] isPlaying]) {
-			@try {
-				[audioManager.streamer removeObserver:self.parentViewController forKeyPath:@"isPlaying"];
-			}
-			@catch (NSException * e) {
-				DLog(@"****** exception removing observer ****", e);
-			}
-		}
-		[audioManager stopStreamer];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
 		[self changeImageIcons:cell imageName:@"image-7.png"];
 	} else {
 		BlipSong *songToPlay = [audioManager.songs objectAtIndex:songIndex];
+		audioManager.isSinglePlay = YES;
 		[audioManager startStreamerWithSong:songToPlay];
 		((BoomboxViewController*) self.parentViewController).songLabel.text = [songToPlay constructTitleArtist];
 		

@@ -63,7 +63,7 @@ static const NSInteger kGANDispatchPeriodSec = 30;
 	// testing.  this should be utilized in v1.0.2
 	//[self getCountryCode];
 
-    NSString *applicationCode = @"51512b37fa78552a6981778e1e652682";
+    //NSString *applicationCode = @"51512b37fa78552a6981778e1e652682";
     //[Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:YES useOnlyWiFi:NO];
     
     // Google Analytics

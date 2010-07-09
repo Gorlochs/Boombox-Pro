@@ -31,6 +31,7 @@
 @synthesize topSongs;
 @synthesize songIndexOfPlaylistCurrentlyPlaying;
 @synthesize numberOfSongsPlayedTodayOnCellNetwork;
+@synthesize isSinglePlay;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(AudioManager);
 

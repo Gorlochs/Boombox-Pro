@@ -42,6 +42,7 @@ typedef enum {
 	PlaylistMode *playlistMode;
 	
 	NSInteger numberOfSongsPlayedTodayOnCellNetwork;
+	BOOL isSinglePlay;
 }
 
 
@@ -53,6 +54,7 @@ typedef enum {
 @property (nonatomic, retain) NSMutableArray *songs;
 @property (nonatomic, retain) NSMutableArray *topSongs;
 @property NSInteger numberOfSongsPlayedTodayOnCellNetwork;
+@property (nonatomic) BOOL isSinglePlay;
 
 + (AudioManager*) sharedAudioManager;
 - (void) startStreamerWithSong:(BlipSong*)song;

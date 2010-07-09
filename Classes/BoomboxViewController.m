@@ -20,6 +20,7 @@
 - (CAAnimationGroup*)imagesAnimationRightSpeaker;
 - (void) nextPreviousCleanup;
 - (void) addAnimationsToBoombox;
+- (void) prepEqualizerAnimation;
 @end
 
 @implementation BoomboxViewController
@@ -38,6 +39,7 @@
 	audioManager = [AudioManager sharedAudioManager];
 	songLabel.font = [UIFont boldSystemFontOfSize:30];
 	[self prepEqualizerAnimation];
+    _isPlaying = false;
 	
 	// determine the size of ControlsView
 	CGRect frame = controlsView.frame;
@@ -161,6 +163,7 @@
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];  
         if ([[audioManager retrieveCurrentSongList] count] > 0) {
             DLog(@"play button clicked, and playlist exists, so play the first song");
+			audioManager.isSinglePlay = NO;
             [audioManager startStreamerWithPlaylistIndex:0];
             songLabel.text = [audioManager.currentSong constructTitleArtist];
         } else {
@@ -201,11 +204,12 @@
 		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying + 1];
 		songLabel.text = [nextSong constructTitleArtist];
 		
+		audioManager.isSinglePlay = NO;
 		[audioManager playNextSongInPlaylist];
 		[self addAnimationsToBoombox];
         
-        NSError *error = nil;
-        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
+//        NSError *error = nil;
+//        iPhoneStreamingPlayerAppDelegate *appDelegate = (iPhoneStreamingPlayerAppDelegate*)[UIApplication sharedApplication].delegate;
 //        if (![appDelegate.ga_ trackEvent:@"boombox"
 //                                  action:@"play_next_song"
 //                                   label:nil
@@ -237,6 +241,7 @@
 		BlipSong *nextSong = [[audioManager retrieveCurrentSongList] objectAtIndex:audioManager.songIndexOfPlaylistCurrentlyPlaying - 1];
 		songLabel.text = [nextSong constructTitleArtist];
 		
+		audioManager.isSinglePlay = NO;
 		[audioManager playPreviousSongInPlaylist];
 		[self addAnimationsToBoombox];
         
@@ -275,7 +280,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // check to see if the finished song is in the playlist.  if so, then play next song in playlist
-    if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1) {
+    if (audioManager.songIndexOfPlaylistCurrentlyPlaying > -1 && !audioManager.isSinglePlay) {
 		DLog(@"currently playing > -1");
 		if (audioManager.songIndexOfPlaylistCurrentlyPlaying < [[audioManager retrieveCurrentSongList] count] - 1) {
 			DLog(@"another song detected - getting ready to play!");
@@ -382,6 +387,7 @@
 	[leftSpeakerView.layer removeAllAnimations];
 	[rightSpeakerView.layer removeAllAnimations];
 	[equalizerAnimationView stopAnimating];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	songLabel.text = @"";
 }
 

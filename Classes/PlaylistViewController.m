@@ -401,11 +401,12 @@
 }
 
 - (void)playOrStopSong:(NSInteger)playlistIndexToPlay targetCell:(SearchTableCellView*)cell {
-    if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay && [audioManager streamer]) {
+    if (audioManager.songIndexOfPlaylistCurrentlyPlaying == playlistIndexToPlay && [[audioManager streamer] isPlaying]) {
         // stop the stream and switch back to the play button
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"completelyStop" object:nil];
         [self changeImageIcons:cell imageName:@"image-7.png"];
     } else {
+		audioManager.isSinglePlay = NO;
         [audioManager startStreamerWithPlaylistIndex:playlistIndexToPlay];		
         
         // set song title label on boombox view
