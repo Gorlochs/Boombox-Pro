@@ -244,6 +244,7 @@
 }
 
 - (void)displayMyPlaylist {
+	self.navigationItem.rightBarButtonItem.enabled = YES;
 	myPlaylistButton.selected = YES;
 	popularPlaylistsButton.selected = NO;
 	[audioManager switchToPlaylistMode:mine];
@@ -257,6 +258,7 @@
 }
 
 - (void)displayPopularPlaylist {
+	self.navigationItem.rightBarButtonItem.enabled = NO;
 	popularPlaylistsButton.selected = YES;
 	myPlaylistButton.selected = NO;
 	[audioManager switchToPlaylistMode:popular];
