@@ -39,12 +39,14 @@
 	NSString *currentElement;
 	NSMutableString *currentTitle, *currentLocation, *currentArtist;
 	ADBannerView *_adBannerView;
+	BOOL bannerIsVisible;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *blipSearchBar;
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *searchCell;
 @property (nonatomic, retain) id adBannerView;
+@property (nonatomic) BOOL bannerIsVisible;
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)displayTopSearchesViewAction:(id)sender;

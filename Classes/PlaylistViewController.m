@@ -51,6 +51,7 @@
 
 @synthesize theTableView, buttonView, myPlaylistButton, popularPlaylistsButton, tableCell;
 @synthesize adBannerView = _adBannerView;
+@synthesize bannerIsVisible;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -66,20 +67,24 @@
 - (void)createiAd {
 	Class classAdBannerView = NSClassFromString(@"ADBannerView");
     if (classAdBannerView != nil) {
-        self.adBannerView = [[[classAdBannerView alloc] 
-							  initWithFrame:CGRectZero] autorelease];
-        [_adBannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects: 
-														  ADBannerContentSizeIdentifier480x32, nil]];
+        self.adBannerView = [[[classAdBannerView alloc] initWithFrame:CGRectZero] autorelease];
+        [_adBannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects: ADBannerContentSizeIdentifier480x32, nil]];
 		[_adBannerView setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifier480x32];
-		
         [_adBannerView setFrame:CGRectOffset([_adBannerView frame], 0, 248)];
         [_adBannerView setDelegate:self];
 		
         [self.view addSubview:_adBannerView];        
     }
-	
-//	adView = [[NSClassFromString(@"ADBannerView") alloc] initWithFrame:(CGRect){0,288,480,32}];
-//	[[self view] addSubview:adView];
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+	if (self.bannerIsVisible) {
+		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+		// assumes the banner view is at the top of the screen.
+		banner.frame = CGRectOffset(banner.frame, 0, -50);
+		[UIView commitAnimations];
+		self.bannerIsVisible = NO;
+	}
 }
 
 - (void)viewDidLoad {

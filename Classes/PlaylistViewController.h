@@ -23,6 +23,7 @@
 	SearchTableCellView *tableCell;
 	BuySongListViewController *buySongListController;
 	ADBannerView *_adBannerView;
+	BOOL bannerIsVisible;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *buttonView;
@@ -31,6 +32,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *theTableView;
 @property (nonatomic, retain) SearchTableCellView *tableCell;
 @property (nonatomic, retain) id adBannerView;
+@property (nonatomic) BOOL bannerIsVisible;
 
 - (IBAction)removeModalView:(id)sender;
 - (IBAction)playSong:(id)sender;

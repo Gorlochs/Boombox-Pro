@@ -32,6 +32,7 @@
 @synthesize theTableView;
 @synthesize searchCell;
 @synthesize adBannerView = _adBannerView;
+@synthesize bannerIsVisible;
 
 #pragma mark setup & tear down
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -56,6 +57,16 @@
 		
         [self.view addSubview:_adBannerView];        
     }
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+	if (self.bannerIsVisible) {
+		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+		// assumes the banner view is at the top of the screen.
+		banner.frame = CGRectOffset(banner.frame, 0, -50);
+		[UIView commitAnimations];
+		self.bannerIsVisible = NO;
+	}
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
