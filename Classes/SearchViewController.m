@@ -148,7 +148,7 @@ char *rand_str(char *dst) {
 	DLog(@"timestamp: %@", timestamp);	
 
 	// retrieve the hash from the php page
-	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/search-1.1.1.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	NSString *tempurl = [NSString stringWithFormat:@"http://www.literalshore.com/gorloch/blip/search-1.5.php?nonce=%@&timestamp=%@&searchTerms=%@", nonce, timestamp, [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 	//NSString *url = [[NSString stringWithContentsOfURL:[NSURL URLWithString:tempurl]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	DLog(@"final url: %@", tempurl);
 	[self parseTouchXMLFileAtURL:tempurl];
