@@ -778,7 +778,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iPhoneStreamingPlayeriAds" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -985,7 +992,7 @@
 				PRODUCT_NAME = Boombox;
 				PROVISIONING_PROFILE = "B6978DFD-40F5-4FF6-8A14-6C96F1436C0D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC7A7C52-E0B9-4442-A12E-1E33C54B1B26";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1093,7 +1100,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "DC7A7C52-E0B9-4442-A12E-1E33C54B1B26";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DC7A7C52-E0B9-4442-A12E-1E33C54B1B26";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};

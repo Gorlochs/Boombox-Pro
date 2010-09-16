@@ -81,7 +81,7 @@
 	if (self.bannerIsVisible) {
 		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
 		// assumes the banner view is at the top of the screen.
-		banner.frame = CGRectOffset(banner.frame, 0, -50);
+		banner.frame = CGRectOffset(banner.frame, 0, 320);
 		[UIView commitAnimations];
 		self.bannerIsVisible = NO;
 	}
