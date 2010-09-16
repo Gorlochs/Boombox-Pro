@@ -70,7 +70,7 @@
         self.adBannerView = [[[classAdBannerView alloc] initWithFrame:CGRectZero] autorelease];
         [_adBannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects: ADBannerContentSizeIdentifier480x32, nil]];
 		[_adBannerView setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifier480x32];
-        [_adBannerView setFrame:CGRectOffset([_adBannerView frame], 0, 248)];
+        [_adBannerView setFrame:CGRectOffset([_adBannerView frame], 0, 298)];
         [_adBannerView setDelegate:self];
 		
         [self.view addSubview:_adBannerView];        
@@ -81,10 +81,22 @@
 	if (self.bannerIsVisible) {
 		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
 		// assumes the banner view is at the top of the screen.
-		banner.frame = CGRectOffset(banner.frame, 0, 320);
+		banner.frame = CGRectOffset(banner.frame, 0, 50);
 		[UIView commitAnimations];
 		self.bannerIsVisible = NO;
 	}
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    if (!self.bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+        // assumes the banner view is offset 50 pixels so that it is not visible.
+        banner.frame = CGRectOffset(banner.frame, 0, -50);
+        [UIView commitAnimations];
+        self.bannerIsVisible = YES;
+    }
 }
 
 - (void)viewDidLoad {
